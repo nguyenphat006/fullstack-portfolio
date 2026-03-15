@@ -7,24 +7,29 @@
 ---
 
 **Project:** My Portfolio
-**Generated:** 2026-03-15 11:12:49
+**Updated:** 2026-03-15
 **Category:** Developer Tool / IDE
 
 ---
 
 ## Global Rules
 
-### Color Palette
+### Color Palette — Mệnh Thổ (Earth Element)
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#1E293B` | `--color-primary` |
-| Secondary | `#334155` | `--color-secondary` |
-| CTA/Accent | `#22C55E` | `--color-cta` |
-| Background | `#0F172A` | `--color-background` |
-| Text | `#F8FAFC` | `--color-text` |
+| Background | `#0C0A09` | `--color-background` |
+| Foreground/Text | `#FAF9F6` | `--color-text` |
+| Text Muted | `#A8A29E` | `--color-text-muted` |
+| CTA/Primary | `#E04444` | `--color-cta` |
+| CTA Glow | `rgba(224,68,68,0.35)` | `--cta-glow` |
+| Accent Earth (Amber) | `#D97706` | `--accent-earth` |
+| Accent Warm (Brown) | `#92400E` | `--accent-warm` |
+| Primary Brand | `#1C1917` | `--color-primary-brand` |
+| Secondary Brand | `#292524` | `--color-secondary-brand` |
+| Border | `#44403C` | `--color-border` |
 
-**Color Notes:** Code dark + run green
+**Color Notes:** Warm dark stone backgrounds + red CTA + amber/terracotta earth accents. Inspired by mệnh thổ (Earth element) — grounded, warm, powerful.
 
 ### Typography
 
@@ -61,10 +66,10 @@
 
 | Level | Value | Usage |
 |-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(0,0,0,0.1)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(0,0,0,0.15)` | Hero images, featured cards |
+| `--shadow-sm` | `0 1px 2px rgba(12,10,9,0.15)` | Subtle lift |
+| `--shadow-md` | `0 4px 6px rgba(12,10,9,0.25)` | Cards, buttons |
+| `--shadow-lg` | `0 10px 15px rgba(12,10,9,0.3)` | Modals, dropdowns |
+| `--shadow-xl` | `0 20px 25px rgba(12,10,9,0.4)` | Hero images, featured cards |
 
 ---
 
@@ -75,7 +80,7 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #22C55E;
+  background: #E04444;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -92,8 +97,8 @@
 /* Secondary Button */
 .btn-secondary {
   background: transparent;
-  color: #1E293B;
-  border: 2px solid #1E293B;
+  color: #1C1917;
+  border: 2px solid #1C1917;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -106,7 +111,8 @@
 
 ```css
 .card {
-  background: #0F172A;
+  background: #1C1917;
+  border: 1px solid #44403C;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow-md);
@@ -115,6 +121,7 @@
 }
 
 .card:hover {
+  border-color: rgba(224, 68, 68, 0.3);
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
@@ -125,16 +132,16 @@
 ```css
 .input {
   padding: 12px 16px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #44403C;
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 200ms ease;
 }
 
 .input:focus {
-  border-color: #1E293B;
+  border-color: #E04444;
   outline: none;
-  box-shadow: 0 0 0 3px #1E293B20;
+  box-shadow: 0 0 0 3px rgba(224, 68, 68, 0.2);
 }
 ```
 
@@ -147,7 +154,7 @@
 }
 
 .modal {
-  background: white;
+  background: #1C1917;
   border-radius: 16px;
   padding: 32px;
   box-shadow: var(--shadow-xl);
@@ -182,6 +189,7 @@
 
 - ❌ Flat design without depth
 - ❌ Text-heavy pages
+- ❌ Green (#22C55E) color — replaced by Earth palette
 
 ### Additional Forbidden Patterns
 
@@ -206,9 +214,10 @@ Before delivering any UI code, verify:
 - [ ] Prefer shadcn/ui components for buttons, cards, inputs, dialogs, and navigation primitives
 - [ ] `cursor-pointer` on all clickable elements
 - [ ] Hover states with smooth transitions (150-300ms)
-- [ ] Light mode: text contrast 4.5:1 minimum
+- [ ] Text contrast 4.5:1 minimum
 - [ ] Focus states visible for keyboard navigation
 - [ ] `prefers-reduced-motion` respected
 - [ ] Responsive: 375px, 768px, 1024px, 1440px
 - [ ] No content hidden behind fixed navbars
 - [ ] No horizontal scroll on mobile
+- [ ] All CTA/accent colors use `#E04444` (red) NOT `#22C55E` (green)
