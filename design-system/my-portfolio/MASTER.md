@@ -1,223 +1,102 @@
-# Design System Master File
+# MY PORTFOLIO — Design System v3.0
 
-> **LOGIC:** When building a specific page, first check `design-system/pages/[page-name].md`.
-> If that file exists, its rules **override** this Master file.
-> If not, strictly follow the rules below.
-
----
-
-**Project:** My Portfolio
-**Updated:** 2026-03-15
-**Category:** Developer Tool / IDE
+## Philosophy
+Minimal, dark, high-contrast. Let the work speak — remove all visual noise.
 
 ---
 
-## Global Rules
+## Color System
 
-### Color Palette — Mệnh Thổ (Earth Element)
-
-| Role | Hex | CSS Variable |
-|------|-----|--------------|
-| Background | `#0C0A09` | `--color-background` |
-| Foreground/Text | `#FAF9F6` | `--color-text` |
-| Text Muted | `#A8A29E` | `--color-text-muted` |
-| CTA/Primary | `#E04444` | `--color-cta` |
-| CTA Glow | `rgba(224,68,68,0.35)` | `--cta-glow` |
-| Accent Earth (Amber) | `#D97706` | `--accent-earth` |
-| Accent Warm (Brown) | `#92400E` | `--accent-warm` |
-| Primary Brand | `#1C1917` | `--color-primary-brand` |
-| Secondary Brand | `#292524` | `--color-secondary-brand` |
-| Border | `#44403C` | `--color-border` |
-
-**Color Notes:** Warm dark stone backgrounds + red CTA + amber/terracotta earth accents. Inspired by mệnh thổ (Earth element) — grounded, warm, powerful.
-
-### Typography
-
-- **Heading Font:** Figtree
-- **Body Font:** Figtree
-- **Mood:** minimal, portfolio, designer, creative, clean, artistic
-- **Google Fonts:** [Figtree](https://fonts.google.com/specimen/Figtree)
-
-**CSS Import:**
-```css
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
-```
-
-### Component System
-
-- **Preferred UI Library:** shadcn/ui components
-- **Implementation Rule:** Prioritize `shadcn/ui` components first, then compose custom wrappers only when needed
-- **Consistency Rule:** Keep styling aligned with existing Tailwind tokens and project theme variables
-- **Accessibility Rule:** Prefer shadcn/ui primitives for built-in keyboard and focus behavior
-
-### Spacing Variables
+> **Nguyên tắc:** Chỉ dùng **đen + trắng + xám**. Không màu accent.
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--space-xs` | `4px` / `0.25rem` | Tight gaps |
-| `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `16px` / `1rem` | Standard padding |
-| `--space-lg` | `24px` / `1.5rem` | Section padding |
-| `--space-xl` | `32px` / `2rem` | Large gaps |
-| `--space-2xl` | `48px` / `3rem` | Section margins |
-| `--space-3xl` | `64px` / `4rem` | Hero padding |
+| `--background` | `#0E0E0E` | Nền toàn trang (lab 5.27%) |
+| `--foreground` | `#FFFFFF` | Text chính |
+| `--text` | `#FFFFFF` | Text nội dung |
+| `--text-muted` | `#999999` | Text phụ, mô tả |
+| `--cta` | `#FFFFFF` | Nút CTA chính |
+| `--card` | `#141414` | Nền card/terminal |
+| `--secondary` | `#1A1A1A` | Nền phụ, sidebar |
+| `--border` | `#2A2A2A` | Đường viền |
+| `--accent` | `#2A2A2A` | Hover backgrounds |
+| `--dock-bg` | `#1C1816` | Nền Dock (nâu tối) |
 
-### Shadow Depths
-
-| Level | Value | Usage |
-|-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(12,10,9,0.15)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(12,10,9,0.25)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(12,10,9,0.3)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(12,10,9,0.4)` | Hero images, featured cards |
+### Dark Mode (`.dark`)
+Giống `:root` nhưng tối hơn 1 bậc (`--background: #0A0A0A`).
 
 ---
 
-## Component Specs
-
-### Buttons
-
-```css
-/* Primary Button */
-.btn-primary {
-  background: #E04444;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-/* Secondary Button */
-.btn-secondary {
-  background: transparent;
-  color: #1C1917;
-  border: 2px solid #1C1917;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-```
-
-### Cards
-
-```css
-.card {
-  background: #1C1917;
-  border: 1px solid #44403C;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  border-color: rgba(224, 68, 68, 0.3);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-```
-
-### Inputs
-
-```css
-.input {
-  padding: 12px 16px;
-  border: 1px solid #44403C;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 200ms ease;
-}
-
-.input:focus {
-  border-color: #E04444;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(224, 68, 68, 0.2);
-}
-```
-
-### Modals
-
-```css
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
-
-.modal {
-  background: #1C1917;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
-  width: 90%;
-}
-```
+## Typography
+- Font: System default / Inter
+- Heading: `text-4xl` → `text-6xl`, `font-bold`, `tracking-tight`
+- Body: `text-base` / `text-lg`, `text-white/50` (muted)
+- Labels: `text-sm` / `text-xs`
 
 ---
 
-## Style Guidelines
+## Buttons
 
-**Style:** Vibrant & Block-based
-
-**Keywords:** Bold, energetic, playful, block layout, geometric shapes, high color contrast, duotone, modern, energetic
-
-**Best For:** Startups, creative agencies, gaming, social media, youth-focused, entertainment, consumer
-
-**Key Effects:** Large sections (48px+ gaps), animated patterns, bold hover (color shift), scroll-snap, large type (32px+), 200-300ms
-
-### Page Pattern
-
-**Pattern Name:** Portfolio Grid
-
-- **Conversion Strategy:**  hover overlay info,  lightbox view, Visuals first. Filter by category. Fast loading essential.
-- **CTA Placement:** Project Card Hover + Footer Contact
-- **Section Order:** 1. Hero (Name/Role), 2. Project Grid (Masonry), 3. About/Philosophy, 4. Contact
+| Variant | Height | Padding | Style |
+|---------|--------|---------|-------|
+| Primary | `h-11` (44px) | `px-6` | Bg white, text black |
+| Secondary | `h-11` | `px-6` | Border `#2A2A2A`, text white |
+| Neon | `h-11` | `px-6` | Bg white, subtle glow |
+| Icon size | — | — | 16px inside buttons |
 
 ---
 
-## Anti-Patterns (Do NOT Use)
+## Icons
+- Small (chips/labels): 14px
+- Medium (cards/buttons): 16–20px
+- Large (decorative): 24px
+- Lib: `@hugeicons/react` + `@hugeicons/core-free-icons`
 
-- ❌ Flat design without depth
-- ❌ Text-heavy pages
-- ❌ Green (#22C55E) color — replaced by Earth palette
+---
 
-### Additional Forbidden Patterns
+## Dock Component
+- Vị trí: Fixed bottom center, z-50
+- Nền: `#1C1816/90` (nâu tối, backdrop-blur)
+- Icon bg: `bg-black/60` (tròn, dark)
+- Icon size: 20px, magnification 40→56px
+- Có tooltip (shadcn/ui Tooltip)
+- Nội dung: Home | — | GitHub | LinkedIn | Email | CV | — | Menu
 
-- ❌ **Emojis as icons** — Use SVG icon libraries only
-- ❌ **Ignoring Hugeicons priority** — Prefer Hugeicons as default icon set (project uses Hugeicons via shadcn/ui)
-- ❌ **Missing cursor:pointer** — All clickable elements must have cursor:pointer
-- ❌ **Layout-shifting hovers** — Avoid scale transforms that shift layout
-- ❌ **Low contrast text** — Maintain 4.5:1 minimum contrast ratio
-- ❌ **Instant state changes** — Always use transitions (150-300ms)
-- ❌ **Invisible focus states** — Focus states must be visible for a11y
+---
+
+## Cards
+> **Nguyên tắc:** Tránh lạm dụng card. Chỉ dùng khi cần nhóm nội dung (projects, blog).
+
+- Container: `bg-[#141414]` hoặc `bg-transparent`
+- Border: `border border-[#2A2A2A]`
+- Hover: `whileHover={{ y: -4 }}`
+- **KHÔNG** dùng card cho stats/số liệu → hiển thị inline
+
+---
+
+## Animation (Motion)
+- Import: `from "motion/react"` (KHÔNG dùng `"framer-motion"`)
+- Scroll reveal: `whileInView` + `viewport={{ once: true }}`
+- Hover lift: `whileHover={{ y: -4 }}`
+- Stagger: `delay: i * 0.1`
+- Ease: `"easeOut" as const`
+- Terminal lines: stagger `delay: 0.12`
+
+---
+
+## Navigation
+| Element | Desktop | Mobile |
+|---------|---------|--------|
+| Sidebar | Fixed left, dot indicators, logo "N" | Hidden |
+| Dock | Bottom center, magnification | Bottom center |
+| Fullscreen menu | Burger trong Dock → overlay đen | Burger → overlay |
 
 ---
 
 ## Pre-Delivery Checklist
-
-Before delivering any UI code, verify:
-
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] Hugeicons is used as primary icon library
-- [ ] If using another icon set, keep Hugeicons as priority/default and ensure visual consistency
-- [ ] All icons from a consistent icon set strategy (Hugeicons-first)
-- [ ] Prefer shadcn/ui components for buttons, cards, inputs, dialogs, and navigation primitives
-- [ ] `cursor-pointer` on all clickable elements
-- [ ] Hover states with smooth transitions (150-300ms)
-- [ ] Text contrast 4.5:1 minimum
-- [ ] Focus states visible for keyboard navigation
-- [ ] `prefers-reduced-motion` respected
-- [ ] Responsive: 375px, 768px, 1024px, 1440px
-- [ ] No content hidden behind fixed navbars
-- [ ] No horizontal scroll on mobile
-- [ ] All CTA/accent colors use `#E04444` (red) NOT `#22C55E` (green)
+- [ ] Không có màu nào ngoài đen/trắng/xám (trừ dock nâu tối)
+- [ ] Hero section không có stat cards
+- [ ] Tất cả import dùng `motion/react`
+- [ ] Dock có tooltips và icon bg tròn đen
+- [ ] Buttons đều `h-11 px-6 text-sm`
+- [ ] Không có text/element bị cắt trên mobile

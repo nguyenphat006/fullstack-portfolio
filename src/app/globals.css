@@ -56,39 +56,39 @@
 }
 
 :root {
-  /* ── Mệnh Thổ Earth Palette ── */
-  --background: #0C0A09;
-  --foreground: #FAF9F6;
-  --text: #FAF9F6;
-  --text-muted: #A8A29E;
-  --cta: #E04444;
-  --cta-glow: rgba(224, 68, 68, 0.35);
-  --accent-earth: #D97706;
-  --accent-warm: #92400E;
-  --primary-brand: #1C1917;
-  --secondary-brand: #292524;
+  /* ── Minimal Dark Palette ── */
+  --background: #0E0E0E; /* lab(5.26802% 0 0) */
+  --foreground: #FFFFFF;
+  --text: #FFFFFF;
+  --text-muted: #999999;
+  --cta: #FFFFFF;
+  --cta-glow: rgba(255, 255, 255, 0.15);
+  --accent-earth: #999999;
+  --accent-warm: #666666;
+  --primary-brand: #1A1A1A;
+  --secondary-brand: #1A1A1A;
 
-  --card: #1C1917;
-  --card-foreground: #FAF9F6;
-  --popover: #1C1917;
-  --popover-foreground: #FAF9F6;
-  --primary: #E04444;
-  --primary-foreground: #FAF9F6;
-  --secondary: #292524;
-  --secondary-foreground: #FAF9F6;
-  --muted: #1C1917;
-  --muted-foreground: #A8A29E;
-  --accent: #44403C;
-  --accent-foreground: #FAF9F6;
-  --destructive: #FB7185;
-  --border: #44403C;
-  --input: #44403C;
-  --ring: #E04444;
-  --chart-1: #E04444;
-  --chart-2: #D97706;
-  --chart-3: #B45309;
-  --chart-4: #92400E;
-  --chart-5: #78350F;
+  --card: #141414;
+  --card-foreground: #FFFFFF;
+  --popover: #141414;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFFFFF;
+  --primary-foreground: #0E0E0E;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1A1A1A;
+  --muted-foreground: #999999;
+  --accent: #2A2A2A;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF4444;
+  --border: #2A2A2A;
+  --input: #2A2A2A;
+  --ring: #FFFFFF;
+  --chart-1: #FFFFFF;
+  --chart-2: #CCCCCC;
+  --chart-3: #999999;
+  --chart-4: #666666;
+  --chart-5: #444444;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -98,51 +98,51 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
 
-  --shadow-sm: 0 1px 2px rgba(12, 10, 9, 0.15);
-  --shadow-md: 0 4px 6px rgba(12, 10, 9, 0.25);
-  --shadow-lg: 0 10px 15px rgba(12, 10, 9, 0.3);
-  --shadow-xl: 0 20px 25px rgba(12, 10, 9, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
 
   --radius: 0.625rem;
-  --sidebar: #0C0A09;
-  --sidebar-foreground: #FAF9F6;
-  --sidebar-primary: #1C1917;
-  --sidebar-primary-foreground: #FAF9F6;
-  --sidebar-accent: #292524;
-  --sidebar-accent-foreground: #FAF9F6;
-  --sidebar-border: #44403C;
-  --sidebar-ring: #E04444;
+  --sidebar: #0E0E0E;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #1A1A1A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1A1A1A;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A2A;
+  --sidebar-ring: #FFFFFF;
 }
 
 .dark {
-  --background: #09080A;
-  --foreground: #FAF9F6;
-  --text: #FAF9F6;
-  --text-muted: #A8A29E;
-  --card: #141210;
-  --card-foreground: #FAF9F6;
-  --popover: #141210;
-  --popover-foreground: #FAF9F6;
-  --primary: #E04444;
-  --primary-foreground: #FAF9F6;
-  --secondary: #231F1D;
-  --secondary-foreground: #FAF9F6;
-  --muted: #1C1917;
-  --muted-foreground: #A8A29E;
-  --accent: #44403C;
-  --accent-foreground: #FAF9F6;
-  --destructive: #FB7185;
-  --border: #3D3836;
-  --input: #3D3836;
-  --ring: #E04444;
-  --sidebar: #09080A;
-  --sidebar-foreground: #FAF9F6;
-  --sidebar-primary: #141210;
-  --sidebar-primary-foreground: #FAF9F6;
-  --sidebar-accent: #231F1D;
-  --sidebar-accent-foreground: #FAF9F6;
-  --sidebar-border: #3D3836;
-  --sidebar-ring: #E04444;
+  --background: #0A0A0A;
+  --foreground: #FFFFFF;
+  --text: #FFFFFF;
+  --text-muted: #999999;
+  --card: #111111;
+  --card-foreground: #FFFFFF;
+  --popover: #111111;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFFFFF;
+  --primary-foreground: #0A0A0A;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1A1A1A;
+  --muted-foreground: #999999;
+  --accent: #2A2A2A;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF4444;
+  --border: #222222;
+  --input: #222222;
+  --ring: #FFFFFF;
+  --sidebar: #0A0A0A;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #111111;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1A1A1A;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #222222;
+  --sidebar-ring: #FFFFFF;
 }
 
 @layer base {
@@ -186,24 +186,26 @@
   }
 
   .ds-btn-primary {
-    @apply cursor-pointer rounded-lg px-6 py-6 text-sm font-semibold transition-all duration-200;
+    @apply cursor-pointer rounded-lg h-11 px-6 text-sm font-semibold transition-all duration-200;
     background: var(--color-cta);
-    color: #fff;
+    color: #0E0E0E;
   }
 
   .ds-btn-primary:hover {
-    filter: brightness(0.95);
+    filter: brightness(0.9);
+    transform: translateY(-1px);
   }
 
   .ds-btn-secondary {
-    @apply cursor-pointer rounded-lg border-2 px-6 py-6 text-sm font-semibold transition-all duration-200;
-    border-color: var(--color-primary-brand);
+    @apply cursor-pointer rounded-lg border h-11 px-6 text-sm font-semibold transition-all duration-200;
+    border-color: var(--color-border);
     color: var(--color-text);
     background: transparent;
   }
 
   .ds-btn-secondary:hover {
     @apply bg-secondary/50;
+    transform: translateY(-1px);
   }
 
   .ds-list-item {
@@ -272,14 +274,14 @@
 
   /* ── Neon CTA Button ── */
   .ds-btn-neon {
-    @apply cursor-pointer rounded-lg px-8 py-4 text-sm font-bold tracking-wide uppercase transition-all duration-300;
+    @apply cursor-pointer rounded-lg h-11 px-6 text-sm font-bold tracking-wide transition-all duration-300;
     background: var(--cta);
-    color: #fff;
-    box-shadow: 0 0 15px var(--cta-glow), 0 0 30px rgba(224, 68, 68, 0.15);
+    color: #0E0E0E;
+    box-shadow: 0 0 15px var(--cta-glow), 0 0 30px rgba(255, 255, 255, 0.08);
   }
 
   .ds-btn-neon:hover {
-    box-shadow: 0 0 20px var(--cta-glow), 0 0 40px rgba(224, 68, 68, 0.25), 0 0 60px rgba(224, 68, 68, 0.1);
+    box-shadow: 0 0 20px var(--cta-glow), 0 0 40px rgba(255, 255, 255, 0.12), 0 0 60px rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
   }
 

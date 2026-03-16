@@ -12,12 +12,12 @@ import type {
 
 // ── Navigation ──
 export const HOME_NAV_LINKS: HomeNavLink[] = [
-	{ id: "home", label: "Trang chủ", href: "#" },
-	{ id: "projects", label: "Dự án", href: "#du-an" },
-	{ id: "tech", label: "Công nghệ", href: "#cong-nghe" },
-	{ id: "about", label: "Về tôi", href: "#ve-toi" },
-	{ id: "blog", label: "Bài viết", href: "#bai-viet" },
-	{ id: "contact", label: "Liên hệ", href: "#lien-he" },
+	{ id: "trang-chu", label: "Trang chủ", href: "#trang-chu" },
+	{ id: "du-an", label: "Dự án", href: "#du-an" },
+	{ id: "cong-nghe", label: "Công nghệ", href: "#cong-nghe" },
+	{ id: "ve-toi", label: "Về tôi", href: "#ve-toi" },
+	{ id: "bai-viet", label: "Bài viết", href: "#bai-viet" },
+	{ id: "lien-he", label: "Liên hệ", href: "#lien-he" },
 ];
 
 // ── Hero ──
