@@ -1,11 +1,10 @@
-import { HomeNavbar } from "./components/home-navbar";
+﻿import { HomeNavbar } from "./components/home-navbar";
 import { HomeHeroSection } from "./components/home-hero-section";
+import { HomeExperienceSection } from "./components/home-experience-section";
+import { HomeEducationSection } from "./components/home-education-section";
+import { HomeSkillsSection } from "./components/home-skills-section";
 import { HomeFeaturedProjects } from "./components/home-featured-projects";
-import { HomeTechStack } from "./components/home-tech-stack";
-import { HomeAboutSection } from "./components/home-about-section";
-import { HomeTestimonials } from "./components/home-testimonials";
 import { HomeBlogPreview } from "./components/home-blog-preview";
-import { HomeContactSection } from "./components/home-contact-section";
 import { SharedDock } from "@/components/shared/shared-dock";
 
 export function HomeModulePage() {
@@ -15,17 +14,15 @@ export function HomeModulePage() {
 			<SharedDock />
 			<HomeHeroSection />
 			<div className="ds-divider" />
+			<HomeExperienceSection />
+			<div className="ds-divider" />
+			<HomeEducationSection />
+			<div className="ds-divider" />
+			<HomeSkillsSection />
+			<div className="ds-divider" />
 			<HomeFeaturedProjects />
 			<div className="ds-divider" />
-			<HomeTechStack />
-			<div className="ds-divider" />
-			<HomeAboutSection />
-			<div className="ds-divider" />
-			<HomeTestimonials />
-			<div className="ds-divider" />
 			<HomeBlogPreview />
-			<div className="ds-divider" />
-			<HomeContactSection />
 		</main>
 	);
 }

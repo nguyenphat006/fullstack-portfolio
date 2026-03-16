@@ -1,64 +1,56 @@
-"use client";
+﻿"use client";
 
 import { motion } from "motion/react";
-import Image from "next/image";
+import { SectionHeader } from "@/components/shared/section-header";
+import { shortSentence } from "@/lib/utils";
 import { HOME_ABOUT_CONTENT } from "../constants";
 
 export function HomeAboutSection() {
-  return (
-    <section id="ve-toi" className="ds-section lg:pl-20">
-      <div className="ds-container">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          {/* Left: Text */}
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="ds-badge">{HOME_ABOUT_CONTENT.badge}</span>
-            <h2 className="text-3xl font-bold tracking-tight text-[var(--color-text)] md:text-4xl lg:text-5xl">
-              {HOME_ABOUT_CONTENT.title}
-            </h2>
+  const bio = HOME_ABOUT_CONTENT.bio[0]
+    ? shortSentence(HOME_ABOUT_CONTENT.bio[0])
+    : "";
 
-            <div className="space-y-3">
-              {HOME_ABOUT_CONTENT.bio.map((paragraph, i) => (
-                <p
-                  key={i}
-                  className="text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg"
-                >
-                  {paragraph}
-                </p>
+  return (
+    <section id="ve-toi" className="ds-section relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute left-[10%] top-10 h-36 w-36 rounded-full bg-white/5 blur-3xl" />
+      </div>
+
+      <div className="ds-container relative space-y-12">
+        <SectionHeader
+          badge={HOME_ABOUT_CONTENT.badge}
+          title={HOME_ABOUT_CONTENT.title}
+          description={bio}
+        />
+
+        <div className="mx-auto grid w-full max-w-4xl gap-6">
+          <motion.div
+            className="ds-card text-center"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
+              {bio}
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
+              {HOME_ABOUT_CONTENT.values.map((value) => (
+                <span key={value} className="ds-chip text-xs">
+                  {value}
+                </span>
               ))}
             </div>
-
-            <ul className="space-y-3">
-              {HOME_ABOUT_CONTENT.values.map((value, i) => (
-                <motion.li
-                  key={value}
-                  className="ds-list-item text-sm text-[var(--color-text-muted)] md:text-base"
-                  initial={{ opacity: 0, x: -15 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
-                >
-                  {value}
-                </motion.li>
-              ))}
-            </ul>
-
-            <a href={HOME_ABOUT_CONTENT.ctaHref} className="ds-btn-primary inline-block">
+            <a href={HOME_ABOUT_CONTENT.ctaHref} className="ds-btn-primary mt-6 inline-block">
               {HOME_ABOUT_CONTENT.ctaLabel}
             </a>
           </motion.div>
 
-          {/* Right: Terminal Card */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="ds-terminal">
               <div className="ds-terminal-bar">
@@ -81,7 +73,7 @@ export function HomeAboutSection() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.3 + i * 0.12, duration: 0.3 }}
+                    transition={{ delay: 0.2 + i * 0.12, duration: 0.3 }}
                   >
                     {line}
                   </motion.p>

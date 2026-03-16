@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
+import { shortSentence } from "@/lib/utils";
 import { HOME_HERO_CONTENT, HOME_HERO_STATS } from "../constants";
 
 const fadeUp = {
@@ -18,13 +19,7 @@ const fadeUp = {
 };
 
 export function HomeHeroSection() {
-  const shortSubtext = (() => {
-    const firstSentence = HOME_HERO_CONTENT.subtext.split(".")[0]?.trim();
-    if (firstSentence && firstSentence.length >= 20) {
-      return `${firstSentence}.`;
-    }
-    return HOME_HERO_CONTENT.subtext;
-  })();
+  const shortSubtext = shortSentence(HOME_HERO_CONTENT.subtext);
 
   return (
     <section id="trang-chu" className="relative min-h-screen overflow-hidden">
@@ -60,7 +55,7 @@ export function HomeHeroSection() {
               <div className="relative h-10 w-10 overflow-hidden rounded-full border border-border">
                 <Image
                   src="/images/avatar.png"
-                  alt="Nguyễn Đăng Phát Fullstack Developer"
+                  alt="Nguyá»…n PhÃ¡t â€” Fullstack Developer"
                   width={80}
                   height={80}
                   className="h-full w-full object-cover"
@@ -68,7 +63,7 @@ export function HomeHeroSection() {
                 />
               </div>
               <div className="text-left text-sm">
-                <p className="font-semibold text-white">ERICSS</p>
+                <p className="font-semibold text-white">Nguyá»…n PhÃ¡t</p>
                 <p className="text-white/50">Fullstack Developer</p>
               </div>
             </div>

@@ -1,4 +1,4 @@
-// ── Hero ──
+﻿// —— Hero ——
 export interface HomeHeroCta {
 	label: string;
 	href: string;
@@ -19,58 +19,55 @@ export interface HomeHeroStat {
 	iconName: "CodeCircleIcon" | "Briefcase07Icon" | "BookOpen01Icon";
 }
 
-// ── Navbar ──
+// —— Navbar ——
 export interface HomeNavLink {
 	id: string;
 	label: string;
 	href: string;
 }
 
-// ── Featured Projects ──
+// —— Experience ——
+export interface HomeExperienceItem {
+	id: string;
+	company: string;
+	role: string;
+	period: string;
+	location: string;
+	logo: string;
+}
+
+// —— Education ——
+export interface HomeEducationItem {
+	id: string;
+	school: string;
+	degree: string;
+	period: string;
+	location: string;
+	logo: string;
+}
+
+// —— Skills ——
+export interface HomeSkillItem {
+	id: string;
+	name: string;
+	logo: string;
+}
+
+// —— Projects ——
 export interface HomeFeaturedProject {
 	id: string;
 	title: string;
 	summary: string;
 	stack: string[];
-	year: string;
-	href: string;
+	period: string;
+	thumbnail: string;
+	liveUrl: string;
+	sourceUrl?: string;
+	badges?: string[];
 	featured?: boolean;
 }
 
-// ── Tech Stack ──
-export interface HomeTechItem {
-	name: string;
-	level: number; // 1-5
-}
-
-export interface HomeTechCategory {
-	id: string;
-	title: string;
-	iconName: string;
-	items: HomeTechItem[];
-}
-
-// ── About ──
-export interface HomeAboutContent {
-	badge: string;
-	title: string;
-	bio: string[];
-	values: string[];
-	terminalLines: string[];
-	ctaLabel: string;
-	ctaHref: string;
-}
-
-// ── Testimonials ──
-export interface HomeTestimonial {
-	id: string;
-	quote: string;
-	name: string;
-	role: string;
-	company: string;
-}
-
-// ── Blog Preview ──
+// —— Blog Preview ——
 export interface HomeBlogPost {
 	id: string;
 	title: string;
@@ -79,9 +76,10 @@ export interface HomeBlogPost {
 	readTime: string;
 	publishedAt: string;
 	href: string;
+	thumbnail: string;
 }
 
-// ── Contact ──
+// —— Contact ——
 export interface HomeSocialLink {
 	id: string;
 	label: string;

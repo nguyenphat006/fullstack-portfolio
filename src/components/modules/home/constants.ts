@@ -1,26 +1,26 @@
-import type {
+﻿import type {
 	HomeHeroContent,
 	HomeHeroStat,
 	HomeNavLink,
+	HomeExperienceItem,
+	HomeEducationItem,
+	HomeSkillItem,
 	HomeFeaturedProject,
-	HomeTechCategory,
-	HomeAboutContent,
-	HomeTestimonial,
 	HomeBlogPost,
 	HomeContactContent,
 } from "./types";
 
-// ── Navigation ──
+// —— Navigation ——
 export const HOME_NAV_LINKS: HomeNavLink[] = [
 	{ id: "trang-chu", label: "Trang chủ", href: "#trang-chu" },
+	{ id: "kinh-nghiem", label: "Kinh nghiệm", href: "#kinh-nghiem" },
+	{ id: "hoc-van", label: "Học vấn", href: "#hoc-van" },
+	{ id: "ky-nang", label: "Kỹ năng", href: "#ky-nang" },
 	{ id: "du-an", label: "Dự án", href: "#du-an" },
-	{ id: "cong-nghe", label: "Công nghệ", href: "#cong-nghe" },
-	{ id: "ve-toi", label: "Về tôi", href: "#ve-toi" },
 	{ id: "bai-viet", label: "Bài viết", href: "#bai-viet" },
-	{ id: "lien-he", label: "Liên hệ", href: "#lien-he" },
 ];
 
-// ── Hero ──
+// —— Hero ——
 export const HOME_HERO_CONTENT: HomeHeroContent = {
 	badge: "Portfolio Lập Trình Viên",
 	headline: "Xây Dựng Trải Nghiệm Web Nhanh, Hiện Đại & Bền Vững",
@@ -57,7 +57,67 @@ export const HOME_HERO_STATS: HomeHeroStat[] = [
 	},
 ];
 
-// ── Featured Projects ──
+// —— Work Experience ——
+export const HOME_EXPERIENCES: HomeExperienceItem[] = [
+	{
+		id: "exp-1",
+		company: "Nova Studio",
+		role: "Frontend Engineer",
+		period: "2024 — Present",
+		location: "Ho Chi Minh, VN",
+		logo: "/images/logos/company-nova.svg",
+	},
+	{
+		id: "exp-2",
+		company: "Atlas Labs",
+		role: "UI Engineer",
+		period: "2022 — 2024",
+		location: "Remote",
+		logo: "/images/logos/company-atlas.svg",
+	},
+	{
+		id: "exp-3",
+		company: "Kite Digital",
+		role: "Web Developer",
+		period: "2021 — 2022",
+		location: "Da Nang, VN",
+		logo: "/images/logos/company-kite.svg",
+	},
+];
+
+// —— Education ——
+export const HOME_EDUCATION: HomeEducationItem[] = [
+	{
+		id: "edu-1",
+		school: "University of Technology",
+		degree: "B.Sc. Software Engineering",
+		period: "2018 — 2022",
+		location: "Ho Chi Minh, VN",
+		logo: "/images/logos/edu-utech.svg",
+	},
+	{
+		id: "edu-2",
+		school: "Design System Bootcamp",
+		degree: "Advanced UI Engineering",
+		period: "2023",
+		location: "Online",
+		logo: "/images/logos/edu-bootcamp.svg",
+	},
+];
+
+// —— Skills ——
+export const HOME_SKILLS: HomeSkillItem[] = [
+	{ id: "skill-1", name: "React", logo: "/images/skills/react.svg" },
+	{ id: "skill-2", name: "Next.js", logo: "/images/skills/nextjs.svg" },
+	{ id: "skill-3", name: "TypeScript", logo: "/images/skills/typescript.svg" },
+	{ id: "skill-4", name: "Tailwind", logo: "/images/skills/tailwind.svg" },
+	{ id: "skill-5", name: "Node.js", logo: "/images/skills/nodejs.svg" },
+	{ id: "skill-6", name: "PostgreSQL", logo: "/images/skills/postgres.svg" },
+	{ id: "skill-7", name: "Figma", logo: "/images/skills/figma.svg" },
+	{ id: "skill-8", name: "Docker", logo: "/images/skills/docker.svg" },
+];
+
+// —— Projects ——
 export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 	{
 		id: "project-1",
@@ -65,8 +125,11 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 		summary:
 			"Xây dựng dashboard phân tích với phân quyền, biểu đồ phức tạp và tối ưu tải dữ liệu lớn.",
 		stack: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
-		year: "2025",
-		href: "/projects",
+		period: "2025",
+		thumbnail: "/images/projects/project-analytics.svg",
+		liveUrl: "https://example.com",
+		sourceUrl: "https://github.com/nguyenphat006",
+		badges: ["Live", "Source"],
 		featured: true,
 	},
 	{
@@ -75,8 +138,10 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 		summary:
 			"Triển khai quản lý kho, đơn hàng và chiến dịch marketing với design tokens tái sử dụng.",
 		stack: ["Next.js", "Node.js", "Prisma", "Redis"],
-		year: "2024",
-		href: "/projects",
+		period: "2024",
+		thumbnail: "/images/projects/project-commerce.svg",
+		liveUrl: "https://example.com",
+		badges: ["Live"],
 	},
 	{
 		id: "project-3",
@@ -84,106 +149,15 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 		summary:
 			"Hệ thống biên tập nội dung với quy trình duyệt bài, xuất bản tự động, tập trung UX và tốc độ.",
 		stack: ["React", "TypeScript", "GraphQL", "Docker"],
-		year: "2024",
-		href: "/projects",
+		period: "2024",
+		thumbnail: "/images/projects/project-content.svg",
+		liveUrl: "https://example.com",
+		sourceUrl: "https://github.com/nguyenphat006",
+		badges: ["Live", "Source"],
 	},
 ];
 
-// ── Tech Stack ──
-export const HOME_TECH_STACK: HomeTechCategory[] = [
-	{
-		id: "frontend",
-		title: "Frontend",
-		iconName: "CodeCircleIcon",
-		items: [
-			{ name: "React / Next.js", level: 5 },
-			{ name: "TypeScript", level: 5 },
-			{ name: "Tailwind CSS", level: 5 },
-			{ name: "HTML / CSS", level: 5 },
-			{ name: "Framer Motion", level: 4 },
-		],
-	},
-	{
-		id: "backend",
-		title: "Backend",
-		iconName: "Briefcase07Icon",
-		items: [
-			{ name: "Node.js", level: 4 },
-			{ name: "PostgreSQL", level: 4 },
-			{ name: "Prisma ORM", level: 4 },
-			{ name: "REST / GraphQL", level: 4 },
-			{ name: "Redis", level: 3 },
-		],
-	},
-	{
-		id: "tools",
-		title: "Tools & DevOps",
-		iconName: "BookOpen01Icon",
-		items: [
-			{ name: "Git / GitHub", level: 5 },
-			{ name: "Docker", level: 4 },
-			{ name: "Figma", level: 4 },
-			{ name: "Vercel / AWS", level: 4 },
-			{ name: "CI/CD", level: 3 },
-		],
-	},
-];
-
-// ── About ──
-export const HOME_ABOUT_CONTENT: HomeAboutContent = {
-	badge: "Về Tôi",
-	title: "Lập Trình Viên Fullstack",
-	bio: [
-		"Tôi là một lập trình viên fullstack với hơn 4 năm kinh nghiệm trong việc xây dựng các sản phẩm web hiện đại.",
-		"Đam mê tạo ra những trải nghiệm số mượt mà, hiệu năng cao và có kiến trúc bền vững.",
-	],
-	values: [
-		"Clean Code — Viết mã sạch, dễ bảo trì",
-		"User-First — Thiết kế lấy người dùng làm trung tâm",
-		"Performance — Tối ưu hiệu năng ở mọi tầng",
-		"Continuous Learning — Không ngừng học hỏi công nghệ mới",
-	],
-	terminalLines: [
-		"$ whoami",
-		"> Fullstack Developer @ Vietnam 🇻🇳",
-		"$ cat skills.txt",
-		"> React, Next.js, TypeScript, Node.js, PostgreSQL",
-		"$ cat philosophy.txt",
-		"> \"Code chất lượng là nền tảng của sản phẩm tốt.\"",
-	],
-	ctaLabel: "Tải CV",
-	ctaHref: "#",
-};
-
-// ── Testimonials ──
-export const HOME_TESTIMONIALS: HomeTestimonial[] = [
-	{
-		id: "testimonial-1",
-		quote:
-			"Làm việc cực kỳ chuyên nghiệp, code sạch và luôn giao đúng deadline. Một trong những developer tốt nhất tôi từng hợp tác.",
-		name: "Nguyễn Văn A",
-		role: "Product Manager",
-		company: "Tech Company X",
-	},
-	{
-		id: "testimonial-2",
-		quote:
-			"Khả năng giải quyết vấn đề xuất sắc, luôn đưa ra giải pháp tối ưu và có tư duy kiến trúc rất tốt.",
-		name: "Trần Thị B",
-		role: "Tech Lead",
-		company: "Startup Y",
-	},
-	{
-		id: "testimonial-3",
-		quote:
-			"Không chỉ code tốt mà còn có mắt thẩm mỹ UI/UX rất tốt. Sản phẩm luôn đẹp và dễ sử dụng.",
-		name: "Lê Văn C",
-		role: "CTO",
-		company: "Digital Agency Z",
-	},
-];
-
-// ── Blog Preview ──
+// —— Blog Preview ——
 export const HOME_BLOG_POSTS: HomeBlogPost[] = [
 	{
 		id: "blog-1",
@@ -194,6 +168,7 @@ export const HOME_BLOG_POSTS: HomeBlogPost[] = [
 		readTime: "7 phút đọc",
 		publishedAt: "Tháng 3, 2026",
 		href: "/blog",
+		thumbnail: "/images/blog/blog-architecture.svg",
 	},
 	{
 		id: "blog-2",
@@ -204,6 +179,7 @@ export const HOME_BLOG_POSTS: HomeBlogPost[] = [
 		readTime: "6 phút đọc",
 		publishedAt: "Tháng 2, 2026",
 		href: "/blog",
+		thumbnail: "/images/blog/blog-tokens.svg",
 	},
 	{
 		id: "blog-3",
@@ -214,10 +190,11 @@ export const HOME_BLOG_POSTS: HomeBlogPost[] = [
 		readTime: "8 phút đọc",
 		publishedAt: "Tháng 1, 2026",
 		href: "/blog",
+		thumbnail: "/images/blog/blog-performance.svg",
 	},
 ];
 
-// ── Contact ──
+// —— Contact ——
 export const HOME_CONTACT_CONTENT: HomeContactContent = {
 	badge: "Liên Hệ",
 	headline: "Cùng Xây Dựng Điều Tuyệt Vời",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -7,6 +7,8 @@ import {
   Briefcase07Icon,
   BookOpen01Icon,
 } from "@hugeicons/core-free-icons";
+import { SectionHeader } from "@/components/shared/section-header";
+import { shortSentence } from "@/lib/utils";
 import { HOME_TECH_STACK } from "../constants";
 
 const iconMap: Record<string, typeof CodeCircleIcon> = {
@@ -37,26 +39,20 @@ function AnimatedBar({ level, delay }: { level: number; delay: number }) {
 }
 
 export function HomeTechStack() {
-  return (
-    <section id="cong-nghe" className="ds-section lg:pl-20">
-      <div className="ds-container space-y-10">
-        <motion.div
-          className="space-y-3"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="ds-badge">Công Nghệ</p>
-          <h2 className="text-3xl font-bold tracking-tight text-[var(--color-text)] md:text-4xl lg:text-5xl">
-            Stack <span className="ds-gradient-text">Kỹ Thuật</span>
-          </h2>
-          <p className="max-w-3xl text-base text-[var(--color-text-muted)] md:text-lg">
-            Các công nghệ và công cụ tôi sử dụng hàng ngày để xây dựng sản phẩm chất lượng.
-          </p>
-        </motion.div>
+  const intro = shortSentence(
+    "Các công nghệ và công cụ tôi dùng hằng ngày để xây dựng sản phẩm chất lượng."
+  );
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+  return (
+    <section id="cong-nghe" className="ds-section relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute right-10 top-10 h-44 w-44 rounded-full bg-white/5 blur-3xl" />
+      </div>
+
+      <div className="ds-container relative space-y-12">
+        <SectionHeader badge="Công Nghệ" title="Stack" accent="Kỹ Thuật" description={intro} />
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {HOME_TECH_STACK.map((category, catIdx) => (
             <motion.div
               key={category.id}
