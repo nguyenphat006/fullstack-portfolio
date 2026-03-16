@@ -40,7 +40,7 @@ export function HomeNavbar() {
     <div className="fixed top-0 left-0 z-50 hidden h-screen w-14 flex-col items-center justify-between py-8 lg:flex">
       {/* Logo */}
       <Link href="/" className="cursor-pointer text-lg font-bold text-white">
-        N
+        E
       </Link>
 
       {/* Dot indicators */}

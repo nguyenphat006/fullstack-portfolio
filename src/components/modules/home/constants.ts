@@ -46,7 +46,7 @@ export const HOME_HERO_STATS: HomeHeroStat[] = [
 	{
 		id: "experience",
 		label: "Năm Kinh Nghiệm",
-		value: "4+",
+		value: "2+",
 		iconName: "Briefcase07Icon",
 	},
 	{
