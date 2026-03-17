@@ -1,2 +1,2 @@
-export { default as BlogModulePage } from "./index";
+export { BlogModulePage } from "./blog-index";
 export * from "./types";

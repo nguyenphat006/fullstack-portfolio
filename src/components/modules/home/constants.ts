@@ -1,4 +1,4 @@
-﻿import type {
+import type {
 	HomeHeroContent,
 	HomeHeroStat,
 	HomeNavLink,
@@ -22,10 +22,10 @@ export const HOME_NAV_LINKS: HomeNavLink[] = [
 
 // —— Hero ——
 export const HOME_HERO_CONTENT: HomeHeroContent = {
-	badge: "Portfolio Lập Trình Viên",
-	headline: "Xây Dựng Trải Nghiệm Web Nhanh, Hiện Đại & Bền Vững",
+	badge: "Lập trình viên Fullstack",
+	headline: "Xin chào, tôi là ERICSS.",
 	subtext:
-		"Tôi thiết kế và phát triển sản phẩm số với Next.js, TypeScript và kiến trúc design-system-first. Khám phá các dự án, quy trình kỹ thuật và bài viết chuyên sâu của tôi.",
+		"Tên thật của tôi là Nguyễn Đăng Phát. Tôi là một Fullstack Developer đam mê việc biến ý tưởng thành các sản phẩm công nghệ hoàn thiện. Tập trung vào Next.js, TypeScript và kiến trúc hệ thống bền vững.",
 	primaryCta: {
 		label: "Xem Dự Án",
 		href: "#du-an",
@@ -61,27 +61,78 @@ export const HOME_HERO_STATS: HomeHeroStat[] = [
 export const HOME_EXPERIENCES: HomeExperienceItem[] = [
 	{
 		id: "exp-1",
-		company: "Nova Studio",
-		role: "Frontend Engineer",
-		period: "2024 — Present",
-		location: "Ho Chi Minh, VN",
-		logo: "/images/logos/company-nova.svg",
+		company: "NPH DIGITAL",
+		role: "Software Engineer",
+		period: "2024 — Hiện tại",
+		location: "Hồ Chí Minh, VN",
+		logo: "/images/work-experience/nph-01.png",
+		websiteUrl: "https://nphdigital.com",
+		description: "Phát triển các ứng dụng web phức tạp, tối ưu hóa hiệu năng và xây dựng layout website mang tính tương tác cao.",
+		details: [
+			{
+				category: "Dự án Nổi Bật",
+				items: [
+					"Xây dựng Design System dùng chung (React/Tailwind) cho toàn bộ 5+ websites nội bộ.",
+					"Tái cấu trúc hệ thống quản lý bất động sản, giảm 65% thời gian render list view.",
+					"Triển khai CMS headless (Strapi) kết hợp Next.js App Router."
+				]
+			},
+			{
+				category: "Trách nhiệm Kỹ Thuật",
+				items: [
+					"Thiết kế API Contract và Schema cùng đội Backend (GraphQL).",
+					"Viết Unit/Integration Tests (Jest/Playwright) đảm bảo 80% coverage UI cốt lõi.",
+					"Đào tạo và review code cho 2 junior developers."
+				]
+			}
+		]
 	},
 	{
 		id: "exp-2",
-		company: "Atlas Labs",
-		role: "UI Engineer",
+		company: "HINOVA TECHNOLOGY JSC",
+		role: ".Net Developer",
 		period: "2022 — 2024",
-		location: "Remote",
-		logo: "/images/logos/company-atlas.svg",
+		location: "Đồng Nai, VN",
+		logo: "/images/work-experience/hinova.png",
+		websiteUrl: "https://hinova.vn",
+		description: "Tham gia phát triển các dự án outsource lớn của công ty, quy trình làm việc chuyên nghiệp.",
+		details: [
+			{
+				category: "Phát triển Sản Phẩm",
+				items: [
+					"Tham gia maintain hệ thống ERP lõi cho khách hàng doanh nghiệp.",
+					"Chuyển đổi các màn hình PHP legacy sang SPA (Vue/React).",
+					"Tối ưu lại flow đăng nhập và phân quyền đa ứng dụng."
+				]
+			},
+			{
+				category: "Phối Hợp Đội Nhóm",
+				items: [
+					"Áp dụng triệt để Agile/Scrum (Jira/Confluence) với quy trình 2-week sprints.",
+					"Thực hiện Deploy CI/CD qua GitLab pipeline."
+				]
+			}
+		]
 	},
 	{
 		id: "exp-3",
-		company: "Kite Digital",
-		role: "Web Developer",
+		company: "IOT Software VN",
+		role: "Frontend Developer",
 		period: "2021 — 2022",
-		location: "Da Nang, VN",
-		logo: "/images/logos/company-kite.svg",
+		location: "Đồng Nai, VN",
+		logo: "/images/work-experience/iotsoft.jpg",
+		websiteUrl: "https://iotsoftvn.com",
+		description: "Bước đầu làm quen với môi trường dự án thực tế, học hỏi quy trình và công nghệ sản phẩm.",
+		details: [
+			{
+				category: "Giai Đoạn Khởi Đầu",
+				items: [
+					"Xây dựng các Landing page sự kiện (HTML/CSS/JS thuần).",
+					"Làm quen với Git Flow, Reviewers pattern trên Github.",
+					"Cắt HTML/CSS từ thiết kế Figma độ chính xác Pixel-perfect."
+				]
+			}
+		]
 	},
 ];
 

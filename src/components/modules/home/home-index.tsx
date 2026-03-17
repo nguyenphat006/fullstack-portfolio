@@ -1,15 +1,18 @@
-﻿import { HomeNavbar } from "./components/home-navbar";
-import { HomeHeroSection } from "./components/home-hero-section";
-import { HomeExperienceSection } from "./components/home-experience-section";
+import { HomeNavbar } from "./components/home-navbar";
+import { HomeHeroSection } from "./components/hero-section";
+export * from "./types";
+import { HomeExperienceSection } from "./components/experience-section";
 import { HomeEducationSection } from "./components/home-education-section";
 import { HomeSkillsSection } from "./components/home-skills-section";
 import { HomeFeaturedProjects } from "./components/home-featured-projects";
 import { HomeBlogPreview } from "./components/home-blog-preview";
 import { SharedDock } from "@/components/shared/shared-dock";
+import { Preloader } from "@/components/shared/preloader";
 
 export function HomeModulePage() {
 	return (
 		<main className="min-h-screen bg-[var(--color-background)] text-white">
+			<Preloader />
 			<HomeNavbar />
 			<SharedDock />
 			<HomeHeroSection />

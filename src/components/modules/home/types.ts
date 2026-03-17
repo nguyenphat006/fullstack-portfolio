@@ -1,4 +1,4 @@
-﻿// —— Hero ——
+// —— Hero ——
 export interface HomeHeroCta {
 	label: string;
 	href: string;
@@ -34,6 +34,12 @@ export interface HomeExperienceItem {
 	period: string;
 	location: string;
 	logo: string;
+	description?: string;
+	websiteUrl?: string;
+	details?: {
+		category: string;
+		items: string[];
+	}[];
 }
 
 // —— Education ——

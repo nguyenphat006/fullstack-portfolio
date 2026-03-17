@@ -1,2 +1,2 @@
-export HomeModulePage from "./index.tsx"
+export { HomeModulePage } from "./home-index";
 export * from "./types";

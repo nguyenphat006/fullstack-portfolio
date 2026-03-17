@@ -386,6 +386,35 @@
   }
 }
 
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cta);
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: var(--cta);
+}
+
 /* ── Keyframes ── */
 @keyframes ds-float {
   0%, 100% { transform: translateY(0); }

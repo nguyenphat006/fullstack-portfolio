@@ -1,6 +1,7 @@
 import { BlogSectionList } from "./components/blog-section-list";
+export * from "./types";
 
-export default function BlogModulePage() {
+export function BlogModulePage() {
 	return (
 		<main className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
 			<BlogSectionList />

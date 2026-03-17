@@ -3,6 +3,11 @@
 ## Philosophy
 Minimal, dark, high-contrast. Let the work speak — remove all visual noise.
 
+## Identity & Content
+- Tên thật: `Nguyễn Đăng Phát`
+- Định danh Developer (Brand): `ERICSS`
+- Tông giọng: Giản dị, cá nhân hóa, tập trung vào kỹ thuật và thiết kế hệ thống bền vững.
+
 ---
 
 ## Color System
@@ -46,11 +51,12 @@ Giống `:root` nhưng tối hơn 1 bậc (`--background: #0A0A0A`).
 
 ---
 
-## Icons
+## Icons & Logos
 - Small (chips/labels): 14px
 - Medium (cards/buttons): 16–20px
 - Large (decorative): 24px
-- Lib: `@hugeicons/react` + `@hugeicons/core-free-icons`
+- Lib chính: `@hugeicons/react` + `@hugeicons/core-free-icons`
+- Cụm Tech Stack (Hero): Dùng `https://skillicons.dev/` làm tech logos. Để đảm bảo tính Minimal High-Contrast: luôn áp dụng `grayscale opacity-50` ở trạng thái tĩnh, `hover:grayscale-0 opacity-100` khi tương tác.
 
 ---
 
@@ -71,6 +77,7 @@ Giống `:root` nhưng tối hơn 1 bậc (`--background: #0A0A0A`).
 - Border: `border border-[#2A2A2A]`
 - Hover: `whileHover={{ y: -4 }}`
 - **KHÔNG** dùng card cho stats/số liệu → hiển thị inline
+- **Layout Hero Section:** Sử dụng cấu trúc **Bento Grid** (Hệ thống lưới ô kính ghép lại), không dùng cấu trúc 2 cột trái/phải thông thường. Tối đa hóa việc sử dụng Glassmorphism thay cho thẻ viền đậm.
 
 ---
 

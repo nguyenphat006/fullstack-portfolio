@@ -1,2 +1,2 @@
-export { default as ProjectModulePage } from "./index";
+export { ProjectModulePage } from "./project-index";
 export * from "./types";
