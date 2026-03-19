@@ -6,8 +6,8 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { HOME_EXPERIENCES } from "../../constants";
 import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { X, ChevronRight, ExternalLink } from "lucide-react";
-import { AnimatePresence } from "motion/react";
+import { ChevronRight, ExternalLink } from "lucide-react";
+import { ExperienceModal } from "./experience-modal";
 
 export function HomeExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -49,18 +49,32 @@ export function HomeExperienceSection() {
 
         <div ref={containerRef} className="relative w-full">
           {/* Timeline Center Line (Horizontal) Desktop */}
-          <div className="absolute left-0 right-0 top-1/2 h-0.5 -translate-y-1/2 bg-white/5 hidden md:block">
+          <div className="absolute left-0 right-0 top-1/2 h-0.5 -translate-y-1/2 bg-white/5 hidden md:block overflow-hidden">
+            {/* Scroll Fill */}
             <motion.div
-              className="h-full bg-gradient-to-r from-[var(--color-cta)] to-purple-500/50"
+              className="absolute inset-0 bg-gradient-to-r from-[var(--color-cta)] to-purple-500/50"
               style={{ scaleX: pathLength, transformOrigin: "left" }}
+            />
+            {/* Infinite Light Beam */}
+            <motion.div
+              className="absolute inset-y-0 w-[150px] bg-gradient-to-r from-transparent via-white/80 to-transparent"
+              animate={{ x: ["-150px", "100vw"] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
             />
           </div>
 
           {/* Timeline Center Line (Vertical) Mobile */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-white/5 md:hidden block">
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-white/5 md:hidden block overflow-hidden">
+            {/* Scroll Fill */}
             <motion.div
-              className="w-full bg-gradient-to-b from-[var(--color-cta)] to-purple-500/50"
+              className="absolute inset-0 bg-gradient-to-b from-[var(--color-cta)] to-purple-500/50"
               style={{ scaleY: pathLength, transformOrigin: "top" }}
+            />
+            {/* Infinite Light Beam */}
+            <motion.div
+              className="absolute inset-x-0 h-[150px] bg-gradient-to-b from-transparent via-white/80 to-transparent"
+              animate={{ y: ["-150px", "100vh"] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
             />
           </div>
 
@@ -176,81 +190,7 @@ export function HomeExperienceSection() {
       </div>
 
       {/* Details Modal */}
-      <AnimatePresence>
-        {selectedId && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 py-8 backdrop-blur-md"
-            onClick={() => setSelectedId(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="ds-glow-card relative max-h-[85vh] w-full max-w-3xl overflow-y-auto overflow-x-hidden bg-[#171717] p-6 shadow-2xl md:p-8 scrollbar-custom"
-            >
-              <button
-                onClick={() => setSelectedId(null)}
-                className="absolute right-4 top-4 rounded-full bg-white/5 p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
-                aria-label="Close modal"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              {(() => {
-                const item = HOME_EXPERIENCES.find((e) => e.id === selectedId);
-                if (!item) return null;
-
-                return (
-                  <div className="space-y-8">
-                    {/* Modal Header */}
-                    <div className="flex items-start gap-5 border-b border-white/10 pb-6">
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-white/5 p-2">
-                        <Image src={item.logo} alt={item.company} fill className="object-contain p-1" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-black uppercase tracking-wider text-white">{item.company}</h2>
-                        <p className="text-[var(--color-cta)]">{item.role}</p>
-                        <p className="mt-1 text-sm text-white/40">{item.period} • {item.location}</p>
-                      </div>
-                    </div>
-
-                    {/* Tree View Structure */}
-                    <div className="space-y-6">
-                      {item.details && item.details.length > 0 ? (
-                        item.details.map((detailSection, idx) => (
-                          <div key={idx} className="relative pl-6">
-                            {/* Branching Line */}
-                            <div className="absolute left-2.5 top-0 bottom-0 w-px bg-white/10" />
-
-                            <h4 className="relative mb-3 flex items-center text-sm font-bold tracking-widest text-[#B5915F] uppercase">
-                              <span className="absolute -left-[29px] h-2 w-2 rounded-full bg-[var(--color-cta)] ring-4 ring-[#171717]" />
-                              {detailSection.category}
-                            </h4>
-                            <ul className="space-y-3 pb-2">
-                              {detailSection.items.map((bullet, i) => (
-                                <li key={i} className="relative text-sm font-light leading-relaxed text-white/70 before:absolute before:-left-6 before:top-2 before:h-px before:w-3 before:bg-white/20">
-                                  {bullet}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-white/50 italic py-4">Chưa có thông tin chi tiết.</p>
-                      )}
-                    </div>
-                  </div>
-                );
-              })()}
-
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ExperienceModal selectedId={selectedId} onClose={() => setSelectedId(null)} />
     </section>
   );
 }

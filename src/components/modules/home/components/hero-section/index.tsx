@@ -10,6 +10,7 @@ import { shortSentence } from "@/lib/utils";
 import { HOME_HERO_CONTENT, HOME_HERO_STATS } from "../../constants";
 import { useState, useEffect } from "react";
 import type { Variants } from "motion/react";
+import { TypeAnimation } from "react-type-animation";
 
 const bentoVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -73,13 +74,24 @@ export function HomeHeroSection() {
             <span className="mb-6 rounded-full border border-[var(--color-cta)]/30 bg-[var(--color-cta)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[var(--color-cta)]">
               {HOME_HERO_CONTENT.badge}
             </span>
-            <h1 className="mb-4 text-4xl font-black leading-tight tracking-tight text-white md:text-5xl lg:text-7xl">
-              {HOME_HERO_CONTENT.headline.split('ERICSS')[0]}
-              <span className="bg-gradient-to-r from-fuchsia-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent">ERICSS</span>
-              {HOME_HERO_CONTENT.headline.split('ERICSS')[1]}
+            <h1 className="mb-6 min-h-[140px] text-4xl font-black leading-tight tracking-tight text-white md:text-5xl lg:min-h-[160px] lg:text-7xl">
+              <span className="block mb-2 md:inline md:mb-0">Xin chào! </span>
+              <br className="hidden md:block" />
+              <TypeAnimation
+                sequence={[
+                  'Tôi là ERICSS.',
+                  2500,
+                  'Tôi là Fullstack Dev.',
+                  2500,
+                ]}
+                wrapper="span"
+                cursor={true}
+                repeat={Infinity}
+                className="bg-gradient-to-r from-fuchsia-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent"
+              />
             </h1>
-            <p className="mb-8 max-w-xl text-base leading-relaxed text-white/60 md:text-lg font-light">
-              {shortSubtext}
+            <p className="mb-8 max-w-xl text-base leading-relaxed text-white/50 md:text-lg font-light">
+              <span className="text-white font-medium">Nguyễn Đăng Phát</span> — Một kỹ sư phần mềm chuyên nghiệp. Tôi đam mê xây dựng các sản phẩm công nghệ từ kiến trúc logic Backend đến giao diện Frontend tương tác mượt mà, tập trung vào trải nghiệm người dùng tối ưu qua hệ sinh thái Next.js và TypeScript.
             </p>
             <div className="flex flex-wrap gap-4 mt-auto">
               <Button asChild className="ds-btn-neon shadow-[0_0_20px_var(--color-cta-glow)]">
@@ -115,37 +127,46 @@ export function HomeHeroSection() {
           {/* Tile 3: Tech Stack Rolling (Spans 4 cols) */}
           <motion.div variants={bentoVariants} className="ds-glow-card flex flex-col justify-center items-center bg-black/40 p-6 text-center backdrop-blur-md md:col-span-4 group overflow-hidden">
             <p className="text-sm font-semibold text-white mb-6">Tech Ecosystem</p>
-            <div className="relative flex w-full items-center">
+            <div className="relative flex w-full items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
               <motion.div
-                className="flex w-max gap-4"
+                className="flex w-max shrink-0"
                 animate={{ x: ["0%", "-50%"] }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 10 }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://skillicons.dev/icons?i=react,next,nestjs,ts,postgres&theme=dark" alt="Tech Stack Logos" className="h-10 md:h-11 shrink-0" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://skillicons.dev/icons?i=react,next,nestjs,ts,postgres&theme=dark" alt="Tech Stack Logos Seamless" className="h-10 md:h-11 shrink-0" />
+                {/* SET 1 */}
+                <div className="flex shrink-0 gap-8 pr-8">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://skillicons.dev/icons?i=react,next,nestjs,ts,postgres,docker,tailwind,figma&theme=dark" alt="Tech Stack" className="h-10 md:h-11 shrink-0" />
+                </div>
+                {/* SET 2 (Exact duplicate for seamless loop) */}
+                <div className="flex shrink-0 gap-8 pr-8">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://skillicons.dev/icons?i=react,next,nestjs,ts,postgres,docker,tailwind,figma&theme=dark" alt="Tech Stack Seamless" className="h-10 md:h-11 shrink-0" />
+                </div>
               </motion.div>
-              {/* Fading Edges */}
-              {/* <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#171717] to-transparent" />
-                 <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#171717] to-transparent" /> */}
             </div>
           </motion.div>
 
           {/* Tile 4: Location & Time (Spans 4 cols) */}
-          <motion.div variants={bentoVariants} className="ds-glow-card flex flex-col justify-between bg-black/40 p-6 backdrop-blur-md md:col-span-4">
-            <div className="flex items-center gap-3 text-white/50 mb-4">
-              <HugeiconsIcon icon={MapsLocation01Icon} size={20} />
-              <span className="text-xs uppercase tracking-widest">Base</span>
+          <motion.div variants={bentoVariants} className="ds-glow-card relative overflow-hidden flex flex-col justify-between bg-black/40 p-6 backdrop-blur-md md:col-span-4 group h-full min-h-[160px]">
+            {/* Ambient Map/Location Icon Background */}
+            <div className="absolute -bottom-8 -right-8 opacity-10 group-hover:opacity-30 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700 pointer-events-none">
+              <HugeiconsIcon icon={MapsLocation01Icon} size={160} className="text-white" />
             </div>
-            <div>
-              <p className="text-lg font-bold text-white">Hồ Chí Minh, VN</p>
-              <div className="flex items-center gap-2 mt-1">
-                <div className="relative flex h-2 w-2 items-center justify-center">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                </div>
-                <p className="font-mono text-sm text-[var(--color-cta)]">{time || "Trực tuyến"}</p>
+
+            <div className="relative z-10 flex items-center gap-3 text-white mb-6">
+              <div className="relative flex h-3 w-3 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+              </div>
+              <span className="text-xs font-bold uppercase tracking-widest text-emerald-400 font-mono">Available For Work</span>
+            </div>
+
+            <div className="relative z-10 mt-auto">
+              <p className="text-2xl font-black text-white tracking-wide">Hồ Chí Minh, VN</p>
+              <div className="flex items-center gap-2 mt-2">
+                <HugeiconsIcon icon={Clock01Icon} size={16} className="text-white/40" />
+                <p className="font-mono text-sm tracking-widest text-[#A1A1AA]">{time || "Trực tuyến"}</p>
               </div>
             </div>
           </motion.div>

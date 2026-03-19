@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
+import { constructMetadata } from "@/config/site";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -15,10 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Developer Portfolio",
-  description: "Modern developer portfolio with projects, experience, and blog.",
-};
+export const metadata = constructMetadata();
 
 export default function RootLayout({
   children,

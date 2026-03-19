@@ -1,12 +1,16 @@
-import { ProjectSectionExperience } from "./components/project-section-experience";
-import { ProjectSectionGrid } from "./components/project-section-grid";
+import dynamic from "next/dynamic";
 export * from "./types";
+
+import { PageBackground } from "@/components/shared/layout/page-background";
+
+const ProjectSectionExperience = dynamic(() => import("./components/project-section-experience").then((mod) => mod.ProjectSectionExperience));
+const ProjectSectionGrid = dynamic(() => import("./components/project-section-grid").then((mod) => mod.ProjectSectionGrid));
 
 export function ProjectModulePage() {
 	return (
-		<main className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
+		<PageBackground>
 			<ProjectSectionGrid />
 			<ProjectSectionExperience />
-		</main>
+		</PageBackground>
 	);
 }

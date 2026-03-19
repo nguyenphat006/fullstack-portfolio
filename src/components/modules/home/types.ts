@@ -26,6 +26,12 @@ export interface HomeNavLink {
 	href: string;
 }
 
+export interface HomeExperienceProjectLink {
+	name: string;
+	url: string;
+	logo?: string;
+}
+
 // —— Experience ——
 export interface HomeExperienceItem {
 	id: string;
@@ -40,6 +46,7 @@ export interface HomeExperienceItem {
 		category: string;
 		items: string[];
 	}[];
+	projectLinks?: HomeExperienceProjectLink[];
 }
 
 // —— Education ——
