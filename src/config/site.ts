@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const siteConfig = {
   name: "ERICSS | Nguyễn Đăng Phát",
-  title: "ERICSS - Fullstack Developer Portfolio",
+  title: "ERICSS - Portfolio",
   description: "Portfolio của Nguyễn Đăng Phát (ERICSS) - Fullstack Developer chuyên về Next.js, TypeScript và kiến trúc hệ thống hiện đại.",
   url: "https://dangphat.dev", // Replace with your actual domain if different
   ogImage: "/images/og-image.png",

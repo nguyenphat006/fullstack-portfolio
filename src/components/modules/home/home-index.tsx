@@ -9,7 +9,7 @@ import { PageBackground } from "@/components/shared/layout/page-background";
 
 const HomeExperienceSection = dynamic(() => import("./components/experience-section").then((mod) => mod.HomeExperienceSection));
 const HomeSkillsSection = dynamic(() => import("./components/home-skills-section").then((mod) => mod.HomeSkillsSection));
-const HomeFeaturedProjects = dynamic(() => import("./components/home-featured-projects").then((mod) => mod.HomeFeaturedProjects));
+const HomeFeaturedProjects = dynamic(() => import("./components/project-section").then((mod) => mod.HomeFeaturedProjects));
 const HomeBlogPreview = dynamic(() => import("./components/home-blog-preview").then((mod) => mod.HomeBlogPreview));
 
 export function HomeModulePage() {
