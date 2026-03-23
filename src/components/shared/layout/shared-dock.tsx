@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
-import { Home, Download, Menu, X } from "lucide-react";
+import { Home, Download, Menu } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -11,75 +10,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dock, DockIcon } from "@/components/ui/dock";
-import { HOME_NAV_LINKS } from "@/components/modules/home/constants";
 import { Icons } from "@/components/shared/icons";
 
-// ── Fullscreen Menu Overlay ──
-function FullscreenMenu({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-black/95 backdrop-blur-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
-
-          <button
-            onClick={onClose}
-            className="absolute top-8 right-8 z-10 cursor-pointer rounded-full border border-white/10 p-3 text-white/50 transition-colors duration-200 hover:text-white"
-            aria-label="Đóng menu"
-          >
-            <X className="size-6" />
-          </button>
-
-          <nav className="relative z-10">
-            <ul className="flex flex-col items-center gap-6">
-              {HOME_NAV_LINKS.map((link, i) => (
-                <motion.li
-                  key={link.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={onClose}
-                    className="cursor-pointer text-3xl font-bold text-white/70 transition-colors duration-200 hover:text-white md:text-5xl"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </nav>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
+import { FullscreenMenu } from "./fullscreen-menu";
 
 const DOCK_SOCIALS = [
   { id: "github", label: "GitHub", href: "https://github.com/nguyenphat006", icon: Icons.github },
-  { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com", icon: Icons.linkedin },
-  { id: "email", label: "Email", href: "mailto:nguyenphat0406@gmail.com", icon: Icons.email },
-  { id: "cv", label: "Tải CV", href: "#", icon: Download },
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ericss-ndp/", icon: Icons.linkedin },
+  { id: "email", label: "Email", href: "mailto:nguyenphat1505@gmail.com", icon: Icons.email },
+  { id: "cv", label: "Tải CV", href: "https://rxresu.me/nguyenphat006/cv-nguyen-dang-phat-vietnamese-fe", icon: Download },
 ];
 
 export function SharedDock() {
@@ -98,7 +37,7 @@ export function SharedDock() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="#trang-chu"
+                  href="/"
                   className="flex"
                   aria-label="Trang chủ"
                 >

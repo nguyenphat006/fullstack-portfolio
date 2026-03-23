@@ -80,16 +80,14 @@ export interface HomeFeaturedProject {
 	featured?: boolean;
 }
 
-// —— Blog Preview ——
-export interface HomeBlogPost {
+// —— Testimonials ——
+export interface HomeTestimonial {
 	id: string;
-	title: string;
-	excerpt: string;
-	category: string;
-	readTime: string;
-	publishedAt: string;
-	href: string;
-	thumbnail: string;
+	name: string;
+	role: string;
+	company: string;
+	content: string;
+	avatar: string;
 }
 
 // —— Contact ——

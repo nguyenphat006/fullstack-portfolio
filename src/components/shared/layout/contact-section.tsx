@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/shared/section-header";
-import { HOME_CONTACT_CONTENT } from "../constants";
+import { HOME_CONTACT_CONTENT } from "@/components/modules/home/constants";
 
 export function HomeContactSection() {
   return (

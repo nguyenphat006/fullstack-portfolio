@@ -4,6 +4,12 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SharedDock } from "@/components/shared/layout/shared-dock";
+import { Footer } from "@/components/shared/layout/footer";
+import { PageBackground } from "@/components/shared/layout/page-background";
+import { SubpageHeader } from "@/components/shared/layout/subpage-header";
+import { HomeContactSection as ContactSection } from "@/components/shared/layout/contact-section";
+
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
@@ -26,9 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", figtree.variable)}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`}
       >
-        {children}
+        <PageBackground>
+          <div className="flex min-h-screen flex-col">
+            <SubpageHeader />
+            <div className="flex-1">{children}</div>
+            <ContactSection />
+            <Footer />
+          </div>
+        </PageBackground>
+        <SharedDock />
         <Analytics />
         <SpeedInsights />
       </body>

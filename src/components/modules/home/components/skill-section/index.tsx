@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { SectionHeader } from "@/components/shared/section-header";
-import { HOME_EDUCATION } from "../constants";
+import { HOME_EDUCATION } from "../../constants";
 import { GraduationCap, Code2 } from "lucide-react";
 import { IconCloud } from "@/components/ui/icon-cloud";
 
@@ -36,7 +36,7 @@ export function HomeSkillsSection() {
               </div>
               Hành trình Học tập
             </h3>
-            
+
             <div className="relative border-l border-white/10 pl-8 ml-4 space-y-12">
               {HOME_EDUCATION.map((edu, i) => (
                 <motion.div
@@ -49,20 +49,20 @@ export function HomeSkillsSection() {
                 >
                   {/* Timeline Dot */}
                   <div className="absolute -left-[39px] top-1.5 h-3.5 w-3.5 rounded-full bg-[var(--color-cta)] ring-4 ring-[#111111] shadow-[0_0_10px_var(--color-cta)]" />
-                  
+
                   <div className="flex flex-col gap-3">
                     <span className="inline-flex items-center rounded-full bg-white/5 px-3 py-1 text-xs font-semibold text-[var(--color-cta)] w-fit border border-white/5">
                       {edu.period} • {edu.location}
                     </span>
-                    
+
                     <div className="flex items-center gap-4">
-                       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-2">
-                         <Image src={edu.logo} alt={edu.school} fill className="object-contain p-1" />
-                       </div>
-                       <div>
-                         <h4 className="text-xl font-bold text-white">{edu.school}</h4>
-                         <p className="text-sm font-medium text-white/60">{edu.degree}</p>
-                       </div>
+                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-2">
+                        <Image src={edu.logo} alt={edu.school} fill className="object-contain p-1" />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white">{edu.school}</h4>
+                        <p className="text-sm font-medium text-white/60">{edu.degree}</p>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -76,7 +76,7 @@ export function HomeSkillsSection() {
             <div className="flex w-full max-w-[800px] items-center justify-center">
               <IconCloud images={slugs.map((slug) => `https://cdn.simpleicons.org/${slug}`)} />
             </div>
-            
+
             <div className="w-full rounded-2xl border border-[var(--color-cta)]/20 bg-[var(--color-cta)]/5 p-6 shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] backdrop-blur-sm">
               <p className="text-sm leading-relaxed text-white/70">
                 <strong className="text-white block mb-2 text-base">My Tech Stack Focus:</strong>

@@ -6,7 +6,7 @@ import type {
 	HomeEducationItem,
 	HomeSkillItem,
 	HomeFeaturedProject,
-	HomeBlogPost,
+	HomeTestimonial,
 	HomeContactContent,
 } from "./types";
 
@@ -17,7 +17,7 @@ export const HOME_NAV_LINKS: HomeNavLink[] = [
 	{ id: "hoc-van", label: "Học vấn", href: "#hoc-van" },
 	{ id: "ky-nang", label: "Kỹ năng", href: "#ky-nang" },
 	{ id: "du-an", label: "Dự án", href: "#du-an" },
-	{ id: "bai-viet", label: "Bài viết", href: "#bai-viet" },
+	{ id: "nhan-xet", label: "Nhận xét", href: "#nhan-xet" },
 ];
 
 // —— Hero ——
@@ -31,8 +31,8 @@ export const HOME_HERO_CONTENT: HomeHeroContent = {
 		href: "#du-an",
 	},
 	secondaryCta: {
-		label: "Đọc Blog",
-		href: "#bai-viet",
+		label: "Người Khác Nói Gì?",
+		href: "#nhan-xet",
 	},
 };
 
@@ -256,40 +256,39 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 	}
 ];
 
-// —— Blog Preview ——
-export const HOME_BLOG_POSTS: HomeBlogPost[] = [
+// —— Testimonials ——
+export const HOME_TESTIMONIALS: HomeTestimonial[] = [
 	{
-		id: "blog-1",
-		title: "Kiến Trúc Frontend Mở Rộng Với Feature Modules",
-		excerpt:
-			"Cấu trúc thực tế giúp ứng dụng Next.js lớn dễ bảo trì với ranh giới module rõ ràng.",
-		category: "Kiến trúc",
-		readTime: "7 phút đọc",
-		publishedAt: "Tháng 3, 2026",
-		href: "/blog",
-		thumbnail: "/images/blog/blog-architecture.svg",
+		id: "testi-1",
+		name: "Anh Hoàng Nguyễn",
+		role: "Founder & CEO",
+		company: "NPH DIGITAL",
+		content: "Chuyên môn ổn định, trách nhiệm cao. Có tư duy hệ thống tốt, luôn chủ động đưa ra giải pháp và dẫn dắt đội ngũ hiệu quả.",
+		avatar: "/images/work-experience/nph-01.png",
 	},
 	{
-		id: "blog-2",
-		title: "Design Tokens Trong Tailwind v4 Cho Bảo Trì Dài Hạn",
-		excerpt:
-			"Cách kết hợp CSS variables và utility classes để team có thể mở rộng quyết định thiết kế an toàn.",
-		category: "Design System",
-		readTime: "6 phút đọc",
-		publishedAt: "Tháng 2, 2026",
-		href: "/blog",
-		thumbnail: "/images/blog/blog-tokens.svg",
+		id: "testi-2",
+		name: "Chị Minh Thư",
+		role: "Project Manager",
+		company: "HINOVA TECHNOLOGY",
+		content: "Nắm bắt logic nghiệp vụ phần mềm doanh nghiệp nhanh nhạy, code cẩn thận. Giao diện chỉn chu, tối ưu UX, luôn hoàn thành xuất sắc các tính năng cốt lõi.",
+		avatar: "/images/work-experience/hinova.png",
 	},
 	{
-		id: "blog-3",
-		title: "Cải Thiện Web Performance Mà Không Mất UX",
-		excerpt:
-			"Quy trình checklist giúp cải thiện Core Web Vitals mà vẫn giữ chất lượng visual và tương tác.",
-		category: "Hiệu năng",
-		readTime: "8 phút đọc",
-		publishedAt: "Tháng 1, 2026",
-		href: "/blog",
-		thumbnail: "/images/blog/blog-performance.svg",
+		id: "testi-3",
+		name: "Anh Tuấn Phan",
+		role: "Tech Lead",
+		company: "IOT Software VN",
+		content: "Tư duy kiến trúc component xuất sắc. Áp dụng thành thạo Turborepo và ShadCN giúp tiết kiệm 50% thời gian phát triển hệ thống Landing Page của trường.",
+		avatar: "/images/work-experience/iotsoft.jpg",
+	},
+	{
+		id: "testi-4",
+		name: "Thầy Chương",
+		role: "Giảng viên",
+		company: "FPT Polytechnic",
+		content: "Sinh viên có tư duy lập trình vững vàng, thái độ học tập nghiêm túc và luôn đạt kết quả xuất sắc trong các dự án thực tế.",
+		avatar: "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png",
 	},
 ];
 
@@ -305,7 +304,7 @@ export const HOME_CONTACT_CONTENT: HomeContactContent = {
 	},
 	secondaryCta: {
 		label: "Xem CV",
-		href: "#",
+		href: "https://rxresu.me/nguyenphat006/cv-nguyen-dang-phat-vietnamese-fe",
 	},
 	socials: [
 		{
@@ -317,15 +316,15 @@ export const HOME_CONTACT_CONTENT: HomeContactContent = {
 		{
 			id: "linkedin",
 			label: "LinkedIn",
-			href: "https://linkedin.com",
+			href: "https://www.linkedin.com/in/ericss-ndp/",
 			iconName: "Linkedin01Icon",
 		},
 		{
 			id: "email",
 			label: "Email",
-			href: "mailto:nguyenphat0406@gmail.com",
+			href: "mailto:nguyenphat1505@gmail.com",
 			iconName: "Mail01Icon",
 		},
 	],
-	email: "nguyenphat0406@gmail.com",
+	email: "nguyenphat1505@gmail.com",
 };
