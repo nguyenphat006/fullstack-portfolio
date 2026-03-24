@@ -10,6 +10,7 @@ import { PageBackground } from "@/components/shared/layout/page-background";
 import { SubpageHeader } from "@/components/shared/layout/subpage-header";
 import { HomeContactSection as ContactSection } from "@/components/shared/layout/contact-section";
 import { Toaster } from "@/components/ui/sonner";
+import { Preloader } from "@/components/shared/layout/preloader";
 
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -33,8 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", figtree.variable)}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-white overflow-x-hidden`}
       >
+        <Preloader />
         <PageBackground>
           <div className="flex min-h-screen flex-col">
             <SubpageHeader />

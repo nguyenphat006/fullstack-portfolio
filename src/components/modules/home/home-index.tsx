@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { HomeNavbar } from "./components/home-navbar";
 import { HomeHeroSection } from "./components/hero-section";
 export * from "./types";
-import { Preloader } from "@/components/shared/layout/preloader";
 
 const HomeExperienceSection = dynamic(() => import("./components/experience-section").then((mod) => mod.HomeExperienceSection));
 const HomeSkillsSection = dynamic(() => import("./components/skill-section").then((mod) => mod.HomeSkillsSection));
@@ -12,7 +11,6 @@ const HomeTestimonialsSection = dynamic(() => import("./components/testimonial-s
 export function HomeModulePage() {
 	return (
 		<div className="text-white">
-			<Preloader />
 			<HomeNavbar />
 			<HomeHeroSection />
 			<div className="ds-divider" />
