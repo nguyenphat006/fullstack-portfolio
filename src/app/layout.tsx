@@ -2,13 +2,14 @@ import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import { constructMetadata } from "@/config/site";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SharedDock } from "@/components/shared/layout/shared-dock";
 import { Footer } from "@/components/shared/layout/footer";
 import { PageBackground } from "@/components/shared/layout/page-background";
 import { SubpageHeader } from "@/components/shared/layout/subpage-header";
 import { HomeContactSection as ContactSection } from "@/components/shared/layout/contact-section";
+import { Toaster } from "@/components/ui/sonner";
 
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -43,6 +44,7 @@ export default function RootLayout({
           </div>
         </PageBackground>
         <SharedDock />
+        <Toaster richColors position="bottom-right" />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -260,7 +260,7 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 export const HOME_TESTIMONIALS: HomeTestimonial[] = [
 	{
 		id: "testi-1",
-		name: "Anh Hoàng Nguyễn",
+		name: "Anh Trần Văn Tây",
 		role: "Founder & CEO",
 		company: "NPH DIGITAL",
 		content: "Chuyên môn ổn định, trách nhiệm cao. Có tư duy hệ thống tốt, luôn chủ động đưa ra giải pháp và dẫn dắt đội ngũ hiệu quả.",
@@ -268,7 +268,7 @@ export const HOME_TESTIMONIALS: HomeTestimonial[] = [
 	},
 	{
 		id: "testi-2",
-		name: "Chị Minh Thư",
+		name: "Anh Hiếu",
 		role: "Project Manager",
 		company: "HINOVA TECHNOLOGY",
 		content: "Nắm bắt logic nghiệp vụ phần mềm doanh nghiệp nhanh nhạy, code cẩn thận. Giao diện chỉn chu, tối ưu UX, luôn hoàn thành xuất sắc các tính năng cốt lõi.",
@@ -276,18 +276,18 @@ export const HOME_TESTIMONIALS: HomeTestimonial[] = [
 	},
 	{
 		id: "testi-3",
-		name: "Anh Tuấn Phan",
-		role: "Tech Lead",
+		name: "Anh Lê Chân Thiện Tâm",
+		role: "Phó giám đốc",
 		company: "IOT Software VN",
-		content: "Tư duy kiến trúc component xuất sắc. Áp dụng thành thạo Turborepo và ShadCN giúp tiết kiệm 50% thời gian phát triển hệ thống Landing Page của trường.",
+		content: "Tư duy logic tốt, xử lý vấn đề nhanh. Có khả năng tự học và áp dụng công nghệ mới hiệu quả, đặc biệt là các giải pháp liên quan đến UI/UX và tối ưu hiệu năng.",
 		avatar: "/images/work-experience/iotsoft.jpg",
 	},
 	{
 		id: "testi-4",
-		name: "Thầy Chương",
-		role: "Giảng viên",
+		name: "Thầy Hồ Hoàng Chương",
+		role: "Trưởng bộ môn CNTT",
 		company: "FPT Polytechnic",
-		content: "Sinh viên có tư duy lập trình vững vàng, thái độ học tập nghiêm túc và luôn đạt kết quả xuất sắc trong các dự án thực tế.",
+		content: "Có tư duy logic tốt, xử lý vấn đề nhanh. Có khả năng tự học và áp dụng công nghệ mới hiệu quả, đặc biệt là các giải pháp liên quan đến UI/UX và tối ưu hiệu năng.",
 		avatar: "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png",
 	},
 ];
