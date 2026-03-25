@@ -1,53 +1,58 @@
-import { ExperienceItem, ProjectItem } from "./types";
+import { ProjectItem } from "./types";
 
 export const PROJECT_SECTION_DATA: ProjectItem[] = [
 	{
-		id: "project-1",
-		title: "SaaS Analytics Dashboard",
-		summary: "Built modular dashboard with role-based access, chart-heavy views, and optimized loading for large datasets.",
+		id: "p-1",
+		title: "Hệ thống Quản lý Bệnh viện Đa khoa",
+		summary: "Nền tảng Cloud toàn diện quản lý hồ sơ bệnh án điện tử, lên lịch khám bệnh và theo dõi điều trị nội trú với độ bảo mật chống rò rỉ hình ảnh.",
 		stack: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
 		year: "2025",
 		href: "#",
+		image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
 	},
 	{
-		id: "project-2",
-		title: "E-commerce Management Platform",
-		summary: "Implemented inventory, order, and campaign modules with reusable design tokens and fast search workflows.",
+		id: "p-2",
+		title: "Sàn Thương Mại Điện Tử B2B Khách Buôn",
+		summary: "Hệ thống sàn giao dịch nội bộ, giám sát tồn kho thời gian thực, điều phối chuỗi cung ứng và tự động xuất hóa đơn đỏ (e-Invoice).",
 		stack: ["Next.js", "Node.js", "Prisma", "Redis"],
 		year: "2024",
 		href: "#",
+		image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
 	},
 	{
-		id: "project-3",
-		title: "Content Studio for Marketing Team",
-		summary: "Created editorial workflow with drafts, approvals, and publishing automation, focused on usability and speed.",
-		stack: ["React", "TypeScript", "GraphQL", "Docker"],
+		id: "p-3",
+		title: "Nền tảng Học trực tuyến EdTech Master",
+		summary: "CMS quản lý hệ sinh thái bài giảng trực tuyến, cung cấp khóa học video chống tải lậu, thi trắc nghiệm và phòng live stream lên tới 50,000 học viên.",
+		stack: ["React", "TypeScript", "NestJS", "Docker"],
 		year: "2024",
 		href: "#",
-	},
-];
-
-export const PROJECT_EXPERIENCE_DATA: ExperienceItem[] = [
-	{
-		id: "exp-1",
-		role: "Frontend Engineer",
-		company: "Product Studio X",
-		period: "2024 - Present",
-		highlights: [
-			"Shipped 10+ product features with module-first architecture",
-			"Reduced UI inconsistencies by introducing shared design tokens",
-			"Improved Lighthouse performance score from 78 to 95",
-		],
+		image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=800&auto=format&fit=crop",
 	},
 	{
-		id: "exp-2",
-		role: "Fullstack Developer",
-		company: "SaaS Company Y",
-		period: "2022 - 2024",
-		highlights: [
-			"Built internal CRM workflows used by sales and support teams",
-			"Implemented reusable UI component patterns with shadcn/ui",
-			"Collaborated with designers to improve conversion on onboarding flow",
-		],
+		id: "p-4",
+		title: "Ứng dụng Tài chính Thông minh TheoDoi",
+		summary: "Mobile App phân tích chi tiêu cá nhân sử dụng các mô hình Machine Learning mini để tự động chấm điểm xếp hạng tài chính.",
+		stack: ["React Native", "Expo", "Firebase", "Express"],
+		year: "2023",
+		href: "#",
+		image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop",
+	},
+	{
+		id: "p-5",
+		title: "Kiến trúc Triển khai CI/CD AutoDeploy",
+		summary: "Xây dựng Pipeline tự động hóa 100% quy trình Testing, Linting và Deploy các cụm microservices nội bộ lên máy chủ đám mây.",
+		stack: ["Jenkins", "Golang", "Kubernetes", "AWS"],
+		year: "2023",
+		href: "#",
+		image: "https://images.unsplash.com/photo-1618401471353-b98a520ed217?q=80&w=800&auto=format&fit=crop",
+	},
+	{
+		id: "p-6",
+		title: "Dashboard Quản trị Nhận sự Tập đoàn",
+		summary: "Giao diện kiểm soát thông tin nhân sự cực kỳ trực quan với hệ thống cấp quyền phi tập trung và biểu đồ tương tác.",
+		stack: ["Vue.js", "Nuxt.js", "TailwindCSS", "GraphQL"],
+		year: "2022",
+		href: "#",
+		image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
 	},
 ];

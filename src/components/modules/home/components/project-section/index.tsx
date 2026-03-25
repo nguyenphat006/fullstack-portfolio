@@ -1,12 +1,13 @@
-﻿"use client";
+"use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/shared/section-header";
-import { HOME_FEATURED_PROJECTS } from "../../constants";
+import { PROJECTS_DATA } from "@/config/projects";
 import { cn } from "@/lib/utils";
 
 export function HomeFeaturedProjects() {
@@ -21,16 +22,25 @@ export function HomeFeaturedProjects() {
         />
 
         <div className="flex flex-col gap-32">
-          {HOME_FEATURED_PROJECTS.map((project, i) => (
+          {PROJECTS_DATA.filter(p => p.featured).map((project, i) => (
             <ProjectItem key={project.id} project={project} index={i} />
           ))}
+        </div>
+
+        <div className="flex justify-center mt-16 pt-8">
+           <Button asChild className="h-14 px-10 bg-[var(--color-cta)] text-black hover:bg-[var(--color-cta)]/90 rounded-full font-bold text-lg group">
+             <Link href="/projects">
+               XEM TẤT CẢ DỰ ÁN
+               <ArrowUpRight className="ml-2 h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+             </Link>
+           </Button>
         </div>
       </div>
     </section>
   );
 }
 
-function ProjectItem({ project, index }: { project: (typeof HOME_FEATURED_PROJECTS)[0], index: number }) {
+function ProjectItem({ project, index }: { project: (typeof PROJECTS_DATA)[0], index: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -55,21 +65,20 @@ function ProjectItem({ project, index }: { project: (typeof HOME_FEATURED_PROJEC
         !isEven && "lg:flex-row-reverse"
       )}>
         {/* Sticky Visual Part */}
-        <div className="relative w-full lg:w-3/5 aspect-[16/10] group rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+        <div className="relative w-full lg:w-3/5 aspect-[16/10] group rounded-3xl overflow-hidden border border-white/5 shadow-2xl bg-black/40">
           <motion.div style={{ scale: imageScale }} className="w-full h-full">
-            <Image
-              src={project.thumbnail}
+            <img
+              src={project.image}
               alt={project.title}
-              fill
-              className="object-contains transition-transform duration-700 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0a0a]/80 via-transparent to-transparent opacity-80" />
 
           {/* Top Badges */}
           <div className="absolute top-6 left-6 flex gap-2">
-            {project.badges?.map(badge => (
-              <span key={badge} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] uppercase font-bold tracking-widest text-white border border-white/10 shadow-lg">
+            {[project.year, ...project.stack].slice(0, 3).map(badge => (
+              <span key={badge} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] uppercase font-bold tracking-widest text-[var(--color-cta)] border border-white/10 shadow-lg">
                 {badge}
               </span>
             ))}
@@ -102,22 +111,25 @@ function ProjectItem({ project, index }: { project: (typeof HOME_FEATURED_PROJEC
             ))}
           </div>
 
-          <div className="flex items-center gap-6 pt-4">
+          <div className="flex flex-wrap items-center gap-6 pt-4">
             <Button asChild className="h-14 px-8 bg-white text-black hover:bg-white/90 rounded-full font-bold group">
-              <a href={project.liveUrl} target="_blank" rel="noreferrer">
-                XEM LIVE
+              <Link href={`/projects/${project.id}`}>
+                XEM CHI TIẾT
                 <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </a>
+              </Link>
             </Button>
 
-            <a
-              href={project.sourceUrl || "#"}
-              className="group flex items-center gap-2 text-sm font-bold text-white/50 hover:text-white transition-colors"
-            >
-              <ExternalLink className="h-4 w-4" />
-              <span>SOURCE CODE</span>
-              <div className="h-[1px] w-0 bg-white transition-all group-hover:w-full" />
-            </a>
+            {project.githubUrl && (
+               <a
+                 href={project.githubUrl}
+                 target="_blank" rel="noreferrer"
+                 className="group flex items-center gap-2 text-sm font-bold text-white/50 hover:text-white transition-colors"
+               >
+                 <ExternalLink className="h-4 w-4" />
+                 <span>SOURCE CODE</span>
+                 <div className="h-[1px] w-0 bg-white transition-all group-hover:w-full" />
+               </a>
+            )}
           </div>
         </motion.div>
       </div>
