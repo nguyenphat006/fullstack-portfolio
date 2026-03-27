@@ -1,2 +1,2 @@
-export { BlogModulePage } from "./blog-index";
+export { BlogIndex } from "./blog-index";
 export * from "./types";

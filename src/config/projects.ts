@@ -25,7 +25,19 @@ export const PROJECTS_DATA: ProjectItem[] = [
     color: "#FCD34D", 
     image: "/images/projects/shopsifu.png",
     role: "Fullstack Developer",
-    content: "Dự án nền tảng thương mại điện tử phức tạp với 3 luồng người dùng cực lớn. Tích hợp thanh toán online trực tiếp qua VNPay và ví điện tử Sepay. Sử dụng cơ chế WebSocket (Socket.IO) để lập tức ban hành thông báo Push Notification khi có đơn hàng mới đổ về hệ thống.",
+    content: `Dự án nền tảng thương mại điện tử phức tạp với 3 luồng người dùng cực lớn bám sát nghiệp vụ phân quyền RBAC.
+
+### Yêu cầu bài toán
+Hệ thống cần một giải pháp xử lý đơn hàng đa luồng thời gian thực cho hàng ngàn người dùng, hỗ trợ nhà cung cấp (Seller) đăng bán sản phẩm và thanh toán tự động không cần đối soát thủ công.
+
+### Giải pháp Kỹ thuật
+- **Kiến trúc Backend:** Tách bạch Layer Controller - Service - Repository trong NestJS. Quản lý transaction chặt chẽ khi thanh toán.
+- **Realtime:** Sử dụng Web-Socket (Socket.IO) kết hợp Redis Pub/Sub để phát luồng thông báo đơn hàng cho Client ngay lập tức trong vòng chưa tới 50ms.
+- **Cổng thanh toán:** Tích hợp trực tiếp VNPay API và Sepay (Webhook tự check giao dịch ngân hàng).
+- **Frontend tối ưu:** Ứng dụng Next.js Server Components kết hợp Redux Toolkit để quản lý giỏ hàng mượt mà cục bộ, hạn chế Re-render tối đa.
+
+![ShopSifu Admin Dashboard](/images/projects/shopsifu.png)
+*(Minh hoạ luồng Dashboard quản trị)*`,
     liveUrl: "https://shopsifu.live/",
     featured: true,
   },
@@ -38,78 +50,21 @@ export const PROJECTS_DATA: ProjectItem[] = [
     color: "#EF4444", 
     image: "/images/projects/lhs.png",
     role: "Frontend Team Lead",
-    content: "Nền tảng giáo dục đa cơ sở yêu cầu quản trị nội dung độc lập nhưng bắt buộc phải dùng chung hệ thống Design System gốc của nhà trường. Việc ứng dụng kiến trúc Monorepo (Turborepo) và phân chia thành các gói dùng chung (Shared Packages) giúp các team dev tiết kiệm tới 50% thời gian code giao diện lặp lại.",
+    content: `Hệ thống hạ tầng giáo dục sinh thái Mẫu giáo - Tiểu học - THCS.
+
+### Bài toán Đặt ra
+Đại diện Chủ đầu tư yêu cầu một hệ sinh thái Web chia làm 4 tên miền (domain) riêng biệt phục vụ cho 4 nhóm đối tượng khác nhau, nhưng bắt buộc phải tận dụng tối đa Design System chung để duy trì bộ nhận diện thương hiệu tuyệt đối.
+
+### Kiến trúc & Triển khai thực tế
+- **Monorepo với công nghệ Turborepo:** Triển khai luồng kiến trúc gom cụm tất cả mã nguồn rời rạc vào một Repository khổng lồ, tạo ra các Shared Package như \`ui-components\`, \`configs\`, \`utils\`.
+- **Cấu trúc UI System:** Tuỳ biến triệt để ShadCN UI và Tailwind CSS. Theme động hoàn toàn dựa trên quy chuẩn màu sắc phòng Marketing.
+- **Hiệu năng SSG & SEO:** Áp dụng phương thức Next.js Statically Generated nhằm mang lại tốc độ tải trang cực nhanh (PageSpeed Insights luôn trên 95) và thẻ Meta chuẩn SEO cho chiến dịch quảng cáo.
+
+<video class="w-full rounded-2xl shadow-2xl mt-8" controls autoPlay loop muted>
+  <source src="/videos/lhs-demo.mp4" type="video/mp4" />
+</video>
+*Video trải nghiệm mượt mà Animation của hệ thống Frontend Landing Page*`,
     liveUrl: "https://lhbs-edu-vn.devdotnet.id.vn/",
     featured: true,
-  },
-  {
-    id: "poly-health",
-    title: "Hệ thống Quản lý Bệnh viện Đa khoa",
-    summary: "Nền tảng Cloud toàn diện quản lý hồ sơ bệnh án điện tử, lên lịch khám bệnh và theo dõi điều trị nội trú với độ bảo mật chống rò rỉ hình ảnh.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
-    year: "2025",
-    color: "#2DD4BF", // Emerald-400
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
-    role: "Fullstack Developer",
-    content: "Đây là dự án tiên phong số hóa toàn bộ hệ thống lưu trữ bệnh án cho Bệnh viện Đa khoa. Hệ thống giải quyết bài toán tra cứu lịch sử khám bệnh chậm chạp và thường xuyên mất mát hồ sơ giấy. Bằng việc triển khai hạ tầng PostgreSQL trên Cloud kết hợp Next.js App Router, ứng dụng có khả năng phản hồi tìm kiếm 10.000+ bệnh nhân chỉ dưới 1s. Hệ thống cũng đã đạt chuẩn HIPPA thông qua xác thực đa lớp (MFA) đối với bác sĩ.",
-    liveUrl: "https://demo.hospital.vn",
-    githubUrl: "#",
-  },
-  {
-    id: "b2b-supply-chain",
-    title: "Sàn Thương Mại Điện Tử B2B Khách Buôn",
-    summary: "Hệ thống sàn giao dịch nội bộ, giám sát tồn kho thời gian thực, điều phối chuỗi cung ứng và tự động xuất hóa đơn đỏ (e-Invoice).",
-    stack: ["Next.js", "Node.js", "Prisma", "Redis"],
-    year: "2024",
-    color: "#818CF8", // Indigo-400
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
-    role: "Backend Engineer Lead",
-    content: "Đóng vai trò tái thiết kế toàn bộ logic xác thực báo giá biến động theo thời gian thực cho hơn 200 nhà cung cấp bán buôn. Áp dụng Redis Pub/Sub để phát luồng dữ liệu (Socket.io) giúp nhân viên kho lập tức thấy đơn đổ về. Tích hợp trực tiếp hệ thống khai báo hóa đơn điện toán đám mây cho nhà nước.",
-    liveUrl: "https://b2b.platform.vn",
-  },
-  {
-    id: "edtech-master",
-    title: "Nền tảng Học trực tuyến EdTech Master",
-    summary: "CMS quản lý hệ sinh thái bài giảng trực tuyến, thi trắc nghiệm và phòng live stream lên tới 50,000 học viên.",
-    stack: ["React", "TypeScript", "NestJS", "Docker"],
-    year: "2024",
-    color: "#F472B6", // Indigo-400
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=800&auto=format&fit=crop",
-    role: "Frontend Developer",
-    content: "Nền tảng Video E-Learning sử dụng kĩ thuật HLS (HTTP Live Streaming) có khả năng mã hóa chặn tải lậu (DRM). Xây dựng trình kéo thả nội dung khóa học bằng React-Beautiful-DnD cho giáo viên. Tối ưu CSS để giao diện học tập cực mượt mà kể cả vào lúc quá tải máy chủ đợt thi cuối kỳ.",
-  },
-  {
-    id: "theodoi-finance",
-    title: "Ứng dụng Tài chính Thông minh TheoDoi",
-    summary: "Mobile App phân tích chi tiêu cá nhân sử dụng các mô hình AI để tự động chấm điểm xếp hạng tài chính và cảnh báo rủi ro lạm chi.",
-    stack: ["React Native", "Expo", "Firebase", "Express"],
-    year: "2023",
-    color: "#A78BFA", 
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop",
-    role: "Mobile App Developer",
-    content: "Đây là dự án đoạt giải Ý Tưởng của năm. Viết trên React Native Expo thuần Typescript với Firebase Offline-first, người dùng có thể nhập chi tiêu ngay cả khi trên máy bay không có Wifi. Back-end sử dụng một mô hình scikit-learn nhỏ để phân loại hóa đơn (Ăn uống, Giải trí, Hóa đơn).",
-    githubUrl: "https://github.com/nguyenphat006",
-  },
-  {
-    id: "cicd-autodeploy",
-    title: "Kiến trúc Triển khai CI/CD AutoDeploy",
-    summary: "Xây dựng Pipeline tự động hóa 100% quy trình Testing, Linting và Deploy các cụm microservices nội bộ lên máy chủ đám mây.",
-    stack: ["Jenkins", "Golang", "Kubernetes", "AWS"],
-    year: "2023",
-    color: "#FB923C", 
-    image: "https://images.unsplash.com/photo-1618401471353-b98a520ed217?q=80&w=800&auto=format&fit=crop",
-    role: "DevOps Engineer",
-    content: "Dự án DevOps nội bộ nhắm tới việc giảm thiểu thời gian code đưa lên production từ 3 tiếng xuống còn 15 phút. Kiến trúc bao gồm viết script cấu hình Kubernetes, sử dụng AWS EKS để auto-scale và dùng Golang xử lý Log báo lỗi lên Telegram ngay lập tức.",
-  },
-  {
-    id: "hrm-dashboard",
-    title: "Dashboard Quản trị Nhận sự Tập đoàn",
-    summary: "Giao diện kiểm soát thông tin nhân sự cực kỳ trực quan với hệ thống cấp quyền phi tập trung và biểu đồ tương tác.",
-    stack: ["Vue.js", "Nuxt.js", "TailwindCSS", "GraphQL"],
-    year: "2022",
-    color: "#38BDF8", 
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-    role: "Fullstack Developer",
-    content: "Phiên bản thiết kế lại (Redesign) cho hệ thống chấm công cũ kĩ. Xây dựng trang đánh giá KPI KPI 360 độ (nhân viên đánh giá xếp chéo). Sử dụng kiến trúc GraphQL để gọi các luồng dữ liệu khổng lồ của ngàn nhân viên trong 1 query duy nhất chống lag cục bộ.",
-  },
+  }
 ];
