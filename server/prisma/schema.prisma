@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  title     String
+  summary   String
+  stack     String[]
+  year      String
+  image     String
+  color     String
+  role      String
+  content   String   @db.Text
+  liveUrl   String?
+  githubUrl String?
+  featured  Boolean  @default(false)
+  
+  // Audit & Status fields
+  description String?  @db.Text
+  isActive    Boolean  @default(true)
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  createdBy   String?
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  title     String
+  excerpt   String
+  date      String
+  category  String
+  readTime  String
+  image     String
+  content   String   @db.Text
+  
+  // Audit & Status fields
+  description String?  @db.Text
+  isActive    Boolean  @default(true)
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  createdBy   String?
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String   @db.Text
+  
+  // Audit & Status fields
+  description String?  @db.Text
+  isActive    Boolean  @default(true)
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  createdBy   String?
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
