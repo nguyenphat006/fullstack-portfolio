@@ -1,0 +1,28 @@
+{
+  "edit": "Chỉnh sửa",
+  "notFound": "Không tìm thấy {entity}",
+  "notFoundHint": "Bản ghi không tồn tại hoặc đã bị xóa.",
+  "backToList": "Về danh sách",
+  "actionFailed": "Không thể thực hiện thao tác",
+  "updated": "Cập nhật {time}",
+  "updatedBy": "Cập nhật {time} bởi {user}",
+  "collapse": "Thu gọn",
+  "showMore": "Xem thêm {count} thông tin",
+  "tabs": {
+    "attachments": "Tệp đính kèm",
+    "audit": "Nhật ký"
+  },
+  "audit": {
+    "system": "Hệ thống",
+    "loadError": "Không tải được nhật ký",
+    "empty": "Chưa có hoạt động nào",
+    "emptyHint": "Mọi thay đổi trên bản ghi này sẽ được ghi lại tại đây.",
+    "loadMore": "Tải thêm"
+  },
+  "quickView": {
+    "title": "Xem nhanh",
+    "description": "Thông tin chính của bản ghi",
+    "loadError": "Không tải được bản ghi.",
+    "openDetail": "Mở trang chi tiết"
+  }
+}

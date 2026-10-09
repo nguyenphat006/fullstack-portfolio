@@ -1,0 +1,7 @@
+{
+  "title": "Notifications",
+  "ariaUnread": "Notifications, {count} unread",
+  "markAllRead": "Mark all as read",
+  "empty": "No notifications yet",
+  "downloadFailed": "Could not download the file"
+}

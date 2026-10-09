@@ -1,0 +1,15 @@
+{
+  "pageTitle": "Liên hệ",
+  "title": "Liên hệ",
+  "entity": "liên hệ",
+  "searchPlaceholder": "Tìm theo tên, email, nội dung…",
+  "fields": {
+    "name": "Họ tên",
+    "email": "Email",
+    "message": "Nội dung"
+  },
+  "form": {
+    "createTitle": "Thêm liên hệ",
+    "editTitle": "Sửa liên hệ {code}"
+  }
+}

@@ -1,0 +1,6342 @@
+openapi: 3.0.3
+info:
+  title: Portfolio API Documentation
+  version: 1.0.0
+  description: 'API quản trị nội dung Portfolio (Django + Next.js, tác giả: ERICSS)'
+paths:
+  /api/v1/attachments/:
+    get:
+      operationId: attachments_list
+      description: |-
+        ViewSet quản lý tệp đính kèm đa hình (Polymorphic Attachment Storage).
+        Hỗ trợ upload ảnh, bản vẽ CAD, PDF, tài liệu Word/Excel cho bất kỳ thực thể nào trong hệ thống.
+      summary: Lấy danh sách tệp đính kèm theo thực thể
+      parameters:
+      - in: query
+        name: entity_id
+        schema:
+          type: integer
+        description: ID của thực thể
+      - in: query
+        name: entity_type
+        schema:
+          type: string
+        description: 'Loại thực thể: USER, PRODUCT_BASE, MATERIAL, WORK_ORDER...'
+      - in: query
+        name: file_category
+        schema:
+          type: string
+        description: 'Phân loại tệp: IMAGE, CAD_DRAWING, SPEC_SHEET, CONTRACT, DOCUMENT,
+          OTHER'
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAttachmentList'
+          description: ''
+    post:
+      operationId: attachments_create
+      description: |-
+        ViewSet quản lý tệp đính kèm đa hình (Polymorphic Attachment Storage).
+        Hỗ trợ upload ảnh, bản vẽ CAD, PDF, tài liệu Word/Excel cho bất kỳ thực thể nào trong hệ thống.
+      summary: Tải lên tệp đính kèm mới (Multipart Form-Data)
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/{id}/:
+    get:
+      operationId: attachments_retrieve
+      description: |-
+        ViewSet quản lý tệp đính kèm đa hình (Polymorphic Attachment Storage).
+        Hỗ trợ upload ảnh, bản vẽ CAD, PDF, tài liệu Word/Excel cho bất kỳ thực thể nào trong hệ thống.
+      summary: Xem chi tiết thông tin tệp đính kèm
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tệp đính kèm.
+        required: true
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+    put:
+      operationId: attachments_update
+      description: |-
+        ViewSet quản lý tệp đính kèm đa hình (Polymorphic Attachment Storage).
+        Hỗ trợ upload ảnh, bản vẽ CAD, PDF, tài liệu Word/Excel cho bất kỳ thực thể nào trong hệ thống.
+      summary: Cập nhật ghi chú / phân loại tệp
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tệp đính kèm.
+        required: true
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+    patch:
+      operationId: attachments_partial_update
+      description: |-
+        ViewSet quản lý tệp đính kèm đa hình (Polymorphic Attachment Storage).
+        Hỗ trợ upload ảnh, bản vẽ CAD, PDF, tài liệu Word/Excel cho bất kỳ thực thể nào trong hệ thống.
+      summary: Cập nhật một phần thông tin tệp
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tệp đính kèm.
+        required: true
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAttachmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAttachmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAttachmentRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+    delete:
+      operationId: attachments_destroy
+      description: |-
+        ViewSet quản lý tệp đính kèm đa hình (Polymorphic Attachment Storage).
+        Hỗ trợ upload ảnh, bản vẽ CAD, PDF, tài liệu Word/Excel cho bất kỳ thực thể nào trong hệ thống.
+      summary: Xóa tệp (xóa mềm)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tệp đính kèm.
+        required: true
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/attachments/{id}/file/:
+    get:
+      operationId: attachments_file_retrieve
+      description: Link lấy từ `file_url` (đã kiểm tra quyền khi sinh link) — dùng
+        được cho <img>, xem trước, tải xuống.
+      summary: Tải nội dung tệp qua link có chữ ký (hết hạn sau 1 giờ)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tệp đính kèm.
+        required: true
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/{id}/hard-delete/:
+    delete:
+      operationId: attachments_hard_delete_destroy
+      description: Xóa vĩnh viễn file vật lý và bản ghi khỏi cơ sở dữ liệu.
+      summary: Xóa vĩnh viễn tệp đính kèm khỏi hệ thống (Hard Delete)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tệp đính kèm.
+        required: true
+      tags:
+      - Tệp Đính Kèm (Attachments)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/attachments/batch-delete/:
+    post:
+      operationId: attachments_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - attachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/batch-status/:
+    post:
+      operationId: attachments_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - attachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/excel-template/:
+    get:
+      operationId: attachments_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - attachments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/export-columns/:
+    get:
+      operationId: attachments_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - attachments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/export-excel/:
+    get:
+      operationId: attachments_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - attachments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+    post:
+      operationId: attachments_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - attachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/attachments/statistics/:
+    get:
+      operationId: attachments_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - attachments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+          description: ''
+  /api/v1/audit-logs/:
+    get:
+      operationId: audit_logs_list
+      description: |-
+        ViewSet cung cấp danh sách và chi tiết các sự kiện thay đổi dữ liệu (Audit Logs)
+        được ghi lại tự động bởi PostgreSQL Triggers qua django-pghistory.
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Nhật Ký Thao Tác (Audit Logs)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAuditLogEventList'
+          description: ''
+  /api/v1/audit-logs/{id}/:
+    get:
+      operationId: audit_logs_retrieve
+      description: |-
+        ViewSet cung cấp danh sách và chi tiết các sự kiện thay đổi dữ liệu (Audit Logs)
+        được ghi lại tự động bởi PostgreSQL Triggers qua django-pghistory.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Nhật Ký Thao Tác (Audit Logs)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogEvent'
+          description: ''
+  /api/v1/audit-logs/options/:
+    get:
+      operationId: audit_logs_options_retrieve
+      description: |-
+        API trả về danh sách các Models và Actions cố định có trong hệ thống để làm dropdown filter trên giao diện.
+        Toàn bộ Actions được đồng bộ hóa chuẩn xác theo danh mục RBAC của hệ thống.
+        Danh sách Users được phục vụ độc lập qua API Users riêng (/api/v1/users/) để hỗ trợ phân trang và tìm kiếm.
+      tags:
+      - Nhật Ký Thao Tác (Audit Logs)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogEvent'
+          description: ''
+  /api/v1/auth/change-password/:
+    post:
+      operationId: auth_change_password_create
+      description: API Đổi mật khẩu cho người dùng hiện tại.
+      tags:
+      - Xác thực (Authentication)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/login/:
+    post:
+      operationId: auth_login_create
+      description: 'API Đăng nhập: Trả về JWT Access Token, Refresh Token và Thông
+        tin Người dùng kèm Roles.'
+      tags:
+      - Xác thực (Authentication)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/logout/:
+    post:
+      operationId: auth_logout_create
+      description: 'API Đăng xuất: Blacklist Refresh Token phía máy chủ.'
+      tags:
+      - Xác thực (Authentication)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogoutRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LogoutRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LogoutRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      description: API Lấy và Cập nhật thông tin tài khoản đang đăng nhập từ JWT Token.
+      tags:
+      - Xác thực (Authentication)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserProfile'
+          description: ''
+    patch:
+      operationId: auth_me_partial_update
+      description: API Lấy và Cập nhật thông tin tài khoản đang đăng nhập từ JWT Token.
+      tags:
+      - Xác thực (Authentication)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserProfile'
+          description: ''
+  /api/v1/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/blogs/:
+    get:
+      operationId: blogs_list
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Danh sách bài viết
+      parameters:
+      - in: query
+        name: category__icontains
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: slug__icontains
+        schema:
+          type: string
+      - in: query
+        name: title__icontains
+        schema:
+          type: string
+      - in: query
+        name: updated_at__date__gte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: updated_at__date__lte
+        schema:
+          type: string
+          format: date
+      tags:
+      - Bài viết
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBlogList'
+          description: ''
+    post:
+      operationId: blogs_create
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Tạo mới bài viết
+      tags:
+      - Bài viết
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BlogCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BlogCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogCreateUpdate'
+          description: ''
+  /api/v1/blogs/{id}/:
+    get:
+      operationId: blogs_retrieve
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Chi tiết bài viết
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bài viết.
+        required: true
+      tags:
+      - Bài viết
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+    put:
+      operationId: blogs_update
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Cập nhật bài viết
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bài viết.
+        required: true
+      tags:
+      - Bài viết
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BlogCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BlogCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogCreateUpdate'
+          description: ''
+    patch:
+      operationId: blogs_partial_update
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Cập nhật một phần bài viết
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bài viết.
+        required: true
+      tags:
+      - Bài viết
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBlogCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBlogCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBlogCreateUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogCreateUpdate'
+          description: ''
+    delete:
+      operationId: blogs_destroy
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Xóa mềm bài viết
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bài viết.
+        required: true
+      tags:
+      - Bài viết
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/blogs/batch-delete/:
+    post:
+      operationId: blogs_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/v1/blogs/batch-status/:
+    post:
+      operationId: blogs_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/v1/blogs/excel-template/:
+    get:
+      operationId: blogs_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/v1/blogs/export-columns/:
+    get:
+      operationId: blogs_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/v1/blogs/export-excel/:
+    get:
+      operationId: blogs_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+    post:
+      operationId: blogs_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/v1/blogs/statistics/:
+    get:
+      operationId: blogs_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - blogs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/v1/contacts/:
+    get:
+      operationId: contacts_list
+      description: |-
+        Liên hệ gửi từ form landing (API công khai nhận form sẽ bổ sung khi nối landing với backend).
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Danh sách liên hệ
+      parameters:
+      - in: query
+        name: created_at__date__gte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: created_at__date__lte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: email__icontains
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: name__icontains
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Liên hệ
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedContactList'
+          description: ''
+    post:
+      operationId: contacts_create
+      description: |-
+        Liên hệ gửi từ form landing (API công khai nhận form sẽ bổ sung khi nối landing với backend).
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Tạo mới liên hệ
+      tags:
+      - Liên hệ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContactCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContactCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCreateUpdate'
+          description: ''
+  /api/v1/contacts/{id}/:
+    get:
+      operationId: contacts_retrieve
+      description: |-
+        Liên hệ gửi từ form landing (API công khai nhận form sẽ bổ sung khi nối landing với backend).
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Chi tiết liên hệ
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this liên hệ.
+        required: true
+      tags:
+      - Liên hệ
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+    put:
+      operationId: contacts_update
+      description: |-
+        Liên hệ gửi từ form landing (API công khai nhận form sẽ bổ sung khi nối landing với backend).
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Cập nhật liên hệ
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this liên hệ.
+        required: true
+      tags:
+      - Liên hệ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContactCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContactCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCreateUpdate'
+          description: ''
+    patch:
+      operationId: contacts_partial_update
+      description: |-
+        Liên hệ gửi từ form landing (API công khai nhận form sẽ bổ sung khi nối landing với backend).
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Cập nhật một phần liên hệ
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this liên hệ.
+        required: true
+      tags:
+      - Liên hệ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedContactCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedContactCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedContactCreateUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCreateUpdate'
+          description: ''
+    delete:
+      operationId: contacts_destroy
+      description: |-
+        Liên hệ gửi từ form landing (API công khai nhận form sẽ bổ sung khi nối landing với backend).
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Xóa mềm liên hệ
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this liên hệ.
+        required: true
+      tags:
+      - Liên hệ
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/contacts/batch-delete/:
+    post:
+      operationId: contacts_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/v1/contacts/batch-status/:
+    post:
+      operationId: contacts_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/v1/contacts/excel-template/:
+    get:
+      operationId: contacts_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/v1/contacts/export-columns/:
+    get:
+      operationId: contacts_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/v1/contacts/export-excel/:
+    get:
+      operationId: contacts_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+    post:
+      operationId: contacts_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/v1/contacts/statistics/:
+    get:
+      operationId: contacts_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - contacts
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+          description: ''
+  /api/v1/dashboard/overview/:
+    get:
+      operationId: dashboard_overview_retrieve
+      description: Số liệu trang Tổng quan (chỉ cần đăng nhập; từng khối tự lọc theo
+        quyền của user).
+      summary: Số liệu trang Tổng quan
+      tags:
+      - Tổng quan (Dashboard)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardOverview'
+          description: ''
+  /api/v1/health/:
+    get:
+      operationId: health_retrieve
+      description: |-
+        Kiểm tra sức khỏe hệ thống (public, không cần đăng nhập) — dùng cho Docker healthcheck,
+        load balancer và khung trạng thái trên Dashboard. Trả 503 nếu CSDL lỗi.
+        Không lộ thông tin nhạy cảm (chỉ tên lớp lỗi, không có message/host).
+      summary: Kiểm tra sức khỏe hệ thống
+      tags:
+      - Hệ thống
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+          description: ''
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+          description: ''
+  /api/v1/jobs/:
+    get:
+      operationId: jobs_list
+      description: |-
+        ViewSet quản lý các tác vụ nền (Background Tasks): Xuất/Nhập dữ liệu Excel/CSV.
+        Cho phép kiểm tra tiến độ (% progress) và tải file kết quả về máy.
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDataTransferJobList'
+          description: ''
+  /api/v1/jobs/{id}/:
+    get:
+      operationId: jobs_retrieve
+      description: |-
+        ViewSet quản lý các tác vụ nền (Background Tasks): Xuất/Nhập dữ liệu Excel/CSV.
+        Cho phép kiểm tra tiến độ (% progress) và tải file kết quả về máy.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tác vụ truyền dữ liệu.
+        required: true
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTransferJob'
+          description: ''
+  /api/v1/jobs/{id}/download/:
+    get:
+      operationId: jobs_download_retrieve
+      description: API Tải file kết quả của tác vụ đã hoàn tất.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tác vụ truyền dữ liệu.
+        required: true
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTransferJob'
+          description: ''
+  /api/v1/jobs/{id}/status/:
+    get:
+      operationId: jobs_status_retrieve
+      description: 'API Polling: Kiểm tra trạng thái và % tiến độ của một tác vụ cụ
+        thể.'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tác vụ truyền dữ liệu.
+        required: true
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTransferJob'
+          description: ''
+  /api/v1/modules/:
+    get:
+      operationId: modules_list
+      description: |-
+        ViewSet Quản lý Danh mục Phân hệ và Điều hướng Navigation.
+        Hỗ trợ tạo module + tick chọn actions tự động sinh permissions.
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: is_navigation
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: parent_code
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedModuleRegistryList'
+          description: ''
+    post:
+      operationId: modules_create
+      description: |-
+        ViewSet Quản lý Danh mục Phân hệ và Điều hướng Navigation.
+        Hỗ trợ tạo module + tick chọn actions tự động sinh permissions.
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleCreate'
+          description: ''
+  /api/v1/modules/{id}/:
+    get:
+      operationId: modules_retrieve
+      description: |-
+        ViewSet Quản lý Danh mục Phân hệ và Điều hướng Navigation.
+        Hỗ trợ tạo module + tick chọn actions tự động sinh permissions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Cấu hình Phân hệ & Điều
+          hướng.
+        required: true
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+    put:
+      operationId: modules_update
+      description: |-
+        ViewSet Quản lý Danh mục Phân hệ và Điều hướng Navigation.
+        Hỗ trợ tạo module + tick chọn actions tự động sinh permissions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Cấu hình Phân hệ & Điều
+          hướng.
+        required: true
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+    patch:
+      operationId: modules_partial_update
+      description: |-
+        ViewSet Quản lý Danh mục Phân hệ và Điều hướng Navigation.
+        Hỗ trợ tạo module + tick chọn actions tự động sinh permissions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Cấu hình Phân hệ & Điều
+          hướng.
+        required: true
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedModuleRegistryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedModuleRegistryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedModuleRegistryRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+    delete:
+      operationId: modules_destroy
+      description: |-
+        ViewSet Quản lý Danh mục Phân hệ và Điều hướng Navigation.
+        Hỗ trợ tạo module + tick chọn actions tự động sinh permissions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Cấu hình Phân hệ & Điều
+          hướng.
+        required: true
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/modules/{id}/add-action/:
+    post:
+      operationId: modules_add_action_create
+      description: API Thêm Action (Permission) vào module.
+      summary: Thêm một Action (Permission) mới vào Module có sẵn
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Cấu hình Phân hệ & Điều
+          hướng.
+        required: true
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleAddActionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleAddActionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleAddActionRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/{id}/remove-action/{permission_id}/:
+    delete:
+      operationId: modules_remove_action_destroy
+      description: API Xóa Action khỏi module.
+      summary: Xóa một Action (Permission) khỏi Module
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Cấu hình Phân hệ & Điều
+          hướng.
+        required: true
+      - in: path
+        name: permission_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/modules/batch-delete/:
+    post:
+      operationId: modules_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - modules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/batch-status/:
+    post:
+      operationId: modules_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - modules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/excel-template/:
+    get:
+      operationId: modules_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - modules
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/export-columns/:
+    get:
+      operationId: modules_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - modules
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/export-excel/:
+    get:
+      operationId: modules_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - modules
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+    post:
+      operationId: modules_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - modules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleRegistryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/navigation/:
+    get:
+      operationId: modules_navigation_retrieve
+      description: |-
+        API Trả về cây Menu cho Sidebar đã được lọc theo quyền `*_VIEW` của User hiện tại.
+        Hỗ trợ phân cấp Parent-Child tự động và caching siêu tốc (~0.1ms).
+      summary: Lấy cây Navigation Menu cho Sidebar theo phân quyền của User hiện tại
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/reorder/:
+    post:
+      operationId: modules_reorder_create
+      description: API Sắp xếp lại thứ tự (sort_order) cho các module theo danh sách
+        IDs.
+      summary: Sắp xếp lại thứ tự hàng loạt Module theo danh sách IDs
+      tags:
+      - Cấu hình Phân hệ & Điều hướng (Module Registry)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleReorderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ModuleReorderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModuleReorderRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/modules/statistics/:
+    get:
+      operationId: modules_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - modules
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleRegistry'
+          description: ''
+  /api/v1/notifications/:
+    get:
+      operationId: notifications_list
+      description: |-
+        Thông báo của CHÍNH người đang đăng nhập — không cần mã quyền, không xem được của người khác.
+        `?unread=true` chỉ lấy thông báo chưa đọc.
+      summary: Danh sách thông báo của tôi
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: unread
+        schema:
+          type: boolean
+        description: Chỉ lấy thông báo chưa đọc
+      tags:
+      - Thông báo (Notifications)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNotificationList'
+          description: ''
+  /api/v1/notifications/{id}/read/:
+    post:
+      operationId: notifications_read_create
+      description: |-
+        Thông báo của CHÍNH người đang đăng nhập — không cần mã quyền, không xem được của người khác.
+        `?unread=true` chỉ lấy thông báo chưa đọc.
+      summary: Đánh dấu 1 thông báo đã đọc
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Thông báo.
+        required: true
+      tags:
+      - Thông báo (Notifications)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/v1/notifications/read-all/:
+    post:
+      operationId: notifications_read_all_create
+      description: |-
+        Thông báo của CHÍNH người đang đăng nhập — không cần mã quyền, không xem được của người khác.
+        `?unread=true` chỉ lấy thông báo chưa đọc.
+      summary: Đánh dấu tất cả đã đọc
+      tags:
+      - Thông báo (Notifications)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnreadCount'
+          description: ''
+  /api/v1/notifications/unread-count/:
+    get:
+      operationId: notifications_unread_count_retrieve
+      description: |-
+        Thông báo của CHÍNH người đang đăng nhập — không cần mã quyền, không xem được của người khác.
+        `?unread=true` chỉ lấy thông báo chưa đọc.
+      summary: Số thông báo chưa đọc
+      tags:
+      - Thông báo (Notifications)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnreadCount'
+          description: ''
+  /api/v1/permissions/:
+    get:
+      operationId: permissions_list
+      description: ViewSet Danh mục Quyền hạn (Read-only).
+      parameters:
+      - in: query
+        name: module
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Danh mục Quyền hạn (Permissions)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPermissionList'
+          description: ''
+  /api/v1/permissions/{id}/:
+    get:
+      operationId: permissions_retrieve
+      description: ViewSet Danh mục Quyền hạn (Read-only).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Quyền hạn chi tiết.
+        required: true
+      tags:
+      - Danh mục Quyền hạn (Permissions)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+          description: ''
+  /api/v1/permissions/grouped/:
+    get:
+      operationId: permissions_grouped_retrieve
+      description: API trả về danh sách quyền đã nhóm theo từng phân hệ (sắp xếp chuẩn
+        VIEW-READ-CREATE-UPDATE-DELETE-APPROVE-EXPORT-IMPORT), kèm icon và module_name
+        từ ModuleRegistry.
+      summary: Lấy danh mục quyền hạn nhóm theo phân hệ (Module) kèm Metadata
+      tags:
+      - Danh mục Quyền hạn (Permissions)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+          description: ''
+  /api/v1/projects/:
+    get:
+      operationId: projects_list
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Danh sách dự án
+      parameters:
+      - in: query
+        name: featured
+        schema:
+          type: boolean
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: slug__icontains
+        schema:
+          type: string
+      - in: query
+        name: title__icontains
+        schema:
+          type: string
+      - in: query
+        name: updated_at__date__gte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: updated_at__date__lte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: year
+        schema:
+          type: string
+      tags:
+      - Dự án
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectList'
+          description: ''
+    post:
+      operationId: projects_create
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Tạo mới dự án
+      tags:
+      - Dự án
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCreateUpdate'
+          description: ''
+  /api/v1/projects/{id}/:
+    get:
+      operationId: projects_retrieve
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Chi tiết dự án
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this dự án.
+        required: true
+      tags:
+      - Dự án
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    put:
+      operationId: projects_update
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Cập nhật dự án
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this dự án.
+        required: true
+      tags:
+      - Dự án
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCreateUpdate'
+          description: ''
+    patch:
+      operationId: projects_partial_update
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Cập nhật một phần dự án
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this dự án.
+        required: true
+      tags:
+      - Dự án
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProjectCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProjectCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProjectCreateUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCreateUpdate'
+          description: ''
+    delete:
+      operationId: projects_destroy
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Xóa mềm dự án
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this dự án.
+        required: true
+      tags:
+      - Dự án
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/projects/batch-delete/:
+    post:
+      operationId: projects_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/projects/batch-status/:
+    post:
+      operationId: projects_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/projects/excel-template/:
+    get:
+      operationId: projects_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/projects/export-columns/:
+    get:
+      operationId: projects_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/projects/export-excel/:
+    get:
+      operationId: projects_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    post:
+      operationId: projects_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/projects/statistics/:
+    get:
+      operationId: projects_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - projects
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/roles/:
+    get:
+      operationId: roles_list
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Quản lý Vai trò (Roles)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRoleList'
+          description: ''
+    post:
+      operationId: roles_create
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      tags:
+      - Quản lý Vai trò (Roles)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/{id}/:
+    get:
+      operationId: roles_retrieve
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Vai trò người dùng.
+        required: true
+      tags:
+      - Quản lý Vai trò (Roles)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+    put:
+      operationId: roles_update
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Vai trò người dùng.
+        required: true
+      tags:
+      - Quản lý Vai trò (Roles)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+    patch:
+      operationId: roles_partial_update
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Vai trò người dùng.
+        required: true
+      tags:
+      - Quản lý Vai trò (Roles)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRoleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRoleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRoleRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+    delete:
+      operationId: roles_destroy
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Vai trò người dùng.
+        required: true
+      tags:
+      - Quản lý Vai trò (Roles)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/roles/{id}/set-permissions/:
+    post:
+      operationId: roles_set_permissions_create
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      summary: Cập nhật danh sách quyền hạn cho Vai trò
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Vai trò người dùng.
+        required: true
+      tags:
+      - Quản lý Vai trò (Roles)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RolePermissionAssignRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RolePermissionAssignRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RolePermissionAssignRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/batch-delete/:
+    post:
+      operationId: roles_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/batch-set-permissions/:
+    post:
+      operationId: roles_batch_set_permissions_create
+      description: ViewSet Quản lý Danh mục Vai trò RBAC (Kế thừa BaseERPViewSet).
+      summary: Cập nhật ma trận phân quyền hàng loạt cho nhiều Vai trò cùng lúc
+      tags:
+      - Quản lý Vai trò (Roles)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleMatrixBatchRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleMatrixBatchRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleMatrixBatchRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/batch-status/:
+    post:
+      operationId: roles_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/excel-template/:
+    get:
+      operationId: roles_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - roles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/export-columns/:
+    get:
+      operationId: roles_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - roles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/export-excel/:
+    get:
+      operationId: roles_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - roles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+    post:
+      operationId: roles_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/roles/statistics/:
+    get:
+      operationId: roles_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - roles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: ''
+  /api/v1/search/:
+    get:
+      operationId: search_list
+      description: Chỉ cần đăng nhập; từng phân hệ tự lọc theo quyền `<MODULE>_READ`
+        của người dùng.
+      summary: Tìm bản ghi theo mã / tên trên mọi phân hệ được phép xem
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Số kết quả mỗi phân hệ (mặc định 5, tối đa 10)
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Từ khóa, tối thiểu 2 ký tự
+      tags:
+      - Tìm kiếm toàn cục (Global Search)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchGroup'
+          description: ''
+  /api/v1/system-settings/:
+    get:
+      operationId: system_settings_retrieve
+      summary: Xem cấu hình hệ thống
+      tags:
+      - Cấu hình hệ thống (System Settings)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemSettings'
+          description: ''
+    patch:
+      operationId: system_settings_partial_update
+      summary: Cập nhật cấu hình hệ thống
+      tags:
+      - Cấu hình hệ thống (System Settings)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSystemSettingsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSystemSettingsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSystemSettingsRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemSettings'
+          description: ''
+  /api/v1/system-settings/logo/:
+    post:
+      operationId: system_settings_logo_create
+      description: Tải logo (≤ 1MB, png/jpg/webp/svg); DELETE = về logo mặc định.
+      summary: Tải logo ứng dụng
+      tags:
+      - Cấu hình hệ thống (System Settings)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LogoUploadRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemSettings'
+          description: ''
+    delete:
+      operationId: system_settings_logo_destroy
+      description: Tải logo (≤ 1MB, png/jpg/webp/svg); DELETE = về logo mặc định.
+      summary: Bỏ logo (dùng logo mặc định)
+      tags:
+      - Cấu hình hệ thống (System Settings)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/system-settings/public/:
+    get:
+      operationId: system_settings_public_retrieve
+      description: 'Không cần đăng nhập: tên, logo, định dạng mặc định.'
+      summary: Cấu hình hệ thống (công khai)
+      tags:
+      - Cấu hình hệ thống (System Settings)
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemSettingsPublic'
+          description: ''
+  /api/v1/users/:
+    get:
+      operationId: users_list
+      description: 'ViewSet Quản lý Tài khoản Người dùng (Kế thừa BaseERPViewSet:
+        hỗ trợ Soft Delete, Trash, Restore, Pagination, Filtering).'
+      parameters:
+      - in: query
+        name: created_at__date__gte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: created_at__date__lte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: email__icontains
+        schema:
+          type: string
+      - in: query
+        name: full_name__icontains
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: is_superuser
+        schema:
+          type: boolean
+      - in: query
+        name: last_login__date__gte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: last_login__date__lte
+        schema:
+          type: string
+          format: date
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: phone_number__icontains
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_at__date__gte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: updated_at__date__lte
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: username__icontains
+        schema:
+          type: string
+      tags:
+      - Quản lý Tài khoản (Users)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: users_create
+      description: 'ViewSet Quản lý Tài khoản Người dùng (Kế thừa BaseERPViewSet:
+        hỗ trợ Soft Delete, Trash, Restore, Pagination, Filtering).'
+      tags:
+      - Quản lý Tài khoản (Users)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreateUpdate'
+          description: ''
+  /api/v1/users/{id}/:
+    get:
+      operationId: users_retrieve
+      description: 'ViewSet Quản lý Tài khoản Người dùng (Kế thừa BaseERPViewSet:
+        hỗ trợ Soft Delete, Trash, Restore, Pagination, Filtering).'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tài khoản Người dùng.
+        required: true
+      tags:
+      - Quản lý Tài khoản (Users)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_update
+      description: 'ViewSet Quản lý Tài khoản Người dùng (Kế thừa BaseERPViewSet:
+        hỗ trợ Soft Delete, Trash, Restore, Pagination, Filtering).'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tài khoản Người dùng.
+        required: true
+      tags:
+      - Quản lý Tài khoản (Users)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreateUpdateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreateUpdate'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      description: 'ViewSet Quản lý Tài khoản Người dùng (Kế thừa BaseERPViewSet:
+        hỗ trợ Soft Delete, Trash, Restore, Pagination, Filtering).'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tài khoản Người dùng.
+        required: true
+      tags:
+      - Quản lý Tài khoản (Users)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserCreateUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserCreateUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserCreateUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreateUpdate'
+          description: ''
+    delete:
+      operationId: users_destroy
+      description: 'ViewSet Quản lý Tài khoản Người dùng (Kế thừa BaseERPViewSet:
+        hỗ trợ Soft Delete, Trash, Restore, Pagination, Filtering).'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tài khoản Người dùng.
+        required: true
+      tags:
+      - Quản lý Tài khoản (Users)
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/users/batch-delete/:
+    post:
+      operationId: users_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/batch-status/:
+    post:
+      operationId: users_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/excel-template/:
+    get:
+      operationId: users_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/export-columns/:
+    get:
+      operationId: users_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/export-excel/:
+    get:
+      operationId: users_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: users_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/import-excel/:
+    post:
+      operationId: users_import_excel_create
+      description: API Nhập danh sách tài khoản từ file Excel hoặc từ mảng JSON đã
+        parse.
+      summary: Nhập danh sách người dùng từ dữ liệu hoặc file Excel
+      tags:
+      - Quản lý Tài khoản (Users)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/users/statistics/:
+    get:
+      operationId: users_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+components:
+  schemas:
+    ActivityPoint:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        count:
+          type: integer
+      required:
+      - count
+      - date
+    Attachment:
+      type: object
+      description: Serializer cho tệp đính kèm đa hình (Attachments).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        entity_type:
+          type: string
+          title: Loại thực thể
+          description: 'VD: USER, PRODUCT_BASE, PRODUCT_VARIANT, MATERIAL, WORK_ORDER...'
+          maxLength: 50
+        entity_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Mã Id của thực thể đính kèm
+        file_name:
+          type: string
+          title: Tên gốc của tệp
+          maxLength: 255
+        file_url:
+          type: string
+          readOnly: true
+        file_size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Dung lượng tệp (bytes)
+        file_size_formatted:
+          type: string
+          readOnly: true
+        mime_type:
+          type: string
+          nullable: true
+          title: Định dạng MIME
+          maxLength: 100
+        file_category:
+          allOf:
+          - $ref: '#/components/schemas/FileCategoryEnum'
+          title: Phân loại tệp
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+        created_by:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: Người tạo
+        created_by_name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm cập nhật gần nhất
+      required:
+      - created_at
+      - created_by
+      - created_by_name
+      - entity_id
+      - entity_type
+      - file_size_formatted
+      - file_url
+      - id
+      - updated_at
+    AttachmentRequest:
+      type: object
+      description: Serializer cho tệp đính kèm đa hình (Attachments).
+      properties:
+        entity_type:
+          type: string
+          minLength: 1
+          title: Loại thực thể
+          description: 'VD: USER, PRODUCT_BASE, PRODUCT_VARIANT, MATERIAL, WORK_ORDER...'
+          maxLength: 50
+        entity_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Mã Id của thực thể đính kèm
+        file:
+          type: string
+          format: binary
+          writeOnly: true
+          title: Tệp đính kèm
+        file_name:
+          type: string
+          minLength: 1
+          title: Tên gốc của tệp
+          maxLength: 255
+        file_size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Dung lượng tệp (bytes)
+        mime_type:
+          type: string
+          nullable: true
+          title: Định dạng MIME
+          maxLength: 100
+        file_category:
+          allOf:
+          - $ref: '#/components/schemas/FileCategoryEnum'
+          title: Phân loại tệp
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - entity_id
+      - entity_type
+      - file
+    AuditDiffItem:
+      type: object
+      description: Một thay đổi trường dữ liệu — chỉ dùng mô tả OpenAPI.
+      properties:
+        field:
+          type: string
+        label:
+          type: string
+        old_value:
+          nullable: true
+        new_value:
+          nullable: true
+        old_display:
+          type: string
+          nullable: true
+        new_display:
+          type: string
+          nullable: true
+      required:
+      - field
+      - label
+      - new_display
+      - new_value
+      - old_display
+      - old_value
+    AuditLogEvent:
+      type: object
+      description: |-
+        Serializer chuẩn hóa dữ liệu sự kiện từ pghistory.models.Events
+        để hiển thị trên giao diện DataTable và Diff Drawer của Frontend.
+        Toàn bộ mã hành động (action_code) và nhãn (action_label) được chuẩn hóa đồng bộ 100% với RBAC.
+      properties:
+        id:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        model_name:
+          type: string
+          readOnly: true
+        model_code:
+          type: string
+          readOnly: true
+        action_label:
+          type: string
+          readOnly: true
+        action_code:
+          type: string
+          readOnly: true
+        object_id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/AuditUser'
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        ip_address:
+          type: string
+          readOnly: true
+        user_agent:
+          type: string
+          readOnly: true
+        http_method:
+          type: string
+          readOnly: true
+        diff:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditDiffItem'
+          readOnly: true
+        snapshot:
+          readOnly: true
+      required:
+      - action_code
+      - action_label
+      - created_at
+      - diff
+      - http_method
+      - id
+      - ip_address
+      - model_code
+      - model_name
+      - object_id
+      - snapshot
+      - url
+      - user
+      - user_agent
+    AuditUser:
+      type: object
+      description: Người thực hiện thao tác (trích từ pgh_context) — chỉ dùng mô tả
+        OpenAPI.
+      properties:
+        id:
+          type: integer
+          nullable: true
+        username:
+          type: string
+        full_name:
+          type: string
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+      required:
+      - email
+      - full_name
+      - id
+      - roles
+      - username
+    Blog:
+      type: object
+      description: Serializer ĐỌC — dùng cho mọi response (list, detail, sau create/update).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          readOnly: true
+          title: Tiêu đề
+        excerpt:
+          type: string
+          readOnly: true
+          title: Đoạn trích
+        published_date:
+          type: string
+          readOnly: true
+          title: Ngày đăng
+        category:
+          type: string
+          readOnly: true
+          title: Chuyên mục
+        read_time:
+          type: string
+          readOnly: true
+          title: Thời gian đọc
+        image:
+          type: string
+          readOnly: true
+          title: Ảnh đại diện
+        content:
+          type: string
+          readOnly: true
+          title: Nội dung (Markdown)
+        description:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          readOnly: true
+          title: Trạng thái hoạt động
+        created_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        updated_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - category
+      - content
+      - created_at
+      - created_by_name
+      - description
+      - excerpt
+      - id
+      - image
+      - is_active
+      - published_date
+      - read_time
+      - slug
+      - title
+      - updated_at
+      - updated_by_name
+    BlogCreateUpdate:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        slug:
+          type: string
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          title: Tiêu đề
+          maxLength: 255
+        excerpt:
+          type: string
+          title: Đoạn trích
+        published_date:
+          type: string
+          title: Ngày đăng
+          maxLength: 30
+        category:
+          type: string
+          title: Chuyên mục
+          maxLength: 100
+        read_time:
+          type: string
+          title: Thời gian đọc
+          maxLength: 30
+        image:
+          type: string
+          title: Ảnh đại diện
+          maxLength: 500
+        content:
+          type: string
+          title: Nội dung (Markdown)
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - category
+      - content
+      - excerpt
+      - id
+      - image
+      - published_date
+      - read_time
+      - slug
+      - title
+    BlogCreateUpdateRequest:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        slug:
+          type: string
+          minLength: 1
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          minLength: 1
+          title: Tiêu đề
+          maxLength: 255
+        excerpt:
+          type: string
+          minLength: 1
+          title: Đoạn trích
+        published_date:
+          type: string
+          minLength: 1
+          title: Ngày đăng
+          maxLength: 30
+        category:
+          type: string
+          minLength: 1
+          title: Chuyên mục
+          maxLength: 100
+        read_time:
+          type: string
+          minLength: 1
+          title: Thời gian đọc
+          maxLength: 30
+        image:
+          type: string
+          minLength: 1
+          title: Ảnh đại diện
+          maxLength: 500
+        content:
+          type: string
+          minLength: 1
+          title: Nội dung (Markdown)
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - category
+      - content
+      - excerpt
+      - image
+      - published_date
+      - read_time
+      - slug
+      - title
+    CategoryCount:
+      type: object
+      properties:
+        label:
+          type: string
+        count:
+          type: integer
+      required:
+      - count
+      - label
+    ChangePasswordRequest:
+      type: object
+      description: Serializer xử lý đổi mật khẩu cho người dùng hiện tại.
+      properties:
+        old_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 6
+        confirm_password:
+          type: string
+          writeOnly: true
+          minLength: 6
+      required:
+      - confirm_password
+      - new_password
+      - old_password
+    Contact:
+      type: object
+      description: Serializer ĐỌC — dùng cho mọi response (list, detail, sau create/update).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+          title: Họ tên
+        email:
+          type: string
+          format: email
+          readOnly: true
+        message:
+          type: string
+          readOnly: true
+          title: Nội dung
+        description:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          readOnly: true
+          title: Trạng thái hoạt động
+        created_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        updated_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - created_by_name
+      - description
+      - email
+      - id
+      - is_active
+      - message
+      - name
+      - updated_at
+      - updated_by_name
+    ContactCreateUpdate:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Họ tên
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        message:
+          type: string
+          title: Nội dung
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - email
+      - id
+      - message
+      - name
+    ContactCreateUpdateRequest:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Họ tên
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 255
+        message:
+          type: string
+          minLength: 1
+          title: Nội dung
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - email
+      - message
+      - name
+    CurrentUserProfile:
+      type: object
+      description: |-
+        Serializer hiển thị hồ sơ cá nhân và quyền hạn của chính người dùng đang đăng nhập (/auth/me/).
+        Chỉ endpoint này mới cần permissions để frontend phân quyền giao diện (usePermission hook).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Tên đăng nhập
+          description: Yêu cầu. 150 ký tự hoặc ít hơn. Chỉ là chữ cái, chữ số và @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        name:
+          type: string
+          readOnly: true
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        email:
+          title: Địa chỉ email
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: uri
+          nullable: true
+          title: Ảnh đại diện
+        is_active:
+          type: boolean
+          title: Kích hoạt
+          description: Chỉ định xem người dùng này phải được coi là đang hoạt động.
+            Bạn nên bỏ chọn này thay vì xóa tài khoản.
+        is_superuser:
+          type: boolean
+          title: Trạng thái superuser
+          description: Định rằng người dùng này có tất cả các quyền mà không gán cho
+            họ một cách cụ thể.
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRoleSimple'
+          readOnly: true
+        role_codes:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        permissions:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        last_login:
+          type: string
+          format: date-time
+          readOnly: true
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - last_login
+      - name
+      - permissions
+      - role_codes
+      - roles
+      - updated_at
+      - username
+    CustomTokenObtainPairRequest:
+      type: object
+      description: Custom JWT Serializer trả về Access/Refresh Token kèm thông tin
+        User Profile & Roles.
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
+    DashboardOverview:
+      type: object
+      properties:
+        kpis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kpi'
+        activity:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityPoint'
+          nullable: true
+        materials_by_category:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryCount'
+          nullable: true
+        recent_activity:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecentActivity'
+          nullable: true
+      required:
+      - activity
+      - kpis
+      - materials_by_category
+      - recent_activity
+    DataTransferJob:
+      type: object
+      description: Trạng thái tác vụ nền Xuất / Nhập dữ liệu (polling tiến độ từ FloatingTaskWidget).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        job_type:
+          allOf:
+          - $ref: '#/components/schemas/JobTypeEnum'
+          readOnly: true
+          title: Loại tác vụ
+        job_type_display:
+          type: string
+          readOnly: true
+        entity_type:
+          type: string
+          readOnly: true
+          title: Tên loại thực thể
+          description: 'VD: USER, PRODUCT_BASE, MATERIAL, CUSTOMER...'
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DataTransferJobStatusEnum'
+          readOnly: true
+          title: Trạng thái thực thi
+        status_display:
+          type: string
+          readOnly: true
+        progress:
+          type: integer
+          readOnly: true
+          title: Tiến độ hoàn thành (%)
+        total_rows:
+          type: integer
+          readOnly: true
+          title: Tổng số dòng cần xử lý
+        processed_rows:
+          type: integer
+          readOnly: true
+          title: Số dòng đã xử lý xong
+        file_url:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Đường dẫn file kết quả
+        error_message:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Chi tiết lỗi nếu thất bại
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm tạo
+        started_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Thời điểm bắt đầu thực thi
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Thời điểm hoàn tất
+      required:
+      - completed_at
+      - created_at
+      - entity_type
+      - error_message
+      - file_url
+      - id
+      - job_type
+      - job_type_display
+      - processed_rows
+      - progress
+      - started_at
+      - status
+      - status_display
+      - total_rows
+    DataTransferJobStatusEnum:
+      enum:
+      - PENDING
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      type: string
+      description: |-
+        * `PENDING` - Chờ xử lý trong hàng đợi
+        * `PROCESSING` - Đang xử lý dữ liệu
+        * `COMPLETED` - Đã hoàn tất
+        * `FAILED` - Thất bại
+        * `CANCELLED` - Đã hủy bỏ
+    DateFormatEnum:
+      enum:
+      - DD/MM/YYYY
+      - YYYY-MM-DD
+      - MM/DD/YYYY
+      type: string
+      description: |-
+        * `DD/MM/YYYY` - DD/MM/YYYY
+        * `YYYY-MM-DD` - YYYY-MM-DD
+        * `MM/DD/YYYY` - MM/DD/YYYY
+    FileCategoryEnum:
+      enum:
+      - DOCUMENT
+      - IMAGE
+      - CAD_DRAWING
+      - SPEC_SHEET
+      - CONTRACT
+      - OTHER
+      type: string
+      description: |-
+        * `DOCUMENT` - Tài liệu chung
+        * `IMAGE` - Hình ảnh / Bản chụp
+        * `CAD_DRAWING` - Bản vẽ kỹ thuật CAD / DWG
+        * `SPEC_SHEET` - Bản thông số kỹ thuật
+        * `CONTRACT` - Hợp đồng / Đơn vị chứng từ
+        * `OTHER` - Khác
+    HealthComponent:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthComponentStatusEnum'
+        latency_ms:
+          type: number
+          format: double
+        detail:
+          type: string
+      required:
+      - status
+    HealthComponentStatusEnum:
+      enum:
+      - ok
+      - error
+      type: string
+      description: |-
+        * `ok` - ok
+        * `error` - error
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatusStatusEnum'
+        version:
+          type: string
+        database:
+          $ref: '#/components/schemas/HealthComponent'
+        cache:
+          $ref: '#/components/schemas/HealthComponent'
+      required:
+      - cache
+      - database
+      - status
+      - version
+    HealthStatusStatusEnum:
+      enum:
+      - ok
+      - degraded
+      - error
+      type: string
+      description: |-
+        * `ok` - ok
+        * `degraded` - degraded
+        * `error` - error
+    JobTypeEnum:
+      enum:
+      - EXPORT_EXCEL
+      - EXPORT_CSV
+      - IMPORT_EXCEL
+      type: string
+      description: |-
+        * `EXPORT_EXCEL` - Xuất Excel (.xlsx)
+        * `EXPORT_CSV` - Xuất CSV (.csv)
+        * `IMPORT_EXCEL` - Nhập dữ liệu từ Excel
+    Kpi:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        value:
+          type: integer
+        delta:
+          type: integer
+        previous:
+          type: integer
+        hint:
+          type: string
+        href:
+          type: string
+          nullable: true
+      required:
+      - delta
+      - hint
+      - href
+      - key
+      - label
+      - previous
+      - value
+    LevelEnum:
+      enum:
+      - INFO
+      - SUCCESS
+      - WARNING
+      - ERROR
+      type: string
+      description: |-
+        * `INFO` - Thông tin
+        * `SUCCESS` - Thành công
+        * `WARNING` - Cảnh báo
+        * `ERROR` - Lỗi
+    LogoUploadRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+      required:
+      - file
+    LogoutRequestRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    ModuleAddActionRequest:
+      type: object
+      description: Serializer thêm Action đơn lẻ vào module có sẵn.
+      properties:
+        action_code:
+          type: string
+          minLength: 1
+          description: Mã hành động, ví dụ 'APPROVE', 'EXPORT'
+          maxLength: 50
+        action_name:
+          type: string
+          description: Tên hành động
+          maxLength: 255
+        description:
+          type: string
+      required:
+      - action_code
+    ModuleCreate:
+      type: object
+      description: Serializer tạo Module mới, hỗ trợ nhận danh sách actions đã tick
+        chọn để tự động tạo Permissions.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        module_code:
+          type: string
+          title: Mã phân hệ
+          maxLength: 50
+        module_name:
+          type: string
+          title: Tên hiển thị phân hệ
+          maxLength: 255
+        module_name_en:
+          type: string
+          nullable: true
+          title: Tên hiển thị tiếng Anh
+          maxLength: 255
+        icon:
+          type: string
+          nullable: true
+          title: Khóa icon (constants/iconMap)
+          maxLength: 100
+        route_path:
+          type: string
+          nullable: true
+          title: Đường dẫn Route Frontend
+          maxLength: 255
+        parent_code:
+          type: string
+          nullable: true
+          title: Mã phân hệ cha
+          maxLength: 50
+        sort_order:
+          type: integer
+          default: 0
+        is_navigation:
+          type: boolean
+          title: Hiển thị trên Sidebar
+        is_active:
+          type: boolean
+          title: Trạng thái kích hoạt
+        description:
+          type: string
+          nullable: true
+          title: Mô tả phạm vi phân hệ
+        description_en:
+          type: string
+          nullable: true
+          title: Mô tả tiếng Anh
+      required:
+      - id
+      - module_code
+      - module_name
+    ModuleCreateRequest:
+      type: object
+      description: Serializer tạo Module mới, hỗ trợ nhận danh sách actions đã tick
+        chọn để tự động tạo Permissions.
+      properties:
+        module_code:
+          type: string
+          minLength: 1
+          title: Mã phân hệ
+          maxLength: 50
+        module_name:
+          type: string
+          minLength: 1
+          title: Tên hiển thị phân hệ
+          maxLength: 255
+        module_name_en:
+          type: string
+          nullable: true
+          title: Tên hiển thị tiếng Anh
+          maxLength: 255
+        icon:
+          type: string
+          nullable: true
+          title: Khóa icon (constants/iconMap)
+          maxLength: 100
+        route_path:
+          type: string
+          nullable: true
+          title: Đường dẫn Route Frontend
+          maxLength: 255
+        parent_code:
+          type: string
+          nullable: true
+          title: Mã phân hệ cha
+          maxLength: 50
+        sort_order:
+          type: integer
+          default: 0
+        is_navigation:
+          type: boolean
+          title: Hiển thị trên Sidebar
+        is_active:
+          type: boolean
+          title: Trạng thái kích hoạt
+        description:
+          type: string
+          nullable: true
+          title: Mô tả phạm vi phân hệ
+        description_en:
+          type: string
+          nullable: true
+          title: Mô tả tiếng Anh
+        actions:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 50
+          writeOnly: true
+          description: 'Danh sách action codes đã tick chọn (ví dụ: [''VIEW'', ''READ'',
+            ''CREATE'', ''UPDATE'', ''DELETE''])'
+      required:
+      - module_code
+      - module_name
+    ModuleRegistry:
+      type: object
+      description: Serializer CRUD cho ModuleRegistry metadata.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        module_code:
+          type: string
+          readOnly: true
+          title: Mã phân hệ
+        module_name:
+          type: string
+          title: Tên hiển thị phân hệ
+          maxLength: 255
+        module_name_en:
+          type: string
+          nullable: true
+          title: Tên hiển thị tiếng Anh
+          maxLength: 255
+        icon:
+          type: string
+          nullable: true
+          title: Khóa icon (constants/iconMap)
+          maxLength: 100
+        route_path:
+          type: string
+          nullable: true
+          title: Đường dẫn Route Frontend
+          maxLength: 255
+        parent_code:
+          type: string
+          nullable: true
+          title: Mã phân hệ cha
+          maxLength: 50
+        sort_order:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Thứ tự hiển thị trên Sidebar
+        is_navigation:
+          type: boolean
+          title: Hiển thị trên Sidebar
+        is_active:
+          type: boolean
+          title: Trạng thái kích hoạt
+        description:
+          type: string
+          nullable: true
+          title: Mô tả phạm vi phân hệ
+        description_en:
+          type: string
+          nullable: true
+          title: Mô tả tiếng Anh
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+          readOnly: true
+        permissions_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm tạo
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm cập nhật gần nhất
+      required:
+      - created_at
+      - id
+      - module_code
+      - module_name
+      - permissions
+      - permissions_count
+      - updated_at
+    ModuleRegistryRequest:
+      type: object
+      description: Serializer CRUD cho ModuleRegistry metadata.
+      properties:
+        module_name:
+          type: string
+          minLength: 1
+          title: Tên hiển thị phân hệ
+          maxLength: 255
+        module_name_en:
+          type: string
+          nullable: true
+          title: Tên hiển thị tiếng Anh
+          maxLength: 255
+        icon:
+          type: string
+          nullable: true
+          title: Khóa icon (constants/iconMap)
+          maxLength: 100
+        route_path:
+          type: string
+          nullable: true
+          title: Đường dẫn Route Frontend
+          maxLength: 255
+        parent_code:
+          type: string
+          nullable: true
+          title: Mã phân hệ cha
+          maxLength: 50
+        sort_order:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Thứ tự hiển thị trên Sidebar
+        is_navigation:
+          type: boolean
+          title: Hiển thị trên Sidebar
+        is_active:
+          type: boolean
+          title: Trạng thái kích hoạt
+        description:
+          type: string
+          nullable: true
+          title: Mô tả phạm vi phân hệ
+        description_en:
+          type: string
+          nullable: true
+          title: Mô tả tiếng Anh
+      required:
+      - module_name
+    ModuleReorderRequest:
+      type: object
+      description: Serializer sắp xếp lại danh sách Module theo thứ tự IDs.
+      properties:
+        ordered_ids:
+          type: array
+          items:
+            type: integer
+          description: Danh sách ID các Module theo thứ tự mong muốn từ trên xuống
+            dưới
+      required:
+      - ordered_ids
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        level:
+          allOf:
+          - $ref: '#/components/schemas/LevelEnum'
+          readOnly: true
+          title: Mức độ
+        title:
+          type: string
+          readOnly: true
+          title: Tiêu đề
+        message:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Nội dung
+        link:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Đường dẫn khi bấm vào
+        source_type:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Nguồn phát sinh
+        source_id:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: Mã bản ghi nguồn
+        is_read:
+          type: boolean
+          readOnly: true
+        read_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Thời điểm đọc
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - is_read
+      - level
+      - link
+      - message
+      - read_at
+      - source_id
+      - source_type
+      - title
+    NumberFormatEnum:
+      enum:
+      - INTL
+      - VN
+      type: string
+      description: |-
+        * `INTL` - Quốc tế (1,250.50)
+        * `VN` - Việt Nam (1.250,50)
+    PaginatedAttachmentList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    PaginatedAuditLogEventList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLogEvent'
+    PaginatedBlogList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Blog'
+    PaginatedContactList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+    PaginatedDataTransferJobList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataTransferJob'
+    PaginatedModuleRegistryList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleRegistry'
+    PaginatedNotificationList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+    PaginatedPermissionList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+    PaginatedProjectList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    PaginatedRoleList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    PaginatedUserList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedAttachmentRequest:
+      type: object
+      description: Serializer cho tệp đính kèm đa hình (Attachments).
+      properties:
+        entity_type:
+          type: string
+          minLength: 1
+          title: Loại thực thể
+          description: 'VD: USER, PRODUCT_BASE, PRODUCT_VARIANT, MATERIAL, WORK_ORDER...'
+          maxLength: 50
+        entity_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Mã Id của thực thể đính kèm
+        file:
+          type: string
+          format: binary
+          writeOnly: true
+          title: Tệp đính kèm
+        file_name:
+          type: string
+          minLength: 1
+          title: Tên gốc của tệp
+          maxLength: 255
+        file_size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Dung lượng tệp (bytes)
+        mime_type:
+          type: string
+          nullable: true
+          title: Định dạng MIME
+          maxLength: 100
+        file_category:
+          allOf:
+          - $ref: '#/components/schemas/FileCategoryEnum'
+          title: Phân loại tệp
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    PatchedBlogCreateUpdateRequest:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        slug:
+          type: string
+          minLength: 1
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          minLength: 1
+          title: Tiêu đề
+          maxLength: 255
+        excerpt:
+          type: string
+          minLength: 1
+          title: Đoạn trích
+        published_date:
+          type: string
+          minLength: 1
+          title: Ngày đăng
+          maxLength: 30
+        category:
+          type: string
+          minLength: 1
+          title: Chuyên mục
+          maxLength: 100
+        read_time:
+          type: string
+          minLength: 1
+          title: Thời gian đọc
+          maxLength: 30
+        image:
+          type: string
+          minLength: 1
+          title: Ảnh đại diện
+          maxLength: 500
+        content:
+          type: string
+          minLength: 1
+          title: Nội dung (Markdown)
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    PatchedContactCreateUpdateRequest:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Họ tên
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 255
+        message:
+          type: string
+          minLength: 1
+          title: Nội dung
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    PatchedModuleRegistryRequest:
+      type: object
+      description: Serializer CRUD cho ModuleRegistry metadata.
+      properties:
+        module_name:
+          type: string
+          minLength: 1
+          title: Tên hiển thị phân hệ
+          maxLength: 255
+        module_name_en:
+          type: string
+          nullable: true
+          title: Tên hiển thị tiếng Anh
+          maxLength: 255
+        icon:
+          type: string
+          nullable: true
+          title: Khóa icon (constants/iconMap)
+          maxLength: 100
+        route_path:
+          type: string
+          nullable: true
+          title: Đường dẫn Route Frontend
+          maxLength: 255
+        parent_code:
+          type: string
+          nullable: true
+          title: Mã phân hệ cha
+          maxLength: 50
+        sort_order:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Thứ tự hiển thị trên Sidebar
+        is_navigation:
+          type: boolean
+          title: Hiển thị trên Sidebar
+        is_active:
+          type: boolean
+          title: Trạng thái kích hoạt
+        description:
+          type: string
+          nullable: true
+          title: Mô tả phạm vi phân hệ
+        description_en:
+          type: string
+          nullable: true
+          title: Mô tả tiếng Anh
+    PatchedProjectCreateUpdateRequest:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        slug:
+          type: string
+          minLength: 1
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          minLength: 1
+          title: Tên dự án
+          maxLength: 255
+        summary:
+          type: string
+          minLength: 1
+          title: Mô tả ngắn
+        stack:
+          title: Công nghệ
+        year:
+          type: string
+          minLength: 1
+          title: Năm
+          maxLength: 10
+        image:
+          type: string
+          minLength: 1
+          title: Ảnh đại diện
+          maxLength: 500
+        color:
+          type: string
+          minLength: 1
+          title: Màu nhấn
+          maxLength: 30
+        role:
+          type: string
+          minLength: 1
+          title: Vai trò
+          maxLength: 150
+        content:
+          type: string
+          minLength: 1
+          title: Nội dung chi tiết (Markdown)
+        live_url:
+          nullable: true
+          title: Link demo
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 500
+          - type: string
+            maxLength: 0
+        github_url:
+          nullable: true
+          title: Link GitHub
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 500
+          - type: string
+            maxLength: 0
+        featured:
+          type: boolean
+          title: Nổi bật
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    PatchedRoleRequest:
+      type: object
+      description: Serializer quản lý và hiển thị thông tin Vai trò (Role).
+      properties:
+        role_code:
+          type: string
+          minLength: 1
+          title: Mã vai trò
+          maxLength: 50
+        role_name:
+          type: string
+          minLength: 1
+          title: Tên hiển thị vai trò
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    PatchedSystemSettingsRequest:
+      type: object
+      properties:
+        app_name:
+          type: string
+          minLength: 1
+          title: Tên ứng dụng
+          maxLength: 100
+        app_badge:
+          type: string
+          nullable: true
+          title: Nhãn phụ
+          maxLength: 30
+        tagline:
+          type: string
+          nullable: true
+          title: Dòng mô tả ngắn
+          maxLength: 150
+        company_name:
+          type: string
+          nullable: true
+          title: Đơn vị sở hữu
+          maxLength: 255
+        timezone:
+          type: string
+          minLength: 1
+          title: Múi giờ
+          maxLength: 50
+        date_format:
+          allOf:
+          - $ref: '#/components/schemas/DateFormatEnum'
+          title: Định dạng ngày
+        number_format:
+          allOf:
+          - $ref: '#/components/schemas/NumberFormatEnum'
+          title: Định dạng số mặc định
+    PatchedUserCreateUpdateRequest:
+      type: object
+      description: Serializer tiếp nhận tạo mới hoặc cập nhật tài khoản người dùng
+        từ Modal Form.
+      properties:
+        username:
+          type: string
+          minLength: 1
+          title: Tên đăng nhập
+          description: Yêu cầu. 150 ký tự hoặc ít hơn. Chỉ là chữ cái, chữ số và @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          title: Địa chỉ email
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          title: Ảnh đại diện
+        is_active:
+          type: boolean
+          title: Kích hoạt
+          description: Chỉ định xem người dùng này phải được coi là đang hoạt động.
+            Bạn nên bỏ chọn này thay vì xóa tài khoản.
+        password:
+          writeOnly: true
+          oneOf:
+          - type: string
+            minLength: 8
+          - type: string
+            maxLength: 0
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+        role_ids:
+          type: array
+          items:
+            type: integer
+          writeOnly: true
+          description: Danh sách ID của các Vai trò gán cho tài khoản
+    PatchedUserProfileUpdateRequest:
+      type: object
+      description: |-
+        Serializer cho người dùng tự cập nhật thông tin cá nhân.
+        Chỉ cho phép sửa: full_name, phone_number, avatar, description.
+      properties:
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          title: Ảnh đại diện
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+    Permission:
+      type: object
+      description: Serializer hiển thị thông tin Quyền hạn chi tiết.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        permission_code:
+          type: string
+          title: Mã quyền hạn
+          maxLength: 100
+        permission_name:
+          type: string
+          title: Tên quyền hạn
+          maxLength: 255
+        module:
+          type: string
+          title: Thuộc phân hệ
+          maxLength: 50
+        description:
+          type: string
+          nullable: true
+          title: Mô tả chi tiết quyền hạn
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm tạo
+      required:
+      - created_at
+      - id
+      - module
+      - permission_code
+      - permission_name
+    Project:
+      type: object
+      description: Serializer ĐỌC — dùng cho mọi response (list, detail, sau create/update).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          readOnly: true
+          title: Tên dự án
+        summary:
+          type: string
+          readOnly: true
+          title: Mô tả ngắn
+        stack:
+          readOnly: true
+          title: Công nghệ
+        year:
+          type: string
+          readOnly: true
+          title: Năm
+        image:
+          type: string
+          readOnly: true
+          title: Ảnh đại diện
+        color:
+          type: string
+          readOnly: true
+          title: Màu nhấn
+        role:
+          type: string
+          readOnly: true
+          title: Vai trò
+        content:
+          type: string
+          readOnly: true
+          title: Nội dung chi tiết (Markdown)
+        live_url:
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          title: Link demo
+        github_url:
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          title: Link GitHub
+        featured:
+          type: boolean
+          readOnly: true
+          title: Nổi bật
+        description:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          readOnly: true
+          title: Trạng thái hoạt động
+        created_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        updated_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - color
+      - content
+      - created_at
+      - created_by_name
+      - description
+      - featured
+      - github_url
+      - id
+      - image
+      - is_active
+      - live_url
+      - role
+      - slug
+      - stack
+      - summary
+      - title
+      - updated_at
+      - updated_by_name
+      - year
+    ProjectCreateUpdate:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        slug:
+          type: string
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          title: Tên dự án
+          maxLength: 255
+        summary:
+          type: string
+          title: Mô tả ngắn
+        stack:
+          title: Công nghệ
+        year:
+          type: string
+          title: Năm
+          maxLength: 10
+        image:
+          type: string
+          title: Ảnh đại diện
+          maxLength: 500
+        color:
+          type: string
+          title: Màu nhấn
+          maxLength: 30
+        role:
+          type: string
+          title: Vai trò
+          maxLength: 150
+        content:
+          type: string
+          title: Nội dung chi tiết (Markdown)
+        live_url:
+          nullable: true
+          title: Link demo
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 500
+          - type: string
+            maxLength: 0
+        github_url:
+          nullable: true
+          title: Link GitHub
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 500
+          - type: string
+            maxLength: 0
+        featured:
+          type: boolean
+          title: Nổi bật
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - color
+      - content
+      - id
+      - image
+      - role
+      - slug
+      - summary
+      - title
+      - year
+    ProjectCreateUpdateRequest:
+      type: object
+      description: Serializer GHI — validate dữ liệu đầu vào.
+      properties:
+        slug:
+          type: string
+          minLength: 1
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          minLength: 1
+          title: Tên dự án
+          maxLength: 255
+        summary:
+          type: string
+          minLength: 1
+          title: Mô tả ngắn
+        stack:
+          title: Công nghệ
+        year:
+          type: string
+          minLength: 1
+          title: Năm
+          maxLength: 10
+        image:
+          type: string
+          minLength: 1
+          title: Ảnh đại diện
+          maxLength: 500
+        color:
+          type: string
+          minLength: 1
+          title: Màu nhấn
+          maxLength: 30
+        role:
+          type: string
+          minLength: 1
+          title: Vai trò
+          maxLength: 150
+        content:
+          type: string
+          minLength: 1
+          title: Nội dung chi tiết (Markdown)
+        live_url:
+          nullable: true
+          title: Link demo
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 500
+          - type: string
+            maxLength: 0
+        github_url:
+          nullable: true
+          title: Link GitHub
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 500
+          - type: string
+            maxLength: 0
+        featured:
+          type: boolean
+          title: Nổi bật
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - color
+      - content
+      - image
+      - role
+      - slug
+      - summary
+      - title
+      - year
+    RecentActivity:
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: string
+        user:
+          type: string
+        action_code:
+          type: string
+        model_name:
+          type: string
+        object_id:
+          type: integer
+          nullable: true
+      required:
+      - action_code
+      - created_at
+      - id
+      - model_name
+      - object_id
+      - user
+    Role:
+      type: object
+      description: Serializer quản lý và hiển thị thông tin Vai trò (Role).
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        role_code:
+          type: string
+          title: Mã vai trò
+          maxLength: 50
+        role_name:
+          type: string
+          title: Tên hiển thị vai trò
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+        permissions_count:
+          type: integer
+          readOnly: true
+        users_count:
+          type: integer
+          readOnly: true
+        permission_ids:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+        permission_codes:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - permission_codes
+      - permission_ids
+      - permissions_count
+      - role_code
+      - role_name
+      - updated_at
+      - users_count
+    RoleMatrixBatchRequest:
+      type: object
+      description: Serializer nhận ma trận phân quyền hàng loạt cho nhiều Role.
+      properties:
+        matrix:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: integer
+          description: 'Map giữa Role ID và danh sách Permission IDs: { ''1'': [1,
+            2, 3], ''2'': [4, 5] }'
+      required:
+      - matrix
+    RolePermissionAssignRequest:
+      type: object
+      description: Serializer nhận danh sách ID quyền gán cho Role.
+      properties:
+        permission_ids:
+          type: array
+          items:
+            type: integer
+          description: Danh sách ID các quyền gán cho vai trò
+      required:
+      - permission_ids
+    RoleRequest:
+      type: object
+      description: Serializer quản lý và hiển thị thông tin Vai trò (Role).
+      properties:
+        role_code:
+          type: string
+          minLength: 1
+          title: Mã vai trò
+          maxLength: 50
+        role_name:
+          type: string
+          minLength: 1
+          title: Tên hiển thị vai trò
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+      required:
+      - role_code
+      - role_name
+    SearchGroup:
+      type: object
+      properties:
+        module_code:
+          type: string
+        module_name:
+          type: string
+        icon:
+          type: string
+          nullable: true
+        route:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+      required:
+      - icon
+      - module_code
+      - module_name
+      - results
+      - route
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        title:
+          type: string
+        subtitle:
+          type: string
+          nullable: true
+        image:
+          type: string
+          nullable: true
+        url:
+          type: string
+      required:
+      - code
+      - id
+      - image
+      - subtitle
+      - title
+      - url
+    SystemSettings:
+      type: object
+      properties:
+        app_name:
+          type: string
+          title: Tên ứng dụng
+          maxLength: 100
+        app_badge:
+          type: string
+          nullable: true
+          title: Nhãn phụ
+          maxLength: 30
+        tagline:
+          type: string
+          nullable: true
+          title: Dòng mô tả ngắn
+          maxLength: 150
+        company_name:
+          type: string
+          nullable: true
+          title: Đơn vị sở hữu
+          maxLength: 255
+        logo_url:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Logo
+        timezone:
+          type: string
+          title: Múi giờ
+          maxLength: 50
+        date_format:
+          allOf:
+          - $ref: '#/components/schemas/DateFormatEnum'
+          title: Định dạng ngày
+        number_format:
+          allOf:
+          - $ref: '#/components/schemas/NumberFormatEnum'
+          title: Định dạng số mặc định
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_by_name:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - app_name
+      - logo_url
+      - updated_at
+      - updated_by_name
+    SystemSettingsPublic:
+      type: object
+      description: Trường an toàn để công khai (trang đăng nhập chưa có token).
+      properties:
+        app_name:
+          type: string
+          title: Tên ứng dụng
+          maxLength: 100
+        app_badge:
+          type: string
+          nullable: true
+          title: Nhãn phụ
+          maxLength: 30
+        tagline:
+          type: string
+          nullable: true
+          title: Dòng mô tả ngắn
+          maxLength: 150
+        company_name:
+          type: string
+          nullable: true
+          title: Đơn vị sở hữu
+          maxLength: 255
+        logo_url:
+          type: string
+          nullable: true
+          title: Logo
+          maxLength: 500
+        timezone:
+          type: string
+          title: Múi giờ
+          maxLength: 50
+        date_format:
+          allOf:
+          - $ref: '#/components/schemas/DateFormatEnum'
+          title: Định dạng ngày
+        number_format:
+          allOf:
+          - $ref: '#/components/schemas/NumberFormatEnum'
+          title: Định dạng số mặc định
+      required:
+      - app_name
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    UnreadCount:
+      type: object
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+    User:
+      type: object
+      description: |-
+        Serializer tinh gọn hiển thị danh sách Tài khoản Người dùng (Users).
+        Gói gọn các thông tin chính yếu (id, username, họ tên, email, sđt, avatar, roles, trạng thái, ngày tạo/cập nhật),
+        loại bỏ toàn bộ permissions để đảm bảo an toàn bảo mật, giảm tải payload và loại bỏ N+1 query.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Tên đăng nhập
+          description: Yêu cầu. 150 ký tự hoặc ít hơn. Chỉ là chữ cái, chữ số và @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        name:
+          type: string
+          readOnly: true
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        email:
+          title: Địa chỉ email
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: uri
+          nullable: true
+          title: Ảnh đại diện
+        is_active:
+          type: boolean
+          title: Kích hoạt
+          description: Chỉ định xem người dùng này phải được coi là đang hoạt động.
+            Bạn nên bỏ chọn này thay vì xóa tài khoản.
+        is_superuser:
+          type: boolean
+          title: Trạng thái superuser
+          description: Định rằng người dùng này có tất cả các quyền mà không gán cho
+            họ một cách cụ thể.
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRoleSimple'
+          readOnly: true
+        role_codes:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        role_names:
+          type: string
+          readOnly: true
+        last_login:
+          type: string
+          format: date-time
+          readOnly: true
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - last_login
+      - name
+      - role_codes
+      - role_names
+      - roles
+      - updated_at
+      - username
+    UserCreateUpdate:
+      type: object
+      description: Serializer tiếp nhận tạo mới hoặc cập nhật tài khoản người dùng
+        từ Modal Form.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Tên đăng nhập
+          description: Yêu cầu. 150 ký tự hoặc ít hơn. Chỉ là chữ cái, chữ số và @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          title: Địa chỉ email
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: uri
+          nullable: true
+          title: Ảnh đại diện
+        is_active:
+          type: boolean
+          title: Kích hoạt
+          description: Chỉ định xem người dùng này phải được coi là đang hoạt động.
+            Bạn nên bỏ chọn này thay vì xóa tài khoản.
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+      required:
+      - email
+      - id
+      - username
+    UserCreateUpdateRequest:
+      type: object
+      description: Serializer tiếp nhận tạo mới hoặc cập nhật tài khoản người dùng
+        từ Modal Form.
+      properties:
+        username:
+          type: string
+          minLength: 1
+          title: Tên đăng nhập
+          description: Yêu cầu. 150 ký tự hoặc ít hơn. Chỉ là chữ cái, chữ số và @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          title: Địa chỉ email
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          title: Ảnh đại diện
+        is_active:
+          type: boolean
+          title: Kích hoạt
+          description: Chỉ định xem người dùng này phải được coi là đang hoạt động.
+            Bạn nên bỏ chọn này thay vì xóa tài khoản.
+        password:
+          writeOnly: true
+          oneOf:
+          - type: string
+            minLength: 8
+          - type: string
+            maxLength: 0
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+        role_ids:
+          type: array
+          items:
+            type: integer
+          writeOnly: true
+          description: Danh sách ID của các Vai trò gán cho tài khoản
+      required:
+      - email
+      - username
+    UserRequest:
+      type: object
+      description: |-
+        Serializer tinh gọn hiển thị danh sách Tài khoản Người dùng (Users).
+        Gói gọn các thông tin chính yếu (id, username, họ tên, email, sđt, avatar, roles, trạng thái, ngày tạo/cập nhật),
+        loại bỏ toàn bộ permissions để đảm bảo an toàn bảo mật, giảm tải payload và loại bỏ N+1 query.
+      properties:
+        username:
+          type: string
+          minLength: 1
+          title: Tên đăng nhập
+          description: Yêu cầu. 150 ký tự hoặc ít hơn. Chỉ là chữ cái, chữ số và @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        full_name:
+          type: string
+          title: Họ và tên hiển thị
+          maxLength: 255
+        email:
+          title: Địa chỉ email
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        phone_number:
+          type: string
+          nullable: true
+          title: Số điện thoại liên hệ
+          maxLength: 30
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          title: Ảnh đại diện
+        is_active:
+          type: boolean
+          title: Kích hoạt
+          description: Chỉ định xem người dùng này phải được coi là đang hoạt động.
+            Bạn nên bỏ chọn này thay vì xóa tài khoản.
+        is_superuser:
+          type: boolean
+          title: Trạng thái superuser
+          description: Định rằng người dùng này có tất cả các quyền mà không gán cho
+            họ một cách cụ thể.
+        description:
+          type: string
+          nullable: true
+          title: Ghi chú tài khoản
+      required:
+      - username
+    UserRoleSimple:
+      type: object
+      description: |-
+        Serializer tinh gọn hiển thị thông tin Vai trò (Role) trong danh sách người dùng.
+        Không nhúng danh sách permission_ids / permission_codes để tối ưu payload.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        role_code:
+          type: string
+          title: Mã vai trò
+          maxLength: 50
+        role_name:
+          type: string
+          title: Tên hiển thị vai trò
+          maxLength: 255
+      required:
+      - id
+      - role_code
+      - role_name
+    UserRoleSimpleRequest:
+      type: object
+      description: |-
+        Serializer tinh gọn hiển thị thông tin Vai trò (Role) trong danh sách người dùng.
+        Không nhúng danh sách permission_ids / permission_codes để tối ưu payload.
+      properties:
+        role_code:
+          type: string
+          minLength: 1
+          title: Mã vai trò
+          maxLength: 50
+        role_name:
+          type: string
+          minLength: 1
+          title: Tên hiển thị vai trò
+          maxLength: 255
+      required:
+      - role_code
+      - role_name
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

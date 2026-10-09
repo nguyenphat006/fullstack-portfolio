@@ -1,0 +1,25 @@
+{
+  "pageTitle": "Dự án",
+  "title": "Dự án",
+  "entity": "dự án",
+  "searchPlaceholder": "Tìm theo slug, tên, mô tả…",
+  "fields": {
+    "slug": "Slug",
+    "title": "Tên dự án",
+    "summary": "Mô tả ngắn",
+    "stack": "Công nghệ",
+    "year": "Năm",
+    "role": "Vai trò",
+    "image": "Ảnh đại diện (URL)",
+    "color": "Màu nhấn",
+    "liveUrl": "Link demo",
+    "githubUrl": "Link GitHub",
+    "content": "Nội dung chi tiết (Markdown)",
+    "featured": "Nổi bật"
+  },
+  "form": {
+    "createTitle": "Thêm dự án",
+    "editTitle": "Sửa dự án {code}",
+    "stackHint": "Ngăn cách bằng dấu phẩy, vd: Next.js, Django"
+  }
+}

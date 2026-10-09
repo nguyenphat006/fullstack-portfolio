@@ -1,0 +1,28 @@
+{
+  "edit": "Edit",
+  "notFound": "{entity} not found",
+  "notFoundHint": "The record does not exist or has been deleted.",
+  "backToList": "Back to list",
+  "actionFailed": "Could not complete the action",
+  "updated": "Updated {time}",
+  "updatedBy": "Updated {time} by {user}",
+  "collapse": "Show less",
+  "showMore": "{count, plural, one {Show # more field} other {Show # more fields}}",
+  "tabs": {
+    "attachments": "Attachments",
+    "audit": "Activity"
+  },
+  "audit": {
+    "system": "System",
+    "loadError": "Could not load activity",
+    "empty": "No activity yet",
+    "emptyHint": "Every change to this record will be recorded here.",
+    "loadMore": "Load more"
+  },
+  "quickView": {
+    "title": "Quick view",
+    "description": "Key information about the record",
+    "loadError": "Could not load the record.",
+    "openDetail": "Open details page"
+  }
+}

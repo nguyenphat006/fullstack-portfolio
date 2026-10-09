@@ -1,0 +1,6 @@
+# File sinh tự động: luôn LF để CI (Linux) so sánh khớp với bản sinh lại
+server/schema.yml text eol=lf
+client/src/types/api.generated.ts text eol=lf
+# Bản dịch backend: .po sinh bởi makemessages (LF), .mo nhị phân do compilemessages biên dịch
+server/locale/**/*.po text eol=lf
+server/locale/**/*.mo binary

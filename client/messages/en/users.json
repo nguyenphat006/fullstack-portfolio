@@ -1,0 +1,60 @@
+{
+  "pageTitle": "Users",
+  "detailPageTitle": "Account details",
+  "title": "Users",
+  "entity": "account",
+  "searchPlaceholder": "Search by name, username, email, phone…",
+  "bulkDeleteHint": "Administrator accounts and your own account will be skipped.",
+  "superAdmin": "Super admin",
+  "noRole": "No role",
+  "neverLoggedIn": "Never signed in",
+  "statusLocked": "Locked",
+  "adminEditOnly": "Only administrators can edit administrator accounts",
+  "cannotDeleteAdmin": "Administrator accounts cannot be deleted",
+  "cannotDeleteSelf": "You cannot delete your own account",
+  "cannotLockSelf": "You cannot lock your own account",
+  "cannotLockAdmin": "Administrator accounts cannot be locked",
+  "lockAccount": "Lock account",
+  "unlockAccount": "Unlock account",
+  "locked": "Account locked",
+  "unlocked": "Account unlocked",
+  "deleteAccount": "Delete account",
+  "duplicated": "Account created from copy",
+  "copyName": "{name} (copy)",
+  "fields": {
+    "fullName": "Full name",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone",
+    "roles": "Roles",
+    "lastLogin": "Last sign-in"
+  },
+  "form": {
+    "createTitle": "Add account",
+    "editTitle": "Edit account {username}",
+    "createSubmit": "Create account",
+    "usernameRequired": "Enter a username",
+    "fullNamePlaceholder": "Jane Doe",
+    "fullNameRequired": "Enter the full name",
+    "emailRequired": "Enter an email",
+    "rolesPlaceholder": "Select one or more roles",
+    "rolesRequired": "Select at least one role",
+    "newPassword": "New password",
+    "initialPassword": "Initial password",
+    "passwordKeep": "Leave blank to keep",
+    "passwordRequired": "Set an initial password",
+    "notePlaceholder": "Responsibilities, assigned workshop…"
+  },
+  "resetPassword": {
+    "title": "Reset password",
+    "submit": "Reset",
+    "passwordRequired": "Enter a new password",
+    "confirm": "Confirm password",
+    "confirmRequired": "Re-enter the password",
+    "done": "Password reset"
+  },
+  "import": {
+    "title": "Import accounts from Excel",
+    "passwordColumn": "Password (min. 8 characters)"
+  }
+}

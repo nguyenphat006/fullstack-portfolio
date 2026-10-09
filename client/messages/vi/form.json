@@ -1,0 +1,27 @@
+{
+  "selectPlaceholder": "Chọn…",
+  "searchPlaceholder": "Tìm…",
+  "expand": "Mở rộng",
+  "collapse": "Thu gọn",
+  "dropzone": "Kéo thả tệp hoặc bấm để chọn",
+  "discard": {
+    "title": "Bỏ thay đổi chưa lưu?",
+    "description": "Các thông tin vừa nhập sẽ không được lưu.",
+    "confirm": "Bỏ thay đổi",
+    "keepEditing": "Tiếp tục sửa"
+  },
+  "dateRange": {
+    "placeholder": "Chọn khoảng ngày",
+    "today": "Hôm nay",
+    "last7": "7 ngày",
+    "last30": "30 ngày",
+    "thisMonth": "Tháng này"
+  },
+  "clearValue": "Xóa lựa chọn",
+  "image": {
+    "remove": "Bỏ ảnh",
+    "uploading": "Đang tải ảnh lên…",
+    "dropHint": "Kéo thả hoặc bấm để chọn ảnh",
+    "uploadError": "Không thể tải ảnh lên"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "export": {
+    "title": "Export data",
+    "description": "Choose the format, scope and columns to export",
+    "format": "Format",
+    "xlsxHint": "Formatted, with thumbnails",
+    "csvHint": "Lightweight, UTF-8, opens anywhere",
+    "scope": "Scope",
+    "scopeAll": "Filtered ({count})",
+    "scopeAllHint": "Records matching the current filters",
+    "scopeSelected": "Selected ({count})",
+    "scopeSelectedHint": "Only the checked rows",
+    "scopeSelectedNone": "No rows selected",
+    "scopeFull": "Everything",
+    "scopeFullHint": "Ignore filters",
+    "scopeLabel": {
+      "full": "all",
+      "selected": "{count} selected",
+      "rows": "{count} rows"
+    },
+    "columns": "Columns",
+    "searchColumns": "Search columns…",
+    "deselectAll": "Clear",
+    "noColumns": "No matching columns",
+    "preview": "Preview",
+    "pickColumn": "Select at least one column",
+    "noPreview": "No sample data",
+    "image": "Image",
+    "submit": "Export {format} ({scope})"
+  },
+  "import": {
+    "title": "Import from Excel",
+    "steps": {
+      "pick": "Choose file",
+      "check": "Review",
+      "import": "Import"
+    },
+    "templateDownloadFailed": "Could not download the template",
+    "templateNoColumns": "Template columns are not configured",
+    "noHeader": "The file is empty or missing a header row",
+    "missing": "Missing \"{field}\"",
+    "noRows": "No data rows found",
+    "readFailed": "Could not read the file: {reason}",
+    "badFormat": "invalid format",
+    "imported": "Imported {count} rows",
+    "importFailed": "Could not import the data",
+    "formatHint": ".xlsx, .xls or .csv — up to 5000 rows per import",
+    "downloadTemplate": "Download template",
+    "dropTitle": "Drop an Excel file here or click to choose",
+    "dropHint": "Data is checked before being saved",
+    "summary": "Read <b>{total}</b> rows: <ok>{valid} valid</ok>",
+    "summaryErrors": ", <err>{errors} with errors</err> (invalid rows are skipped)",
+    "row": "Row",
+    "valid": "Valid",
+    "pickAgain": "Choose another file",
+    "submit": "Import {count} valid rows"
+  },
+  "task": {
+    "title": "Data export",
+    "minimizedTitle": "Export tasks",
+    "exporting": "Exporting {count} files",
+    "running": "{count} running",
+    "minimize": "Minimize",
+    "jobTitle": "Task #{id}",
+    "done": "File ready ({rows} rows)",
+    "failed": "Could not create the file",
+    "pending": "Waiting…",
+    "progress": "Processed {processed}/{total} rows",
+    "dismiss": "Remove from list",
+    "download": "Download"
+  }
+}

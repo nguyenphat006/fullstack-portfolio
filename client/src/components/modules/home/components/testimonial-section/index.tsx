@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Quote } from "lucide-react";
-import { SectionHeader } from "@/components/shared/section-header";
 import { HOME_TESTIMONIALS } from "../../constants";
 import type { HomeTestimonial } from "../../types";
 
@@ -47,7 +45,7 @@ export function HomeTestimonialsSection() {
 
                 <div className="relative z-10 flex flex-col h-full gap-6">
                   <p className="text-white/70 leading-relaxed italic text-sm font-light">
-                    "{testimonial.content}"
+                    &ldquo;{testimonial.content}&rdquo;
                   </p>
 
                   <div className="mt-auto flex items-center gap-4 pt-6 border-t border-white/5">

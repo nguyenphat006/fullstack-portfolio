@@ -1,0 +1,11 @@
+{
+  "required": "Nhập {field}",
+  "requiredSelect": "Chọn {field}",
+  "maxLength": "Tối đa {max} ký tự",
+  "minLength": "Tối thiểu {min} ký tự",
+  "codeFormat": "Chỉ gồm chữ in HOA, số và dấu gạch dưới",
+  "email": "Email không đúng định dạng",
+  "passwordMismatch": "Mật khẩu nhập lại không khớp",
+  "min": "Tối thiểu {min}",
+  "max": "Tối đa {max}"
+}

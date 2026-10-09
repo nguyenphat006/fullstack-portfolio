@@ -1,0 +1,34 @@
+{
+  "title": "Định dạng số",
+  "description": "Áp dụng cho tài khoản của bạn trên trình duyệt này",
+  "separatorStyle": "Kiểu phân cách",
+  "decimalPlaces": "Số chữ số thập phân",
+  "previewTitle": "Xem trước",
+  "restoreDefault": "Khôi phục mặc định",
+  "applied": "Đã áp dụng định dạng số",
+  "restored": "Đã khôi phục định dạng mặc định",
+  "styles": {
+    "international": {
+      "label": "Quốc tế (mặc định)",
+      "hint": "Phân cách nghìn bằng dấu phẩy, thập phân bằng dấu chấm"
+    },
+    "vietnam": {
+      "label": "Việt Nam",
+      "hint": "Phân cách nghìn bằng dấu chấm, thập phân bằng dấu phẩy"
+    }
+  },
+  "decimals": {
+    "currencyDecimals": "Tiền (VNĐ)",
+    "dimensionDecimals": "Kích thước (mm)",
+    "weightDecimals": "Khối lượng (kg, kg/m)",
+    "volumeDecimals": "Thể tích / định mức (m³)",
+    "percentDecimals": "Tỷ lệ (%)"
+  },
+  "preview": {
+    "currency": "Tiền",
+    "dimension": "Kích thước",
+    "weight": "Định lượng",
+    "volume": "Thể tích",
+    "scrap": "Hao hụt"
+  }
+}

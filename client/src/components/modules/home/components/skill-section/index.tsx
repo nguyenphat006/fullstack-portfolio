@@ -4,8 +4,8 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { SectionHeader } from "@/components/shared/section-header";
 import { HOME_EDUCATION } from "../../constants";
-import { GraduationCap, Code2 } from "lucide-react";
-import { IconCloud } from "@/components/ui/icon-cloud";
+import { GraduationCap } from "lucide-react";
+import { IconCloud } from "@/components/landing/ui/icon-cloud";
 
 const slugs = [
   "react", "nextdotjs", "typescript", "tailwindcss",

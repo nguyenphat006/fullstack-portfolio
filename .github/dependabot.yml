@@ -1,0 +1,49 @@
+# Dependabot — mỗi tháng đúng 2 PR cập nhật dependency: 1 cho frontend, 1 cho backend.
+# Tài liệu: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# Nguyên tắc:
+# - Lịch hằng tháng (ngày 1, 07:00 giờ VN); mỗi hệ sinh thái gom TẤT CẢ gói vào 1 nhóm -> 1 PR.
+# - Bản MAJOR (Next, React, Django, ESLint...) bị bỏ qua bằng `ignore` -> nâng thủ công có kế hoạch.
+#   Nhóm cố ý KHÔNG lọc `update-types`: với pip khai báo `>=`, bộ lọc làm gói lọt ra PR riêng.
+# - Image Docker (python, postgres, redis, nginx) và GitHub Actions không tự cập nhật -> nâng thủ công.
+# - Bản vá bảo mật (security updates) KHÔNG theo lịch / nhóm này — bật/tắt trong
+#   GitHub > Settings > Code security > Dependabot security updates.
+# - Mọi PR phải qua CI (health check) trước khi merge.
+
+version: 2
+
+updates:
+  # ---------------------------------------------------------------- Frontend (Next.js)
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "monthly"
+      time: "07:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    groups:
+      frontend:
+        patterns: ["*"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # ---------------------------------------------------------------- Backend (Django)
+  - package-ecosystem: "pip"
+    directory: "/server"
+    schedule:
+      interval: "monthly"
+      time: "07:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      backend:
+        patterns: ["*"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

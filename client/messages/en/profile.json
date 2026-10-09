@@ -1,0 +1,40 @@
+{
+  "pageTitle": "My profile",
+  "title": "My profile",
+  "subtitle": "Your contact details and sign-in password",
+  "tabs": {
+    "general": "Details",
+    "security": "Password"
+  },
+  "superAdmin": "Super admin",
+  "noRole": "No role",
+  "updated": "Profile updated",
+  "updateFailed": "Could not update profile",
+  "passwordChanged": "Password changed",
+  "fields": {
+    "roles": "Roles",
+    "email": "Email",
+    "lastLogin": "Last sign-in",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "bio": "About"
+  },
+  "contact": {
+    "title": "Contact details",
+    "description": "Username and email are managed by administrators",
+    "fullNamePlaceholder": "Jane Doe",
+    "fullNameRequired": "Enter your full name",
+    "bioPlaceholder": "Position, area of responsibility…"
+  },
+  "password": {
+    "title": "Change password",
+    "description": "At least 8 characters; mix upper and lower case, digits and symbols",
+    "current": "Current password",
+    "currentRequired": "Enter your current password",
+    "new": "New password",
+    "newRequired": "Enter a new password",
+    "confirm": "Confirm new password",
+    "confirmRequired": "Re-enter the new password",
+    "failed": "Could not change password"
+  }
+}

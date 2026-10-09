@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Tổng quan",
+  "title": "Tổng quan",
+  "greeting": "Xin chào, {name}",
+  "loadError": "Không tải được số liệu",
+  "loadErrorHint": "Kiểm tra kết nối rồi thử lại.",
+  "noActivity": "Chưa có hoạt động nào.",
+  "activityTooltip": "Thao tác",
+  "materialsTooltip": "Nguyên vật liệu",
+  "panels": {
+    "activity": "Thao tác 14 ngày gần nhất",
+    "materialsByCategory": "Nguyên vật liệu theo nhóm",
+    "recentActivity": "Hoạt động gần đây",
+    "systemStatus": "Trạng thái hệ thống"
+  },
+  "system": {
+    "checking": "Đang kiểm tra",
+    "unreachable": "Không kết nối được",
+    "ok": "Hoạt động",
+    "okLatency": "Hoạt động · {ms} ms",
+    "error": "Lỗi",
+    "api": "API máy chủ",
+    "database": "Cơ sở dữ liệu",
+    "cache": "Bộ nhớ đệm",
+    "version": "Phiên bản",
+    "updatedAt": "Cập nhật lúc {time}"
+  }
+}

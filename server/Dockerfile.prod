@@ -1,0 +1,47 @@
+# Backend production image — Django + gunicorn, chạy bằng user không phải root.
+# Build:  docker build -f server/Dockerfile.prod -t erp-api server
+# (Dev dùng server/Dockerfile với runserver + mount source.)
+
+# ---------- Stage 1: build wheels (cần compiler) ----------
+FROM python:3.12-slim AS builder
+
+ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev libjpeg-dev zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+COPY requirements.txt .
+RUN pip wheel --wheel-dir /wheels -r requirements.txt
+
+# ---------- Stage 2: runtime tối giản ----------
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    DEBUG=False
+
+# Thư viện runtime cho psycopg2 và Pillow (không cần compiler)
+RUN apt-get update && apt-get install -y --no-install-recommends libpq5 libjpeg62-turbo zlib1g \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system app && useradd --system --gid app --home /app app
+
+WORKDIR /app
+COPY --from=builder /wheels /wheels
+RUN pip install --no-index --find-links=/wheels /wheels/* && rm -rf /wheels
+
+COPY --chown=app:app . .
+
+# collectstatic chỉ cần SECRET_KEY tạm (không dùng lúc chạy thật)
+RUN SECRET_KEY=collectstatic-only python manage.py collectstatic --noinput \
+    && mkdir -p /app/media && chown -R app:app /app/media /app/staticfiles
+
+USER app
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=4).status == 200 else 1)"
+
+# bootstrap = migrate + seed_core (idempotent, không ghi đè dữ liệu người dùng) rồi chạy gunicorn
+CMD ["sh", "-c", "python manage.py bootstrap && exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3} --timeout 120 --access-logfile - --error-logfile -"]

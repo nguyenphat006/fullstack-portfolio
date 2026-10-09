@@ -1,0 +1,72 @@
+{
+  "export": {
+    "title": "Xuất dữ liệu",
+    "description": "Chọn định dạng, phạm vi và các cột cần xuất",
+    "format": "Định dạng",
+    "xlsxHint": "Có định dạng, kèm ảnh thu nhỏ",
+    "csvHint": "Nhẹ, UTF-8, mở ở mọi nơi",
+    "scope": "Phạm vi",
+    "scopeAll": "Theo bộ lọc ({count})",
+    "scopeAllHint": "Bản ghi khớp bộ lọc hiện tại",
+    "scopeSelected": "Đã chọn ({count})",
+    "scopeSelectedHint": "Chỉ các dòng đã tích",
+    "scopeSelectedNone": "Chưa chọn dòng nào",
+    "scopeFull": "Toàn bộ",
+    "scopeFullHint": "Bỏ qua bộ lọc",
+    "scopeLabel": {
+      "full": "toàn bộ",
+      "selected": "{count} dòng đã chọn",
+      "rows": "{count} dòng"
+    },
+    "columns": "Cột",
+    "searchColumns": "Tìm cột…",
+    "deselectAll": "Bỏ chọn",
+    "noColumns": "Không có cột phù hợp",
+    "preview": "Xem trước",
+    "pickColumn": "Chọn ít nhất 1 cột để xuất",
+    "noPreview": "Không có dữ liệu mẫu",
+    "image": "Hình ảnh",
+    "submit": "Xuất {format} ({scope})"
+  },
+  "import": {
+    "title": "Nhập dữ liệu từ Excel",
+    "steps": {
+      "pick": "Chọn tệp",
+      "check": "Kiểm tra",
+      "import": "Nhập"
+    },
+    "templateDownloadFailed": "Không tải được tệp mẫu",
+    "templateNoColumns": "Chưa cấu hình cột cho tệp mẫu",
+    "noHeader": "Tệp không có dữ liệu hoặc thiếu dòng tiêu đề",
+    "missing": "Thiếu \"{field}\"",
+    "noRows": "Không tìm thấy dòng dữ liệu nào",
+    "readFailed": "Không đọc được tệp: {reason}",
+    "badFormat": "sai định dạng",
+    "imported": "Đã nhập {count} dòng",
+    "importFailed": "Không nhập được dữ liệu",
+    "formatHint": "Định dạng .xlsx, .xls, .csv — tối đa 5000 dòng mỗi lần",
+    "downloadTemplate": "Tải tệp mẫu",
+    "dropTitle": "Kéo thả tệp Excel hoặc bấm để chọn",
+    "dropHint": "Dữ liệu được kiểm tra trước khi ghi vào hệ thống",
+    "summary": "Đã đọc <b>{total}</b> dòng: <ok>{valid} hợp lệ</ok>",
+    "summaryErrors": ", <err>{errors} lỗi</err> (dòng lỗi được bỏ qua khi nhập)",
+    "row": "Dòng",
+    "valid": "Hợp lệ",
+    "pickAgain": "Chọn lại tệp",
+    "submit": "Nhập {count} dòng hợp lệ"
+  },
+  "task": {
+    "title": "Xuất dữ liệu",
+    "minimizedTitle": "Tác vụ xuất dữ liệu",
+    "exporting": "Đang xuất {count} tệp",
+    "running": "{count} đang chạy",
+    "minimize": "Thu nhỏ",
+    "jobTitle": "Tác vụ #{id}",
+    "done": "Đã tạo xong tệp ({rows} dòng)",
+    "failed": "Không tạo được tệp",
+    "pending": "Đang chờ xử lý…",
+    "progress": "Đã xử lý {processed}/{total} dòng",
+    "dismiss": "Bỏ khỏi danh sách",
+    "download": "Tải tệp"
+  }
+}

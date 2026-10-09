@@ -4,9 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowRight01Icon, MapsLocation01Icon, CodeIcon, Clock01Icon } from "@hugeicons/core-free-icons";
-import { Button } from "@/components/ui/button";
-import { shortSentence } from "@/lib/utils";
+import { ArrowRight01Icon, MapsLocation01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { Button } from "@/components/landing/ui/button";
 import { HOME_HERO_CONTENT, HOME_HERO_STATS } from "../../constants";
 import { useState, useEffect } from "react";
 import type { Variants } from "motion/react";
@@ -31,7 +30,6 @@ const staggerContainer = {
 };
 
 export function HomeHeroSection() {
-  const shortSubtext = shortSentence(HOME_HERO_CONTENT.subtext);
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {

@@ -1,0 +1,83 @@
+{
+  "bulk": {
+    "toolbar": "Thao tác hàng loạt",
+    "selected": "Đã chọn {count}",
+    "clear": "Bỏ chọn"
+  },
+  "filter": {
+    "containsPlaceholder": "{column} chứa…",
+    "search": "Tìm…",
+    "from": "Từ",
+    "to": "Đến",
+    "apply": "Lọc",
+    "searchAndSelect": "Tìm và chọn…",
+    "active": "Đang lọc",
+    "filters": "Bộ lọc",
+    "clearKeyword": "Xóa từ khóa",
+    "keyword": "Từ khóa: “{value}”",
+    "removeKeyword": "Bỏ từ khóa",
+    "removeFilter": "Bỏ lọc {column}",
+    "contains": "chứa \"{value}\"",
+    "itemsCount": "{count} mục",
+    "fromValue": "từ {value}",
+    "toValue": "đến {value}",
+    "applyAll": "Áp dụng",
+    "clearPanel": "Xóa lọc"
+  },
+  "column": {
+    "sortHint": "Bấm để sắp xếp",
+    "options": "Tùy chọn cột {column}",
+    "sortAsc": "Sắp xếp tăng dần",
+    "sortDesc": "Sắp xếp giảm dần",
+    "clearSort": "Bỏ sắp xếp",
+    "pinLeft": "Ghim trái",
+    "pinRight": "Ghim phải",
+    "unpin": "Bỏ ghim",
+    "moveLeft": "Chuyển sang trái",
+    "moveRight": "Chuyển sang phải",
+    "autoFit": "Tự vừa độ rộng",
+    "hide": "Ẩn cột",
+    "filterColumn": "Lọc / tìm theo {column}"
+  },
+  "page": {
+    "searchPlaceholder": "Tìm kiếm…",
+    "actionFailed": "Không thể thực hiện thao tác",
+    "deleteTitle": "Xóa {entity}?",
+    "deleteFailed": "Không thể xóa {entity}",
+    "loadErrorHint": "Kiểm tra kết nối rồi thử lại.",
+    "noResults": "Không có kết quả phù hợp",
+    "noResultsHint": "Thử đổi từ khóa hoặc bộ lọc.",
+    "empty": "Chưa có {entity} nào",
+    "create": "Thêm {entity}"
+  },
+  "table": {
+    "selectPage": "Chọn tất cả dòng trong trang",
+    "selectRow": "Chọn dòng"
+  },
+  "pagination": {
+    "total": "{count, number} bản ghi",
+    "nav": "Phân trang",
+    "previous": "Trang trước",
+    "next": "Trang sau",
+    "pageSize": "Số dòng mỗi trang",
+    "perPage": "{size} / trang"
+  },
+  "settings": {
+    "title": "Tùy chỉnh bảng",
+    "visibleColumns": "Cột hiển thị",
+    "resetDefault": "Khôi phục mặc định",
+    "density": "Mật độ",
+    "densities": {
+      "large": "Rộng",
+      "middle": "Vừa",
+      "small": "Gọn"
+    },
+    "dragHint": "Kéo để đổi thứ tự"
+  },
+  "export": {
+    "background": "Dữ liệu lớn đang được xuất nền, theo dõi tiến độ ở góc màn hình.",
+    "done": "Đã xuất dữ liệu",
+    "failed": "Không thể xuất dữ liệu",
+    "title": "Xuất dữ liệu — {label}"
+  }
+}

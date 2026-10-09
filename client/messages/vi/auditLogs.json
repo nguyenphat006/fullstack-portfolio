@@ -1,0 +1,61 @@
+{
+  "pageTitle": "Nhật ký thao tác",
+  "entity": "nhật ký",
+  "searchPlaceholder": "Tìm theo đối tượng, hành động…",
+  "system": "Hệ thống",
+  "actions": {
+    "CREATE": "Tạo mới",
+    "UPDATE": "Cập nhật",
+    "DELETE": "Xóa",
+    "APPROVE": "Phê duyệt",
+    "RELEASE": "Phát hành",
+    "EXPORT": "Xuất dữ liệu",
+    "IMPORT": "Nhập dữ liệu"
+  },
+  "fields": {
+    "time": "Thời gian",
+    "user": "Người thực hiện",
+    "model": "Đối tượng",
+    "record": "Bản ghi",
+    "action": "Hành động",
+    "changedFields": "Trường thay đổi",
+    "ip": "Địa chỉ IP",
+    "detail": "Chi tiết"
+  },
+  "export": {
+    "empty": "Không có dữ liệu để xuất",
+    "done": "Đã xuất trang nhật ký hiện tại ra CSV",
+    "fileName": "Nhat_ky_thao_tac",
+    "headers": {
+      "id": "ID",
+      "time": "Thời điểm",
+      "user": "Người thực hiện",
+      "username": "Tài khoản",
+      "model": "Đối tượng",
+      "objectId": "Mã bản ghi",
+      "action": "Hành động",
+      "method": "Phương thức",
+      "ip": "Địa chỉ IP",
+      "url": "URL"
+    }
+  },
+  "drawer": {
+    "title": "Chi tiết nhật ký",
+    "time": "Thời điểm",
+    "method": "Phương thức",
+    "internal": "Nội bộ",
+    "device": "Thiết bị",
+    "browser": "Trình duyệt",
+    "url": "Đường dẫn API",
+    "internalSystem": "Hệ thống nội bộ",
+    "field": "Trường",
+    "before": "Trước",
+    "after": "Sau",
+    "emptyValue": "trống",
+    "createdHint": "Bản ghi tạo mới — toàn bộ dữ liệu ở mục bên dưới.",
+    "deletedHint": "Bản ghi đã bị xóa.",
+    "noChanges": "Không có trường theo dõi nào thay đổi.",
+    "snapshot": "Dữ liệu toàn phần",
+    "fieldCount": "{count} trường"
+  }
+}

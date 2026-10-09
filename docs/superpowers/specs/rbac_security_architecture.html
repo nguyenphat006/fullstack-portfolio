@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Template — Kiến Trúc Phân Quyền RBAC & Bảo Mật API Call Chuẩn Enterprise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1E40AF;
+      --primary-light: #3B82F6;
+      --primary-subtle: #EFF6FF;
+      --navy-dark: #0F172A;
+      --navy-card: #1E293B;
+      --emerald: #059669;
+      --emerald-subtle: #ECFDF5;
+      --amber: #D97706;
+      --amber-subtle: #FFFBEB;
+      --rose: #E11D48;
+      --rose-subtle: #FFF1F2;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-800: #1E293B;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    /* Top Navigation Header */
+    header.hero {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1E40AF 100%);
+      color: white;
+      padding: 48px 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header.hero::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1.title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    p.subtitle {
+      font-size: 16px;
+      color: #93C5FD;
+      max-width: 800px;
+      font-weight: 400;
+    }
+
+    /* Main Content Layout */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      margin: 40px auto;
+    }
+
+    /* Sticky Sidebar Navigation */
+    .sidebar-nav {
+      position: sticky;
+      top: 24px;
+      background: white;
+      border-radius: 12px;
+      padding: 20px 16px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+
+    .nav-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--slate-400);
+      letter-spacing: 1px;
+      padding: 0 12px 12px;
+      border-bottom: 1px solid var(--slate-100);
+      margin-bottom: 8px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      color: var(--slate-600);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--primary-subtle);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Content Cards */
+    .section-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: var(--primary-subtle);
+      color: var(--primary);
+    }
+
+    h2.section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    /* Interactive Table */
+    .rbac-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 16px 0;
+    }
+
+    .rbac-table th {
+      background: var(--slate-100);
+      color: var(--slate-600);
+      font-weight: 600;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+    }
+
+    .rbac-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--slate-100);
+      vertical-align: middle;
+    }
+
+    .rbac-table tr:hover td {
+      background: var(--slate-50);
+    }
+
+    .code-tag {
+      font-family: var(--font-mono);
+      background: var(--slate-100);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+      border: 1px solid var(--slate-200);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-primary { background: var(--primary-subtle); color: var(--primary); }
+    .badge-emerald { background: var(--emerald-subtle); color: var(--emerald); }
+    .badge-amber { background: var(--amber-subtle); color: var(--amber); }
+    .badge-rose { background: var(--rose-subtle); color: var(--rose); }
+
+    /* Architecture Flow SVG */
+    .flow-container {
+      background: var(--navy-dark);
+      border-radius: 12px;
+      padding: 24px;
+      color: white;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+
+    /* Code Blocks */
+    .code-box {
+      background: var(--navy-dark);
+      border-radius: 10px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #E2E8F0;
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--navy-card);
+      line-height: 1.6;
+    }
+
+    .code-keyword { color: #F472B6; font-weight: 600; }
+    .code-fn { color: #60A5FA; }
+    .code-str { color: #34D399; }
+    .code-comment { color: #64748B; font-style: italic; }
+
+    /* Interactive Matrix Simulator */
+    .matrix-simulator {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .role-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .role-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--slate-600);
+      transition: all 0.2s;
+    }
+
+    .role-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 8px rgba(30, 64, 175, 0.25);
+    }
+
+    .permission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .perm-item {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .perm-item.granted {
+      border-color: #93C5FD;
+      background: #F0FDF4;
+    }
+
+    .check-icon {
+      font-weight: bold;
+      color: var(--emerald);
+    }
+
+    .cross-icon {
+      color: var(--slate-400);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Banner -->
+  <header class="hero">
+    <div class="container">
+      <div class="badge-pill">🛡️ Enterprise Security Architecture</div>
+      <h1 class="title">Admin Template — Thiết Kế Phân Quyền RBAC & Bảo Mật API Call</h1>
+      <p class="subtitle">
+        Tài liệu đặc tả kiến trúc phân quyền chuẩn Zero Trust, tối ưu hiệu năng Caching Layer ~0.1ms, phân tách triệt để VIEW (Route) vs READ (Data), và cơ chế Type-Safe Permissions chống lỗi chính tả 100%.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <div class="container">
+    <div class="main-grid">
+      
+      <!-- Sticky Sidebar Navigation -->
+      <aside class="sidebar-nav">
+        <div class="nav-title">Mục Lục Kiến Trúc</div>
+        <a href="#core-principles" class="nav-link active">1. 5 Nguyên Tắc Sống Còn</a>
+        <a href="#view-vs-read" class="nav-link">2. VIEW vs READ vs Action</a>
+        <a href="#permissions-matrix" class="nav-link">3. Ma Trận Quyền USER & SYSTEM</a>
+        <a href="#backend-security" class="nav-link">4. Backend Caching & API Security</a>
+        <a href="#frontend-typesafe" class="nav-link">5. Type-Safe Constants & `<Can />`</a>
+        <a href="#interactive-simulator" class="nav-link">6. Mô Phỏng Phân Quyền Tương Tác</a>
+      </aside>
+
+      <!-- Main Column -->
+      <main>
+
+        <!-- Section 1: Core Principles -->
+        <section id="core-principles" class="section-card">
+          <div class="section-header">
+            <div class="icon-box">⚡</div>
+            <h2 class="section-title">1. 5 Nguyên Tắc Thiết Kế Cốt Lõi (Core Principles)</h2>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: var(--slate-50); padding: 16px; border-radius: 10px; border: 1px solid var(--slate-200);">
+              <strong style="color: var(--primary); display: block; margin-bottom: 6px;">1. Type-Safe Permissions (Zero Magic Strings)</strong>
+              <p style="font-size: 13px; color: var(--slate-600);">Toàn bộ mã quyền được kiểm soát qua Enum/Constants tập trung. Gõ sai chính tả lập tức bị trình biên dịch TypeScript và Python bắt lỗi.</p>
+            </div>
+            <div style="background: var(--slate-50); padding: 16px; border-radius: 10px; border: 1px solid var(--slate-200);">
+              <strong style="color: var(--emerald); display: block; margin-bottom: 6px;">2. Phân tách VIEW vs READ</strong>
+              <p style="font-size: 13px; color: var(--slate-600);"><span class="code-tag">VIEW</span> kiểm soát Route/Sidebar trên UI; <span class="code-tag">READ</span> kiểm soát quyền gọi API lấy dữ liệu.</p>
+            </div>
+            <div style="background: var(--slate-50); padding: 16px; border-radius: 10px; border: 1px solid var(--slate-200);">
+              <strong style="color: var(--amber); display: block; margin-bottom: 6px;">3. Progressive Disclosure (Ẩn nút)</strong>
+              <p style="font-size: 13px; color: var(--slate-600);">Ẩn hoàn toàn các nút thao tác mà người dùng không có quyền (không disable mờ gây hiểu lầm cho nhân viên).</p>
+            </div>
+            <div style="background: var(--slate-50); padding: 16px; border-radius: 10px; border: 1px solid var(--slate-200);">
+              <strong style="color: var(--rose); display: block; margin-bottom: 6px;">4. Realtime Caching Engine (~0.1ms)</strong>
+              <p style="font-size: 13px; color: var(--slate-600);">Quyền hạn được lưu Cache với Invalidation tức thì khi Admin đổi vai trò/phân quyền, không gây tải N+1 lên PostgreSQL.</p>
+            </div>
+          </div>
+          <div style="background: var(--slate-50); padding: 16px; border-radius: 10px; border: 1px solid var(--slate-200); margin-top: 16px;">
+            <strong style="color: var(--navy-dark); display: block; margin-bottom: 6px;">5. Tinh gọn theo YAGNI (Tập trung hoàn thiện USERS & SYSTEM)</strong>
+            <p style="font-size: 13px; color: var(--slate-600);">Chỉ khai báo các quyền thực sự cần thiết cho phân hệ đang xây dựng; dọn dẹp các quyền giả định để hệ thống luôn gọn gàng và dễ bảo trì.</p>
+          </div>
+        </section>
+
+        <!-- Section 2: VIEW vs READ -->
+        <section id="view-vs-read" class="section-card">
+          <div class="section-header">
+            <div class="icon-box">👁️</div>
+            <h2 class="section-title">2. Phân Biệt Quyền `VIEW` (Màn hình) vs `READ` (Dữ liệu)</h2>
+          </div>
+          <table class="rbac-table">
+            <thead>
+              <tr>
+                <th>Tiêu Chí</th>
+                <th>Quyền `USER_VIEW` (Page Access)</th>
+                <th>Quyền `USER_READ` (Data Access)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Mục đích</strong></td>
+                <td>Quyết định xem người dùng có được phép nhìn thấy menu và truy cập URL <span class="code-tag">/users</span> hay không.</td>
+                <td>Quyết định xem người dùng có được phép gọi API đọc dữ liệu tài khoản từ máy chủ hay không.</td>
+              </tr>
+              <tr>
+                <td><strong>Lớp bảo vệ (Guard Layer)</strong></td>
+                <td><span class="badge badge-primary">Frontend Route Guard</span> & Sidebar Menu Filter.</td>
+                <td><span class="badge badge-emerald">Backend DRF ViewSet</span> (Action <span class="code-tag">list</span>, <span class="code-tag">retrieve</span>).</td>
+              </tr>
+              <tr>
+                <td><strong>Hành vi khi bị từ chối</strong></td>
+                <td>Ẩn menu trên Sidebar; nếu cố tình nhập URL trực tiếp ➔ Redirect sang trang <strong>403 Access Denied</strong>.</td>
+                <td>API trả về mã lỗi <strong>403 Forbidden</strong> kèm JSON chi tiết mã lỗi quyền hạn.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Section 3: Permission Matrix for USER & SYSTEM -->
+        <section id="permissions-matrix" class="section-card">
+          <div class="section-header">
+            <div class="icon-box">📋</div>
+            <h2 class="section-title">3. Danh Mục Quyền Chuẩn Hóa (`USER` & `SYSTEM`)</h2>
+          </div>
+          <table class="rbac-table">
+            <thead>
+              <tr>
+                <th>Mã Quyền (Permission Code)</th>
+                <th>Tên Quyền Hiển Thị</th>
+                <th>Phân Hệ</th>
+                <th>Ánh Xạ Hành Động Backend / Frontend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="code-tag">USER_VIEW</span></td>
+                <td>Truy cập Màn hình Quản lý Người dùng</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>Hiển thị menu <span class="code-tag">/users</span> trên thanh điều hướng Sidebar.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">USER_READ</span></td>
+                <td>Truy vấn & Xem Danh sách Người dùng</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>API <span class="code-tag">GET /users/</span>, <span class="code-tag">GET /users/{id}/</span>, <span class="code-tag">GET /users/statistics/</span>.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">USER_CREATE</span></td>
+                <td>Tạo Tài khoản Mới</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>Hiển thị nút "Tạo tài khoản", API <span class="code-tag">POST /users/</span>.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">USER_UPDATE</span></td>
+                <td>Chỉnh sửa Thông tin & Trạng thái</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>Nút "Sửa", "Khóa/Mở khóa", API <span class="code-tag">PUT /users/{id}/</span>, <span class="code-tag">POST /users/batch-status/</span>.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">USER_DELETE</span></td>
+                <td>Xóa & Chuyển Thùng Rác</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>Nút "Xóa", API <span class="code-tag">DELETE /users/{id}/</span>, <span class="code-tag">POST /users/batch-delete/</span>.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">USER_EXPORT</span></td>
+                <td>Xuất Danh sách Ra File</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>Nút "Xuất Excel / CSV", API xuất báo cáo.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">USER_MANAGE_ROLE</span></td>
+                <td>Cấu hình Ma trận Phân quyền</td>
+                <td><span class="badge badge-primary">USER</span></td>
+                <td>Nút "Ma trận Phân quyền", API <span class="code-tag">POST /roles/{id}/set-permissions/</span>.</td>
+              </tr>
+              <tr>
+                <td><span class="code-tag">SYSTEM_CONFIG</span></td>
+                <td>Cấu hình Tham số Toàn cục</td>
+                <td><span class="badge badge-amber">SYSTEM</span></td>
+                <td>Truy cập các thiết lập tham số hệ thống.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Section 4: Backend Security & Caching -->
+        <section id="backend-security" class="section-card">
+          <div class="section-header">
+            <div class="icon-box">🔒</div>
+            <h2 class="section-title">4. Backend Security & Caching Layer (~0.1ms)</h2>
+          </div>
+          <p style="font-size: 14px; color: var(--slate-600); margin-bottom: 16px;">
+            Mỗi API call sẽ kiểm tra quyền thông qua Bộ nhớ Cache (Redis / Django Memory Cache) thay vì query SQL lặp đi lặp lại. Khi Admin cập nhật Role hoặc User, Cache sẽ được xóa (Invalidate) ngay lập tức.
+          </p>
+
+          <div class="code-box">
+<span class="code-comment"># apps/core/permissions.py — Cache-Aware Permission Checker</span>
+<span class="code-keyword">def</span> <span class="code-fn">get_user_permissions</span>(user) -> set:
+    <span class="code-keyword">if not</span> user <span class="code-keyword">or not</span> user.is_authenticated:
+        <span class="code-keyword">return</span> set()
+    cache_key = <span class="code-str">f"user_perms_{user.id}"</span>
+    perms = cache.get(cache_key)
+    <span class="code-keyword">if</span> perms <span class="code-keyword">is None</span>:
+        perms = set(RolePermission.objects.filter(
+            role__users=user, role__is_active=True
+        ).values_list(<span class="code-str">'permission__permission_code'</span>, flat=True))
+        cache.set(cache_key, perms, timeout=1800) <span class="code-comment"># Cache 30 phút</span>
+    <span class="code-keyword">return</span> perms
+          </div>
+
+          <h4 style="margin-top: 20px; font-size: 15px; color: var(--navy-dark);">Cấu trúc phản hồi chuẩn khi bị từ chối quyền (403 Forbidden JSON):</h4>
+          <div class="code-box">
+{
+  <span class="code-str">"success"</span>: <span class="code-keyword">false</span>,
+  <span class="code-str">"error_code"</span>: <span class="code-str">"PERMISSION_DENIED"</span>,
+  <span class="code-str">"required_permission"</span>: <span class="code-str">"USER_DELETE"</span>,
+  <span class="code-str">"message"</span>: <span class="code-str">"Bạn không có quyền 'Xóa tài khoản' (USER_DELETE) để thực hiện thao tác này."</span>
+}
+          </div>
+        </section>
+
+        <!-- Section 5: Frontend Type-Safe & <Can /> -->
+        <section id="frontend-typesafe" class="section-card">
+          <div class="section-header">
+            <div class="icon-box">🛡️</div>
+            <h2 class="section-title">5. Frontend Type-Safe Constants & Component `<Can />`</h2>
+          </div>
+          
+          <div class="code-box">
+<span class="code-comment">// constants/permissions.ts — Bảng mã quyền Type-Safe chuẩn</span>
+<span class="code-keyword">export const</span> PERMISSIONS = {
+  USER: {
+    VIEW: <span class="code-str">"USER_VIEW"</span>,
+    READ: <span class="code-str">"USER_READ"</span>,
+    CREATE: <span class="code-str">"USER_CREATE"</span>,
+    UPDATE: <span class="code-str">"USER_UPDATE"</span>,
+    DELETE: <span class="code-str">"USER_DELETE"</span>,
+    EXPORT: <span class="code-str">"USER_EXPORT"</span>,
+    MANAGE_ROLE: <span class="code-str">"USER_MANAGE_ROLE"</span>,
+  },
+  SYSTEM: {
+    CONFIG: <span class="code-str">"SYSTEM_CONFIG"</span>,
+  },
+} <span class="code-keyword">as const</span>;
+
+<span class="code-keyword">type</span> ValueOf&lt;T&gt; = T[<span class="code-keyword">keyof</span> T];
+<span class="code-keyword">export type</span> PermissionCode =
+  | ValueOf&lt;<span class="code-keyword">typeof</span> PERMISSIONS.USER&gt;
+  | ValueOf&lt;<span class="code-keyword">typeof</span> PERMISSIONS.SYSTEM&gt;;
+          </div>
+
+          <h4 style="margin-top: 20px; font-size: 15px; color: var(--navy-dark);">Ví dụ sử dụng an toàn trên giao diện React:</h4>
+          <div class="code-box">
+<span class="code-comment">// Tự động hoàn thành code (IntelliSense) và báo đỏ nếu gõ sai chính tả</span>
+&lt;<span class="code-fn">Can</span> permission={PERMISSIONS.USER.CREATE}&gt;
+  &lt;<span class="code-fn">Button</span> type=<span class="code-str">"primary"</span>&gt;Tạo tài khoản mới&lt;/<span class="code-fn">Button</span>&gt;
+&lt;/<span class="code-fn">Can</span>&gt;
+          </div>
+        </section>
+
+        <!-- Section 6: Interactive Matrix Simulator -->
+        <section id="interactive-simulator" class="section-card">
+          <div class="section-header">
+            <div class="icon-box">🎮</div>
+            <h2 class="section-title">6. Mô Phỏng Phân Quyền Tương Tác (Interactive Simulator)</h2>
+          </div>
+          <p style="font-size: 14px; color: var(--slate-600); margin-bottom: 12px;">
+            Nhấp vào từng Vai trò (Role) dưới đây để xem trước các quyền tương ứng được cấp phép:
+          </p>
+
+          <div class="matrix-simulator">
+            <div class="role-tabs">
+              <button class="role-btn active" onclick="switchRole('ADMIN')">Quản trị viên (ADMIN)</button>
+              <button class="role-btn" onclick="switchRole('MANAGER')">Trưởng bộ phận (MANAGER)</button>
+              <button class="role-btn" onclick="switchRole('STAFF')">Nhân viên thường (STAFF)</button>
+            </div>
+
+            <div class="permission-grid" id="permGrid">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const allPermissions = [
+      { code: "USER_VIEW", name: "Vào trang Quản lý Người dùng" },
+      { code: "USER_READ", name: "Đọc danh sách & Xem KPI" },
+      { code: "USER_CREATE", name: "Tạo tài khoản mới" },
+      { code: "USER_UPDATE", name: "Sửa thông tin & Đổi trạng thái" },
+      { code: "USER_DELETE", name: "Xóa & Chuyển vào Thùng rác" },
+      { code: "USER_EXPORT", name: "Xuất dữ liệu Excel/CSV" },
+      { code: "USER_MANAGE_ROLE", name: "Gán quyền ma trận cho Role" },
+      { code: "SYSTEM_CONFIG", name: "Cấu hình tham số hệ thống" },
+    ];
+
+    const rolePermMap = {
+      ADMIN: ["USER_VIEW", "USER_READ", "USER_CREATE", "USER_UPDATE", "USER_DELETE", "USER_EXPORT", "USER_MANAGE_ROLE", "SYSTEM_CONFIG"],
+      MANAGER: ["USER_VIEW", "USER_READ", "USER_UPDATE", "USER_EXPORT"],
+      STAFF: ["USER_VIEW", "USER_READ"],
+    };
+
+    function switchRole(role) {
+      document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(role));
+      });
+
+      const granted = rolePermMap[role] || [];
+      const grid = document.getElementById('permGrid');
+      grid.innerHTML = allPermissions.map(p => {
+        const isGranted = granted.includes(p.code);
+        return `
+          <div class="perm-item ${isGranted ? 'granted' : ''}">
+            <div>
+              <div style="font-weight: 600; font-size: 13px; color: #1E293B;">${p.name}</div>
+              <div style="font-size: 11px; color: #64748B; font-family: var(--font-mono);">${p.code}</div>
+            </div>
+            <div>${isGranted ? '<span class="check-icon">✓ Cho phép</span>' : '<span class="cross-icon">✕ Không</span>'}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Init with ADMIN
+    switchRole('ADMIN');
+  </script>
+</body>
+</html>

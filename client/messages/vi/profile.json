@@ -1,0 +1,40 @@
+{
+  "pageTitle": "Hồ sơ cá nhân",
+  "title": "Hồ sơ cá nhân",
+  "subtitle": "Thông tin liên hệ và mật khẩu đăng nhập của bạn",
+  "tabs": {
+    "general": "Thông tin",
+    "security": "Mật khẩu"
+  },
+  "superAdmin": "Quản trị tối cao",
+  "noRole": "Chưa có vai trò",
+  "updated": "Đã cập nhật hồ sơ",
+  "updateFailed": "Không thể cập nhật hồ sơ",
+  "passwordChanged": "Đã đổi mật khẩu",
+  "fields": {
+    "roles": "Vai trò",
+    "email": "Email",
+    "lastLogin": "Đăng nhập gần nhất",
+    "fullName": "Họ và tên",
+    "phone": "Số điện thoại",
+    "bio": "Giới thiệu"
+  },
+  "contact": {
+    "title": "Thông tin liên hệ",
+    "description": "Tên đăng nhập và email do quản trị viên quản lý",
+    "fullNamePlaceholder": "Nguyễn Văn A",
+    "fullNameRequired": "Nhập họ và tên",
+    "bioPlaceholder": "Vị trí làm việc, phạm vi phụ trách…"
+  },
+  "password": {
+    "title": "Đổi mật khẩu",
+    "description": "Tối thiểu 8 ký tự; nên kết hợp chữ hoa, chữ thường, số và ký tự đặc biệt",
+    "current": "Mật khẩu hiện tại",
+    "currentRequired": "Nhập mật khẩu hiện tại",
+    "new": "Mật khẩu mới",
+    "newRequired": "Nhập mật khẩu mới",
+    "confirm": "Nhập lại mật khẩu mới",
+    "confirmRequired": "Nhập lại mật khẩu mới",
+    "failed": "Đổi mật khẩu thất bại"
+  }
+}

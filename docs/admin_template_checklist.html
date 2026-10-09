@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Checklist Chuẩn Hóa Enterprise Admin Template | Admin Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0B0F19;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1F2937;
+      --border-subtle: #1F2937;
+      --border-strong: #374151;
+      --text-primary: #F9FAFB;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --accent-blue: #3B82F6;
+      --accent-indigo: #6366F1;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-rose: #F43F5E;
+      --accent-purple: #8B5CF6;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      line-height: 1.5;
+      padding: 32px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+    }
+
+    .badge-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .header-desc {
+      color: var(--text-secondary);
+      font-size: 15px;
+      max-width: 850px;
+      line-height: 1.6;
+    }
+
+    /* STATS & PROGRESS BAR */
+    .progress-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+    }
+
+    .stat-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      margin-top: 4px;
+      font-family: var(--font-mono);
+    }
+
+    .stat-total { color: var(--text-primary); }
+    .stat-done { color: var(--accent-emerald); }
+    .stat-pending { color: var(--accent-amber); }
+    .stat-p1 { color: var(--accent-rose); }
+
+    .progress-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--bg-surface-elevated);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-emerald) 100%);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* CONTROLS (SEARCH & FILTERS) */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-tab {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-tab:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-tab.active {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #FFFFFF;
+    }
+
+    .search-input {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      outline: none;
+      min-width: 260px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .btn-action {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-action:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+    }
+
+    /* GROUPS SECTION */
+    .group-block {
+      margin-bottom: 32px;
+    }
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .group-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .group-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .group-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 700;
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+    }
+
+    /* CARDS GRID */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 16px;
+    }
+
+    .item-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .item-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .item-card.is-done {
+      border-left: 4px solid var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.02);
+    }
+
+    .item-card.is-p1 {
+      border-left: 4px solid var(--accent-rose);
+    }
+
+    .item-card.is-p2 {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .item-card.is-p3 {
+      border-left: 4px solid var(--accent-indigo);
+    }
+
+    .item-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .custom-checkbox {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+    }
+
+    .item-header-text {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .item-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .tags-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-status-done {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .tag-status-pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .tag-p1 {
+      background: rgba(244, 63, 94, 0.15);
+      color: #FB7185;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .tag-p2 {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .tag-p3 {
+      background: rgba(99, 102, 241, 0.15);
+      color: #A5B4FC;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    .tech-details {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tech-line {
+      display: flex;
+      gap: 6px;
+    }
+
+    .tech-label {
+      color: var(--text-muted);
+      font-weight: 600;
+      min-width: 60px;
+    }
+
+    .tech-code {
+      font-family: var(--font-mono);
+      color: #E2E8F0;
+    }
+
+    /* ACTION ROADMAP SECTION */
+    .roadmap-box {
+      background: linear-gradient(180deg, var(--bg-surface) 0%, #0F172A 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-top: 40px;
+    }
+
+    .roadmap-box h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+
+    .roadmap-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .phase-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .phase-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .phase-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .phase-list {
+      margin-top: 12px;
+      list-style-position: inside;
+      font-size: 13px;
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media print {
+      body {
+        background: #FFF;
+        color: #000;
+      }
+      .controls, .btn-action { display: none; }
+      .item-card { border: 1px solid #CCC; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="badge-label">⚡ ENTERPRISE ARCHITECTURE ROADMAP</div>
+      <h1>Checklist Chuẩn Hóa Enterprise Admin Template</h1>
+      <p class="header-desc">
+        Bản đồ tính năng nền tảng biến repository <strong>Admin Template</strong> (Next.js 16 + Django 5) thành 
+        <strong>Starter Template dùng trọn đời</strong> cho mọi dự án quản trị (ERP, CRM, WMS, HRM) với tốc độ khởi tạo 5 phút/module.
+      </p>
+    </header>
+
+    <!-- STATS & PROGRESS -->
+    <section class="progress-section">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-title">Tổng Tính Năng</div>
+          <div class="stat-value stat-total" id="stat-total">18</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Đã Sẵn Sàng</div>
+          <div class="stat-value stat-done" id="stat-done">11</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Cần Xây Dựng</div>
+          <div class="stat-value stat-pending" id="stat-pending">7</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Ưu Tiên Cao (P1)</div>
+          <div class="stat-value stat-p1" id="stat-p1">2</div>
+        </div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-label">
+          <span>Tiến độ hoàn thiện Starter Template</span>
+          <span id="progress-percent">61%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width: 61%"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="filter-tabs">
+        <button class="btn-tab active" data-filter="all">Tất cả (18)</button>
+        <button class="btn-tab" data-filter="done">Đã có sẵn (11)</button>
+        <button class="btn-tab" data-filter="p1">Ưu tiên làm ngay - P1 (2)</button>
+        <button class="btn-tab" data-filter="pending">Chờ xây dựng (7)</button>
+      </div>
+
+      <div style="display: flex; gap: 8px;">
+        <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm tính năng (Ctrl + K)...">
+        <button class="btn-action" onclick="window.print()">🖨️ In / Xuất PDF</button>
+        <button class="btn-action" onclick="resetToDefaults()">🔄 Đặt lại</button>
+      </div>
+    </div>
+
+    <!-- MAIN CHECKLIST LIST -->
+    <main id="checklist-root">
+
+      <!-- GROUP 1 -->
+      <div class="group-block" data-group="security">
+        <div class="group-header">
+          <div class="group-icon">🔐</div>
+          <h2 class="group-title">Nhóm 1: Bảo Mật & Quản Lý Tài Khoản (Security & Identity)</h2>
+          <span class="group-badge">4 tính năng</span>
+        </div>
+        <div class="items-grid">
+
+          <!-- 1.1 Auth JWT -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="auth-jwt">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Authentication & JWT Lifecycle
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Đăng nhập, sinh Access/Refresh Token, cơ chế tự động refresh token trong Axios interceptor khi token hết hạn.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Backend + Frontend</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">djangorestframework-simplejwt</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">src/lib/api/client.ts (auto-refresh)</span></div>
+            </div>
+          </div>
+
+          <!-- 1.2 RBAC -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="rbac-matrix">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Phân Quyền Ma Trận RBAC
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Quản lý Vai trò (Roles), Quyền hạn (Permissions) và Ma trận trực quan phân bổ quyền hạn cho từng chức vụ.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Settings Module</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">RolePermissions, RoleHasPermission</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">src/modules/settings/components/RBACMatrixTab.tsx</span></div>
+            </div>
+          </div>
+
+          <!-- 1.3 User Profile -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="user-profile">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Hồ Sơ Cá Nhân & Đổi Mật Khẩu
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Trang /profile cho người dùng xem & cập nhật hồ sơ, avatar, số điện thoại, đổi mật khẩu và xem trực quan vai trò, quyền hạn.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Core Account</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">GET/PATCH /api/v1/auth/profile/, POST change-password</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">client/src/modules/profile/ (Tabs: General, Security, Roles)</span></div>
+            </div>
+          </div>
+
+          <!-- 1.4 Audit Log -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="audit-logs">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Nhật Ký Thao Tác (Audit Logs - django-pghistory)
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Ghi vết mức PostgreSQL Triggers tự động 100%, ghi nhận sai khác Trước / Sau (Diffs), người thực hiện và Drawer xem chi tiết.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Bảo mật & Giám sát</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">django-pghistory triggers + /api/v1/audit-logs/</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">client/src/modules/audit-logs/ (DataTable + DiffDrawer)</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 2 -->
+      <div class="group-block" data-group="data">
+        <div class="group-header">
+          <div class="group-icon">📦</div>
+          <h2 class="group-title">Nhóm 2: Hạ Tầng Dữ Liệu & Tiện Ích CRUD (Data & Common Utilities)</h2>
+          <span class="group-badge">5 tính năng</span>
+        </div>
+        <div class="items-grid">
+
+          <!-- 2.1 DataTable Pro -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="datatable-pro">
+              <div class="item-header-text">
+                <div class="item-title">
+                  DataTable Pro (DnD, Pin, Density)
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Bảng dữ liệu kéo thả cột, ghim cột, ẩn hiện cột, thay đổi độ đậm nhạt và tự lưu preference người dùng vào LocalStorage.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Common Component</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">@/components/common/DataTable.tsx</span></div>
+              <div class="tech-line"><span class="tech-label">Props:</span><span class="tech-code">tableKey, columns, enableColumnDnD, pagination</span></div>
+            </div>
+          </div>
+
+          <!-- 2.2 Soft Delete & Base Audit -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="soft-delete-audit">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Soft Delete & Audit Fields Chuẩn
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Mọi model đều có sẵn IsActive, CreatedById, UpdatedById, CreatedAt, UpdatedAt, DeletedAt và bộ lọc mặc định loại trừ bản ghi đã xóa.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Base Architecture</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">BaseAuditModel (server/core/base_models.py)</span></div>
+              <div class="tech-line"><span class="tech-label">QuerySet:</span><span class="tech-code">SoftDeleteQuerySet.alive() / .dead()</span></div>
+            </div>
+          </div>
+
+          <!-- 2.3 Excel Import/Export -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="excel-io">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Tiện Ích Import / Export Excel Chuẩn
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Nút Xuất Excel trong DataTable + Modal Tải file mẫu, kéo thả file Excel, bắt lỗi validate từng dòng và import hàng loạt.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Fullstack Utility</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">openpyxl ExcelService + BaseERPViewSet export_excel</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">@/components/common/ExcelImportModal & exportExcel</span></div>
+            </div>
+          </div>
+
+          <!-- 2.4 File / Attachment Manager -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="attachment-manager">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Quản Lý Tệp Đính Kèm Đa Hình (File Attachment)
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Một component & API upload dùng chung cho mọi thực thể (hồ sơ nhân viên, bản vẽ kỹ thuật CAD, hợp đồng, chứng từ).</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Đa hình (Polymorphic)</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">Attachment model + /api/v1/attachments/</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">&lt;AttachmentManager entityType="item" entityId={id} /&gt;</span></div>
+            </div>
+          </div>
+
+          <!-- 2.5 Bulk Action & Recycle Bin -->
+          <div class="item-card is-done" data-status="done" data-priority="p2">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="bulk-recycle">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Thao Tác Hàng Loạt & Thùng Rác (Recycle Bin)
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Chọn nhiều dòng để Xóa/Duyệt hàng loạt. Xem danh sách đã xóa tạm và ấn nút Khôi phục (Restore) hoặc Xóa vĩnh viễn.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p2">P2</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Data Hygiene</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">POST /batch-delete/, /batch-restore/, /batch-hard-delete/</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">DataTable rowSelection + RecycleBinDrawer</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 3 -->
+      <div class="group-block" data-group="system">
+        <div class="group-header">
+          <div class="group-icon">⚙️</div>
+          <h2 class="group-title">Nhóm 3: Cấu Hình Hệ Thống & Quy Tắc Tự Động (System Config & Rules)</h2>
+          <span class="group-badge">3 tính năng</span>
+        </div>
+        <div class="items-grid">
+
+          <!-- 3.1 Module Registries -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="module-registry-dnd">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Dynamic Menu & Module Registries
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Sidebar sinh động từ DB, quản trị đa tầng Cha - Con, kéo thả sắp xếp vị trí siêu mượt với animation dnd-kit chuẩn chỉ.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Dynamic Routing</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">server/apps/modules/ (ModuleRegistries)</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">ModuleTable.tsx (DnD kit vertical transform)</span></div>
+            </div>
+          </div>
+
+          <!-- 3.2 System Parameters -->
+          <div class="item-card is-p1" data-status="pending" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="system-params">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Bảng Tham Số Toàn Cục (System Settings)
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Trang cấu hình Key-Value: Tên công ty, Logo, Địa chỉ, Hotline, Định dạng ngày giờ mặc định, Ký hiệu tiền tệ, Cấu hình Mail SMTP.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1 - Bắt Buộc</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Global Config</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">SystemSettings (SettingKey, SettingValue, DataType)</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">src/modules/settings/views/GeneralSettingsView.tsx</span></div>
+            </div>
+          </div>
+
+          <!-- 3.3 Number Series Generator -->
+          <div class="item-card is-p1" data-status="pending" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="number-series">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Bộ Sinh Mã Tự Động (Number Series Generator)
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Tự động sinh mã chứng từ theo quy tắc: [PREFIX]-[NĂM]-[THÁNG]-[SỐ TỰ TĂNG] (VD: PO-2026-0001, WO-2026-0012, NV-00045).</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1 - Cực Quan Trọng</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Core Automation</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">SequenceRules & SequenceService.get_next_code()</span></div>
+              <div class="tech-line"><span class="tech-label">Concurrency:</span><span class="tech-code">select_for_update() chống trùng mã khi nhiều luồng</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 4 -->
+      <div class="group-block" data-group="ui">
+        <div class="group-header">
+          <div class="group-icon">🎨</div>
+          <h2 class="group-title">Nhóm 4: Trải Nghiệm Giao Diện & Thông Báo (UI/UX & Interactions)</h2>
+          <span class="group-badge">4 tính năng</span>
+        </div>
+        <div class="items-grid">
+
+          <!-- 4.1 Dynamic Header -->
+          <div class="item-card is-done" data-status="done" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" checked data-id="dynamic-header">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Tiêu Đề Trang Động (useModuleHeader)
+                  <span class="tag tag-status-done">ĐÃ HOÀN THIỆN</span>
+                </div>
+                <p class="item-desc">Tiêu đề (Title) và mô tả (Subtitle) lấy tự động từ DB ModuleRegistries theo ModuleCode, không bị hardcode chuỗi tĩnh ở View.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">UI Hook</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">client/src/hooks/useModuleHeader.ts</span></div>
+              <div class="tech-line"><span class="tech-label">Usage:</span><span class="tech-code">const { title, subtitle } = useModuleHeader("USER")</span></div>
+            </div>
+          </div>
+
+          <!-- 4.2 In-app Notification -->
+          <div class="item-card is-p2" data-status="pending" data-priority="p2">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="inapp-notification">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Hệ Thống Thông Báo Nội Bộ (Notification Bell)
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Chuông thông báo trên Header nhận cảnh báo sự kiện (Được duyệt đơn, Giao việc mới, Cảnh báo tồn kho), đánh dấu Đã đọc.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p2">P2</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Event System</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">Notifications (UserId, Title, Message, IsRead, Link)</span></div>
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">Header Notification Popover + Badge đếm số chưa đọc</span></div>
+            </div>
+          </div>
+
+          <!-- 4.3 Breadcrumb -->
+          <div class="item-card is-p2" data-status="pending" data-priority="p2">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="smart-breadcrumb">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Điều Hướng Breadcrumb Tự Động
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Tự động sinh Breadcrumb từ URL hierarchy và map tên tương ứng từ ModuleRegistries (VD: Cài đặt / Phân hệ & Điều hướng).</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p2">P2</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">UX Component</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Frontend:</span><span class="tech-code">@/components/common/SmartBreadcrumb.tsx</span></div>
+              <div class="tech-line"><span class="tech-label">Next.js:</span><span class="tech-code">usePathname() + useModules() context</span></div>
+            </div>
+          </div>
+
+          <!-- 4.4 Error Pages -->
+          <div class="item-card is-p3" data-status="pending" data-priority="p3">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="error-pages">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Bộ Trang Lỗi Chuẩn (403, 404, 500)
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Trang giao diện chuẩn khi người dùng không có quyền (403 Forbidden), gõ sai link (404 Not Found), hoặc máy chủ quá tải (500 Error).</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p3">P3</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Next.js Standard</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Next.js:</span><span class="tech-code">not-found.tsx, error.tsx, 403-view.tsx</span></div>
+              <div class="tech-line"><span class="tech-label">UI:</span><span class="tech-code">Ant Design &lt;Result status="403" /&gt;</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 5 -->
+      <div class="group-block" data-group="dx">
+        <div class="group-header">
+          <div class="group-icon">🚀</div>
+          <h2 class="group-title">Nhóm 5: Trải Nghiệm Lập Trình & Sinh Code Tự Động (Developer Experience - DX)</h2>
+          <span class="group-badge">2 tính năng</span>
+        </div>
+        <div class="items-grid">
+
+          <!-- 5.1 CLI Scaffolding -->
+          <div class="item-card is-p1" data-status="pending" data-priority="p1">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="cli-scaffolding">
+              <div class="item-header-text">
+                <div class="item-title">
+                  CLI Scaffolding: Sinh Module Mới Trong 1 Lệnh
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Vũ khí nhân 5x tốc độ: Gõ `python make_module.py suppliers` tự sinh toàn bộ Backend (model, serializer, viewset, url) và Frontend (types, services, hooks, table, form modal, view).</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p1">P1 - Đòn Bẩy Tốc Độ</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Dev Tooling</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Script:</span><span class="tech-code">scripts/scaffold_module.py</span></div>
+              <div class="tech-line"><span class="tech-label">Output:</span><span class="tech-code">Full CRUD Module sẵn sàng chạy trong 30 giây</span></div>
+            </div>
+          </div>
+
+          <!-- 5.2 Base Backend Service -->
+          <div class="item-card is-p2" data-status="pending" data-priority="p2">
+            <div class="item-top">
+              <input type="checkbox" class="custom-checkbox" data-id="base-services">
+              <div class="item-header-text">
+                <div class="item-title">
+                  Bộ Base Service & Base ViewSet Mở Rộng
+                  <span class="tag tag-status-pending">CẦN XÂY DỰNG</span>
+                </div>
+                <p class="item-desc">Chuẩn hóa sẵn các logic nghiệp vụ tự động: Lọc thông minh, Sắp xếp [-updated_at, id], Transaction Atomic ghi dữ liệu và tự điền CreatedBy/UpdatedBy.</p>
+              </div>
+            </div>
+            <div class="tags-row">
+              <span class="tag tag-p2">P2</span>
+              <span class="tag" style="background:#1E293B;color:#94A3B8;">Backend DRY</span>
+            </div>
+            <div class="tech-details">
+              <div class="tech-line"><span class="tech-label">Backend:</span><span class="tech-code">server/core/base_viewsets.py, base_services.py</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ACTION ROADMAP -->
+    <section class="roadmap-box">
+      <h3>🧭 Kế Hoạch Đề Xuất Để Hoàn Thiện Template</h3>
+      <div class="roadmap-timeline">
+        
+        <div class="phase-card">
+          <div class="phase-title">
+            <span>1️⃣ BƯỚC 1: ĐÓNG GÓI TEMPLATE (Tuần này)</span>
+          </div>
+          <p class="phase-desc">Tập trung hoàn thiện 4 tính năng P1 để chốt hạ bộ khung Core không còn thiếu sót.</p>
+          <ul class="phase-list">
+            <li>✓ Trang Profile & Đổi mật khẩu</li>
+            <li>✓ Tiện ích Import/Export Excel cho DataTable</li>
+            <li>✓ Component Upload File đính kèm</li>
+            <li>✓ Bộ sinh mã tự động (Number Series)</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-title">
+            <span>2️⃣ BƯỚC 2: TỰ ĐỘNG HÓA CODE (DX)</span>
+          </div>
+          <p class="phase-desc">Tạo script sinh code CRUD tự động để nhân bản các màn hình cực nhanh.</p>
+          <ul class="phase-list">
+            <li>✓ Script Python sinh Backend + Frontend</li>
+            <li>✓ Thử nghiệm sinh 1 module Master Data từ DBML</li>
+            <li>✓ Kiểm tra chuẩn linting & build 0 errors</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-title">
+            <span>3️⃣ BƯỚC 3: SẢN XUẤT Admin Template</span>
+          </div>
+          <p class="phase-desc">Lắp ráp các module nghiệp vụ chuyên sâu theo đúng tài liệu DBML.</p>
+          <ul class="phase-list">
+            <li>✓ Vật tư & Đơn vị tính (Materials)</li>
+            <li>✓ Sản phẩm & Biến thể (Bases & Variants)</li>
+            <li>✓ Định mức BOM 4 tầng & Công thức sơn</li>
+            <li>✓ Kế hoạch & Lệnh sản xuất (Work Orders)</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // LocalStorage persistence for user checklist progress
+    const STORAGE_KEY = 'app_admin_template_checklist_v1';
+
+    function loadSavedState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        document.querySelectorAll('.custom-checkbox').forEach(cb => {
+          const id = cb.getAttribute('data-id');
+          if (saved[id] !== undefined) {
+            cb.checked = saved[id];
+            updateCardStyle(cb);
+          }
+        });
+      } catch (e) {
+        console.error('Error loading checklist state', e);
+      }
+      updateStats();
+    }
+
+    function saveState() {
+      const state = {};
+      document.querySelectorAll('.custom-checkbox').forEach(cb => {
+        const id = cb.getAttribute('data-id');
+        if (id) state[id] = cb.checked;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateStats();
+    }
+
+    function updateCardStyle(checkbox) {
+      const card = checkbox.closest('.item-card');
+      if (!card) return;
+      if (checkbox.checked) {
+        card.classList.add('is-done');
+        card.setAttribute('data-status', 'done');
+        const tag = card.querySelector('.tag-status-pending');
+        if (tag) {
+          tag.className = 'tag tag-status-done';
+          tag.textContent = 'ĐÃ HOÀN THIỆN';
+        }
+      } else {
+        card.classList.remove('is-done');
+        card.setAttribute('data-status', 'pending');
+        const tag = card.querySelector('.tag-status-done');
+        if (tag) {
+          tag.className = 'tag tag-status-pending';
+          tag.textContent = 'CẦN XÂY DỰNG';
+        }
+      }
+    }
+
+    function updateStats() {
+      const allCheckboxes = document.querySelectorAll('.custom-checkbox');
+      const total = allCheckboxes.length;
+      let done = 0;
+
+      allCheckboxes.forEach(cb => {
+        if (cb.checked) done++;
+      });
+
+      const pending = total - done;
+      const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      // Count P1 pending
+      let p1Pending = 0;
+      document.querySelectorAll('.item-card[data-priority="p1"]').forEach(card => {
+        const cb = card.querySelector('.custom-checkbox');
+        if (cb && !cb.checked) p1Pending++;
+      });
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-done').textContent = done;
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-p1').textContent = p1Pending;
+
+      document.getElementById('progress-percent').textContent = percent + '%';
+      document.getElementById('progress-fill').style.width = percent + '%';
+    }
+
+    function resetToDefaults() {
+      if (confirm('Bạn có muốn đặt lại checklist về trạng thái mặc định của repository không?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        // Default initial items checked
+        const defaultDone = ['auth-jwt', 'rbac-matrix', 'user-profile', 'audit-logs', 'datatable-pro', 'soft-delete-audit', 'excel-io', 'attachment-manager', 'bulk-recycle', 'module-registry-dnd', 'dynamic-header'];
+        document.querySelectorAll('.custom-checkbox').forEach(cb => {
+          const id = cb.getAttribute('data-id');
+          cb.checked = defaultDone.includes(id);
+          updateCardStyle(cb);
+        });
+        saveState();
+      }
+    }
+
+    // Event Listeners
+    document.querySelectorAll('.custom-checkbox').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        updateCardStyle(e.target);
+        saveState();
+      });
+    });
+
+    // Filtering
+    const tabs = document.querySelectorAll('.btn-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', applyFilters);
+
+    // Keyboard shortcut Ctrl+K
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+
+    function applyFilters() {
+      const activeTab = document.querySelector('.btn-tab.active')?.getAttribute('data-filter') || 'all';
+      const query = searchInput.value.toLowerCase().trim();
+
+      document.querySelectorAll('.item-card').forEach(card => {
+        const status = card.getAttribute('data-status');
+        const priority = card.getAttribute('data-priority');
+        const text = card.textContent.toLowerCase();
+
+        let matchesTab = true;
+        if (activeTab === 'done') matchesTab = (status === 'done');
+        else if (activeTab === 'pending') matchesTab = (status === 'pending');
+        else if (activeTab === 'p1') matchesTab = (priority === 'p1');
+
+        let matchesSearch = !query || text.includes(query);
+
+        if (matchesTab && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Hide empty groups
+      document.querySelectorAll('.group-block').forEach(group => {
+        const visibleCards = group.querySelectorAll('.item-card:not([style*="display: none"])');
+        group.style.display = visibleCards.length > 0 ? 'block' : 'none';
+      });
+    }
+
+    // Init
+    loadSavedState();
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{
+  "pageTitle": "Audit logs",
+  "entity": "log entry",
+  "searchPlaceholder": "Search by object, action…",
+  "system": "System",
+  "actions": {
+    "CREATE": "Created",
+    "UPDATE": "Updated",
+    "DELETE": "Deleted",
+    "APPROVE": "Approved",
+    "RELEASE": "Released",
+    "EXPORT": "Exported",
+    "IMPORT": "Imported"
+  },
+  "fields": {
+    "time": "Time",
+    "user": "User",
+    "model": "Object",
+    "record": "Record",
+    "action": "Action",
+    "changedFields": "Changed fields",
+    "ip": "IP address",
+    "detail": "Details"
+  },
+  "export": {
+    "empty": "No data to export",
+    "done": "Current page of audit logs exported to CSV",
+    "fileName": "Audit_logs",
+    "headers": {
+      "id": "ID",
+      "time": "Time",
+      "user": "User",
+      "username": "Username",
+      "model": "Object",
+      "objectId": "Record ID",
+      "action": "Action",
+      "method": "Method",
+      "ip": "IP address",
+      "url": "URL"
+    }
+  },
+  "drawer": {
+    "title": "Log details",
+    "time": "Time",
+    "method": "Method",
+    "internal": "Internal",
+    "device": "Device",
+    "browser": "Browser",
+    "url": "API path",
+    "internalSystem": "Internal system",
+    "field": "Field",
+    "before": "Before",
+    "after": "After",
+    "emptyValue": "empty",
+    "createdHint": "New record — all data is shown below.",
+    "deletedHint": "The record was deleted.",
+    "noChanges": "No tracked field changed.",
+    "snapshot": "Full snapshot",
+    "fieldCount": "{count, plural, one {# field} other {# fields}}"
+  }
+}

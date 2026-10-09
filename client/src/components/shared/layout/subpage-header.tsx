@@ -14,8 +14,8 @@ const ROUTE_LABELS: Record<string, string> = {
 
 export function SubpageHeader() {
   const pathname = usePathname();
-
-  if (pathname === "/") return null;
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
 
   // Lấy từng đoạn segment từ URL, vd: /projects/shopsifu => ["projects", "shopsifu"]
   const segments = pathname.split("/").filter(Boolean);
@@ -31,9 +31,6 @@ export function SubpageHeader() {
     return segment.charAt(0).toUpperCase() + segment.slice(1);
   };
 
-  const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
-
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     // Tự động dấu Header khi cuộn xuống và lộ ra khi cuộn lên
@@ -43,6 +40,8 @@ export function SubpageHeader() {
       setHidden(false);
     }
   });
+
+  if (pathname === "/") return null;
 
   return (
     <motion.header

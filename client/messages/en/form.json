@@ -1,0 +1,27 @@
+{
+  "selectPlaceholder": "Select…",
+  "searchPlaceholder": "Search…",
+  "expand": "Expand",
+  "collapse": "Collapse",
+  "dropzone": "Drag files here or click to choose",
+  "discard": {
+    "title": "Discard unsaved changes?",
+    "description": "What you entered will not be saved.",
+    "confirm": "Discard",
+    "keepEditing": "Keep editing"
+  },
+  "dateRange": {
+    "placeholder": "Select a date range",
+    "today": "Today",
+    "last7": "Last 7 days",
+    "last30": "Last 30 days",
+    "thisMonth": "This month"
+  },
+  "clearValue": "Clear selection",
+  "image": {
+    "remove": "Remove image",
+    "uploading": "Uploading image…",
+    "dropHint": "Drag and drop or click to choose an image",
+    "uploadError": "Could not upload the image"
+  }
+}

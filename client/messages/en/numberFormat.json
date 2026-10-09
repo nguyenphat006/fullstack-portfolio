@@ -1,0 +1,34 @@
+{
+  "title": "Number format",
+  "description": "Applies to your account on this browser",
+  "separatorStyle": "Separator style",
+  "decimalPlaces": "Decimal places",
+  "previewTitle": "Preview",
+  "restoreDefault": "Restore defaults",
+  "applied": "Number format applied",
+  "restored": "Default format restored",
+  "styles": {
+    "international": {
+      "label": "International (default)",
+      "hint": "Comma for thousands, dot for decimals"
+    },
+    "vietnam": {
+      "label": "Vietnamese",
+      "hint": "Dot for thousands, comma for decimals"
+    }
+  },
+  "decimals": {
+    "currencyDecimals": "Currency (VND)",
+    "dimensionDecimals": "Dimensions (mm)",
+    "weightDecimals": "Weight (kg, kg/m)",
+    "volumeDecimals": "Volume / consumption (m³)",
+    "percentDecimals": "Ratio (%)"
+  },
+  "preview": {
+    "currency": "Currency",
+    "dimension": "Dimension",
+    "weight": "Weight per meter",
+    "volume": "Volume",
+    "scrap": "Scrap"
+  }
+}

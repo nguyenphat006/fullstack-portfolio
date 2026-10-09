@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Bài viết",
+  "title": "Bài viết",
+  "entity": "bài viết",
+  "searchPlaceholder": "Tìm theo slug, tiêu đề, chuyên mục…",
+  "fields": {
+    "slug": "Slug",
+    "title": "Tiêu đề",
+    "excerpt": "Đoạn trích",
+    "publishedDate": "Ngày đăng",
+    "category": "Chuyên mục",
+    "readTime": "Thời gian đọc",
+    "image": "Ảnh đại diện (URL)",
+    "content": "Nội dung (Markdown)"
+  },
+  "form": {
+    "createTitle": "Thêm bài viết",
+    "editTitle": "Sửa bài viết {code}"
+  }
+}

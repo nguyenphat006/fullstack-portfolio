@@ -1,0 +1,60 @@
+{
+  "pageTitle": "Quản lý người dùng",
+  "detailPageTitle": "Chi tiết tài khoản",
+  "title": "Người dùng",
+  "entity": "tài khoản",
+  "searchPlaceholder": "Tìm theo tên, tài khoản, email, SĐT…",
+  "bulkDeleteHint": "Tài khoản Quản trị viên và tài khoản của bạn sẽ được bỏ qua.",
+  "superAdmin": "Quản trị tối cao",
+  "noRole": "Chưa có vai trò",
+  "neverLoggedIn": "Chưa đăng nhập",
+  "statusLocked": "Tạm khóa",
+  "adminEditOnly": "Chỉ Quản trị viên được sửa tài khoản Quản trị viên",
+  "cannotDeleteAdmin": "Không thể xóa tài khoản Quản trị viên",
+  "cannotDeleteSelf": "Không thể xóa tài khoản của chính mình",
+  "cannotLockSelf": "Không thể tự khóa tài khoản của mình",
+  "cannotLockAdmin": "Không thể khóa tài khoản Quản trị viên",
+  "lockAccount": "Khóa tài khoản",
+  "unlockAccount": "Mở khóa tài khoản",
+  "locked": "Đã khóa tài khoản",
+  "unlocked": "Đã mở khóa tài khoản",
+  "deleteAccount": "Xóa tài khoản",
+  "duplicated": "Đã tạo tài khoản từ bản sao",
+  "copyName": "{name} (bản sao)",
+  "fields": {
+    "fullName": "Họ và tên",
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "roles": "Vai trò",
+    "lastLogin": "Đăng nhập gần nhất"
+  },
+  "form": {
+    "createTitle": "Thêm tài khoản",
+    "editTitle": "Sửa tài khoản {username}",
+    "createSubmit": "Tạo tài khoản",
+    "usernameRequired": "Nhập tên đăng nhập",
+    "fullNamePlaceholder": "Lê Hoàng Anh",
+    "fullNameRequired": "Nhập họ và tên",
+    "emailRequired": "Nhập email",
+    "rolesPlaceholder": "Chọn một hoặc nhiều vai trò",
+    "rolesRequired": "Chọn ít nhất 1 vai trò",
+    "newPassword": "Mật khẩu mới",
+    "initialPassword": "Mật khẩu ban đầu",
+    "passwordKeep": "Để trống nếu không đổi",
+    "passwordRequired": "Đặt mật khẩu ban đầu",
+    "notePlaceholder": "Trách nhiệm, phân xưởng phụ trách…"
+  },
+  "resetPassword": {
+    "title": "Đặt lại mật khẩu",
+    "submit": "Đặt lại",
+    "passwordRequired": "Nhập mật khẩu mới",
+    "confirm": "Nhập lại mật khẩu",
+    "confirmRequired": "Nhập lại mật khẩu",
+    "done": "Đã đặt lại mật khẩu"
+  },
+  "import": {
+    "title": "Nhập tài khoản từ Excel",
+    "passwordColumn": "Mật khẩu (tối thiểu 8 ký tự)"
+  }
+}

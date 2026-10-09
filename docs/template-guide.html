@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Template Guide — Admin Template</title>
+<style>
+  :root {
+    --bg: #F8FAFC; --surface: #FFFFFF; --muted: #F1F5F9; --border: #E2E8F0;
+    --text: #0F172A; --text-2: #334155; --text-3: #64748B;
+    --primary: #1E40AF; --primary-bg: #EFF6FF; --success: #059669; --success-bg: #ECFDF5;
+    --warning: #B45309; --warning-bg: #FFFBEB; --danger: #DC2626; --danger-bg: #FEF2F2;
+    --code-bg: #0F172A; --code-text: #E2E8F0;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B1120; --surface: #111827; --muted: #1E293B; --border: #263244;
+      --text: #E2E8F0; --text-2: #CBD5E1; --text-3: #94A3B8;
+      --primary: #60A5FA; --primary-bg: rgba(59,130,246,.14); --success: #34D399; --success-bg: rgba(16,185,129,.12);
+      --warning: #FBBF24; --warning-bg: rgba(245,158,11,.12); --danger: #F87171; --danger-bg: rgba(248,113,113,.12);
+      --code-bg: #020617; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B1120; --surface: #111827; --muted: #1E293B; --border: #263244;
+    --text: #E2E8F0; --text-2: #CBD5E1; --text-3: #94A3B8;
+    --primary: #60A5FA; --primary-bg: rgba(59,130,246,.14); --success: #34D399; --success-bg: rgba(16,185,129,.12);
+    --warning: #FBBF24; --warning-bg: rgba(245,158,11,.12); --danger: #F87171; --danger-bg: rgba(248,113,113,.12);
+    --code-bg: #020617; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  header { background: linear-gradient(135deg, #0F172A 0%, #1E40AF 60%, #1E3A8A 100%); color: #fff; padding: 36px 20px 28px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  header h1 { margin: 0 0 6px; font-size: clamp(24px, 4vw, 34px); letter-spacing: -.5px; }
+  header p { margin: 0; color: #BFDBFE; max-width: 760px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .badges span { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--border); }
+  nav .wrap { display: flex; gap: 4px; overflow-x: auto; align-items: center; }
+  nav button { flex: none; border: 0; background: none; color: var(--text-3); font: inherit; font-weight: 600; padding: 14px 14px 12px; border-bottom: 2px solid transparent; cursor: pointer; }
+  nav button[aria-selected="true"] { color: var(--primary); border-bottom-color: var(--primary); }
+  nav .spacer { flex: 1; }
+  #themeBtn { font-weight: 500; font-size: 13px; }
+  main { padding: 28px 0 60px; }
+  section[role="tabpanel"] { display: none; }
+  section[role="tabpanel"].active { display: block; }
+  h2 { font-size: 22px; margin: 8px 0 12px; }
+  h3 { font-size: 17px; margin: 28px 0 10px; }
+  p.lead { color: var(--text-2); margin-top: 0; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .card h4 { margin: 0 0 6px; font-size: 15px; }
+  .card p, .card ul { margin: 0; color: var(--text-2); font-size: 14px; }
+  .card ul { padding-left: 18px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; background: var(--primary-bg); color: var(--primary); margin-bottom: 8px; }
+  .tag.green { background: var(--success-bg); color: var(--success); }
+  .tag.amber { background: var(--warning-bg); color: var(--warning); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--muted); color: var(--text-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  .table-wrap { overflow-x: auto; }
+  code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9em; background: var(--muted); padding: 1px 6px; border-radius: 5px; }
+  pre { background: var(--code-bg); color: var(--code-text); padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: 13px; line-height: 1.55; }
+  pre code { background: none; padding: 0; color: inherit; }
+  .callout { border-left: 4px solid var(--primary); background: var(--primary-bg); padding: 12px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; color: var(--text-2); }
+  .callout.warn { border-color: var(--warning); background: var(--warning-bg); }
+  .callout.danger { border-color: var(--danger); background: var(--danger-bg); }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+  .steps li { counter-increment: s; position: relative; padding: 0 0 18px 44px; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+  .steps li strong { display: block; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+  .flow span { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; }
+  .flow i { color: var(--text-3); font-style: normal; }
+  footer { color: var(--text-3); font-size: 13px; text-align: center; padding: 24px 16px 40px; }
+  @media (max-width: 600px) { header { padding-top: 26px; } nav button { padding: 12px 10px 10px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Admin Template — Full-stack Admin Template</h1>
+    <p>Những gì cần biết để dùng template: có sẵn gì, cấu trúc ra sao, viết tính năng mới thế nào và đưa lên production.</p>
+    <div class="badges">
+      <span>Django 5.2 LTS</span><span>DRF 3.17</span><span>PostgreSQL 16</span><span>Redis · Celery</span>
+      <span>Next.js 16</span><span>React 19</span><span>Ant Design 6</span><span>TanStack Query 5</span><span>TypeScript</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="overview">Tổng quan</button>
+    <button role="tab" aria-selected="false" data-tab="backend">Backend</button>
+    <button role="tab" aria-selected="false" data-tab="frontend">Frontend</button>
+    <button role="tab" aria-selected="false" data-tab="workflow">Thêm tính năng</button>
+    <button role="tab" aria-selected="false" data-tab="ops">Vận hành</button>
+    <span class="spacer"></span>
+    <button id="themeBtn" type="button">Đổi sáng / tối</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============================================================ TỔNG QUAN -->
+<section id="overview" role="tabpanel" class="active">
+  <h2>Tổng quan</h2>
+  <p class="lead">Clone về, đổi thương hiệu, chạy <code>bootstrap</code> là có hệ thống quản trị hoàn chỉnh. Phần việc còn lại chỉ là tính năng riêng của đề tài.</p>
+
+  <div class="grid">
+    <div class="card"><span class="tag">Tài khoản</span><h4>Đăng nhập JWT</h4><p>Access + refresh tự làm mới, hồ sơ cá nhân, đổi mật khẩu, đăng xuất (blacklist token).</p></div>
+    <div class="card"><span class="tag">Phân quyền</span><h4>RBAC động</h4><p>Phân hệ → quyền → vai trò; ma trận phân quyền trên giao diện; menu và nút tự ẩn theo quyền.</p></div>
+    <div class="card"><span class="tag">Người dùng</span><h4>Quản lý tài khoản</h4><p>CRUD, khóa/mở hàng loạt, nhập/xuất Excel, trang hồ sơ chi tiết.</p></div>
+    <div class="card"><span class="tag">Hệ thống</span><h4>Nhật ký & đính kèm</h4><p>Nhật ký thao tác tự động bằng trigger PostgreSQL; tệp đính kèm cho mọi thực thể, xem trước PDF/Word/Excel/ảnh.</p></div>
+    <div class="card"><span class="tag green">Giao diện</span><h4>Sáng / tối / mobile</h4><p>Theme theo hệ thống, sidebar ngăn kéo trên điện thoại, trang 404 / lỗi / loading, trạng thái hệ thống thật.</p></div>
+    <div class="card"><span class="tag amber">Công cụ</span><h4>Sinh module & vận hành</h4><p><code>startmodule</code> + <code>gen:module</code>, Docker production, CI, Dependabot, smoke test Playwright.</p></div>
+  </div>
+
+  <h3>Kiến trúc</h3>
+  <div class="flow"><span>Trình duyệt</span><i>→</i><span>nginx</span><i>→</i><span>Next.js (client/)</span><i>+</i><span>Django REST (server/)</span><i>→</i><span>PostgreSQL</span><i>·</i><span>Redis</span><i>·</i><span>Celery</span></div>
+  <div class="callout"><strong>Hợp đồng API:</strong> mọi response JSON có dạng <code>{success, message, data, errors, code}</code>. Backend sinh <code>server/schema.yml</code> (OpenAPI), frontend sinh kiểu TypeScript từ file đó, nên hai phía luôn khớp nhau.</div>
+
+  <h3>Cấu trúc repo</h3>
+<pre><code>template-Django-Nextjs/
+├── server/        Django: apps/core (nền tảng), authentication, audit, master_data (module MẪU)
+├── client/        Next.js: src/app (route), src/modules (tính năng), src/lib/api, scripts/gen-module
+├── deploy/        nginx.conf cho production
+├── docker-compose.yml        dev   ·   docker-compose.prod.yml   production
+├── .github/       CI + Dependabot
+├── .claude/ .agents/         rules & skills cho AI agent
+└── docs/          TEMPLATE.md, tài liệu này</code></pre>
+
+  <h3>Bắt đầu dự án mới</h3>
+  <ol class="steps">
+    <li><strong>Clone và tạo lịch sử git mới</strong><code>git clone … ten-du-an && rm -rf .git && git init</code></li>
+    <li><strong>Đổi thương hiệu (4 chỗ)</strong><code>client/src/config/app.ts</code> · <code>client/src/app/globals.css</code> · <code>client/src/theme/themeConfig.ts</code> · <code>SPECTACULAR_SETTINGS</code> trong <code>server/config/settings.py</code></li>
+    <li><strong>Cấu hình môi trường</strong>Copy <code>server/.env.example</code> → <code>.env</code>, <code>client/.env.example</code> → <code>.env.local</code>. CSDL bắt buộc là PostgreSQL.</li>
+    <li><strong>Khởi tạo</strong><code>docker compose up -d</code> → <code>docker compose exec api python manage.py bootstrap --demo</code> → <code>cd client && npm install && npm run dev</code></li>
+    <li><strong>Bỏ module mẫu (tùy chọn)</strong>Xóa <code>apps/master_data</code>, <code>src/modules/master-data</code>, route <code>master-data</code> và các khối quyền tương ứng trong <code>seed_core.py</code> / <code>permissions.ts</code>.</li>
+  </ol>
+</section>
+
+<!-- ============================================================ BACKEND -->
+<section id="backend" role="tabpanel">
+  <h2>Backend — Django REST</h2>
+  <p class="lead">Mọi thực thể nghiệp vụ dựa trên 3 thứ: <code>AuditModel</code>, <code>BaseERPViewSet</code> và <code>ModulePermissionChecker</code>.</p>
+
+  <h3>Nền tảng trong <code>apps/core</code></h3>
+  <div class="table-wrap"><table>
+    <tr><th>Thành phần</th><th>Việc nó làm cho bạn</th></tr>
+    <tr><td><code>AuditModel</code></td><td>Thêm sẵn <code>created_at/updated_at</code>, <code>created_by/updated_by</code>, <code>description</code>, <code>is_active</code>, xóa mềm (<code>deleted_at</code>). <code>objects</code> ẩn bản ghi đã xóa, <code>all_objects</code> lấy tất cả.</td></tr>
+    <tr><td><code>BaseERPViewSet</code></td><td>CRUD kèm thông điệp tiếng Việt, <code>statistics</code>, <code>batch-delete</code>, <code>batch-status</code>, xuất/nhập Excel (tự chạy nền khi dữ liệu lớn).</td></tr>
+    <tr><td>Renderer + exception handler</td><td>Bọc mọi response thành envelope; chuẩn hóa lỗi thành <code>errors: {field: [...]}</code> kèm <code>code</code> ổn định.</td></tr>
+    <tr><td><code>ModulePermissionChecker</code></td><td>Suy ra quyền từ action (<code>list</code> → <code>X_READ</code>, <code>export_excel</code> → <code>X_EXPORT</code>…); chặn mặc định khi thiếu cấu hình.</td></tr>
+    <tr><td><code>/api/v1/health/</code></td><td>Kiểm tra CSDL + cache; dùng cho Docker healthcheck và Dashboard.</td></tr>
+  </table></div>
+
+  <h3>Viết một ViewSet</h3>
+<pre><code>class SupplierViewSet(BaseERPViewSet):
+    queryset = Supplier.objects.select_related('created_by', 'updated_by').order_by('-updated_at', 'id')
+    serializer_class = SupplierSerializer                   # đọc: dùng cho MỌI response
+    write_serializer_class = SupplierCreateUpdateSerializer  # ghi: create / update
+    permission_classes = [IsAuthenticated, ModulePermissionChecker]
+    permission_module = 'SUPPLIER'
+    filterset_fields = ['is_active']
+    search_fields = ['code', 'name']
+
+    def check_can_destroy(self, instance):            # áp dụng cả xóa đơn lẫn hàng loạt
+        if instance.purchase_orders.exists():
+            raise BusinessError("Nhà cung cấp đang có đơn mua hàng.")</code></pre>
+
+  <h3>Hợp đồng response</h3>
+<pre><code>// Thành công (danh sách: data = {count, total_pages, current_page, page_size, next, previous, results})
+{ "success": true,  "message": "Thêm mới nhà cung cấp thành công", "data": {...}, "errors": null, "code": null }
+// Thất bại
+{ "success": false, "message": "Mã đã tồn tại.", "data": null, "errors": { "code": ["Mã đã tồn tại."] }, "code": "validation_error" }</code></pre>
+  <div class="callout warn"><strong>Lỗi luôn <code>raise</code>, không <code>return</code>:</strong> <code>serializer.is_valid(raise_exception=True)</code>, <code>raise BusinessError(...)</code>, <code>raise NotFound(...)</code>. Không tự dựng <code>Response(errors, 400)</code>.</div>
+
+  <h3>Phân quyền RBAC</h3>
+  <div class="flow"><span>ModuleRegistry (phân hệ + menu)</span><i>→</i><span>Permission &lt;CODE&gt;_&lt;ACTION&gt;</span><i>→</i><span>Role</span><i>→</i><span>User</span></div>
+  <p>Khai báo trong <code>seed_core.py</code>: một phân hệ trong <code>DEFAULT_MODULES</code> + <code>*crud_permissions('SUPPLIER', 'nhà cung cấp')</code> (sinh 7 quyền VIEW/READ/CREATE/UPDATE/DELETE/EXPORT/IMPORT). Superuser và vai trò <code>ADMIN</code> có mọi quyền.</p>
+  <ul>
+    <li>Chỉ Quản trị viên được gán vai trò <code>ADMIN</code> / sửa tài khoản Quản trị viên; không ai tự đổi vai trò của mình; không có mật khẩu mặc định.</li>
+    <li>Tệp đính kèm: quyền theo thực thể cha, tải qua link ký hết hạn 1 giờ.</li>
+    <li>Frontend: <code>RouteGuard</code> trả 403 cho URL ngoài menu; nút ghi chỉ hiện khi View truyền handler (đã kiểm tra <code>can()</code>).</li>
+  </ul>
+
+  <h3>Lệnh quản trị</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Lệnh</th><th>Tác dụng</th></tr>
+    <tr><td><code>bootstrap [--demo]</code></td><td>migrate + <code>seed_core</code> (+ dữ liệu mẫu). Chạy lại an toàn.</td></tr>
+    <tr><td><code>seed_core</code></td><td>Phân hệ, quyền, vai trò, admin — không ghi đè mật khẩu admin hay quyền đã chỉnh trên UI.</td></tr>
+    <tr><td><code>seed_core --reset-role-permissions</code></td><td>Đưa quyền các vai trò mặc định về cấu hình gốc.</td></tr>
+    <tr><td><code>startmodule &lt;app&gt; &lt;Model&gt; …</code></td><td>Sinh phân hệ CRUD mới (xem tab "Thêm tính năng").</td></tr>
+    <tr><td><code>spectacular --file schema.yml</code></td><td>Sinh lại hợp đồng OpenAPI (phải 0 cảnh báo).</td></tr>
+  </table></div>
+
+  <h3>Biến môi trường quan trọng</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Biến</th><th>Ghi chú</th></tr>
+    <tr><td><code>DEBUG</code> / <code>SECRET_KEY</code></td><td>Mặc định <code>DEBUG=False</code>; thiếu <code>SECRET_KEY</code> ở production sẽ dừng ngay.</td></tr>
+    <tr><td><code>DATABASE_URL</code></td><td>PostgreSQL (Neon hoặc container <code>db</code>). Không hỗ trợ SQLite.</td></tr>
+    <tr><td><code>REDIS_CACHE_URL</code></td><td>Cache quyền dùng chung giữa các process.</td></tr>
+    <tr><td><code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD</code></td><td>Tài khoản quản trị đầu tiên (bắt buộc mật khẩu ở production).</td></tr>
+    <tr><td><code>TEST_DATABASE_URL</code></td><td>CSDL cho unit test — không dùng CSDL cloud dùng chung.</td></tr>
+  </table></div>
+</section>
+
+<!-- ============================================================ FRONTEND -->
+<section id="frontend" role="tabpanel">
+  <h2>Frontend — Next.js + Ant Design</h2>
+  <p class="lead">Route mỏng trong <code>src/app</code>, toàn bộ logic trong <code>src/modules/&lt;tính-năng&gt;</code>, dữ liệu qua lớp API có kiểu.</p>
+
+  <h3>Một module tính năng</h3>
+<pre><code>src/modules/master-data/units/
+├── types.ts                 kiểu dữ liệu (Schemas["UnitOfMeasure"] sinh từ OpenAPI)
+├── services/unit.service.ts createCrudService&lt;…&gt;("/units/")
+├── hooks/useUnitsQuery.ts   createCrudHooks(["units"], unitService)
+├── components/              UnitFormModal
+├── UnitsView.tsx            ListPage + defineColumns (lọc, sắp xếp, hàng loạt, xuất)
+└── index.ts</code></pre>
+
+  <h3>Lớp API (<code>src/lib/api</code>)</h3>
+  <div class="grid">
+    <div class="card"><h4><code>axiosClient</code> / <code>http&lt;T&gt;</code></h4><p>Gắn JWT, tự refresh khi 401, tự bóc envelope nên service nhận thẳng dữ liệu. Không viết <code>res.data || res</code>.</p></div>
+    <div class="card"><h4><code>createCrudService</code></h4><p>list · get · create · update · remove · statistics · batchDelete · batchStatus.</p></div>
+    <div class="card"><h4><code>createCrudHooks</code></h4><p>useList · useDetail · useCreate · useUpdate · useDelete · useBatchDelete · useBatchStatus, tự invalidate cache.</p></div>
+    <div class="card"><h4><code>errorUtils</code></h4><p><code>extractErrorMessage</code> · <code>applyFormErrors</code> (gắn lỗi vào ô nhập) · <code>getErrorCode</code> · <code>extractErrorMessageAsync</code> (tải file).</p></div>
+  </div>
+
+<pre><code>// Form modal chuẩn: View ném lỗi lại, modal gắn lỗi backend vào từng ô
+} catch (error) {
+  if (!applyFormErrors(form, error)) message.error(extractErrorMessage(error, "Có lỗi xảy ra khi lưu"));
+}</code></pre>
+
+  <h3>Giao diện sáng / tối</h3>
+  <p>Màu trong style dùng biến CSS từ <code>globals.css</code>, có giá trị cho cả hai chế độ:</p>
+<pre><code>style={{ color: "var(--c-text)", background: "var(--c-surface)", border: "1px solid var(--c-border)" }}
+// --c-text · --c-text-2 · --c-text-secondary · --c-surface · --c-layout · --c-bg-subtle · --c-bg-muted
+// --c-border · --c-primary · --c-primary-bg · --c-success · --c-warning · --c-error · --c-brand-gradient</code></pre>
+  <div class="callout warn">Không viết mã hex cứng cho nền/chữ/viền; ở chế độ tối sẽ sai màu. Khối nền màu thương hiệu có chữ trắng thì dùng gradient cố định, không dùng biến màu chữ.</div>
+
+  <h3>Component dùng chung</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Component</th><th>Dùng khi</th></tr>
+    <tr><td><code>ListPage</code> + <code>useListState</code></td><td>Mọi trang danh sách: thanh lọc, menu cột (sắp xếp, lọc theo kiểu cột, ghim, ẩn), ⚙ tùy chỉnh bảng, hàng loạt, trạng thái trên URL.</td></tr>
+    <tr><td><code>DetailPage</code></td><td>Mọi trang chi tiết: Hero 2 tầng, tab ?tab=, tab Tệp đính kèm / Nhật ký dùng chung.</td></tr>
+    <tr><td><code>PageHeader</code> + <code>useModuleHeader</code></td><td>Tiêu đề trang lấy từ ModuleRegistry (không gõ cứng).</td></tr>
+    <tr><td><code>DetailAttachmentsTab</code></td><td>Tab tệp đính kèm trên trang chi tiết.</td></tr>
+    <tr><td><code>StatusBadge</code> + <code>defineStatusMap</code></td><td>Nhãn trạng thái 6 tông màu theo ý nghĩa (tự đổi theo theme).</td></tr>
+    <tr><td><code>DeleteConfirm</code>, <code>ExportConfigModal</code>, <code>ExcelImportModal</code>, <code>StatusPage</code></td><td>Xác nhận xóa, cấu hình xuất file, nhập Excel, trang 403/404/500.</td></tr>
+  </table></div>
+
+  <h3>Quy ước</h3>
+  <div class="grid">
+    <div class="card"><h4>Trang danh mục</h4><ul><li>Không tự thêm thẻ KPI; không có thùng rác</li><li>Tên bản ghi là link chi tiết; cột thao tác: sửa, xóa, ⋯</li></ul></div>
+    <div class="card"><h4>Trang chi tiết</h4><ul><li><code>/[module]/[id]</code>, Hero 2 tầng</li><li>Tab "Tệp đính kèm" + "Nhật ký hoạt động"</li><li><code>useBreadcrumbTitle</code> cho tên trên breadcrumb</li></ul></div>
+    <div class="card"><h4>Ant Design v6</h4><ul><li><code>App.useApp()</code> cho message/modal</li><li><code>destroyOnHidden</code>, <code>variant</code>, <code>styles</code>, <code>showSearch={{…}}</code></li><li><code>antd lint ./src</code> phải "No issues found"</li></ul></div>
+  </div>
+</section>
+
+<!-- ============================================================ WORKFLOW -->
+<section id="workflow" role="tabpanel">
+  <h2>Thêm tính năng mới</h2>
+  <p class="lead">Với thực thể dạng danh mục (mã, tên, mô tả, trạng thái), hai lệnh sinh ra gần như toàn bộ code. Bạn chỉ bổ sung trường nghiệp vụ.</p>
+
+  <ol class="steps">
+    <li><strong>Chốt thiết kế trong DBML</strong>Mọi bảng/cột mới có trong <code>server/database.dbml</code> trước khi code.</li>
+    <li><strong>Sinh backend</strong><pre><code>cd server
+python manage.py startmodule suppliers Supplier --label "nhà cung cấp" --route master-data/suppliers --parent MASTER_DATA</code></pre>Tạo <code>apps/suppliers/</code> (model, serializer, ViewSet, urls, test), tự đăng ký settings/urls/quyền và in ra bảng DBML.</li>
+    <li><strong>Thêm trường nghiệp vụ &amp; migrate</strong><pre><code>python manage.py makemigrations suppliers && python manage.py migrate && python manage.py seed_core
+python manage.py test apps.suppliers && python manage.py spectacular --file schema.yml</code></pre></li>
+    <li><strong>Sinh frontend</strong><pre><code>cd ../client
+npm run gen:api
+npm run gen:module -- --entity Supplier --label "nhà cung cấp" --route master-data/suppliers</code></pre>Tạo types, service, hook, bảng, bộ lọc, form, view, route và mã quyền.</li>
+    <li><strong>Kiểm tra</strong><code>npx tsc --noEmit</code> → <code>antd lint ./src</code> → <code>npm run build</code>. Menu tự hiện theo quyền.</li>
+  </ol>
+
+  <div class="callout warn"><strong>Windows / Git Bash:</strong> viết <code>--route master-data/suppliers</code> (không có "/" đầu), vì Git Bash tự đổi <code>/abc</code> thành đường dẫn ổ đĩa.</div>
+  <div class="callout">Thực thể phức tạp (cây phân cấp, chứng từ nhiều dòng, wizard): làm thủ công theo mẫu <code>master_data/materials</code>. Quy trình đầy đủ nằm trong skill <code>.claude/skills/new-module/SKILL.md</code>.</div>
+
+  <h3>Checklist trước khi commit</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Phía</th><th>Lệnh</th><th>Yêu cầu</th></tr>
+    <tr><td>Backend</td><td><code>makemigrations --check</code> · <code>check</code> · <code>test</code></td><td>0 lỗi, không thiếu migration, test xanh</td></tr>
+    <tr><td>Hợp đồng</td><td><code>spectacular --file schema.yml</code> · <code>npm run gen:api</code></td><td>Commit cả <code>schema.yml</code> và <code>api.generated.ts</code></td></tr>
+    <tr><td>Frontend</td><td><code>tsc --noEmit</code> · <code>antd lint ./src</code> · <code>npm run build</code></td><td>0 lỗi, 0 cảnh báo</td></tr>
+  </table></div>
+  <p>CI chạy lại toàn bộ trên mỗi push/PR. Sổ tay các lỗi đã gặp: <code>.agents/rules/06-known-pitfalls.md</code>.</p>
+</section>
+
+<!-- ============================================================ OPS -->
+<section id="ops" role="tabpanel">
+  <h2>Vận hành</h2>
+
+  <h3>Production bằng Docker</h3>
+<pre><code>cp .env.prod.example .env.prod      # SECRET_KEY, POSTGRES_PASSWORD, ADMIN_PASSWORD, ALLOWED_HOSTS…
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build</code></pre>
+  <div class="flow"><span>nginx :80</span><i>→</i><span>/api /admin /static → api (gunicorn)</span><i>·</i><span>/media → volume</span><i>·</i><span>/ → web (Next standalone)</span></div>
+  <div class="grid">
+    <div class="card"><h4>api</h4><p>Khởi động bằng <code>bootstrap</code> (migrate + seed_core, không ghi đè dữ liệu) rồi gunicorn; healthcheck <code>/api/v1/health/</code>; chạy bằng user không phải root.</p></div>
+    <div class="card"><h4>worker</h4><p>Celery xử lý xuất/nhập Excel lớn; dùng chung volume <code>media</code>.</p></div>
+    <div class="card"><h4>web</h4><p>Next.js standalone, <code>NEXT_PUBLIC_API_URL=/api/v1</code> được đóng vào bundle lúc build.</p></div>
+  </div>
+  <div class="callout">HTTPS: đặt sau proxy có TLS (Caddy, Cloudflare, Traefik…), rồi bật <code>SECURE_SSL_REDIRECT=True</code> và <code>CSRF_TRUSTED_ORIGINS</code>.</div>
+
+  <h3>Kiểm thử & tự động hóa</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Công cụ</th><th>Nội dung</th></tr>
+    <tr><td>Unit test backend</td><td>Hợp đồng API, phân quyền, thao tác hàng loạt, sinh mã, lệnh seed, health.</td></tr>
+    <tr><td>Smoke test Playwright</td><td><code>E2E_BASE_URL=… E2E_PASSWORD=… npm run test:e2e</code>: đăng nhập, mở từng màn hình, theme, 404 (desktop + mobile).</td></tr>
+    <tr><td>GitHub Actions CI</td><td>Backend (check, migration, test, schema) + frontend (types, tsc, antd lint, build).</td></tr>
+    <tr><td>Dependabot</td><td>PR cập nhật hằng tuần cho npm, pip, Docker, Actions; không tự nâng major framework lõi.</td></tr>
+  </table></div>
+
+  <h3>Lỗi thường gặp</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Triệu chứng</th><th>Cách xử lý</th></tr>
+    <tr><td><code>npm ci</code> báo "not in sync" trên Linux</td><td>Lockfile tạo trên Windows thiếu optional deps; CI/Docker dùng <code>npm install</code>.</td></tr>
+    <tr><td><code>antd lint</code> luôn thoát 0</td><td>Đọc output: phải có "No issues found".</td></tr>
+    <tr><td>Test backend lỗi "being accessed by other users"</td><td>Không chạy test trên Neon; dùng <code>TEST_DATABASE_URL</code> trỏ Postgres docker.</td></tr>
+    <tr><td>Container báo unhealthy</td><td>Kiểm tra <code>GET /api/v1/health/</code>, biến <code>DATABASE_URL</code>, <code>ALLOWED_HOSTS</code>.</td></tr>
+  </table></div>
+</section>
+</main>
+
+<footer>Admin Template Template · Chi tiết: README.md, server/README.md, client/README.md, docs/TEMPLATE.md</footer>
+
+<script>
+  const tabs = document.querySelectorAll('[role="tab"]');
+  function show(id) {
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
+    document.querySelectorAll('[role="tabpanel"]').forEach((p) => p.classList.toggle('active', p.id === id));
+    history.replaceState(null, '', '#' + id);
+  }
+  tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.tab)));
+  const initial = location.hash.slice(1);
+  if (document.getElementById(initial)) show(initial);
+  // Mở bằng #tab: trình duyệt tự cuộn tới section -> đưa về đầu trang để thấy tiêu đề
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+
+  document.getElementById('themeBtn').addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+  });
+</script>
+</body>
+</html>

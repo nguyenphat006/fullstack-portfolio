@@ -1,0 +1,11 @@
+{
+  "required": "Enter {field}",
+  "requiredSelect": "Select {field}",
+  "maxLength": "At most {max} characters",
+  "minLength": "At least {min} characters",
+  "codeFormat": "Uppercase letters, digits and underscores only",
+  "email": "Invalid email address",
+  "passwordMismatch": "Passwords do not match",
+  "min": "At least {min}",
+  "max": "At most {max}"
+}

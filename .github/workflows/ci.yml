@@ -1,0 +1,180 @@
+# CI — health check bắt buộc của dự án (xem CLAUDE.md) chạy cho mọi push / pull request.
+# PR của Dependabot chỉ merge khi workflow này xanh.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend (Django)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: app_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DEBUG: "False"
+      SECRET_KEY: ci-only-secret-key-not-used-anywhere-else-0123456789abcdef
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_db
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_db
+      SECURE_SSL_REDIRECT: "False"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: server/requirements.txt
+
+      - name: Cài đặt thư viện
+        run: pip install -r requirements.txt
+
+      - name: System check
+        run: python manage.py check
+
+      - name: Không thiếu migration
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Unit test
+        run: python manage.py test --noinput
+
+      - name: Bản dịch tiếng Anh đủ và khớp code
+        # makemessages gom lại chuỗi từ code: chuỗi mới bọc _() mà chưa dịch -> thành mục chưa dịch -> đỏ.
+        # (Không so sánh cả tệp: định dạng .po / .mo khác nhau theo phiên bản gettext.)
+        run: |
+          sudo apt-get install -y -qq gettext > /dev/null
+          python manage.py makemessages -l en --no-location --ignore='venv/*' --ignore='*/migrations/*' --ignore='*/module_template/*'
+          test -z "$(msgattrib --untranslated --no-obsolete locale/en/LC_MESSAGES/django.po)" || (echo "::error::Còn chuỗi chưa dịch. Chạy makemessages rồi dịch trong server/locale/en/LC_MESSAGES/django.po" && exit 1)
+          test -z "$(msgattrib --only-fuzzy --no-obsolete locale/en/LC_MESSAGES/django.po)" || (echo "::error::Còn chuỗi fuzzy trong django.po" && exit 1)
+          python manage.py compilemessages --ignore='venv/*'
+
+      - name: OpenAPI schema khớp code (0 warning)
+        run: |
+          python manage.py spectacular --file /tmp/schema.yml --fail-on-warn
+          diff -u schema.yml /tmp/schema.yml || (echo "::error::server/schema.yml đã cũ. Chạy: python manage.py spectacular --file schema.yml" && exit 1)
+
+  frontend:
+    name: Frontend (Next.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    env:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Cài đặt thư viện
+        # Không dùng npm ci: lockfile tạo trên Windows (npm 11) thiếu optional deps của Linux -> "not in sync"
+        run: npm install --no-audit --no-fund
+
+      - name: Types OpenAPI khớp schema backend
+        run: |
+          npm run gen:api
+          git diff --exit-code -- src/types/api.generated.ts || (echo "::error::api.generated.ts đã cũ. Chạy: npm run gen:api" && exit 1)
+
+      - name: Tệp chữ vi / en khớp khóa
+        run: npm run i18n:check
+
+      - name: Type check
+        run: npx tsc --noEmit -p .
+
+      - name: ESLint (0 cảnh báo)
+        run: npm run lint -- --max-warnings=0
+
+      - name: Unit test (Vitest)
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  template:
+    # Khuôn sinh phân hệ còn chạy được: startmodule + gen:module cho 1 phân hệ thử rồi test / type check / build
+    name: Khuôn sinh phân hệ
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: app_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DEBUG: "True"
+      SECRET_KEY: ci-only-secret-key-not-used-anywhere-else-0123456789abcdef
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_db
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/app_db
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: server/requirements.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Backend — sinh phân hệ thử
+        working-directory: server
+        run: |
+          pip install -r requirements.txt
+          python manage.py startmodule qa_items QaItem --label "mục thử" --route qa/items
+          python manage.py makemigrations qa_items
+          python manage.py migrate --noinput
+          python manage.py seed_core
+          python manage.py test apps.qa_items --noinput
+          python manage.py spectacular --file schema.yml --fail-on-warn
+
+      - name: Frontend — sinh module thử
+        working-directory: client
+        run: |
+          npm install --no-audit --no-fund
+          npm run gen:api
+          npm run gen:module -- --entity QaItem --label "mục thử" --route qa/items --code QA_ITEM
+          npx tsc --noEmit -p .
+          npm run lint -- --max-warnings=0
+          npm run build

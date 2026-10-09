@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { ExternalLink, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
+import { Icons } from "@/components/shared/icons";
+import { Button } from "@/components/landing/ui/button";
 import type { ProjectItem } from "@/config/projects";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -80,7 +81,7 @@ export function ProjectDetailContent({ project }: { project: ProjectItem }) {
               {project.githubUrl && (
                   <Button asChild variant="outline" className="w-full h-14 bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white rounded-2xl font-bold transition-all hover:scale-[1.02]">
                     <a href={project.githubUrl} target="_blank" rel="noreferrer">
-                      Khám phá Mã nguồn <Github className="ml-2 h-5 w-5" />
+                      Khám phá Mã nguồn <Icons.github className="ml-2 h-5 w-5" />
                     </a>
                   </Button>
               )}

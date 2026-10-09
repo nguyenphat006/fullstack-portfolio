@@ -1,0 +1,83 @@
+{
+  "bulk": {
+    "toolbar": "Bulk actions",
+    "selected": "{count} selected",
+    "clear": "Clear selection"
+  },
+  "filter": {
+    "containsPlaceholder": "{column} contains…",
+    "search": "Search…",
+    "from": "From",
+    "to": "To",
+    "apply": "Filter",
+    "searchAndSelect": "Search and select…",
+    "active": "Filtered",
+    "filters": "Filters",
+    "clearKeyword": "Clear search",
+    "keyword": "Search: “{value}”",
+    "removeKeyword": "Remove search",
+    "removeFilter": "Remove {column} filter",
+    "contains": "contains \"{value}\"",
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "fromValue": "from {value}",
+    "toValue": "until {value}",
+    "applyAll": "Apply",
+    "clearPanel": "Clear filters"
+  },
+  "column": {
+    "sortHint": "Click to sort",
+    "options": "{column} column options",
+    "sortAsc": "Sort ascending",
+    "sortDesc": "Sort descending",
+    "clearSort": "Clear sort",
+    "pinLeft": "Pin left",
+    "pinRight": "Pin right",
+    "unpin": "Unpin",
+    "moveLeft": "Move left",
+    "moveRight": "Move right",
+    "autoFit": "Auto-fit width",
+    "hide": "Hide column",
+    "filterColumn": "Filter / search {column}"
+  },
+  "page": {
+    "searchPlaceholder": "Search…",
+    "actionFailed": "Could not complete the action",
+    "deleteTitle": "Delete {entity}?",
+    "deleteFailed": "Could not delete {entity}",
+    "loadErrorHint": "Check your connection and try again.",
+    "noResults": "No matching results",
+    "noResultsHint": "Try a different keyword or filter.",
+    "empty": "No {entity} yet",
+    "create": "Add {entity}"
+  },
+  "table": {
+    "selectPage": "Select all rows on this page",
+    "selectRow": "Select row"
+  },
+  "pagination": {
+    "total": "{count, plural, one {# record} other {# records}}",
+    "nav": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "pageSize": "Rows per page",
+    "perPage": "{size} / page"
+  },
+  "settings": {
+    "title": "Customize table",
+    "visibleColumns": "Visible columns",
+    "resetDefault": "Restore defaults",
+    "density": "Density",
+    "densities": {
+      "large": "Comfortable",
+      "middle": "Default",
+      "small": "Compact"
+    },
+    "dragHint": "Drag to reorder"
+  },
+  "export": {
+    "background": "Large export is running in the background; track progress in the corner.",
+    "done": "Data exported",
+    "failed": "Could not export data",
+    "title": "Export data — {label}"
+  }
+}

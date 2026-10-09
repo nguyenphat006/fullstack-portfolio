@@ -1,0 +1,1045 @@
+# Bản dịch tiếng Anh của Admin Template (msgid = tiếng Việt). Sinh bằng makemessages, xem docs/TEMPLATE.md.
+msgid ""
+msgstr ""
+"Project-Id-Version: Admin Template\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 22:24+0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Người dùng (Users)"
+msgstr "Users"
+
+msgid "Vai trò (Roles)"
+msgstr "Roles"
+
+msgid "Phân hệ & Điều hướng (ModuleRegistries)"
+msgstr "Modules & navigation"
+
+msgid "Đơn vị tính (UnitsOfMeasure)"
+msgstr "Units of measure"
+
+msgid "Chưa xác định"
+msgstr "Unknown"
+
+msgid "SNAPSHOT - Ảnh Chụp Định Kỳ"
+msgstr "SNAPSHOT - Periodic snapshot"
+
+msgid "Hệ thống"
+msgstr "System"
+
+msgid "Hệ thống (Auto)"
+msgstr "System (auto)"
+
+msgid "Lấy danh mục tùy chọn lọc thành công"
+msgstr "Filter options loaded"
+
+msgid "Mã vai trò"
+msgstr "Role code"
+
+msgid "Tên hiển thị vai trò"
+msgstr "Role name"
+
+msgid "Vai trò người dùng"
+msgstr "User role"
+
+msgid "Danh mục Vai trò người dùng"
+msgstr "User roles"
+
+msgid "Mã quyền hạn"
+msgstr "Permission code"
+
+msgid "Tên quyền hạn"
+msgstr "Permission name"
+
+msgid "Thuộc phân hệ"
+msgstr "Module"
+
+msgid "Mô tả chi tiết quyền hạn"
+msgstr "Permission description"
+
+msgid "Thời điểm tạo"
+msgstr "Created at"
+
+msgid "Quyền hạn chi tiết"
+msgstr "Permission"
+
+msgid "Danh mục Quyền hạn chi tiết"
+msgstr "Permissions"
+
+msgid "Mã phân hệ"
+msgstr "Module code"
+
+msgid "Tên hiển thị phân hệ"
+msgstr "Module name"
+
+msgid "Tên hiển thị tiếng Anh"
+msgstr "English name"
+
+msgid "Khóa icon (constants/iconMap)"
+msgstr "Icon key (constants/iconMap)"
+
+msgid "Đường dẫn Route Frontend"
+msgstr "Frontend route"
+
+msgid "Mã phân hệ cha"
+msgstr "Parent module code"
+
+msgid "Thứ tự hiển thị trên Sidebar"
+msgstr "Sidebar order"
+
+msgid "Hiển thị trên Sidebar"
+msgstr "Show in sidebar"
+
+msgid "Trạng thái kích hoạt"
+msgstr "Active"
+
+msgid "Mô tả phạm vi phân hệ"
+msgstr "Module description"
+
+msgid "Mô tả tiếng Anh"
+msgstr "English description"
+
+msgid "Cấu hình Phân hệ & Điều hướng"
+msgstr "Module & navigation setting"
+
+msgid "Danh mục Cấu hình Phân hệ & Điều hướng"
+msgstr "Modules & navigation"
+
+msgid "Họ và tên hiển thị"
+msgstr "Full name"
+
+msgid "Số điện thoại liên hệ"
+msgstr "Phone number"
+
+msgid "Ảnh đại diện"
+msgstr "Avatar"
+
+msgid "Ghi chú tài khoản"
+msgstr "Account note"
+
+msgid "Các vai trò đảm nhiệm"
+msgstr "Roles"
+
+msgid "Thời điểm cập nhật gần nhất"
+msgstr "Last updated at"
+
+msgid "Tài khoản Người dùng"
+msgstr "User account"
+
+msgid "Danh sách Tài khoản Người dùng"
+msgstr "User accounts"
+
+msgid "Người dùng"
+msgstr "User"
+
+msgid "Vai trò"
+msgstr "Role"
+
+msgid "Người phân quyền"
+msgstr "Assigned by"
+
+msgid "Thời điểm gán vai trò"
+msgstr "Role assigned at"
+
+msgid "Phân quyền Người dùng - Vai trò"
+msgstr "User role assignment"
+
+msgid "Danh sách Phân quyền Người dùng - Vai trò"
+msgstr "User role assignments"
+
+msgid "Quyền hạn"
+msgstr "Permission"
+
+msgid "Thời điểm gán quyền"
+msgstr "Permission granted at"
+
+msgid "Phân quyền Vai trò - Quyền hạn"
+msgstr "Role permission"
+
+msgid "Danh sách Phân quyền Vai trò - Quyền hạn"
+msgstr "Role permissions"
+
+msgid "Mật khẩu hiện tại không chính xác."
+msgstr "The current password is incorrect."
+
+msgid "Mật khẩu xác nhận không trùng khớp."
+msgstr "The confirmation password does not match."
+
+msgid "Mật khẩu mới không được trùng với mật khẩu cũ."
+msgstr "The new password must be different from the old one."
+
+msgid "Chỉ Quản trị viên mới được gán vai trò Quản trị viên (ADMIN)."
+msgstr "Only administrators can assign the Administrator (ADMIN) role."
+
+msgid "Địa chỉ email này đã được sử dụng bởi một tài khoản khác."
+msgstr "This email address is already used by another account."
+
+msgid ""
+"Không thể thay đổi tên đăng nhập của tài khoản Quản trị viên mặc định "
+"'admin'."
+msgstr ""
+"The username of the default administrator account 'admin' cannot be changed."
+
+msgid "Bạn không thể tự vô hiệu hóa tài khoản đang đăng nhập của chính mình."
+msgstr "You cannot deactivate the account you are signed in with."
+
+msgid "Chỉ Quản trị viên mới được chỉnh sửa tài khoản Quản trị viên."
+msgstr "Only administrators can edit administrator accounts."
+
+msgid "Không thể vô hiệu hóa tài khoản Quản trị viên (Admin / Superadmin)."
+msgstr "Administrator accounts (Admin / Superadmin) cannot be deactivated."
+
+msgid "Không thể tước bỏ vai trò Quản trị viên (ADMIN) khỏi tài khoản này."
+msgstr "The Administrator (ADMIN) role cannot be removed from this account."
+
+msgid "Bạn không thể tự thay đổi vai trò của chính mình."
+msgstr "You cannot change your own roles."
+
+msgid "Vui lòng đặt mật khẩu ban đầu cho tài khoản (tối thiểu 8 ký tự)."
+msgstr ""
+"Please set an initial password for the account (at least 8 characters)."
+
+msgid "Mật khẩu của bạn vừa được quản trị viên đặt lại"
+msgstr "Your password was reset by an administrator"
+
+#, python-format
+msgid ""
+"Thực hiện bởi %(actor)s. Nếu không phải bạn yêu cầu, hãy liên hệ quản trị "
+"viên."
+msgstr ""
+"Done by %(actor)s. If you did not request this, contact an administrator."
+
+msgid "không còn vai trò nào"
+msgstr "no roles left"
+
+msgid "Vai trò của bạn đã thay đổi"
+msgstr "Your roles have changed"
+
+#, python-format
+msgid "Vai trò hiện tại: %(names)s."
+msgstr "Current roles: %(names)s."
+
+msgid ""
+"Tên đăng nhập hoặc mật khẩu không chính xác, hoặc tài khoản đã bị ngưng hoạt "
+"động."
+msgstr "Incorrect username or password, or the account has been deactivated."
+
+msgid ""
+"Tài khoản của bạn đã bị khóa hoặc ngưng hoạt động. Vui lòng liên hệ quản trị "
+"viên."
+msgstr "Your account is locked or inactive. Please contact an administrator."
+
+msgid "Truy cập Màn hình"
+msgstr "Access screen"
+
+msgid "Xem Dữ liệu & Chi tiết"
+msgstr "View data & details"
+
+msgid "Tạo Mới Dữ liệu"
+msgstr "Create data"
+
+msgid "Chỉnh sửa & Cập nhật"
+msgstr "Edit & update"
+
+msgid "Xóa Dữ liệu"
+msgstr "Delete data"
+
+msgid "Phê Duyệt / Ban Hành"
+msgstr "Approve / issue"
+
+msgid "Phát Hành Xuống Phân Xưởng"
+msgstr "Release to workshop"
+
+msgid "Ghi Nhận & Thực Thi"
+msgstr "Record & execute"
+
+msgid "Xuất Dữ liệu Ra File"
+msgstr "Export data to file"
+
+msgid "Nhập Dữ liệu Từ File"
+msgstr "Import data from file"
+
+msgid "Cấu hình Tham số Hệ thống"
+msgstr "Configure system settings"
+
+#, python-format
+msgid "Mã phân hệ '%(code)s' đã tồn tại."
+msgstr "Module code '%(code)s' already exists."
+
+msgid "Lấy thông tin tài khoản thành công"
+msgstr "Account information loaded"
+
+msgid "Cập nhật hồ sơ cá nhân thành công"
+msgstr "Profile updated"
+
+msgid "Đổi mật khẩu thành công. Vui lòng đăng nhập lại."
+msgstr "Password changed. Please sign in again."
+
+msgid "Refresh token là bắt buộc để đăng xuất."
+msgstr "A refresh token is required to sign out."
+
+msgid "Token không hợp lệ hoặc đã bị hủy."
+msgstr "The token is invalid or has been revoked."
+
+msgid "Đăng xuất thành công."
+msgstr "Signed out."
+
+#, python-format
+msgid "Đã thêm quyền '%(perm)s' vào phân hệ '%(module)s' thành công"
+msgstr "Permission '%(perm)s' added to module '%(module)s'"
+
+msgid "Không tìm thấy quyền hạn tương ứng trong phân hệ này."
+msgstr "The permission was not found in this module."
+
+#, python-format
+msgid "Đã xóa quyền '%(perm)s' khỏi phân hệ thành công"
+msgstr "Permission '%(perm)s' removed from the module"
+
+#, python-format
+msgid "Đã cập nhật thứ tự cho %(count)s phân hệ thành công"
+msgstr "Order updated for %(count)s modules"
+
+msgid "Lấy cây Navigation thành công"
+msgstr "Navigation loaded"
+
+msgid "Lấy danh mục phân quyền theo nhóm thành công"
+msgstr "Grouped permissions loaded"
+
+msgid "Không thể xóa vai trò Quản trị viên tối cao (ADMIN) của hệ thống."
+msgstr "The system Administrator (ADMIN) role cannot be deleted."
+
+#, python-format
+msgid ""
+"Không thể xóa vai trò '%(role)s' vì đang có %(count)s tài khoản người dùng "
+"đảm nhiệm."
+msgstr ""
+"Role '%(role)s' cannot be deleted because %(count)s user accounts have it."
+
+#, python-format
+msgid "Đã cập nhật %(count)s quyền hạn cho vai trò '%(role)s' thành công"
+msgstr "Updated %(count)s permissions for role '%(role)s'"
+
+msgid "Đã lưu cấu hình ma trận phân quyền cho toàn bộ vai trò thành công"
+msgstr "Permission matrix saved for all roles"
+
+msgid "Bạn không thể tự xóa tài khoản đang đăng nhập của chính mình."
+msgstr "You cannot delete the account you are signed in with."
+
+msgid "Không thể xóa tài khoản Quản trị viên (Superadmin / Admin)."
+msgstr "Administrator accounts (Superadmin / Admin) cannot be deleted."
+
+msgid "Bạn không thể tự khóa tài khoản đang đăng nhập của chính mình."
+msgstr "You cannot lock the account you are signed in with."
+
+msgid "Không thể khóa tài khoản Quản trị viên (Superadmin / Admin)."
+msgstr "Administrator accounts (Superadmin / Admin) cannot be locked."
+
+msgid "Không tìm thấy dòng dữ liệu nào để nhập."
+msgstr "No rows found to import."
+
+#, python-format
+msgid "Dòng %(row)s: Thiếu 'Tên đăng nhập'"
+msgstr "Row %(row)s: missing 'Username'"
+
+#, python-format
+msgid "Dòng %(row)s: Thiếu 'Email'"
+msgstr "Row %(row)s: missing 'Email'"
+
+#, python-format
+msgid "Dòng %(row)s: Thiếu 'Mật khẩu' hoặc mật khẩu dưới 8 ký tự"
+msgstr "Row %(row)s: missing 'Password' or password shorter than 8 characters"
+
+#, python-format
+msgid "Dòng %(row)s: Tên đăng nhập '%(username)s' bị trùng lặp trong file"
+msgstr "Row %(row)s: username '%(username)s' is duplicated in the file"
+
+#, python-format
+msgid "Dòng %(row)s: Email '%(email)s' bị trùng lặp trong file"
+msgstr "Row %(row)s: email '%(email)s' is duplicated in the file"
+
+#, python-format
+msgid "Dòng %(row)s: Tên đăng nhập '%(username)s' đã tồn tại trên hệ thống"
+msgstr "Row %(row)s: username '%(username)s' already exists"
+
+#, python-format
+msgid "Dòng %(row)s: Email '%(email)s' đã tồn tại trên hệ thống"
+msgstr "Row %(row)s: email '%(email)s' already exists"
+
+msgid "Không thể nhập dữ liệu. Tất cả các dòng đều chứa lỗi!"
+msgstr "Nothing was imported. Every row has errors."
+
+#, python-format
+msgid "Đã nhập thành công %(count)s tài khoản người dùng!"
+msgstr "Imported %(count)s user accounts."
+
+#, python-format
+msgid "(%(count)s dòng lỗi bị bỏ qua)"
+msgstr "(%(count)s rows with errors skipped)"
+
+msgid "Bạn không có quyền truy cập tệp đính kèm của đối tượng này."
+msgstr "You do not have access to this record's attachments."
+
+msgid "[Ảnh lỗi]"
+msgstr "[Image error]"
+
+msgid "Hoạt động"
+msgstr "Active"
+
+msgid "Khóa / Ngưng"
+msgstr "Locked / inactive"
+
+msgid "Thao tác vi phạm quy tắc nghiệp vụ."
+msgstr "This action violates a business rule."
+
+msgid "Dữ liệu bị xung đột hoặc trùng lặp."
+msgstr "The data conflicts with or duplicates existing data."
+
+msgid "Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn."
+msgstr "You are not signed in or your session has expired."
+
+msgid "Xác thực không thành công."
+msgstr "Authentication failed."
+
+msgid "Phiên đăng nhập không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại."
+msgstr "Your session is invalid or has expired. Please sign in again."
+
+msgid "Bạn không có quyền thực hiện thao tác này."
+msgstr "You do not have permission to perform this action."
+
+msgid "Không tìm thấy dữ liệu yêu cầu."
+msgstr "The requested data was not found."
+
+msgid "Phương thức không được hỗ trợ."
+msgstr "Method not allowed."
+
+msgid "Định dạng dữ liệu gửi lên không được hỗ trợ."
+msgstr "Unsupported media type."
+
+msgid "Bạn thao tác quá nhanh. Vui lòng thử lại sau."
+msgstr "Too many requests. Please try again later."
+
+msgid "Dữ liệu gửi lên không đúng định dạng JSON."
+msgstr "The request body is not valid JSON."
+
+msgid "Dữ liệu không hợp lệ."
+msgstr "Invalid data."
+
+msgid "Không thể xóa vì bản ghi đang được dữ liệu khác tham chiếu."
+msgstr "Cannot delete because other data references this record."
+
+msgid ""
+"Dữ liệu vi phạm ràng buộc toàn vẹn (trùng mã hoặc tham chiếu không hợp lệ)."
+msgstr ""
+"The data violates an integrity constraint (duplicate code or invalid "
+"reference)."
+
+msgid "Lỗi hệ thống. Vui lòng thử lại hoặc liên hệ quản trị viên."
+msgstr "System error. Please try again or contact an administrator."
+
+msgid "Tải lên hình ảnh thành công"
+msgstr "Image uploaded"
+
+msgid "Vui lòng đính kèm tệp ảnh."
+msgstr "Please attach an image file."
+
+#, python-format
+msgid "Chỉ chấp nhận %(types)s."
+msgstr "Only %(types)s files are accepted."
+
+#, python-format
+msgid "Dung lượng ảnh tối đa %(size)sMB."
+msgstr "The image must be at most %(size)sMB."
+
+#, python-format
+msgid "Mã '%(code)s' đã tồn tại."
+msgstr "Code '%(code)s' already exists."
+
+msgid "Tên không được để trống."
+msgstr "Name must not be empty."
+
+msgid "Trạng thái hoạt động"
+msgstr "Active status"
+
+msgid "Thời điểm xóa mềm"
+msgstr "Deleted at"
+
+msgid "Mô tả / Ghi chú kỹ thuật"
+msgstr "Description / technical note"
+
+msgid "Người tạo"
+msgstr "Created by"
+
+msgid "Người cập nhật gần nhất"
+msgstr "Last updated by"
+
+msgid "Tài liệu chung"
+msgstr "General document"
+
+msgid "Hình ảnh / Bản chụp"
+msgstr "Image / photo"
+
+msgid "Bản vẽ kỹ thuật CAD / DWG"
+msgstr "CAD / DWG drawing"
+
+msgid "Bản thông số kỹ thuật"
+msgstr "Specification sheet"
+
+msgid "Hợp đồng / Đơn vị chứng từ"
+msgstr "Contract / document"
+
+msgid "Khác"
+msgstr "Other"
+
+msgid "Loại thực thể"
+msgstr "Entity type"
+
+msgid "Mã Id của thực thể đính kèm"
+msgstr "Entity ID"
+
+msgid "Tệp đính kèm"
+msgstr "Attachment"
+
+msgid "Tên gốc của tệp"
+msgstr "Original file name"
+
+msgid "Dung lượng tệp (bytes)"
+msgstr "File size (bytes)"
+
+msgid "Định dạng MIME"
+msgstr "MIME type"
+
+msgid "Phân loại tệp"
+msgstr "File category"
+
+msgid "Danh mục Tệp đính kèm"
+msgstr "Attachments"
+
+msgid "Xuất Excel (.xlsx)"
+msgstr "Export Excel (.xlsx)"
+
+msgid "Xuất CSV (.csv)"
+msgstr "Export CSV (.csv)"
+
+msgid "Nhập dữ liệu từ Excel"
+msgstr "Import from Excel"
+
+msgid "Chờ xử lý trong hàng đợi"
+msgstr "Queued"
+
+msgid "Đang xử lý dữ liệu"
+msgstr "Processing"
+
+msgid "Đã hoàn tất"
+msgstr "Completed"
+
+msgid "Thất bại"
+msgstr "Failed"
+
+msgid "Đã hủy bỏ"
+msgstr "Cancelled"
+
+msgid "Loại tác vụ"
+msgstr "Job type"
+
+msgid "Tên loại thực thể"
+msgstr "Entity name"
+
+msgid "Trạng thái thực thi"
+msgstr "Status"
+
+msgid "Tiến độ hoàn thành (%)"
+msgstr "Progress (%)"
+
+msgid "Tổng số dòng cần xử lý"
+msgstr "Total rows"
+
+msgid "Số dòng đã xử lý xong"
+msgstr "Processed rows"
+
+msgid "Đường dẫn file kết quả"
+msgstr "Result file path"
+
+msgid "Đường dẫn file tổng hợp dòng lỗi"
+msgstr "Error report file path"
+
+msgid "Chi tiết lỗi nếu thất bại"
+msgstr "Error details"
+
+msgid "Tham số truy vấn (scope, filters, columns)"
+msgstr "Query parameters (scope, filters, columns)"
+
+msgid "Thời điểm bắt đầu thực thi"
+msgstr "Started at"
+
+msgid "Thời điểm hoàn tất"
+msgstr "Completed at"
+
+msgid "Tác vụ truyền dữ liệu"
+msgstr "Data transfer job"
+
+msgid "Danh mục Tác vụ truyền dữ liệu (Async Jobs)"
+msgstr "Data transfer jobs"
+
+msgid "Thông tin"
+msgstr "Info"
+
+msgid "Thành công"
+msgstr "Success"
+
+msgid "Cảnh báo"
+msgstr "Warning"
+
+msgid "Lỗi"
+msgstr "Error"
+
+msgid "Người nhận"
+msgstr "Recipient"
+
+msgid "Mức độ"
+msgstr "Level"
+
+msgid "Tiêu đề"
+msgstr "Title"
+
+msgid "Nội dung"
+msgstr "Message"
+
+msgid "Đường dẫn khi bấm vào"
+msgstr "Link"
+
+msgid "Nguồn phát sinh"
+msgstr "Source type"
+
+msgid "Mã bản ghi nguồn"
+msgstr "Source ID"
+
+msgid "Thời điểm đọc"
+msgstr "Read at"
+
+msgid "Thông báo"
+msgstr "Notification"
+
+msgid "Quốc tế (1,250.50)"
+msgstr "International (1,250.50)"
+
+msgid "Việt Nam (1.250,50)"
+msgstr "Vietnamese (1.250,50)"
+
+msgid "Tên ứng dụng"
+msgstr "Application name"
+
+msgid "Nhãn phụ"
+msgstr "Badge"
+
+msgid "Dòng mô tả ngắn"
+msgstr "Tagline"
+
+msgid "Đơn vị sở hữu"
+msgstr "Owner"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Múi giờ"
+msgstr "Time zone"
+
+msgid "Định dạng ngày"
+msgstr "Date format"
+
+msgid "Định dạng số mặc định"
+msgstr "Default number format"
+
+msgid "Cấu hình hệ thống"
+msgstr "System settings"
+
+msgid "Đã xảy ra lỗi"
+msgstr "An error occurred"
+
+#, python-format
+msgid "Xuất dữ liệu %(entity)s đã xong"
+msgstr "%(entity)s export finished"
+
+#, python-format
+msgid "%(count)s dòng · bấm để tải tệp"
+msgstr "%(count)s rows · click to download"
+
+#, python-format
+msgid "Xuất dữ liệu %(entity)s thất bại"
+msgstr "%(entity)s export failed"
+
+msgid "Tải lên tệp đính kèm thành công"
+msgstr "Attachment uploaded"
+
+msgid "Không tìm thấy tệp đính kèm"
+msgstr "Attachment not found"
+
+#, python-format
+msgid "Đã xóa vĩnh viễn tệp '%(name)s' thành công."
+msgstr "File '%(name)s' permanently deleted."
+
+msgid "Link tệp không hợp lệ hoặc đã hết hạn. Vui lòng tải lại trang."
+msgstr "The file link is invalid or has expired. Please reload the page."
+
+msgid "Không tìm thấy tệp."
+msgstr "File not found."
+
+msgid "Hệ thống không kết nối được CSDL"
+msgstr "The system cannot connect to the database"
+
+msgid "Hệ thống hoạt động bình thường"
+msgstr "System is healthy"
+
+msgid "Tác vụ chưa hoàn tất hoặc file kết quả không tồn tại."
+msgstr "The job is not finished or the result file does not exist."
+
+msgid "File kết quả không tồn tại trên máy chủ."
+msgstr "The result file does not exist on the server."
+
+#, python-format
+msgid "Đã đánh dấu %(count)s thông báo là đã đọc"
+msgstr "Marked %(count)s notifications as read"
+
+msgid "Múi giờ không hợp lệ."
+msgstr "Invalid time zone."
+
+msgid "Đã lưu cấu hình hệ thống"
+msgstr "System settings saved"
+
+msgid "Vui lòng chọn tệp ảnh."
+msgstr "Please choose an image file."
+
+#, python-format
+msgid "Dung lượng logo tối đa %(size)sMB."
+msgstr "The logo must be at most %(size)sMB."
+
+msgid "Đã cập nhật logo"
+msgstr "Logo updated"
+
+msgid "Đã bỏ logo"
+msgstr "Logo removed"
+
+msgid "Danh sách ids phải là mảng không rỗng."
+msgstr "ids must be a non-empty list."
+
+msgid "Danh sách ids chỉ được chứa số nguyên."
+msgstr "ids must contain only integers."
+
+#, python-format
+msgid "Thêm mới %(entity)s thành công"
+msgstr "%(entity)s created"
+
+#, python-format
+msgid "Cập nhật %(entity)s thành công"
+msgstr "%(entity)s updated"
+
+#, python-format
+msgid "Đã xóa %(entity)s thành công"
+msgstr "%(entity)s deleted"
+
+#, python-format
+msgid "Đã xóa %(count)s %(entity)s"
+msgstr "Deleted %(count)s %(entity)s"
+
+#, python-format
+msgid ", bỏ qua %(count)s bản ghi được bảo vệ"
+msgstr ", skipped %(count)s protected records"
+
+msgid "Giá trị is_active phải là true hoặc false."
+msgstr "is_active must be true or false."
+
+#, python-format
+msgid "Đã kích hoạt %(count)s %(entity)s"
+msgstr "Activated %(count)s %(entity)s"
+
+#, python-format
+msgid "Đã ngưng hoạt động %(count)s %(entity)s"
+msgstr "Deactivated %(count)s %(entity)s"
+
+msgid "Quyền Quản trị tối cao (Superuser)"
+msgstr "Superuser"
+
+msgid "Tình trạng nhân viên (Staff)"
+msgstr "Staff status"
+
+msgid "Lấy danh sách trường dữ liệu thành công"
+msgstr "Fields loaded"
+
+msgid "Tác vụ xuất dữ liệu đã được đưa vào hàng đợi xử lý ngầm"
+msgstr "The export job has been queued"
+
+msgid ""
+"Mã khách hàng chỉ gồm chữ in hoa không dấu, số và dấu gạch dưới (dùng trong "
+"SKU)."
+msgstr ""
+"Customer codes may only contain uppercase letters without accents, digits "
+"and underscores (used in SKUs).Unit codes may only contain uppercase "
+"letters, digits and underscores (e.g. PCS, M3, SET)."
+
+msgid "Mã khách hàng"
+msgstr "Customer code"
+
+msgid "Tên khách hàng"
+msgstr "Customer name"
+
+msgid "Quốc gia / Thị trường"
+msgstr "Country / Market"
+
+msgid "khách hàng"
+msgstr "customer"
+
+msgid "Danh mục khách hàng"
+msgstr "Customers"
+
+msgid "Mã quốc gia không hợp lệ (dùng mã ISO 2 chữ cái, vd. US, VN)."
+msgstr "Invalid country code (use a 2-letter ISO code, e.g. US, VN)."
+
+msgid "Người dùng hoạt động"
+msgstr "Active users"
+
+msgid "tài khoản mới trong 30 ngày"
+msgstr "new accounts in 30 days"
+
+msgid "Nguyên vật liệu"
+msgstr "Materials"
+
+msgid "thêm mới trong 30 ngày"
+msgstr "added in 30 days"
+
+msgid "Tác vụ xuất dữ liệu"
+msgstr "Export jobs"
+
+msgid "so với 7 ngày trước"
+msgstr "vs. previous 7 days"
+
+msgid "Thao tác hôm nay"
+msgstr "Actions today"
+
+msgid "so với hôm qua"
+msgstr "vs. yesterday"
+
+msgid "Chưa phân nhóm"
+msgstr "Uncategorized"
+
+msgid "Mã ĐVT"
+msgstr "Unit code"
+
+msgid "Tên ĐVT"
+msgstr "Unit name"
+
+msgid "Đơn vị tính"
+msgstr "unit of measure"
+
+msgid "Danh mục Đơn vị tính (UOM)"
+msgstr "Units of measure"
+
+msgid "Mã nhóm NVL"
+msgstr "Category code"
+
+msgid "Tên nhóm NVL"
+msgstr "Category name"
+
+msgid "Nhóm cha"
+msgstr "Parent category"
+
+msgid "Thứ tự hiển thị"
+msgstr "Display order"
+
+msgid "Nhóm nguyên vật liệu"
+msgstr "material category"
+
+msgid "Danh mục Nhóm nguyên vật liệu"
+msgstr "Material categories"
+
+msgid "Ống tròn rỗng (P)"
+msgstr "Round pipe (P)"
+
+msgid "Tròn đặc (D)"
+msgstr "Solid round (D)"
+
+msgid "Hộp vuông rỗng (V)"
+msgstr "Square tube (V)"
+
+msgid "Vuông đặc (V...D)"
+msgstr "Solid square (V...D)"
+
+msgid "Hộp chữ nhật rỗng (CN)"
+msgstr "Rectangular tube (CN)"
+
+msgid "Oval / Elip rỗng (ELIP)"
+msgstr "Oval pipe (ELIP)"
+
+msgid "La / Dẹt đặc (L)"
+msgstr "Flat bar (L)"
+
+msgid "Thép V / Nhôm V"
+msgstr "Angle bar (V)"
+
+msgid "Nhôm / Sắt tấm (T)"
+msgstr "Sheet (T)"
+
+msgid "Khuôn định hình đặc biệt (SP)"
+msgstr "Special profile (SP)"
+
+msgid "Mã NVL"
+msgstr "Material code"
+
+msgid "Tên NVL"
+msgstr "Material name"
+
+msgid "Nhóm NVL"
+msgstr "Material category"
+
+msgid "ĐVT lưu kho"
+msgstr "Stock unit"
+
+msgid "Đường dẫn ảnh đại diện / bản vẽ mặt cắt"
+msgstr "Image / cross-section drawing URL"
+
+msgid "Danh mục Nguyên vật liệu"
+msgstr "Materials"
+
+msgid "Vật tư kim loại"
+msgstr "Metal material"
+
+msgid "Hình dạng mặt cắt"
+msgstr "Cross-section shape"
+
+msgid "Kích thước 1 (Ø/a/w) mm"
+msgstr "Dimension 1 (Ø/a/w) mm"
+
+msgid "Kích thước 2 (b/h) mm"
+msgstr "Dimension 2 (b/h) mm"
+
+msgid "Độ dày thành t mm"
+msgstr "Wall thickness t mm"
+
+msgid "Chiều dài thanh tiêu chuẩn mm"
+msgstr "Standard bar length mm"
+
+msgid "Hao hụt đầu mẩu bavia mm"
+msgstr "End trim loss mm"
+
+msgid "Bề dày mạch cưa mm"
+msgstr "Saw kerf mm"
+
+msgid "Định lượng kg/m thực tế"
+msgstr "Actual weight kg/m"
+
+msgid "Mã khuôn ép NCC"
+msgstr "Supplier die code"
+
+msgid "Ký hiệu phụ (Gân/Gờ...)"
+msgstr "Features (ribs/grooves...)"
+
+msgid "Quy cách phôi kim loại"
+msgstr "Metal profile spec"
+
+msgid "Bảng Quy cách phôi kim loại"
+msgstr "Metal profile specs"
+
+msgid ""
+"Mã ĐVT chỉ được chứa chữ cái in hoa, số và dấu gạch dưới (Ví dụ: PCS, M3, "
+"SET)."
+msgstr ""
+"Unit codes may only contain uppercase letters, digits and underscores (e.g. "
+"PCS, M3, SET)."
+
+#, python-format
+msgid "Mã Đơn vị tính '%(code)s' đã tồn tại trong hệ thống."
+msgstr "Unit code '%(code)s' already exists."
+
+msgid "Tên Đơn vị tính không được để trống."
+msgstr "Unit name must not be empty."
+
+msgid ""
+"Mã nhóm NVL chỉ được chứa chữ cái in hoa, số, dấu gạch dưới và gạch ngang "
+"(Ví dụ: WOOD, METAL, CHEMICAL_PAINT)."
+msgstr ""
+"Category codes may only contain uppercase letters, digits, underscores and "
+"hyphens (e.g. WOOD, METAL, CHEMICAL_PAINT)."
+
+#, python-format
+msgid "Mã nhóm NVL '%(code)s' đã tồn tại trong hệ thống."
+msgstr "Category code '%(code)s' already exists."
+
+msgid "Tên nhóm NVL không được để trống."
+msgstr "Category name must not be empty."
+
+msgid "Không thể chọn chính danh mục này làm danh mục cha."
+msgstr "A category cannot be its own parent."
+
+msgid ""
+"Không thể chọn danh mục con cháu làm danh mục cha (nguy cơ tạo vòng lặp vô "
+"tận)."
+msgstr ""
+"A descendant category cannot be the parent (this would create a cycle)."
+
+#, python-format
+msgid "Mã Nguyên vật liệu '%(code)s' đã tồn tại trong hệ thống."
+msgstr "Material code '%(code)s' already exists."
+
+msgid "Tên Nguyên vật liệu không được để trống."
+msgstr "Material name must not be empty."
+
+#, python-format
+msgid "Không thể xóa ĐVT '%(code)s' vì đang được nguyên vật liệu sử dụng."
+msgstr "Unit '%(code)s' cannot be deleted because materials use it."
+
+#, python-format
+msgid "Không thể xóa nhóm '%(code)s' vì còn nhóm con."
+msgstr "Category '%(code)s' cannot be deleted because it has subcategories."
+
+#, python-format
+msgid "Không thể xóa nhóm '%(code)s' vì còn nguyên vật liệu thuộc nhóm."
+msgstr "Category '%(code)s' cannot be deleted because it still has materials."
+
+msgid "Giá trị phải là 'up' hoặc 'down'."
+msgstr "Value must be 'up' or 'down'."
+
+msgid "Nhóm vật tư đã ở vị trí đầu tiên"
+msgstr "The category is already first"
+
+msgid "Nhóm vật tư đã ở vị trí cuối cùng"
+msgstr "The category is already last"
+
+msgid "Đã di chuyển nhóm vật tư lên"
+msgstr "Category moved up"
+
+msgid "Đã di chuyển nhóm vật tư xuống"
+msgstr "Category moved down"
+
+msgid "Vui lòng cung cấp category_id."
+msgstr "Please provide category_id."
+
+msgid "Không tìm thấy nhóm vật tư."
+msgstr "Material category not found."
+
+msgid "Mã nhà cung cấp"
+msgstr "Supplier code"
+
+msgid "Tên nhà cung cấp"
+msgstr "Supplier name"
+
+msgid "Mã số thuế"
+msgstr "Tax code"
+
+msgid "Số điện thoại"
+msgstr "Phone number"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Địa chỉ"
+msgstr "Address"
+
+msgid "nhà cung cấp"
+msgstr "supplier"
+
+msgid "Danh mục nhà cung cấp"
+msgstr "Suppliers"

@@ -1,0 +1,302 @@
+// ==============================================================================
+// PORTFOLIO FULLSTACK (ERICSS) - Landing page + Admin quản trị nội dung
+// ==============================================================================
+// Quy chuẩn đặt tên (Naming Conventions):
+// - Tên Bảng: PascalCase (Số nhiều)
+// - Tên Cột: PascalCase
+// - Khóa chính (PK): Id (int auto-increment)
+// - Khóa ngoại (FK): <TargetEntitySingular>Id
+// - Chuẩn Audit Fields: Description, IsActive, CreatedById, UpdatedById, CreatedAt, UpdatedAt, DeletedAt
+// ==============================================================================
+
+// ==============================================================================
+// MODULE 0: HỆ THỐNG & PHÂN QUYỀN NGƯỜI DÙNG (SYSTEM & RBAC)
+// ==============================================================================
+
+// 0.1 Tài khoản Đăng nhập Hệ thống (Users)
+Table Users {
+  Id int [primary key, increment]
+  Username varchar(100) [not null, unique, note: 'Tên đăng nhập hệ thống']
+  PasswordHash varchar(255) [not null, note: 'Mật khẩu đã mã hóa băm bcrypt / PBKDF2']
+  Email varchar(255) [not null, unique, note: 'Email tài khoản']
+  FullName varchar(255) [not null, note: 'Họ và tên hiển thị của người dùng']
+  PhoneNumber varchar(30) [null, note: 'Số điện thoại liên hệ / 2FA']
+  Avatar varchar(500) [null, note: 'Đường dẫn ảnh đại diện']
+  IsSuperuser boolean [default: false, note: 'Quyền quản trị tối cao hệ thống']
+  LastLoginAt timestamp [null, note: 'Thời điểm đăng nhập gần nhất']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú tài khoản']
+  IsActive boolean [default: true, note: 'Trạng thái hoạt động: True = Hoạt động, False = Khóa/Ngưng']
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete cho user: null là đang dùng, có ngày giờ là đã xóa mềm']
+}
+
+// 0.2 Danh mục Vai trò / Chức danh (Roles)
+Table Roles {
+  Id int [primary key, increment]
+  RoleCode varchar(50) [not null, unique, note: 'Mã vai trò: ADMIN, CHIEF_ENGINEER, BOM_DESIGNER, PRODUCTION_PLANNER, WORKSHOP_SUPERVISOR, WAREHOUSE_KEEPER']
+  RoleName varchar(255) [not null, note: 'Tên hiển thị: Quản trị viên, Kỹ sư trưởng, Kỹ thuật vẽ BOM, Kế hoạch sản xuất, Quản đốc xưởng, Thủ kho...']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả quyền hạn và trách nhiệm của vai trò']
+  IsActive boolean [default: true]
+  CreatedById int [null, ref: > Users.Id]
+  UpdatedById int [null, ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 0.3 Danh mục Quyền hạn chi tiết (Permissions)
+Table Permissions {
+  Id int [primary key, increment]
+  PermissionCode varchar(100) [not null, unique, note: 'Mã quyền: BOM_CREATE, BOM_APPROVE, FINISH_APPROVE, WO_RELEASE, MATERIAL_EXPORT, VIEW_COST_PRICE']
+  PermissionName varchar(255) [not null, note: 'Tên quyền: Tạo cây BOM, Phê duyệt BOM, Duyệt công thức sơn, Lập lệnh SX, Cấp phát xuất kho, Xem giá vốn...']
+  Module varchar(50) [not null, note: 'Thuộc phân hệ: SYSTEM, PRODUCT, BOM, FINISH, PLANNING, INVENTORY']
+  
+  Description text [null, note: 'Mô tả chi tiết tác vụ của quyền']
+  CreatedAt timestamp [default: `now()`]
+}
+
+// 0.4 Bảng trung gian gán Vai trò cho Người dùng (UserRoles: N-N)
+Table UserRoles {
+  UserId int [not null, ref: > Users.Id, note: 'Người dùng nào']
+  RoleId int [not null, ref: > Roles.Id, note: 'Được gán vai trò nào']
+  
+  CreatedById int [null, ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+
+  indexes {
+    (UserId, RoleId) [pk, note: 'Khóa chính kết hợp chống gán trùng vai trò']
+  }
+}
+
+// 0.5 Bảng trung gian gán Quyền cho Vai trò (RolePermissions: N-N)
+Table RolePermissions {
+  RoleId int [not null, ref: > Roles.Id, note: 'Vai trò nào']
+  PermissionId int [not null, ref: > Permissions.Id, note: 'Có quyền hạn gì']
+  
+  CreatedAt timestamp [default: `now()`]
+
+  indexes {
+    (RoleId, PermissionId) [pk, note: 'Khóa chính kết hợp chống gán trùng quyền']
+  }
+}
+
+// 0.6 Danh mục Phân hệ & Cấu hình Điều hướng (ModuleRegistries)
+Table ModuleRegistries {
+  Id int [primary key, increment]
+  ModuleCode varchar(50) [not null, unique, note: 'Mã phân hệ: USER, SYSTEM, PRODUCT, BOM, FINISH, PLANNING, MANUFACTURING, INVENTORY, FINANCE']
+  ModuleName varchar(255) [not null, note: 'Tên hiển thị tiếng Việt (ngôn ngữ mặc định): Quản lý Người dùng, Cây định mức BOM...']
+  ModuleNameEn varchar(255) [null, note: 'Tên hiển thị tiếng Anh; trống -> dùng ModuleName']
+  Icon varchar(100) [null, note: 'Khóa icon trong client/src/constants/iconMap.tsx (lucide): UserOutlined, AppstoreOutlined...']
+  RoutePath varchar(255) [null, note: 'Đường dẫn URL trên Frontend: /users, /products (null nếu là group header hoặc không có trang)']
+  ParentCode varchar(50) [null, note: 'Mã phân hệ cha (null nếu là top-level menu)']
+  SortOrder int [default: 0, note: 'Thứ tự hiển thị trên Sidebar menu']
+  IsNavigation boolean [default: true, note: 'True = hiển thị trên Sidebar, False = ẩn khỏi menu (nhưng vẫn có quyền)']
+  IsActive boolean [default: true, note: 'Trạng thái kích hoạt phân hệ']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả phạm vi phân hệ (tiếng Việt)']
+  DescriptionEn text [null, note: 'Mô tả tiếng Anh; trống -> dùng Description']
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+}
+
+// 0.7 Nhật ký thao tác & Lịch sử thay đổi mô hình (AuditEvents - django-pghistory)
+Table AuditEvents {
+  Id bigint [primary key, increment]
+  PghSlug varchar(64) [not null, unique, note: 'Khóa slug duy nhất của sự kiện']
+  PghModel varchar(100) [not null, note: 'Tên model bảng lịch sử: e.g. authentication.UserEvent']
+  PghLabel varchar(50) [not null, note: 'Loại sự kiện: snapshot, insert, update, delete']
+  PghObjModel varchar(100) [not null, note: 'Tên model gốc bị tác động: e.g. authentication.CustomUser']
+  PghObjId int [not null, note: 'Khóa chính của bản ghi bị tác động']
+  PghData jsonb [not null, note: 'Dữ liệu toàn bộ bản ghi tại thời điểm ghi vết']
+  PghDiff jsonb [null, note: 'Sai khác so với bản ghi trước (trường thay đổi: giá trị cũ -> mới)']
+  PghContext jsonb [null, note: 'Ngữ cảnh HTTP: User ID, URL request, IP, Request ID']
+  PghCreatedAt timestamp [default: `now()`, note: 'Thời điểm trigger PostgreSQL ghi vết']
+
+  indexes {
+    (PghObjModel, PghObjId) [note: 'Tìm kiếm lịch sử theo đối tượng']
+    PghCreatedAt [note: 'Sắp xếp theo thời gian sự kiện']
+  }
+}
+
+// 0.8 Quản lý Tệp Đính Kèm Đa Hình (Attachments - Polymorphic File Storage)
+Table Attachments {
+  Id int [primary key, increment]
+  EntityType varchar(50) [not null, note: 'Tên loại thực thể: USER, PRODUCT_BASE, PRODUCT_VARIANT, MATERIAL, FINISH, WORK_ORDER...']
+  EntityId int [not null, note: 'Khóa chính Id của thực thể được đính kèm tệp']
+  
+  FileName varchar(255) [not null, note: 'Tên gốc của tệp khi tải lên']
+  FileUrl varchar(500) [not null, note: 'Đường dẫn tệp lưu trữ trong hệ thống / storage']
+  FileSize bigint [not null, default: 0, note: 'Dung lượng tệp tính theo bytes']
+  MimeType varchar(100) [null, note: 'Định dạng MIME (image/png, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet...)']
+  FileCategory varchar(50) [default: 'DOCUMENT', note: 'Phân loại tệp: IMAGE, CAD_DRAWING, SPEC_SHEET, CONTRACT, DOCUMENT, OTHER']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú / Diễn giải tệp']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (EntityType, EntityId) [note: 'Index tối ưu truy vấn danh sách tệp của một thực thể cụ thể']
+  }
+}
+
+// 0.9 Quản lý Tiến trình Xuất / Nhập Dữ liệu Tác vụ Ngầm (DataTransferJobs - Celery Async Tasks)
+Table DataTransferJobs {
+  Id bigint [primary key, increment]
+  JobType varchar(30) [not null, note: 'EXPORT_EXCEL, EXPORT_CSV, IMPORT_EXCEL']
+  EntityType varchar(50) [not null, note: 'Tên loại thực thể: USER, PRODUCT_BASE, MATERIAL, CUSTOMER...']
+  Status varchar(20) [not null, default: 'PENDING', note: 'Trạng thái: PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED']
+  Progress int [default: 0, note: 'Tiến độ hoàn thành từ 0 đến 100%']
+  TotalRows int [default: 0, note: 'Tổng số dòng cần xử lý']
+  ProcessedRows int [default: 0, note: 'Số dòng đã xử lý xong']
+  
+  FileUrl varchar(500) [null, note: 'Đường dẫn tải file kết quả sau khi render xong']
+  ErrorFileUrl varchar(500) [null, note: 'Đường dẫn file tổng hợp các dòng lỗi nếu import thất bại']
+  ErrorMessage text [null, note: 'Chi tiết lỗi nếu tác vụ thất bại']
+  QueryParams jsonb [null, note: 'Lưu các tham số bộ lọc, tìm kiếm, cột đã chọn để tái hiện']
+  
+  StartedAt timestamp [null, note: 'Thời điểm worker bắt đầu thực thi']
+  CompletedAt timestamp [null, note: 'Thời điểm hoàn tất tác vụ']
+
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú / Mô tả tác vụ']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (CreatedById, Status) [note: 'Tìm nhanh danh sách tác vụ của người dùng']
+    CreatedAt [note: 'Sắp xếp theo thời gian tạo']
+  }
+}
+
+// 0.10 Thông báo trong ứng dụng (chuông trên topbar)
+Table Notifications {
+  Id bigint [primary key, increment]
+  RecipientId int [not null, ref: > Users.Id, note: 'Người nhận']
+  Level varchar(20) [not null, default: 'INFO', note: 'INFO, SUCCESS, WARNING, ERROR']
+  Title varchar(255) [not null]
+  Message text [null]
+  Link varchar(500) [null, note: 'Đường dẫn frontend khi bấm vào (vd. /users/5) hoặc link tải file']
+  SourceType varchar(50) [null, note: 'Nguồn phát sinh: DATA_TRANSFER_JOB, USER...']
+  SourceId bigint [null]
+  ReadAt timestamp [null, note: 'NULL = chưa đọc']
+
+  // Standard Audit Fields
+  Description text [null]
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (RecipientId, ReadAt) [note: 'Đếm / lọc chưa đọc của người dùng']
+    CreatedAt
+  }
+}
+
+// 0.11 Cấu hình hệ thống (1 dòng duy nhất)
+Table SystemSettings {
+  Id int [primary key, increment]
+  AppName varchar(100) [not null, note: 'Tên ứng dụng: sidebar, trang đăng nhập, tiêu đề tab']
+  AppBadge varchar(30) [null, note: 'Nhãn phụ cạnh tên (vd. MES 2.0)']
+  Tagline varchar(150) [null]
+  CompanyName varchar(255) [null, note: 'Tên đơn vị sở hữu, hiện ở footer']
+  LogoUrl varchar(500) [null, note: 'Logo tải lên; NULL = dùng logo mặc định']
+  Timezone varchar(50) [not null, default: 'Asia/Ho_Chi_Minh']
+  DateFormat varchar(20) [not null, default: 'DD/MM/YYYY']
+  NumberFormat varchar(10) [not null, default: 'INTL', note: 'INTL = 1,250.50; VN = 1.250,50 (mặc định cho user chưa tự chọn)']
+
+  // Standard Audit Fields
+  Description text [null]
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// ==============================================================================
+// MODULE 1: NỘI DUNG PORTFOLIO (PROJECTS, BLOGS, CONTACTS)
+// ==============================================================================
+
+// 1.1 Dự án (Projects) - hiển thị ở /projects và section "Dự án" trang chủ
+Table Projects {
+  Id int [primary key, increment]
+  Slug varchar(150) [not null, unique, note: 'Đường dẫn thân thiện: /projects/<slug>']
+  Title varchar(255) [not null]
+  Summary text [not null, note: 'Mô tả ngắn hiện trên thẻ dự án']
+  Stack jsonb [not null, default: '[]', note: 'Danh sách công nghệ: ["Next.js", "Django"]']
+  Year varchar(10) [not null]
+  Image varchar(500) [not null, note: 'URL / đường dẫn ảnh đại diện']
+  Color varchar(30) [not null, note: 'Màu nhấn của thẻ (hex hoặc tên class)']
+  Role varchar(150) [not null, note: 'Vai trò trong dự án']
+  Content text [not null, note: 'Nội dung chi tiết (Markdown)']
+  LiveUrl varchar(500) [null]
+  GithubUrl varchar(500) [null]
+  Featured boolean [default: false, note: 'Dự án nổi bật hiện ở trang chủ']
+
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 1.2 Bài viết (Blogs) - hiển thị ở /blog
+Table Blogs {
+  Id int [primary key, increment]
+  Slug varchar(150) [not null, unique, note: 'Đường dẫn thân thiện: /blog/<slug>']
+  Title varchar(255) [not null]
+  Excerpt text [not null, note: 'Đoạn trích ngắn']
+  PublishedDate varchar(30) [not null, note: 'Ngày đăng hiển thị (chuỗi, giống dữ liệu landing hiện tại)']
+  Category varchar(100) [not null]
+  ReadTime varchar(30) [not null, note: 'Vd: 5 min read']
+  Image varchar(500) [not null]
+  Content text [not null, note: 'Nội dung bài viết (Markdown)']
+
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 1.3 Liên hệ (Contacts) - tin nhắn từ form liên hệ trên landing
+Table Contacts {
+  Id int [primary key, increment]
+  Name varchar(150) [not null]
+  Email varchar(255) [not null]
+  Message text [not null]
+
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú nội bộ khi xử lý liên hệ']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}

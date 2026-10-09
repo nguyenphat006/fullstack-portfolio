@@ -1,11 +1,12 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- ảnh dự án lấy từ nhiều nguồn ngoài, giữ nguyên thẻ img */
+
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/landing/ui/button";
 import { SectionHeader } from "@/components/shared/section-header";
 import { PROJECTS_DATA } from "@/config/projects";
 import { cn } from "@/lib/utils";

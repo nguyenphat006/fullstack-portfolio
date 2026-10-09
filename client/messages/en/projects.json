@@ -1,0 +1,25 @@
+{
+  "pageTitle": "Projects",
+  "title": "Projects",
+  "entity": "projects",
+  "searchPlaceholder": "Search by slug, title, description…",
+  "fields": {
+    "slug": "Slug",
+    "title": "Title",
+    "summary": "Summary",
+    "stack": "Tech stack",
+    "year": "Year",
+    "role": "Role",
+    "image": "Cover image (URL)",
+    "color": "Accent color",
+    "liveUrl": "Live URL",
+    "githubUrl": "GitHub URL",
+    "content": "Details (Markdown)",
+    "featured": "Featured"
+  },
+  "form": {
+    "createTitle": "Add project",
+    "editTitle": "Edit project {code}",
+    "stackHint": "Comma separated, e.g. Next.js, Django"
+  }
+}

@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { Send, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/landing/ui/button";
 import { SectionHeader } from "@/components/shared/section-header";
 import { HOME_CONTACT_CONTENT } from "@/components/modules/home/constants";
 import { sendContactEmail } from "@/actions/contact";

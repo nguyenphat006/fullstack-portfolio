@@ -1,0 +1,7 @@
+{
+  "title": "Thông báo",
+  "ariaUnread": "Thông báo, {count} chưa đọc",
+  "markAllRead": "Đánh dấu đã đọc tất cả",
+  "empty": "Chưa có thông báo nào",
+  "downloadFailed": "Không tải được tệp"
+}

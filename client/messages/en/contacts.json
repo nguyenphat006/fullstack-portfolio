@@ -1,0 +1,15 @@
+{
+  "pageTitle": "Contacts",
+  "title": "Contacts",
+  "entity": "contacts",
+  "searchPlaceholder": "Search by name, email, message…",
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message"
+  },
+  "form": {
+    "createTitle": "Add contact",
+    "editTitle": "Edit contact {code}"
+  }
+}

@@ -8,8 +8,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Dock, DockIcon } from "@/components/ui/dock";
+} from "@/components/landing/ui/tooltip";
+import { Dock, DockIcon } from "@/components/landing/ui/dock";
 import { Icons } from "@/components/shared/icons";
 
 import { FullscreenMenu } from "./fullscreen-menu";

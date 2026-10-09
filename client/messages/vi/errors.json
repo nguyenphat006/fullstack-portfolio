@@ -1,0 +1,24 @@
+{
+  "authenticating": "Đang xác thực…",
+  "loadingUi": "Đang tải giao diện…",
+  "backHome": "Về trang Tổng quan",
+  "network": "Không thể kết nối máy chủ. Vui lòng kiểm tra mạng.",
+  "default": "Có lỗi xảy ra khi xử lý yêu cầu",
+  "forbidden": {
+    "title": "403 - Không có quyền truy cập",
+    "routeHint": "Tài khoản của bạn chưa được cấp quyền vào màn hình này. Vui lòng liên hệ Quản trị viên.",
+    "pageHint": "Bạn không có quyền truy cập trang này. Vui lòng liên hệ Quản trị viên để được cấp quyền."
+  },
+  "error": {
+    "title": "Đã xảy ra lỗi",
+    "hint": "Vui lòng thử lại hoặc báo quản trị viên.",
+    "withCode": "Mã lỗi: {code}. Vui lòng thử lại hoặc báo quản trị viên.",
+    "later": "Vui lòng thử lại sau ít phút."
+  },
+  "notFound": {
+    "pageTitle": "404 - Không tìm thấy trang",
+    "pageHint": "Đường dẫn không tồn tại hoặc đã bị thay đổi.",
+    "dataTitle": "404 - Không tìm thấy dữ liệu",
+    "dataHint": "Bản ghi hoặc trang bạn tìm không tồn tại, có thể đã bị xóa."
+  }
+}

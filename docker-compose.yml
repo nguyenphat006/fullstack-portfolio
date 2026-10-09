@@ -1,0 +1,82 @@
+services:
+  # 1. Django REST Framework Backend Service
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: app_backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./server/.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - REDIS_CACHE_URL=redis://redis:6379/1
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # 2. Local PostgreSQL Database (Dự phòng khi không dùng Cloud Neon DB)
+  db:
+    image: postgres:16-alpine
+    container_name: app_postgres
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # 3. Redis Message Broker & Cache (Siêu nhẹ ~15MB RAM)
+  redis:
+    image: redis:7-alpine
+    container_name: app_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # 4. Celery Asynchronous Worker Container
+  celery_worker:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: app_celery_worker
+    command: celery -A config worker --loglevel=info --concurrency=2
+    volumes:
+      - ./server:/app
+    env_file:
+      - ./server/.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - REDIS_CACHE_URL=redis://redis:6379/1
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+    driver: local

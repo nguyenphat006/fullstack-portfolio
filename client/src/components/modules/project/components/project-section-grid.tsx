@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- ảnh dự án lấy từ nhiều nguồn ngoài, giữ nguyên thẻ img */
+
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";

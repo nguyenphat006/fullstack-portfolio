@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import { Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/landing/ui/button";
 import { SectionHeader } from "@/components/shared/section-header";
 import { HOME_CONTACT_CONTENT } from "../constants";
 

@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Blog posts",
+  "title": "Blog posts",
+  "entity": "blog posts",
+  "searchPlaceholder": "Search by slug, title, category…",
+  "fields": {
+    "slug": "Slug",
+    "title": "Title",
+    "excerpt": "Excerpt",
+    "publishedDate": "Published date",
+    "category": "Category",
+    "readTime": "Read time",
+    "image": "Cover image (URL)",
+    "content": "Content (Markdown)"
+  },
+  "form": {
+    "createTitle": "Add blog post",
+    "editTitle": "Edit blog post {code}"
+  }
+}

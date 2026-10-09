@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Dashboard",
+  "title": "Dashboard",
+  "greeting": "Hello, {name}",
+  "loadError": "Could not load figures",
+  "loadErrorHint": "Check your connection and try again.",
+  "noActivity": "No activity yet.",
+  "activityTooltip": "Actions",
+  "materialsTooltip": "Materials",
+  "panels": {
+    "activity": "Activity in the last 14 days",
+    "materialsByCategory": "Materials by category",
+    "recentActivity": "Recent activity",
+    "systemStatus": "System status"
+  },
+  "system": {
+    "checking": "Checking",
+    "unreachable": "Unreachable",
+    "ok": "Operational",
+    "okLatency": "Operational · {ms} ms",
+    "error": "Error",
+    "api": "API server",
+    "database": "Database",
+    "cache": "Cache",
+    "version": "Version",
+    "updatedAt": "Updated at {time}"
+  }
+}
