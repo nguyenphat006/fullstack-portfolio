@@ -12,7 +12,8 @@ const PUBLIC_MEDIA = ["branding", "avatars"];
 
 const nextConfig: NextConfig = {
   // Docker production: đóng gói server tối giản (.next/standalone) — xem client/Dockerfile
-  output: "standalone",
+  // Vercel tự đóng gói; standalone chỉ dùng cho Docker (làm hỏng bước trace trên Vercel)
+  output: process.env.VERCEL ? undefined : "standalone",
   experimental: {
     turbopackFileSystemCacheForDev: true,
   },
