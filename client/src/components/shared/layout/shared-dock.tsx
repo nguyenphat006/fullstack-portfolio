@@ -11,18 +11,25 @@ import {
 } from "@/components/landing/ui/tooltip";
 import { Dock, DockIcon } from "@/components/landing/ui/dock";
 import { Icons } from "@/components/shared/icons";
-
+import { useLanding } from "@/content/provider";
 import { FullscreenMenu } from "./fullscreen-menu";
+import { LanguageSwitcher } from "./language-switcher";
+import { ThemeToggle } from "./theme-toggle";
 
-const DOCK_SOCIALS = [
-  { id: "github", label: "GitHub", href: "https://github.com/nguyenphat006", icon: Icons.github },
-  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ericss-ndp/", icon: Icons.linkedin },
-  { id: "email", label: "Email", href: "mailto:nguyenphat1505@gmail.com", icon: Icons.email },
-  { id: "cv", label: "Tải CV", href: "https://rxresu.me/nguyenphat006/cv-nguyen-dang-phat-vietnamese-fe", icon: Download },
-];
+const ICON_CLASS =
+  "cursor-pointer rounded-full border border-foreground/10 bg-foreground/5 p-0 text-foreground/70 transition-colors hover:bg-foreground/15 hover:text-foreground backdrop-blur-3xl";
+const TOOLTIP_CLASS = "rounded-xl border-foreground/10 px-4 py-2 text-sm";
 
 export function SharedDock() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { home, shared, path } = useLanding();
+
+  const socials = [
+    { id: "github", label: "GitHub", href: "https://github.com/nguyenphat006", icon: Icons.github },
+    { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ericss-ndp/", icon: Icons.linkedin },
+    { id: "email", label: "Email", href: `mailto:${home.contact.email}`, icon: Icons.email },
+    { id: "cv", label: shared.ui.downloadCv, href: home.contact.secondaryCta.href, icon: Download },
+  ];
 
   return (
     <>
@@ -31,38 +38,26 @@ export function SharedDock() {
           <Dock
             magnification={65}
             distance={100}
-            className="pointer-events-auto relative z-50 mx-auto flex h-[56px] items-end w-fit gap-2 rounded-full border border-white/10 bg-[#171717]/90 p-2 shadow-[0_0_10px_3px] shadow-white/5 backdrop-blur-3xl"
+            className="pointer-events-auto relative z-50 mx-auto flex h-[56px] w-fit items-end gap-2 rounded-full border border-foreground/10 bg-card/90 p-2 shadow-[0_0_10px_3px] shadow-foreground/5 backdrop-blur-3xl"
           >
-            {/* Home */}
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
-                  href="/"
-                  className="flex"
-                  aria-label="Trang chủ"
-                >
-                  <DockIcon className="cursor-pointer rounded-full border border-white/10 bg-white/5 p-0 text-white/50 transition-colors hover:bg-white/15 hover:text-white backdrop-blur-3xl">
+                <Link href={path("/")} className="flex" aria-label={shared.ui.home}>
+                  <DockIcon className={ICON_CLASS}>
                     <Home className="size-full overflow-hidden rounded-[inherit] object-contain" />
                   </DockIcon>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent
-                side="top"
-                sideOffset={12}
-                className="rounded-xl border-white/10 px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(255,255,255,0.1)]"
-              >
-                <p>Trang chủ</p>
+              <TooltipContent side="top" sideOffset={12} className={TOOLTIP_CLASS}>
+                <p>{shared.ui.home}</p>
               </TooltipContent>
             </Tooltip>
 
-            {/* Separator */}
-            <div className="h-8 w-px bg-white/10 self-center" />
+            <div className="h-8 w-px self-center bg-foreground/10" />
 
-            {/* Socials & Actions */}
-            {DOCK_SOCIALS.map((item) => {
+            {socials.map((item) => {
               const Icon = item.icon;
               const isExternal = item.href.startsWith("http");
-
               return (
                 <Tooltip key={item.id}>
                   <TooltipTrigger asChild>
@@ -73,54 +68,65 @@ export function SharedDock() {
                       className="flex"
                       aria-label={item.label}
                     >
-                      <DockIcon className="cursor-pointer rounded-full border border-white/10 bg-white/5 p-0 text-white/50 transition-colors hover:bg-white/15 hover:text-white backdrop-blur-3xl">
+                      <DockIcon className={ICON_CLASS}>
                         <Icon className="size-full overflow-hidden rounded-[inherit] object-contain" />
                       </DockIcon>
                     </a>
                   </TooltipTrigger>
-                  <TooltipContent
-                    side="top"
-                    sideOffset={12}
-                    className="rounded-xl border-white/10 px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(255,255,255,0.1)]"
-                  >
+                  <TooltipContent side="top" sideOffset={12} className={TOOLTIP_CLASS}>
                     <p>{item.label}</p>
                   </TooltipContent>
                 </Tooltip>
               );
             })}
 
-            {/* Separator */}
-            <div className="h-8 w-px bg-white/10 self-center" />
+            <div className="h-8 w-px self-center bg-foreground/10" />
 
-            {/* Burger Menu Toggle */}
+            {/* Ngôn ngữ + giao diện sáng/tối */}
             <Tooltip>
               <TooltipTrigger asChild>
-                <button
-                  onClick={() => setIsMenuOpen(true)}
-                  className="flex"
-                  aria-label="Menu"
-                >
-                  <DockIcon className="cursor-pointer rounded-full border border-white/10 bg-white/5 p-0 text-white/50 transition-colors hover:bg-white/15 hover:text-white backdrop-blur-3xl">
+                <span className="flex">
+                  <DockIcon className={ICON_CLASS}>
+                    <LanguageSwitcher className="block size-full rounded-[inherit]" />
+                  </DockIcon>
+                </span>
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={12} className={TOOLTIP_CLASS}>
+                <p>{shared.ui.language.label}</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="flex">
+                  <DockIcon className={ICON_CLASS}>
+                    <ThemeToggle className="block size-full rounded-[inherit] p-[22%]" />
+                  </DockIcon>
+                </span>
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={12} className={TOOLTIP_CLASS}>
+                <p>{shared.ui.theme.toggle}</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <div className="h-8 w-px self-center bg-foreground/10" />
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button onClick={() => setIsMenuOpen(true)} className="flex" aria-label={shared.ui.menu}>
+                  <DockIcon className={ICON_CLASS}>
                     <Menu className="size-full overflow-hidden rounded-[inherit] object-contain" />
                   </DockIcon>
                 </button>
               </TooltipTrigger>
-              <TooltipContent
-                side="top"
-                sideOffset={12}
-                className="rounded-xl border-white/10 px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(255,255,255,0.1)]"
-              >
-                <p>Menu</p>
+              <TooltipContent side="top" sideOffset={12} className={TOOLTIP_CLASS}>
+                <p>{shared.ui.menu}</p>
               </TooltipContent>
             </Tooltip>
           </Dock>
         </div>
       </TooltipProvider>
 
-      <FullscreenMenu
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-      />
+      <FullscreenMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 }

@@ -3,33 +3,25 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface PageBackgroundProps extends React.HTMLAttributes<HTMLElement> {
+export interface PageBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
 export function PageBackground({ className, children, ...props }: PageBackgroundProps) {
   return (
-    <main className={cn("relative min-h-screen bg-[#111111] text-[var(--color-text)] overflow-hidden", className)} {...props}>
-      {/* Fixed Ambient Mesh Gradients behind everything */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        
-        {/* Top Right Blob */}
-        <div className="absolute -top-[20%] -right-[10%] h-[800px] w-[800px] animate-[pulse_4s_ease-in-out_infinite] rounded-full bg-fuchsia-500/10 blur-[150px]" />
-        
-        {/* Middle Left Blob */}
-        <div className="absolute top-[30%] -left-[10%] h-[700px] w-[700px] animate-[pulse_5s_ease-in-out_infinite] rounded-full bg-indigo-500/10 blur-[150px]" />
-        
-        {/* Bottom Right Blob */}
-        <div className="absolute -bottom-[20%] right-[10%] h-[900px] w-[900px] animate-[pulse_6s_ease-in-out_infinite] rounded-full bg-purple-500/10 blur-[180px]" />
-        
-        {/* Accent CTA Blob */}
-        <div className="absolute top-[70%] left-[20%] h-[600px] w-[600px] animate-[pulse_7s_ease-in-out_infinite] rounded-full bg-[var(--color-cta)]/10 blur-[150px]" />
-      </div>
+    <div className={cn("relative min-h-screen overflow-hidden bg-background text-[var(--color-text)]", className)} {...props}>
+      {/* Mesh gradient cố định phía sau nội dung (nhạt hơn ở giao diện sáng) */}
+      {/* Gradient tĩnh (radial-gradient thay vì blur-[150px] + animation: rẻ hơn nhiều khi vẽ, giảm TBT/LCP) */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 opacity-60 dark:opacity-100"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "radial-gradient(40% 35% at 90% 0%, rgba(217,70,239,0.10), transparent 70%), radial-gradient(35% 35% at 0% 40%, rgba(99,102,241,0.10), transparent 70%), radial-gradient(40% 40% at 70% 100%, rgba(168,85,247,0.10), transparent 70%)",
+        }}
+      />
 
-      {/* Main Container Layer */}
-      <div className="relative z-10 flex flex-col min-h-screen">
-        {children}
-      </div>
-    </main>
+      <div className="relative z-10 flex min-h-screen flex-col">{children}</div>
+    </div>
   );
 }

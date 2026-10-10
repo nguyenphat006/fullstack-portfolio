@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     template: `%s | ${APP_CONFIG.name}`,
   },
   description: APP_CONFIG.description,
+  // Khu quản trị không được lập chỉ mục
+  robots: { index: false, follow: false },
 };
 
 export default async function RootLayout({

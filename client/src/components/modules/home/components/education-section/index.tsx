@@ -3,28 +3,31 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { SectionHeader } from "@/components/shared/section-header";
-import { HOME_EDUCATION } from "../../constants";
+import { useLanding } from "@/content/provider";
 
 export function HomeEducationSection() {
+  const { home } = useLanding();
+  const HOME_EDUCATION = home.education;
+  const t = home.ui.education;
   return (
     <section id="hoc-van" className="ds-section relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute right-[15%] top-8 h-32 w-32 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute right-[15%] top-8 h-32 w-32 rounded-full bg-foreground/5 blur-3xl" />
       </div>
 
       <div className="ds-container relative space-y-12">
         <SectionHeader
-          badge="Education"
-          title="Học Vấn"
-          accent="& Chứng Chỉ"
-          description="Nền tảng học thuật và các chương trình tăng tốc chuyên môn."
+          badge={t.badge}
+          title={t.title}
+          accent={t.accent}
+          description={t.description}
         />
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {HOME_EDUCATION.map((item, i) => (
             <motion.article
               key={item.id}
-              className="group relative overflow-hidden rounded-3xl bg-[#171717] p-[1.5px] shadow-2xl"
+              className="group relative overflow-hidden rounded-3xl bg-card p-[1.5px] shadow-2xl"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -34,17 +37,17 @@ export function HomeEducationSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-500 opacity-20 group-hover:opacity-50 transition-opacity duration-700" />
               
               {/* Inner Card (Glassmorphism Shell) */}
-              <div className="relative flex h-full flex-col bg-black/80 backdrop-blur-2xl p-8 rounded-[22px] overflow-hidden">
+              <div className="relative flex h-full flex-col bg-background/80 backdrop-blur-2xl p-8 rounded-[22px] overflow-hidden">
                  {/* Decorative Mesh Blobs */}
                  <div className="absolute -right-20 -top-20 h-48 w-48 bg-fuchsia-500/20 blur-[60px] rounded-full group-hover:bg-fuchsia-500/40 transition-colors duration-700" />
                  <div className="absolute -left-20 -bottom-20 h-48 w-48 bg-indigo-500/20 blur-[60px] rounded-full group-hover:bg-indigo-500/40 transition-colors duration-700" />
                  
                  <div className="relative z-10 flex items-start justify-between mb-10">
-                   <div className="relative h-20 w-32 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-3 shadow-xl backdrop-blur-sm group-hover:border-white/20 transition-colors">
-                     <Image src={item.logo} alt={item.school} fill className="object-contain p-2" />
+                   <div className="relative h-20 w-32 overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/5 p-3 shadow-xl backdrop-blur-sm group-hover:border-foreground/20 transition-colors">
+                     <Image src={item.logo} alt={item.school} fill sizes="64px" className="object-contain p-2" />
                    </div>
                    <div className="flex flex-col items-end">
-                     <span className="rounded-full bg-emerald-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-emerald-400 uppercase border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                     <span className="rounded-full bg-emerald-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-emerald-700 dark:text-emerald-400 uppercase border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                        {item.period}
                      </span>
                    </div>
@@ -54,16 +57,16 @@ export function HomeEducationSection() {
                    <p className="text-lg font-medium text-[var(--color-cta)] mb-2">
                      {item.degree}
                    </p>
-                   <h3 className="text-3xl lg:text-4xl font-black text-white mb-8 leading-tight group-hover:bg-gradient-to-r group-hover:from-fuchsia-400 group-hover:via-purple-400 group-hover:to-indigo-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                   <h3 className="text-3xl lg:text-4xl font-black text-foreground mb-8 leading-tight group-hover:bg-gradient-to-r group-hover:from-fuchsia-600 group-hover:via-purple-600 group-hover:to-indigo-600 dark:group-hover:from-fuchsia-400 dark:group-hover:via-purple-400 dark:group-hover:to-indigo-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                      {item.school}
                    </h3>
                    
-                   <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                     <span className="text-sm font-mono tracking-widest text-white/40 uppercase">
+                   <div className="flex items-center justify-between pt-6 border-t border-foreground/10">
+                     <span className="text-sm font-mono tracking-widest text-muted-foreground uppercase">
                        {item.location}
                      </span>
-                     <div className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-[var(--color-cta)] group-hover:border-[var(--color-cta)] transition-colors">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
+                     <div className="h-8 w-8 rounded-full border border-foreground/10 bg-foreground/5 flex items-center justify-center group-hover:bg-[var(--color-cta)] group-hover:border-[var(--color-cta)] transition-colors">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground group-hover:text-background">
                           <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                      </div>

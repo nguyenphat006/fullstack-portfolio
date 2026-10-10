@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
-import { SITE_NAV_LINKS } from "@/config/navigation";
+import { useLanding } from "@/content/provider";
 
 export function FullscreenMenu({
   isOpen,
@@ -12,6 +12,8 @@ export function FullscreenMenu({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { shared, path } = useLanding();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -21,9 +23,12 @@ export function FullscreenMenu({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={shared.ui.menu}
         >
           <motion.div
-            className="absolute inset-0 bg-black/95 backdrop-blur-xl"
+            className="absolute inset-0 bg-background/95 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -32,15 +37,15 @@ export function FullscreenMenu({
 
           <button
             onClick={onClose}
-            className="absolute top-8 right-8 z-10 cursor-pointer rounded-full border border-white/10 p-3 text-white/50 transition-colors duration-200 hover:text-white"
-            aria-label="Đóng menu"
+            className="absolute right-8 top-8 z-10 cursor-pointer rounded-full border border-foreground/10 p-3 text-foreground/70 transition-colors duration-200 hover:text-foreground"
+            aria-label={shared.ui.closeMenu}
           >
             <X className="size-6" />
           </button>
 
-          <nav className="relative z-10">
+          <nav className="relative z-10" aria-label={shared.ui.menu}>
             <ul className="flex flex-col items-center gap-6">
-              {SITE_NAV_LINKS.map((link, i) => (
+              {shared.siteNav.map((link, i) => (
                 <motion.li
                   key={link.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -49,9 +54,9 @@ export function FullscreenMenu({
                   transition={{ delay: i * 0.08, duration: 0.4 }}
                 >
                   <Link
-                    href={link.href}
+                    href={path(link.href)}
                     onClick={onClose}
-                    className="cursor-pointer text-3xl font-bold text-white/70 transition-colors duration-200 hover:text-white md:text-5xl"
+                    className="cursor-pointer text-3xl font-bold text-foreground/70 transition-colors duration-200 hover:text-foreground md:text-5xl"
                   >
                     {link.label}
                   </Link>

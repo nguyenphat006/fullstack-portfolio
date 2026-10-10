@@ -10,7 +10,7 @@ const HomeTestimonialsSection = dynamic(() => import("./components/testimonial-s
 
 export function HomeModulePage() {
 	return (
-		<div className="text-white">
+		<div className="text-foreground">
 			<HomeNavbar />
 			<HomeHeroSection />
 			<div className="ds-divider" />

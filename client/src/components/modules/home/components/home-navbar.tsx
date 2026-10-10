@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { HOME_NAV_LINKS } from "../constants";
+import { useLanding } from "@/content/provider";
 
 // ── Sidebar (Desktop only — dots) ──
 export function HomeNavbar() {
+  const { home, path } = useLanding();
+  const HOME_NAV_LINKS = home.nav;
   const [activeSection, setActiveSection] = useState("trang-chu");
 
   useEffect(() => {
@@ -32,19 +34,19 @@ export function HomeNavbar() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [HOME_NAV_LINKS]);
 
   const sections = HOME_NAV_LINKS.filter((l) => l.href.startsWith("#"));
 
   return (
     <div className="fixed top-0 left-0 z-50 hidden h-screen w-14 flex-col items-center justify-between py-8 lg:flex">
       {/* Logo */}
-      <Link href="/" className="cursor-pointer text-lg font-bold text-white">
+      <Link href={path("/")} aria-label={home.ui.navbar.logoLabel} className="cursor-pointer text-lg font-bold text-foreground">
         E
       </Link>
 
       {/* Dot indicators */}
-      <nav className="flex flex-col gap-4">
+      <nav className="flex flex-col gap-4" aria-label={home.ui.navbar.navLabel}>
         {sections.map((link) => (
           <Link
             key={link.id}
@@ -55,11 +57,11 @@ export function HomeNavbar() {
             <div
               className={`h-2 w-2 rounded-full transition-all duration-300 ${
                 activeSection === link.id
-                  ? "scale-150 bg-white"
-                  : "bg-white/20 group-hover:bg-white/50"
+                  ? "scale-150 bg-foreground"
+                  : "bg-foreground/30 group-hover:bg-foreground/60"
               }`}
             />
-            <span className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md bg-[#1A1A1A] px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <span className="pointer-events-none absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-border bg-card px-2 py-1 text-xs text-foreground shadow-md opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               {link.label}
             </span>
           </Link>

@@ -56,6 +56,71 @@
 }
 
 :root {
+  /* ── Light Palette ── */
+  --background: #FAFAFA;
+  --foreground: #0E0E0E;
+  --text: #0E0E0E;
+  --text-muted: #52525B;
+  --cta: #0E0E0E;
+  --cta-glow: rgba(14, 14, 14, 0.12);
+  --accent-earth: #52525B;
+  --accent-warm: #71717A;
+  --primary-brand: #E4E4E7;
+  --secondary-brand: #F4F4F5;
+
+  --card: #FFFFFF;
+  --card-foreground: #0E0E0E;
+  --popover: #FFFFFF;
+  --popover-foreground: #0E0E0E;
+  --primary: #0E0E0E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F4F4F5;
+  --secondary-foreground: #0E0E0E;
+  --muted: #F4F4F5;
+  --muted-foreground: #52525B;
+  --accent: #E4E4E7;
+  --accent-foreground: #0E0E0E;
+  --destructive: #DC2626;
+  --border: #E4E4E7;
+  --input: #E4E4E7;
+  --ring: #0E0E0E;
+  --chart-1: #0E0E0E;
+  --chart-2: #3F3F46;
+  --chart-3: #71717A;
+  --chart-4: #A1A1AA;
+  --chart-5: #D4D4D8;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+
+  --radius: 0.625rem;
+  --sidebar: #FAFAFA;
+  --sidebar-foreground: #0E0E0E;
+  --sidebar-primary: #0E0E0E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F4F4F5;
+  --sidebar-accent-foreground: #0E0E0E;
+  --sidebar-border: #E4E4E7;
+  --sidebar-ring: #0E0E0E;
+
+  /* Thành phần dùng chung theo chủ đề */
+  --surface-glass: rgba(250, 250, 250, 0.8);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --grid-line: rgba(0, 0, 0, 0.035);
+  color-scheme: light;
+}
+
+.dark {
   /* ── Minimal Dark Palette ── */
   --background: #0E0E0E; /* lab(5.26802% 0 0) */
   --foreground: #FFFFFF;
@@ -112,37 +177,11 @@
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #2A2A2A;
   --sidebar-ring: #FFFFFF;
-}
 
-.dark {
-  --background: #0A0A0A;
-  --foreground: #FFFFFF;
-  --text: #FFFFFF;
-  --text-muted: #999999;
-  --card: #111111;
-  --card-foreground: #FFFFFF;
-  --popover: #111111;
-  --popover-foreground: #FFFFFF;
-  --primary: #FFFFFF;
-  --primary-foreground: #0A0A0A;
-  --secondary: #1A1A1A;
-  --secondary-foreground: #FFFFFF;
-  --muted: #1A1A1A;
-  --muted-foreground: #999999;
-  --accent: #2A2A2A;
-  --accent-foreground: #FFFFFF;
-  --destructive: #FF4444;
-  --border: #222222;
-  --input: #222222;
-  --ring: #FFFFFF;
-  --sidebar: #0A0A0A;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #111111;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1A1A1A;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #222222;
-  --sidebar-ring: #FFFFFF;
+  --surface-glass: rgba(14, 14, 14, 0.8);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --grid-line: rgba(255, 255, 255, 0.03);
+  color-scheme: dark;
 }
 
 @layer base {
@@ -188,7 +227,7 @@
   .ds-btn-primary {
     @apply cursor-pointer rounded-lg h-11 px-6 text-sm font-semibold transition-all duration-200;
     background: var(--color-cta);
-    color: #0E0E0E;
+    color: var(--primary-foreground);
   }
 
   .ds-btn-primary:hover {
@@ -233,17 +272,17 @@
     inset: -20% -10% auto;
     height: 16rem;
     border-radius: 9999px;
-    background: radial-gradient(circle, var(--cta-glow) 0%, rgba(224, 68, 68, 0) 70%);
+    background: radial-gradient(circle, var(--cta-glow) 0%, transparent 70%);
     animation: ds-float 6s ease-in-out infinite;
     pointer-events: none;
   }
 
   /* ── Glassmorphism Navbar ── */
   .ds-glass {
-    background: rgba(12, 10, 9, 0.7);
+    background: var(--surface-glass);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(68, 64, 60, 0.4);
+    border-bottom: 1px solid var(--border);
   }
 
   /* ── Gradient Glow Border ── */
@@ -276,12 +315,12 @@
   .ds-btn-neon {
     @apply cursor-pointer rounded-lg h-11 px-6 text-sm font-bold tracking-wide transition-all duration-300;
     background: var(--cta);
-    color: #0E0E0E;
-    box-shadow: 0 0 15px var(--cta-glow), 0 0 30px rgba(255, 255, 255, 0.08);
+    color: var(--primary-foreground);
+    box-shadow: 0 0 15px var(--cta-glow), 0 0 30px var(--cta-glow);
   }
 
   .ds-btn-neon:hover {
-    box-shadow: 0 0 20px var(--cta-glow), 0 0 40px rgba(255, 255, 255, 0.12), 0 0 60px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 20px var(--cta-glow), 0 0 40px var(--cta-glow);
     transform: translateY(-2px);
   }
 
@@ -293,7 +332,7 @@
 
   .ds-terminal-bar {
     @apply flex items-center gap-2 border-b border-border px-4 py-3;
-    background: rgba(41, 37, 36, 0.8);
+    background: var(--secondary);
   }
 
   .ds-terminal-dot {
@@ -397,7 +436,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--scrollbar-thumb);
   border-radius: 10px;
 }
 
@@ -409,7 +448,7 @@
   width: 4px;
 }
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--scrollbar-thumb);
 }
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   background: var(--cta);

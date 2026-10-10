@@ -26,7 +26,26 @@ const nextConfig: NextConfig = {
   },
   // Dev (frontend :3000, backend :8000): chuyển ảnh công khai sang backend. Production: nginx phục vụ /media trước.
   async rewrites() {
-    return PUBLIC_MEDIA.map((dir) => ({ source: `/media/${dir}/:path*`, destination: `${API_ORIGIN}/media/${dir}/:path*` }));
+    return {
+      // Landing đa ngôn ngữ: tiếng Việt là mặc định và KHÔNG có tiền tố (/, /blog, /projects/...),
+      // nội bộ được map sang segment [locale] = vi. Tiếng Anh nằm dưới /en/...
+      beforeFiles: [
+        { source: "/", destination: "/vi" },
+        { source: "/blog", destination: "/vi/blog" },
+        { source: "/blog/:slug", destination: "/vi/blog/:slug" },
+        { source: "/projects", destination: "/vi/projects" },
+        { source: "/projects/:id", destination: "/vi/projects/:id" },
+      ],
+      afterFiles: PUBLIC_MEDIA.map((dir) => ({ source: `/media/${dir}/:path*`, destination: `${API_ORIGIN}/media/${dir}/:path*` })),
+      fallback: [],
+    };
+  },
+  // /vi/... là bản trùng của /... -> chuyển vĩnh viễn để tránh nội dung trùng lặp (SEO)
+  async redirects() {
+    return [
+      { source: "/vi", destination: "/", permanent: true },
+      { source: "/vi/:path*", destination: "/:path*", permanent: true },
+    ];
   },
 };
 

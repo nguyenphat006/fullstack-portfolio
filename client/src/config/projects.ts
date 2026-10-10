@@ -23,7 +23,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     stack: ["Next.js", "NestJS", "Redux", "Prisma", "PostgreSQL", "Redis"],
     year: "05/2025 - 08/2025",
     color: "#FCD34D", 
-    image: "/images/projects/shopsifu.png",
+    image: "/images/projects/shopsifu.webp",
     role: "Fullstack Developer",
     content: `Dự án nền tảng thương mại điện tử phức tạp với 3 luồng người dùng cực lớn bám sát nghiệp vụ phân quyền RBAC.
 
@@ -36,7 +36,7 @@ Hệ thống cần một giải pháp xử lý đơn hàng đa luồng thời gi
 - **Cổng thanh toán:** Tích hợp trực tiếp VNPay API và Sepay (Webhook tự check giao dịch ngân hàng).
 - **Frontend tối ưu:** Ứng dụng Next.js Server Components kết hợp Redux Toolkit để quản lý giỏ hàng mượt mà cục bộ, hạn chế Re-render tối đa.
 
-![ShopSifu Admin Dashboard](/images/projects/shopsifu.png)
+![ShopSifu Admin Dashboard](/images/projects/shopsifu.webp)
 *(Minh hoạ luồng Dashboard quản trị)*`,
     liveUrl: "https://shopsifu.live/",
     featured: true,
@@ -48,7 +48,7 @@ Hệ thống cần một giải pháp xử lý đơn hàng đa luồng thời gi
     stack: ["Turborepo", "React", "TailwindCSS", "Framer Motion"],
     year: "11/2025 - 03/2026",
     color: "#EF4444", 
-    image: "/images/projects/lhs.png",
+    image: "/images/projects/lhs.webp",
     role: "Frontend Team Lead",
     content: `Hệ thống hạ tầng giáo dục sinh thái Mẫu giáo - Tiểu học - THCS.
 
@@ -58,12 +58,7 @@ Hệ thống cần một giải pháp xử lý đơn hàng đa luồng thời gi
 ### Kiến trúc & Triển khai thực tế
 - **Monorepo với công nghệ Turborepo:** Triển khai luồng kiến trúc gom cụm tất cả mã nguồn rời rạc vào một Repository khổng lồ, tạo ra các Shared Package như \`ui-components\`, \`configs\`, \`utils\`.
 - **Cấu trúc UI System:** Tuỳ biến triệt để ShadCN UI và Tailwind CSS. Theme động hoàn toàn dựa trên quy chuẩn màu sắc phòng Marketing.
-- **Hiệu năng SSG & SEO:** Áp dụng phương thức Next.js Statically Generated nhằm mang lại tốc độ tải trang cực nhanh (PageSpeed Insights luôn trên 95) và thẻ Meta chuẩn SEO cho chiến dịch quảng cáo.
-
-<video class="w-full rounded-2xl shadow-2xl mt-8" controls autoPlay loop muted>
-  <source src="/videos/lhs-demo.mp4" type="video/mp4" />
-</video>
-*Video trải nghiệm mượt mà Animation của hệ thống Frontend Landing Page*`,
+- **Hiệu năng SSG & SEO:** Áp dụng phương thức Next.js Statically Generated nhằm mang lại tốc độ tải trang cực nhanh (PageSpeed Insights luôn trên 95) và thẻ Meta chuẩn SEO cho chiến dịch quảng cáo.`,
     liveUrl: "https://lhbs-edu-vn.devdotnet.id.vn/",
     featured: true,
   }

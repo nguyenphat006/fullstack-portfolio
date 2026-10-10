@@ -3,13 +3,16 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { SectionHeader } from "@/components/shared/section-header";
-import { HOME_EXPERIENCES } from "../../constants";
+import { useLanding } from "@/content/provider";
 import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronRight, ExternalLink } from "lucide-react";
 import { ExperienceModal } from "./experience-modal";
 
 export function HomeExperienceSection() {
+  const { home } = useLanding();
+  const HOME_EXPERIENCES = home.experiences;
+  const t = home.ui.experience;
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -41,15 +44,15 @@ export function HomeExperienceSection() {
 
       <div className="ds-container relative space-y-24">
         <SectionHeader
-          badge="Kinh Nghiệm"
-          title="Hành Trình"
-          accent="Phát Triển"
-          description="Những điểm chạm quan trọng định hình kỹ năng và tư duy sản phẩm của tôi."
+          badge={t.badge}
+          title={t.title}
+          accent={t.accent}
+          description={t.description}
         />
 
         <div ref={containerRef} className="relative w-full">
           {/* Timeline Center Line (Horizontal) Desktop */}
-          <div className="absolute left-0 right-0 top-1/2 h-0.5 -translate-y-1/2 bg-white/5 hidden md:block overflow-hidden">
+          <div className="absolute left-0 right-0 top-1/2 h-0.5 -translate-y-1/2 bg-foreground/10 hidden md:block overflow-hidden">
             {/* Scroll Fill */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-[var(--color-cta)] to-purple-500/50"
@@ -57,14 +60,14 @@ export function HomeExperienceSection() {
             />
             {/* Infinite Light Beam */}
             <motion.div
-              className="absolute inset-y-0 w-[150px] bg-gradient-to-r from-transparent via-white/80 to-transparent"
+              className="absolute inset-y-0 w-[150px] bg-gradient-to-r from-transparent via-foreground/60 to-transparent"
               animate={{ x: ["-150px", "100vw"] }}
               transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
             />
           </div>
 
           {/* Timeline Center Line (Vertical) Mobile */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-white/5 md:hidden block overflow-hidden">
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-foreground/10 md:hidden block overflow-hidden">
             {/* Scroll Fill */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-b from-[var(--color-cta)] to-purple-500/50"
@@ -72,7 +75,7 @@ export function HomeExperienceSection() {
             />
             {/* Infinite Light Beam */}
             <motion.div
-              className="absolute inset-x-0 h-[150px] bg-gradient-to-b from-transparent via-white/80 to-transparent"
+              className="absolute inset-x-0 h-[150px] bg-gradient-to-b from-transparent via-foreground/60 to-transparent"
               animate={{ y: ["-150px", "100vh"] }}
               transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
             />
@@ -96,40 +99,40 @@ export function HomeExperienceSection() {
                   transition={{ delay: i * 0.2, duration: 0.6, type: "spring" }}
                 >
                   {/* Desktop Timeline Dot & Branch */}
-                  <div className="hidden md:block absolute left-1/2 w-0.5 bg-gradient-to-b from-white/20 to-transparent"
+                  <div className="hidden md:block absolute left-1/2 w-0.5 bg-gradient-to-b from-foreground/20 to-transparent"
                     style={{
                       height: '140px',
                       top: isEven ? '100%' : 'auto',
                       bottom: isEven ? 'auto' : '100%',
                       transform: 'translateX(-50%)',
-                      background: isEven ? 'linear-gradient(to bottom, rgba(255,255,255,0.2), transparent)' : 'linear-gradient(to top, rgba(255,255,255,0.2), transparent)'
+                      background: isEven ? 'linear-gradient(to bottom, color-mix(in srgb, var(--foreground) 20%, transparent), transparent)' : 'linear-gradient(to top, color-mix(in srgb, var(--foreground) 20%, transparent), transparent)'
                     }}
                   />
                   <div className={cn(
-                    "hidden md:block absolute left-1/2 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-[#1C1816] shadow-[0_0_15px_var(--color-cta-glow)]",
+                    "hidden md:block absolute left-1/2 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-background shadow-[0_0_15px_var(--color-cta-glow)]",
                     isEven ? "top-[calc(100%+140px)] -translate-y-1/2" : "bottom-[calc(100%+140px)] translate-y-1/2",
-                    i === 0 ? "bg-[var(--color-cta)]" : "bg-white/50"
+                    i === 0 ? "bg-[var(--color-cta)]" : "bg-foreground/50"
                   )} />
 
                   {/* Mobile Timeline Dot & Branch */}
-                  <div className="md:hidden absolute left-6 top-8 h-px bg-gradient-to-r from-white/20 to-transparent w-10 -translate-x-[calc(100%-12px)]" />
+                  <div className="md:hidden absolute left-6 top-8 h-px bg-gradient-to-r from-foreground/20 to-transparent w-10 -translate-x-[calc(100%-12px)]" />
                   <div className={cn(
-                    "md:hidden absolute left-6 top-8 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-[#1C1816] shadow-[0_0_15px_var(--color-cta-glow)]",
-                    i === 0 ? "bg-[var(--color-cta)]" : "bg-white/50"
+                    "md:hidden absolute left-6 top-8 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-background shadow-[0_0_15px_var(--color-cta-glow)]",
+                    i === 0 ? "bg-[var(--color-cta)]" : "bg-foreground/50"
                   )} />
 
                   {/* Card Content */}
-                  <div className="ds-glow-card relative z-10 w-full overflow-hidden bg-black/40 backdrop-blur-xl border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:border-[var(--color-cta)]/30 hover:bg-[var(--color-cta)]/5 group p-0">
+                  <div className="ds-glow-card relative z-10 w-full overflow-hidden bg-card/60 backdrop-blur-xl border border-border transition-all duration-500 hover:-translate-y-2 hover:border-[var(--color-cta)]/30 hover:bg-[var(--color-cta)]/5 group p-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-cta)]/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                     <div className="flex flex-col gap-6 relative z-10 p-6 md:p-8">
                       {/* Top Header Region: Period & Location */}
-                      <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                        <span className="rounded-full bg-[var(--color-cta)]/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#B5915F]">
+                      <div className="flex items-center justify-between border-b border-border pb-4">
+                        <span className="rounded-full bg-[var(--color-cta)]/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-foreground/80">
                           {item.period}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs tracking-wider uppercase font-medium text-white/40">{item.location}</span>
+                          <span className="text-xs tracking-wider uppercase font-medium text-muted-foreground">{item.location}</span>
                         </div>
                       </div>
 
@@ -141,29 +144,29 @@ export function HomeExperienceSection() {
                             item.id === "exp-2" ? "h-16 w-48" : // Hinova large
                               "h-16 w-32" // Default
                         )}>
-                          <Image src={item.logo} alt={item.company} fill className="object-contain" />
+                          <Image src={item.logo} alt={item.company} fill sizes="64px" className="object-contain" />
                         </div>
                       </div>
 
                       {/* Title Region (Centered) */}
-                      <div className="text-center pt-2 pb-4 border-b border-white/5">
-                        <h3 className="text-2xl font-black uppercase tracking-[0.15em] text-white/90 leading-tight mb-2">{item.company}</h3>
+                      <div className="text-center pt-2 pb-4 border-b border-border">
+                        <h3 className="text-2xl font-black uppercase tracking-[0.15em] text-foreground leading-tight mb-2">{item.company}</h3>
                         <p className="text-base font-medium text-[var(--color-cta)]">{item.role}</p>
                       </div>
 
                       {/* Content Region (Left Aligned for readability) */}
                       <div className="space-y-5 text-left">
                         {item.description && (
-                          <p className="text-sm text-white/60 leading-relaxed font-light">{item.description}</p>
+                          <p className="text-sm text-foreground/70 leading-relaxed font-light">{item.description}</p>
                         )}
 
                         {/* Actions: View Details (Modal) & External Website (Inline Link) */}
                         <div className="flex items-center justify-between pt-2">
                           <button
                             onClick={() => setSelectedId(item.id)}
-                            className="group/btn flex items-center gap-2 text-sm font-medium text-[var(--color-cta)] transition-colors hover:text-white"
+                            className="group/btn flex items-center gap-2 text-sm font-medium text-[var(--color-cta)] transition-colors hover:text-foreground"
                           >
-                            <span>Xem chi tiết</span>
+                            <span>{t.viewDetails}</span>
                             <ChevronRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                           </button>
 
@@ -172,9 +175,9 @@ export function HomeExperienceSection() {
                               href={item.websiteUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/link flex items-center gap-1.5 text-xs font-medium text-white/40 transition-colors hover:text-white/80"
+                              className="group/link flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
                             >
-                              <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white/40 after:transition-all group-hover/link:after:w-full">Website</span>
+                              <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-foreground/40 after:transition-all group-hover/link:after:w-full">{t.website}</span>
                               <ExternalLink className="h-3 w-3" />
                             </a>
                           )}

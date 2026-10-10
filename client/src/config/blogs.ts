@@ -19,7 +19,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "10/03/2026",
     category: "Frontend",
     readTime: "5 phút",
-    image: "/images/projects/project-dashboard.svg",
+    image: "/images/blog/blog-tokens.svg",
     content: `## Xây dựng hệ thống UI Nhất quán
 
 Trong dự án thực tế, việc thiết lập một hạt nhân chung cho giao diện là bắt buộc. CSS thuần thường dính phải các lỗi như:
@@ -38,7 +38,7 @@ Sử dụng Tailwind kết hợp với [shadcn/ui](https://ui.shadcn.com/) giúp
     date: "25/02/2026",
     category: "Architecture",
     readTime: "8 phút",
-    image: "/images/projects/project-ecommerce.svg",
+    image: "/images/blog/blog-architecture.svg",
     content: `## Monorepo là gì?
 
 Kiến trúc Monorepo giải quyết bài toán muôn thuở khi bạn có nhiều tên miền nhưng lại sở hữu chung một bộ nhận diện thương hiệu. Thay vì sao chép Code từ dự án này sang dự án khác (Copy - Paste), **Turborepo** cho phép bạn khởi tạo một kho chứa duy nhất.
@@ -55,7 +55,7 @@ Việc này giúp team lead quản lý toàn bộ hệ thống frontend đồ s�
     date: "14/01/2026",
     category: "Performance",
     readTime: "6 phút",
-    image: "/images/projects/project-content.svg",
+    image: "/images/blog/blog-performance.svg",
     content: `## Điểm 100/100 PageSpeed Insights không phải là giấc mơ
 
 Khi load trang, Hình ảnh và Font là 2 tác nhân chính gây ra hệ quả **CLS (Cumulative Layout Shift)** - Dịch chuyển bố cục.

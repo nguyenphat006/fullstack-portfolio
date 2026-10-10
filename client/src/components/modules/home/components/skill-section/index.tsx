@@ -3,41 +3,59 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { SectionHeader } from "@/components/shared/section-header";
-import { HOME_EDUCATION } from "../../constants";
+import { useLanding } from "@/content/provider";
 import { GraduationCap } from "lucide-react";
+import { useMemo } from "react";
+import { useTheme } from "next-themes";
 import { IconCloud } from "@/components/landing/ui/icon-cloud";
 
 const slugs = [
   "react", "nextdotjs", "typescript", "tailwindcss",
   "nodedotjs", "postgresql", "figma", "docker",
-  "prisma", "nestjs", "amazonaws", "mysql",
+  "prisma", "nestjs", "django", "mysql",
   "nginx", "redux", "git", "github",
-  "gitlab", "html5", "css3", "javascript",
-  "dotnet", "csharp", "vercel", "turborepo"
+  "gitlab", "html5", "css", "javascript",
+  "dotnet", "python", "vercel", "turborepo"
 ];
 
+// Icon thương hiệu gần như màu đen sẽ chìm trên nền tối -> dùng bản trắng ở giao diện tối
+const DARK_BRAND_SLUGS = new Set(["nextdotjs", "github", "vercel", "express", "nginx", "turborepo"]);
+
 export function HomeSkillsSection() {
+  const { home } = useLanding();
+  const { resolvedTheme } = useTheme();
+  const iconUrls = useMemo(
+    () =>
+      slugs.map((slug) =>
+        resolvedTheme === "dark" && DARK_BRAND_SLUGS.has(slug)
+          ? `https://cdn.simpleicons.org/${slug}/white`
+          : `https://cdn.simpleicons.org/${slug}`,
+      ),
+    [resolvedTheme],
+  );
+  const HOME_EDUCATION = home.education;
+  const t = home.ui.skills;
   return (
     <section id="ky-nang" className="ds-section relative overflow-hidden">
       <div className="ds-container relative space-y-16">
         <SectionHeader
-          badge="Background"
-          title="Học Vấn"
-          accent="& Kỹ Năng"
-          description="Nền tảng học thuật và các bộ công cụ phát triển phần mềm."
+          badge={t.badge}
+          title={t.title}
+          accent={t.accent}
+          description={t.description}
         />
 
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-12">
           {/* Left: Education (Basic Vertical Timeline) */}
           <div className="space-y-8">
-            <h3 className="flex items-center gap-3 text-2xl font-black text-white uppercase tracking-wider">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[var(--color-cta)]">
-                <GraduationCap className="h-5 w-5" />
+            <h3 className="flex items-center gap-3 text-2xl font-black text-foreground uppercase tracking-wider">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5 border border-border text-[var(--color-cta)]">
+                <GraduationCap className="h-5 w-5" aria-hidden="true" />
               </div>
-              Hành trình Học tập
+              {t.learningJourney}
             </h3>
 
-            <div className="relative border-l border-white/10 pl-8 ml-4 space-y-12">
+            <div className="relative border-l border-border pl-8 ml-4 space-y-12">
               {HOME_EDUCATION.map((edu, i) => (
                 <motion.div
                   key={edu.id}
@@ -48,20 +66,20 @@ export function HomeSkillsSection() {
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                 >
                   {/* Timeline Dot */}
-                  <div className="absolute -left-[39px] top-1.5 h-3.5 w-3.5 rounded-full bg-[var(--color-cta)] ring-4 ring-[#111111] shadow-[0_0_10px_var(--color-cta)]" />
+                  <div className="absolute -left-[39px] top-1.5 h-3.5 w-3.5 rounded-full bg-[var(--color-cta)] ring-4 ring-background shadow-[0_0_10px_var(--color-cta)]" />
 
                   <div className="flex flex-col gap-3">
-                    <span className="inline-flex items-center rounded-full bg-white/5 px-3 py-1 text-xs font-semibold text-[var(--color-cta)] w-fit border border-white/5">
+                    <span className="inline-flex items-center rounded-full bg-foreground/5 px-3 py-1 text-xs font-semibold text-foreground w-fit border border-border">
                       {edu.period} • {edu.location}
                     </span>
 
                     <div className="flex items-center gap-4">
-                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-2">
-                        <Image src={edu.logo} alt={edu.school} fill className="object-contain p-1" />
+                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-border bg-foreground/5 p-2">
+                        <Image src={edu.logo} alt={edu.school} fill sizes="64px" className="object-contain p-1" />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white">{edu.school}</h4>
-                        <p className="text-sm font-medium text-white/60">{edu.degree}</p>
+                        <h4 className="text-xl font-bold text-foreground">{edu.school}</h4>
+                        <p className="text-sm font-medium text-muted-foreground">{edu.degree}</p>
                       </div>
                     </div>
                   </div>
@@ -73,14 +91,14 @@ export function HomeSkillsSection() {
           {/* Right: Skills (Interactive Icon Cloud) */}
           <div className="flex flex-col items-center justify-center space-y-8">
             {/* 3D Interactive Globe - No Background constraint */}
-            <div className="flex w-full max-w-[800px] items-center justify-center">
-              <IconCloud images={slugs.map((slug) => `https://cdn.simpleicons.org/${slug}`)} />
+            <div className="flex w-full max-w-[800px] items-center justify-center" role="img" aria-label={t.iconCloudLabel}>
+              <IconCloud images={iconUrls} />
             </div>
 
-            <div className="w-full rounded-2xl border border-[var(--color-cta)]/20 bg-[var(--color-cta)]/5 p-6 shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] backdrop-blur-sm">
-              <p className="text-sm leading-relaxed text-white/70">
-                <strong className="text-white block mb-2 text-base">My Tech Stack Focus:</strong>
-                Chuyên môn sâu rộng với React, Next.js (App Router), và hệ sinh thái TypeScript. Vững chắc về Backend API với Node.js / ASP.NET Core và Database. Sử dụng thuần thục hệ thống Monorepo, Docker và các quy trình CI/CD.
+            <div className="w-full rounded-2xl border border-[var(--color-cta)]/20 bg-[var(--color-cta)]/5 p-6 backdrop-blur-sm">
+              <p className="text-sm leading-relaxed text-foreground/75">
+                <strong className="text-foreground block mb-2 text-base">{t.techFocusTitle}</strong>
+                {t.techFocusBody}
               </p>
             </div>
           </div>

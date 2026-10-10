@@ -2,21 +2,39 @@
 
 import nodemailer from "nodemailer";
 
+const MESSAGES = {
+  vi: {
+    missing: "Vui lòng điền đầy đủ các thông tin bắt buộc!",
+    notConfigured: "Tính năng gửi mail đang bảo trì hoặc chưa cấu hình đúng. Vui lòng dùng nút gửi Email thay thế!",
+    success: "Đã gửi tin nhắn thành công! Mình sẽ phản hồi bạn sớm nhất.",
+    failed: "Có lỗi kĩ thuật khi gửi mail. Vui lòng thử lại sau hoặc gửi mail trực tiếp.",
+  },
+  en: {
+    missing: "Please fill in all required fields!",
+    notConfigured: "Email sending is under maintenance or not configured correctly. Please use the Email button instead!",
+    success: "Message sent successfully! I will get back to you as soon as possible.",
+    failed: "A technical error occurred while sending. Please try again later or email me directly.",
+  },
+} as const;
+
 export async function sendContactEmail(prevState: unknown, formData: FormData) {
+  const rawLocale = formData.get("locale");
+  const msg = MESSAGES[rawLocale === "en" ? "en" : "vi"];
+
   try {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
 
     if (!name || !email || !message) {
-      return { error: "Vui lòng điền đầy đủ các thông tin bắt buộc!" };
+      return { error: msg.missing };
     }
 
     const { GMAIL_USER, GMAIL_APP_PASSWORD } = process.env;
 
     if (!GMAIL_USER || !GMAIL_APP_PASSWORD || GMAIL_APP_PASSWORD === "your-16-digit-app-password") {
       console.error("Thiếu cấu hình GMAIL_USER hoặc GMAIL_APP_PASSWORD hợp lệ trong .env.local");
-      return { error: "Tính năng gửi mail đang bảo trì hoặc chưa cấu hình đúng. Vui lòng dùng nút gửi Email thay thế!" };
+      return { error: msg.notConfigured };
     }
 
     const transporter = nodemailer.createTransport({
@@ -51,9 +69,9 @@ export async function sendContactEmail(prevState: unknown, formData: FormData) {
 
     await transporter.sendMail(mailOptions);
 
-    return { success: "Đã gửi tin nhắn thành công! Mình sẽ phản hồi bạn sớm nhất." };
+    return { success: msg.success };
   } catch (error) {
     console.error("Lỗi thực tế khi gửi thư qua Nodemailer:", error);
-    return { error: "Có lỗi kĩ thuật khi gửi mail. Vui lòng thử lại sau hoặc gửi mail trực tiếp." };
+    return { error: msg.failed };
   }
 }

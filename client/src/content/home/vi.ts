@@ -8,10 +8,11 @@ import type {
 	HomeFeaturedProject,
 	HomeTestimonial,
 	HomeContactContent,
-} from "./types";
+} from "@/components/modules/home/types";
+import type { HomeContent, HomeUi } from "./types";
 
 // —— Navigation ——
-export const HOME_NAV_LINKS: HomeNavLink[] = [
+const HOME_NAV_LINKS: HomeNavLink[] = [
 	{ id: "trang-chu", label: "Trang chủ", href: "#trang-chu" },
 	{ id: "kinh-nghiem", label: "Kinh nghiệm", href: "#kinh-nghiem" },
 	{ id: "hoc-van", label: "Học vấn", href: "#hoc-van" },
@@ -21,7 +22,7 @@ export const HOME_NAV_LINKS: HomeNavLink[] = [
 ];
 
 // —— Hero ——
-export const HOME_HERO_CONTENT: HomeHeroContent = {
+const HOME_HERO_CONTENT: HomeHeroContent = {
 	badge: "Lập trình viên Fullstack",
 	headline: "Xin chào, tôi là ERICSS.",
 	subtext:
@@ -36,7 +37,7 @@ export const HOME_HERO_CONTENT: HomeHeroContent = {
 	},
 };
 
-export const HOME_HERO_STATS: HomeHeroStat[] = [
+const HOME_HERO_STATS: HomeHeroStat[] = [
 	{
 		id: "projects",
 		label: "Dự Án Đã Hoàn Thành",
@@ -58,7 +59,7 @@ export const HOME_HERO_STATS: HomeHeroStat[] = [
 ];
 
 // —— Work Experience ——
-export const HOME_EXPERIENCES: HomeExperienceItem[] = [
+const HOME_EXPERIENCES: HomeExperienceItem[] = [
 	{
 		id: "exp-1",
 		company: "NPH DIGITAL",
@@ -174,7 +175,7 @@ export const HOME_EXPERIENCES: HomeExperienceItem[] = [
 ];
 
 // —— Education ——
-export const HOME_EDUCATION: HomeEducationItem[] = [
+const HOME_EDUCATION: HomeEducationItem[] = [
 	{
 		id: "edu-1",
 		school: "Đại học Lạc Hồng",
@@ -218,7 +219,7 @@ export const HOME_EDUCATION: HomeEducationItem[] = [
 ];
 
 // —— Skills ——
-export const HOME_SKILLS: HomeSkillItem[] = [
+const HOME_SKILLS: HomeSkillItem[] = [
 	{ id: "skill-1", name: "React", logo: "/images/skills/react.svg" },
 	{ id: "skill-2", name: "Next.js", logo: "/images/skills/nextjs.svg" },
 	{ id: "skill-3", name: "TypeScript", logo: "/images/skills/typescript.svg" },
@@ -230,7 +231,7 @@ export const HOME_SKILLS: HomeSkillItem[] = [
 ];
 
 // —— Projects ——
-export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
+const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 	{
 		id: "project-1",
 		title: "ShopSifu E-commerce Platform",
@@ -238,7 +239,7 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 			"Nền tảng thương mại điện tử đa luồng (Client, Admin, Seller) tích hợp quản lý phân quyền (RBAC), thanh toán (VNPay, Sepay) và Socket.IO.",
 		stack: ["Next.js", "NestJS", "Redux", "Prisma", "PostgreSQL", "Redis"],
 		period: "05/2025 - 08/2025",
-		thumbnail: "/images/projects/shopsifu.png",
+		thumbnail: "/images/projects/shopsifu.webp",
 		liveUrl: "https://shopsifu.live/",
 		badges: ["Live"],
 		featured: true,
@@ -250,14 +251,14 @@ export const HOME_FEATURED_PROJECTS: HomeFeaturedProject[] = [
 			"Hệ thống đa tên miền trường học sử dụng kiến trúc Turborepo giúp chia sẻ UI Components (ShadCN). Tối ưu SEO và Responsive hoàn chỉnh.",
 		stack: ["Turborepo", "React", "TailwindCSS", "Framer Motion"],
 		period: "11/2025 - 03/2026",
-		thumbnail: "/images/projects/lhs.png",
+		thumbnail: "/images/projects/lhs.webp",
 		liveUrl: "https://lhbs-edu-vn.devdotnet.id.vn/",
 		badges: ["Live"],
 	}
 ];
 
 // —— Testimonials ——
-export const HOME_TESTIMONIALS: HomeTestimonial[] = [
+const HOME_TESTIMONIALS: HomeTestimonial[] = [
 	{
 		id: "testi-1",
 		name: "Anh Trần Văn Tây",
@@ -293,7 +294,7 @@ export const HOME_TESTIMONIALS: HomeTestimonial[] = [
 ];
 
 // —— Contact ——
-export const HOME_CONTACT_CONTENT: HomeContactContent = {
+const HOME_CONTACT_CONTENT: HomeContactContent = {
 	badge: "Liên Hệ",
 	headline: "Cùng Xây Dựng Điều Tuyệt Vời",
 	subtext:
@@ -327,4 +328,85 @@ export const HOME_CONTACT_CONTENT: HomeContactContent = {
 		},
 	],
 	email: "nguyenphat1505@gmail.com",
+};
+
+const ui: HomeUi = {
+  navbar: { logoLabel: "Trang chủ", navLabel: "Điều hướng các phần của trang" },
+  hero: {
+    greeting: "Xin chào! ",
+    typed: ["Tôi là ERICSS.", "Tôi là Fullstack Dev."],
+    introName: "Nguyễn Đăng Phát",
+    introBody:
+      " — Một kỹ sư phần mềm chuyên nghiệp. Tôi đam mê xây dựng các sản phẩm công nghệ từ kiến trúc logic Backend đến giao diện Frontend tương tác mượt mà, tập trung vào trải nghiệm người dùng tối ưu qua hệ sinh thái Next.js và TypeScript.",
+    avatarAlt: "Ảnh chân dung Nguyễn Đăng Phát",
+    identityName: "Nguyễn Đăng Phát",
+    techEcosystem: "Tech Ecosystem",
+    techAlt: "Công nghệ sử dụng: React, Next.js, NestJS, TypeScript, PostgreSQL, Docker, Tailwind CSS, Figma",
+    availableForWork: "Available For Work",
+    location: "Hồ Chí Minh, VN",
+    online: "Trực tuyến",
+  },
+  experience: {
+    badge: "Kinh Nghiệm",
+    title: "Hành Trình",
+    accent: "Phát Triển",
+    description: "Những điểm chạm quan trọng định hình kỹ năng và tư duy sản phẩm của tôi.",
+    viewDetails: "Xem chi tiết",
+    website: "Website",
+    modal: { close: "Đóng cửa sổ", noDetails: "Chưa có thông tin chi tiết.", featuredProjects: "Các dự án nổi bật" },
+  },
+  education: {
+    badge: "Education",
+    title: "Học Vấn",
+    accent: "& Chứng Chỉ",
+    description: "Nền tảng học thuật và các chương trình tăng tốc chuyên môn.",
+  },
+  skills: {
+    badge: "Background",
+    title: "Học Vấn",
+    accent: "& Kỹ Năng",
+    description: "Nền tảng học thuật và các bộ công cụ phát triển phần mềm.",
+    learningJourney: "Hành trình Học tập",
+    techFocusTitle: "My Tech Stack Focus:",
+    techFocusBody:
+      "Chuyên môn sâu rộng với React, Next.js (App Router), và hệ sinh thái TypeScript. Vững chắc về Backend API với Node.js / ASP.NET Core và Database. Sử dụng thuần thục hệ thống Monorepo, Docker và các quy trình CI/CD.",
+    iconCloudLabel: "Biểu tượng các công nghệ tôi sử dụng",
+  },
+  projects: {
+    badge: "Portfolio",
+    title: "Dự Án",
+    accent: "Thực Chiến",
+    description: "Những sản phẩm thực tế được tối ưu hóa về hiệu năng và trải nghiệm người dùng.",
+    viewAll: "XEM TẤT CẢ DỰ ÁN",
+    viewDetail: "XEM CHI TIẾT",
+    sourceCode: "SOURCE CODE",
+  },
+  testimonials: {
+    title: "Đồng Nghiệp",
+    accent: "Đánh Giá",
+    description: "Những nhận xét khách quan từ quản lý và đồng nghiệp đã làm việc trực tiếp cùng tôi.",
+  },
+  contact: {
+    nameLabel: "Tên của bạn",
+    namePlaceholder: "Họ và tên...",
+    emailLabel: "Email liên hệ",
+    emailPlaceholder: "hello@example.com",
+    messageLabel: "Nội dung tin nhắn",
+    messagePlaceholder: "Bạn muốn trao đổi về dự án gì...",
+    submit: "Gửi tin nhắn",
+    sending: "Đang gửi...",
+  },
+};
+
+export const homeVi: HomeContent = {
+  nav: HOME_NAV_LINKS,
+  hero: HOME_HERO_CONTENT,
+  stats: HOME_HERO_STATS,
+  experiences: HOME_EXPERIENCES,
+  education: HOME_EDUCATION,
+  skills: HOME_SKILLS,
+  projects: HOME_FEATURED_PROJECTS,
+  testimonials: HOME_TESTIMONIALS,
+  contact: HOME_CONTACT_CONTENT,
+  ui,
 };
