@@ -37,19 +37,16 @@ export function Preloader() {
             <div className="absolute left-1/4 top-1/4 h-[30vw] w-[30vw] rounded-full bg-[radial-gradient(closest-side,rgba(147,51,234,0.25),transparent)]" />
             <div className="absolute bottom-1/4 right-1/4 h-[25vw] w-[25vw] rounded-full bg-[radial-gradient(closest-side,rgba(6,182,212,0.25),transparent)]" />
 
+            {/* initial={false}: vẽ ngay từ HTML của server (không opacity 0) để LCP không phải chờ hydrate */}
             <motion.p
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              initial={false}
               className="relative z-10 mb-2 rounded-full border border-foreground/20 bg-foreground/5 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-foreground/80 md:mb-6 md:px-6 md:text-sm"
             >
               Software Engineer
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              initial={false}
               className="relative z-10 bg-gradient-to-br from-cyan-600 via-emerald-600 to-purple-600 bg-clip-text text-center text-[22vw] font-black uppercase leading-none tracking-tight text-transparent dark:from-cyan-300 dark:via-emerald-400 dark:to-purple-500 sm:text-[20vw] md:text-[18vw] lg:text-[15vw]"
             >
               ERICSS

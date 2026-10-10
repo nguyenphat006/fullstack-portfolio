@@ -19,7 +19,7 @@ server/   Django: apps/projects, apps/blogs, apps/contacts + lõi template (core
 docs/     Tài liệu template (TEMPLATE.md, GLOBAL_SEARCH.md, thiết kế RBAC)
 ```
 
-Landing và admin dùng **hai root layout riêng** (CSS không đè nhau). Landing hiện vẫn đọc dữ liệu tĩnh từ
+Landing mặc định tiếng Anh (`/`), tiếng Việt ở `/vi`, có light/dark. Landing và admin dùng **hai root layout riêng** (CSS không đè nhau). Landing hiện vẫn đọc dữ liệu tĩnh từ
 `client/src/config/`; backend đã có sẵn API công khai (`/api/v1/public/projects|blogs|contacts/`) để nối sau.
 
 ## Chạy local

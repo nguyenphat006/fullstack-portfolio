@@ -1,13 +1,13 @@
-/** Ngôn ngữ của landing: `vi` là mặc định (URL không tiền tố), `en` nằm dưới `/en`. */
-export const LOCALES = ["vi", "en"] as const;
+/** Ngôn ngữ của landing: `en` là mặc định (URL không tiền tố), `vi` nằm dưới `/vi`. */
+export const LOCALES = ["en", "vi"] as const;
 export type Locale = (typeof LOCALES)[number];
-export const DEFAULT_LOCALE: Locale = "vi";
+export const DEFAULT_LOCALE: Locale = "en";
 
 export function isLocale(value: string | undefined | null): value is Locale {
   return LOCALES.includes(value as Locale);
 }
 
-/** Thêm tiền tố ngôn ngữ cho đường dẫn nội bộ ("/blog" -> "/en/blog"); link ngoài, "#mục" và mailto: giữ nguyên. */
+/** Thêm tiền tố ngôn ngữ cho đường dẫn nội bộ ("/blog" -> "/vi/blog"); link ngoài, "#mục" và mailto: giữ nguyên. */
 export function localizePath(locale: Locale, href: string): string {
   if (!href.startsWith("/") || href.startsWith("//")) return href;
   if (locale === DEFAULT_LOCALE) return href;
@@ -15,8 +15,8 @@ export function localizePath(locale: Locale, href: string): string {
 }
 
 /**
- * Bỏ tiền tố ngôn ngữ khỏi pathname ("/en/blog" -> "/blog").
- * Cũng bỏ "/vi": khi render phía server, usePathname() thấy đường dẫn đã rewrite ("/vi/blog") trong khi
+ * Bỏ tiền tố ngôn ngữ khỏi pathname ("/vi/blog" -> "/blog").
+ * Cũng bỏ tiền tố của ngôn ngữ mặc định ("/en"): khi render phía server, usePathname() thấy đường dẫn đã rewrite ("/en/blog") trong khi
  * trình duyệt thấy "/blog" -> phải chuẩn hóa để HTML server và client khớp (tránh lỗi hydrate).
  */
 export function stripLocale(pathname: string): string {

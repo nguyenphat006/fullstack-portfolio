@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, languageAlternates, siteConfig } from "@/config/site";
-import { getContent, LOCALES, type Locale } from "@/content";
+import { DEFAULT_LOCALE, getContent, LOCALES, type Locale } from "@/content";
 
 /** Sitemap đa ngôn ngữ: mỗi URL kèm hreflang (vi / en / x-default). */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getContent("vi");
+  const base = getContent(DEFAULT_LOCALE);
   const paths: { path: string; priority: number; changeFrequency: "weekly" | "monthly"; lastModified?: string }[] = [
     { path: "/", priority: 1, changeFrequency: "weekly" },
     { path: "/projects", priority: 0.8, changeFrequency: "weekly" },

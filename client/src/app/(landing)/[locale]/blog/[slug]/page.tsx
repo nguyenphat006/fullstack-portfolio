@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 import { BlogDetailContent } from "@/components/modules/blog/components/details/blog-detail-content";
 import { JsonLd } from "@/components/modules/blog/json-ld";
 import { getContent } from "@/content";
-import { isLocale, localizePath, OG_LOCALE, LOCALES } from "@/content/locales";
+import { isLocale, localizePath, OG_LOCALE, LOCALES, DEFAULT_LOCALE } from "@/content/locales";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: url,
       languages: {
         ...Object.fromEntries(LOCALES.map((l) => [l, localizePath(l, `/blog/${slug}`)])),
-        "x-default": localizePath("vi", `/blog/${slug}`),
+        "x-default": localizePath(DEFAULT_LOCALE, `/blog/${slug}`),
       },
     },
     openGraph: {

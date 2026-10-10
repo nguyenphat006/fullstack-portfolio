@@ -11,10 +11,11 @@ import { useState, useEffect } from "react";
 import type { Variants } from "motion/react";
 import { TypeAnimation } from "react-type-animation";
 
+// Không dùng opacity 0 ở trạng thái đầu: nội dung phải được vẽ ngay từ HTML của server để LCP không phải chờ
+// hydrate + animation (trước đây ảnh đại diện chỉ hiện sau ~4s trên mobile giả lập). Chỉ trượt/co nhẹ khi vào.
 const bentoVariants: Variants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  hidden: { y: 24, scale: 0.97 },
   visible: {
-    opacity: 1,
     y: 0,
     scale: 1,
     transition: { type: "spring", stiffness: 100, damping: 20 }
@@ -22,10 +23,9 @@ const bentoVariants: Variants = {
 };
 
 const staggerContainer = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 

@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getContent, isLocale, LOCALES } from "@/content";
+import { DEFAULT_LOCALE, getContent, isLocale, LOCALES } from "@/content";
 
 export const alt = "ERICSS - Portfolio";
 export const size = { width: 1200, height: 630 };
@@ -12,7 +12,7 @@ export function generateImageParams() {
 /** Ảnh chia sẻ mạng xã hội (Open Graph / Twitter) sinh theo ngôn ngữ, không cần file tĩnh. */
 export default async function OpengraphImage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const { shared } = getContent(isLocale(locale) ? locale : "vi");
+  const { shared } = getContent(isLocale(locale) ? locale : DEFAULT_LOCALE);
 
   return new ImageResponse(
     (
