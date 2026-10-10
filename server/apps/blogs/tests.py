@@ -58,3 +58,21 @@ class BlogApiTests(TestCase):
         self.assertEqual(self.client.get(URL).status_code, status.HTTP_200_OK)
         resp = self.client.post(URL, PAYLOAD, format='json')
         self.assertEqual(resp.status_code, status.HTTP_403_FORBIDDEN)
+
+class PublicBlogApiTests(TestCase):
+    """API công khai cho landing: không cần đăng nhập, chỉ đọc, ẩn bản ghi ngừng hoạt động."""
+
+    def setUp(self):
+        self.client = APIClient()
+        Blog.objects.create(**{**PAYLOAD, 'slug': 'hien-thi'})
+        Blog.objects.create(**{**PAYLOAD, 'slug': 'da-an', 'is_active': False})
+
+    def test_list_and_detail_without_login(self):
+        body = self.client.get('/api/v1/public/blogs/').json()
+        self.assertEqual([p['slug'] for p in body['data']['results']], ['hien-thi'])
+        self.assertEqual(self.client.get('/api/v1/public/blogs/hien-thi/').status_code, status.HTTP_200_OK)
+        self.assertEqual(self.client.get('/api/v1/public/blogs/da-an/').status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_public_is_read_only(self):
+        resp = self.client.post('/api/v1/public/blogs/', PAYLOAD, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

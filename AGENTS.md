@@ -1,6 +1,6 @@
-# 🤖 AGENTS & CODING STANDARDS (Admin Template)
+# 🤖 AGENTS & CODING STANDARDS (Fullstack Portfolio)
 
-Tài liệu này là **Cẩm nang Quy chuẩn Cốt lõi** mà mọi AI Agent (và lập trình viên) **BẮT BUỘC PHẢI ĐỌC VÀ TUÂN THỦ NGHIÊM NGẶT 100%** trong suốt quá trình phát triển dự án **Admin Template (Django + Next.js)** của **ERICSS**.
+Tài liệu này là **Cẩm nang Quy chuẩn Cốt lõi** mà mọi AI Agent (và lập trình viên) **BẮT BUỘC PHẢI ĐỌC VÀ TUÂN THỦ NGHIÊM NGẶT 100%** trong suốt quá trình phát triển dự án **Fullstack Portfolio (Django + Next.js)** của **ERICSS**.
 
 ---
 

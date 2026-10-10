@@ -16,8 +16,8 @@ npx shadcn@latest add <component>    # thêm primitive vào src/components/ui
 Env: `.env.local` (mẫu `.env.example`) — `NEXT_PUBLIC_API_URL` trỏ tới `http://localhost:8000/api/v1`.
 
 ## Bản đồ nhanh
-- `src/app/` — route mỏng; nhóm `(auth)` và `(dashboard)`. `globals.css`: token màu `--c-*` (sáng/tối) + token shadcn trỏ về chúng.
-- `src/modules/<feature>/` — toàn bộ logic màn hình. Mẫu: `master-data/units` (danh sách), `master-data/materials` (có chi tiết).
+- `src/app/` — 2 root layout riêng: `(landing)` (trang công khai, CSS `landing.css`, UI ở `components/landing/ui`) và `(admin)` (nhóm `(auth)`, `(dashboard)`, trang chủ `/dashboard`). `globals.css`: token màu `--c-*` (sáng/tối) + token shadcn trỏ về chúng.
+- `src/modules/<feature>/` — toàn bộ logic màn hình. Mẫu: `content/projects` (danh sách CRUD sinh bằng `gen:module`), `users` (có chi tiết).
 - `src/components/ui/` — primitive shadcn (sinh bằng CLI, hạn chế sửa). `controls/` — Combobox, TreeSelect, DateRangePicker, NumberInput, FileDropzone.
 - `src/components/form/` — FormDialog + các trường react-hook-form. `feedback/` — `useConfirm`, Spinner.
 - `src/components/list/`, `detail/` — khung trang danh sách / chi tiết. `common/` — PageHeader, StatusBadge, EmptyState, DeleteConfirm, ExportConfigModal, ExcelImportModal, AttachmentManager...

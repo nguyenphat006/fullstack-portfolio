@@ -1,0 +1,77 @@
+{
+  "projects": [
+    {
+      "id": "shopsifu",
+      "title": "ShopSifu E-commerce Platform",
+      "summary": "Nền tảng thương mại điện tử đa luồng (Client, Admin, Seller) tích hợp quản lý phân quyền (RBAC), thanh toán (VNPay, Sepay) và Socket.IO.",
+      "stack": [
+        "Next.js",
+        "NestJS",
+        "Redux",
+        "Prisma",
+        "PostgreSQL",
+        "Redis"
+      ],
+      "year": "05/2025 - 08/2025",
+      "color": "#FCD34D",
+      "image": "/images/projects/shopsifu.png",
+      "role": "Fullstack Developer",
+      "content": "Dự án nền tảng thương mại điện tử phức tạp với 3 luồng người dùng cực lớn bám sát nghiệp vụ phân quyền RBAC.\n\n### Yêu cầu bài toán\nHệ thống cần một giải pháp xử lý đơn hàng đa luồng thời gian thực cho hàng ngàn người dùng, hỗ trợ nhà cung cấp (Seller) đăng bán sản phẩm và thanh toán tự động không cần đối soát thủ công.\n\n### Giải pháp Kỹ thuật\n- **Kiến trúc Backend:** Tách bạch Layer Controller - Service - Repository trong NestJS. Quản lý transaction chặt chẽ khi thanh toán.\n- **Realtime:** Sử dụng Web-Socket (Socket.IO) kết hợp Redis Pub/Sub để phát luồng thông báo đơn hàng cho Client ngay lập tức trong vòng chưa tới 50ms.\n- **Cổng thanh toán:** Tích hợp trực tiếp VNPay API và Sepay (Webhook tự check giao dịch ngân hàng).\n- **Frontend tối ưu:** Ứng dụng Next.js Server Components kết hợp Redux Toolkit để quản lý giỏ hàng mượt mà cục bộ, hạn chế Re-render tối đa.\n\n![ShopSifu Admin Dashboard](/images/projects/shopsifu.png)\n*(Minh hoạ luồng Dashboard quản trị)*",
+      "liveUrl": "https://shopsifu.live/",
+      "featured": true
+    },
+    {
+      "id": "song-ngu-lac-hong",
+      "title": "Hệ thống Trường Song Ngữ Lạc Hồng",
+      "summary": "Hệ thống đa tên miền trường học sử dụng kiến trúc Turborepo giúp chia sẻ UI Components (ShadCN). Tối ưu SEO và Responsive hoàn chỉnh.",
+      "stack": [
+        "Turborepo",
+        "React",
+        "TailwindCSS",
+        "Framer Motion"
+      ],
+      "year": "11/2025 - 03/2026",
+      "color": "#EF4444",
+      "image": "/images/projects/lhs.png",
+      "role": "Frontend Team Lead",
+      "content": "Hệ thống hạ tầng giáo dục sinh thái Mẫu giáo - Tiểu học - THCS.\n\n### Bài toán Đặt ra\nĐại diện Chủ đầu tư yêu cầu một hệ sinh thái Web chia làm 4 tên miền (domain) riêng biệt phục vụ cho 4 nhóm đối tượng khác nhau, nhưng bắt buộc phải tận dụng tối đa Design System chung để duy trì bộ nhận diện thương hiệu tuyệt đối.\n\n### Kiến trúc & Triển khai thực tế\n- **Monorepo với công nghệ Turborepo:** Triển khai luồng kiến trúc gom cụm tất cả mã nguồn rời rạc vào một Repository khổng lồ, tạo ra các Shared Package như `ui-components`, `configs`, `utils`.\n- **Cấu trúc UI System:** Tuỳ biến triệt để ShadCN UI và Tailwind CSS. Theme động hoàn toàn dựa trên quy chuẩn màu sắc phòng Marketing.\n- **Hiệu năng SSG & SEO:** Áp dụng phương thức Next.js Statically Generated nhằm mang lại tốc độ tải trang cực nhanh (PageSpeed Insights luôn trên 95) và thẻ Meta chuẩn SEO cho chiến dịch quảng cáo.\n\n<video class=\"w-full rounded-2xl shadow-2xl mt-8\" controls autoPlay loop muted>\n  <source src=\"/videos/lhs-demo.mp4\" type=\"video/mp4\" />\n</video>\n*Video trải nghiệm mượt mà Animation của hệ thống Frontend Landing Page*",
+      "liveUrl": "https://lhbs-edu-vn.devdotnet.id.vn/",
+      "featured": true
+    }
+  ],
+  "blogs": [
+    {
+      "id": "post-1",
+      "slug": "huong-dan-xay-dung-design-system-voi-tailwind-css",
+      "title": "Hướng dẫn xây dựng Design System với Tailwind CSS",
+      "excerpt": "Cách thiết lập hệ thống design token, component chuẩn chỉnh và tái sử dụng hiệu quả cho các dự án Next.js lớn.",
+      "date": "10/03/2026",
+      "category": "Frontend",
+      "readTime": "5 phút",
+      "image": "/images/projects/project-dashboard.svg",
+      "content": "## Xây dựng hệ thống UI Nhất quán\n\nTrong dự án thực tế, việc thiết lập một hạt nhân chung cho giao diện là bắt buộc. CSS thuần thường dính phải các lỗi như:\n1. Trùng lặp Class name.\n2. Thiếu quy chuẩn về khoảng cách (Spacing).\n3. Hỗ trợ Dark Mode cực kỳ vất vả.\n\n### Giải pháp với Tailwind CSS\nSử dụng Tailwind kết hợp với [shadcn/ui](https://ui.shadcn.com/) giúp triệt tiêu hoàn toàn sự lệ thuộc vào các framework thư viện CSS quá nặng nề. Bạn chỉ định nghĩa bảng màu `Colors` trong `tailwind.config.ts` một lần và dùng nó ở bất kỳ đâu trên hệ thống."
+    },
+    {
+      "id": "post-2",
+      "slug": "turborepo-giai-phap-quan-ly-du-an-da-ten-mien",
+      "title": "Turborepo: Giải pháp quản lý Dự án Đa tên miền",
+      "excerpt": "Kiến trúc Monorepo hiệu quả giúp tiết kiệm hàng chục giờ đồng hồ cho việc bảo trì framework, chia sẻ UI component.",
+      "date": "25/02/2026",
+      "category": "Architecture",
+      "readTime": "8 phút",
+      "image": "/images/projects/project-ecommerce.svg",
+      "content": "## Monorepo là gì?\n\nKiến trúc Monorepo giải quyết bài toán muôn thuở khi bạn có nhiều tên miền nhưng lại sở hữu chung một bộ nhận diện thương hiệu. Thay vì sao chép Code từ dự án này sang dự án khác (Copy - Paste), **Turborepo** cho phép bạn khởi tạo một kho chứa duy nhất.\n\n> Trong đó, các hệ thống lõi như **UI**, **Linting**, **TypeScript Config** được đóng gói thành các `packages` dùng chung. Mỗi `apps` chỉ việc import nó như một thư viện NPM.\n\nViệc này giúp team lead quản lý toàn bộ hệ thống frontend đồ sộ một cách hoàn hảo với zero duplication!"
+    },
+    {
+      "id": "post-3",
+      "slug": "toi-uu-hoa-hinh-anh-va-font-chu-tren-nextjs",
+      "title": "Tối ưu hóa hình ảnh và Font chữ trên Next.js App Router",
+      "excerpt": "Những kỹ thuật Core Web Vitals bạn phải biết khi làm việc với framework Next.js trong năm 2026.",
+      "date": "14/01/2026",
+      "category": "Performance",
+      "readTime": "6 phút",
+      "image": "/images/projects/project-content.svg",
+      "content": "## Điểm 100/100 PageSpeed Insights không phải là giấc mơ\n\nKhi load trang, Hình ảnh và Font là 2 tác nhân chính gây ra hệ quả **CLS (Cumulative Layout Shift)** - Dịch chuyển bố cục.\n\n### Bí quyết 1: Lệnh Preload Font\nNext.js tích hợp sẵn module `next/font/google`, bạn chỉ cần khai báo Font ở tận trên cùng `layout.tsx`. Framework sẽ tự tải xuống file font thật và nhúng (Inject) vào HTML ngay lúc Build. Ngay cả khi rớt mạng, font chữ vẫn hiển thị đúng chuẩn.\n\n### Bí quyết 2: Thẻ Image Thần thánh\nQuên thẻ `<img />` truyền thống đi, thay vào đó hãy dùng `next/image`. Nếu bạn không xác định được kích thước cứng, hãy dùng trick `fill` kết hợp với class `object-cover`. Framework sẽ âm thầm crop và resize tấm ảnh về định dạng WebP cực nhẹ (chỉ khoảng 50KB)."
+    }
+  ]
+}

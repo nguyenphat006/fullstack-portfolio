@@ -4,7 +4,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: app_backend
+    container_name: portfolio_backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./server:/app
@@ -26,13 +26,13 @@ services:
   # 2. Local PostgreSQL Database (Dự phòng khi không dùng Cloud Neon DB)
   db:
     image: postgres:16-alpine
-    container_name: app_postgres
+    container_name: portfolio_postgres
     environment:
-      POSTGRES_DB: app_db
+      POSTGRES_DB: portfolio_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "55432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -45,7 +45,7 @@ services:
   # 3. Redis Message Broker & Cache (Siêu nhẹ ~15MB RAM)
   redis:
     image: redis:7-alpine
-    container_name: app_redis
+    container_name: portfolio_redis
     ports:
       - "6379:6379"
     healthcheck:
@@ -60,7 +60,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: app_celery_worker
+    container_name: portfolio_celery_worker
     command: celery -A config worker --loglevel=info --concurrency=2
     volumes:
       - ./server:/app

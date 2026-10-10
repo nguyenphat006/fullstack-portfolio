@@ -54,3 +54,19 @@ class ContactApiTests(TestCase):
         self.assertEqual(self.client.get(URL).status_code, status.HTTP_200_OK)
         resp = self.client.post(URL, PAYLOAD, format='json')
         self.assertEqual(resp.status_code, status.HTTP_403_FORBIDDEN)
+
+class PublicContactApiTests(TestCase):
+    """Form liên hệ công khai: không cần đăng nhập, lưu bản ghi, chặn dữ liệu sai."""
+
+    def test_anonymous_can_submit(self):
+        resp = APIClient().post('/api/v1/public/contacts/', PAYLOAD, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(Contact.objects.filter(email='khach@example.com').exists())
+
+    def test_invalid_email_rejected(self):
+        resp = APIClient().post('/api/v1/public/contacts/', {**PAYLOAD, 'email': 'sai'}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_anonymous_cannot_read_list(self):
+        self.assertIn(APIClient().get('/api/v1/public/contacts/').status_code,
+                      (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_404_NOT_FOUND))

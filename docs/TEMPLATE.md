@@ -1,5 +1,7 @@
 # Hướng dẫn dùng Template
 
+> **Lưu ý (dự án Portfolio):** repo này đã dựng từ template. Các module mẫu `master_data`, `customers`, `suppliers` đã được gỡ; nhóm menu mới là `CONTENT` (`projects`, `blogs`, `contacts`), trang chủ admin là `/dashboard`, landing nằm ở `client/src/app/(landing)`. Các mục dưới đây là tài liệu gốc của template, dùng khi thêm module mới.
+
 Repo này là **template quản trị (admin) full-stack**: Django 5.2 LTS + DRF + PostgreSQL ở backend, Next.js 16 + Tailwind CSS v4 + shadcn/ui ở frontend. Clone về, đổi thương hiệu, rồi chỉ việc viết tính năng riêng của đề tài.
 
 ## 1. Có sẵn những gì
@@ -122,7 +124,7 @@ docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 | Khởi tạo máy mới | `python manage.py bootstrap --demo` |
 | Cập nhật quyền sau khi thêm module | `python manage.py seed_core` (không ghi đè chỉnh sửa trên UI) |
 | Đưa quyền vai trò về mặc định | `python manage.py seed_core --reset-role-permissions` |
-| Test backend | `docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/app_db app_backend python manage.py test` |
+| Test backend | `docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/portfolio_db portfolio_backend python manage.py test` |
 | Sinh lại hợp đồng API | `python manage.py spectacular --file schema.yml` → `cd client && npm run gen:api` |
 | Kiểm tra frontend | `npx tsc --noEmit` → `npm run lint -- --max-warnings=0` → `npm run build` |
 | Smoke test giao diện | `E2E_BASE_URL=... E2E_PASSWORD=... npm run test:e2e` (lần đầu: `npx playwright install chromium`) |

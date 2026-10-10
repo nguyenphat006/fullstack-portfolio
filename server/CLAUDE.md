@@ -13,7 +13,7 @@ python manage.py check                     # phải 0 issues
 python manage.py bootstrap --demo          # migrate + seed_core + seed_demo (máy mới)
 python manage.py seed_core                 # module registry + quyền + vai trò + admin (idempotent)
 python manage.py seed_core --reset-role-permissions  # đưa quyền vai trò mặc định về ROLE_PERMISSION_MAP
-python manage.py seed_demo                 # dữ liệu mẫu master-data
+python manage.py seed_portfolio            # nạp dự án / bài viết của landing (không ghi đè bản ghi đã có)
 celery -A config worker --loglevel=info    # tác vụ xuất/nhập nền (cần Redis)
 ```
 Docker (từ thư mục gốc): `docker compose up -d db redis` rồi chạy Django local, hoặc `docker compose up` cả stack.
@@ -25,5 +25,4 @@ Env: `.env` (mẫu `.env.example`); có `DATABASE_URL` → dùng Neon/Postgres �
 - `apps/authentication/` — CustomUser, Role, Permission, ModuleRegistry, JWT, seed commands.
 - `apps/audit/` — API đọc lịch sử `django-pghistory`.
 - `apps/dashboard/` — API trang Tổng quan (KPI theo quyền).
-- `apps/master_data/` — module MẪU: UnitsOfMeasure, MaterialCategories, Materials, MetalMaterialSpecs. Mẫu tham chiếu khi viết app mới.
-- `apps/customers/`, `apps/suppliers/` — module MẪU sinh bằng `startmodule` (xóa được).
+- `apps/projects/`, `apps/blogs/`, `apps/contacts/` — nội dung portfolio (CRUD cho admin + API công khai `views_public.py` dưới `/api/v1/public/`). `projects` chứa nhóm menu `CONTENT`, lệnh `seed_portfolio` và `seed_data/portfolio.json`.

@@ -30,7 +30,7 @@ Không viết test cho: primitive shadcn (`components/ui`), markup tĩnh, snapsh
 - Dùng helper có sẵn: `ApiTestMixin.assertEnvelope`, `make_user_with_perms` (mẫu `apps/master_data/tests.py`); tạo dữ liệu trong `setUp` / hàm factory nhỏ, **không** dựa vào `seed_demo` (trừ test của chính lệnh seed).
 - Kiểm tra `code` lỗi (`validation_error`, `business_rule`…) và trường trong `errors`, không so khớp nguyên văn câu thông báo (câu đổi theo ngôn ngữ). Ngoại lệ: test đa ngôn ngữ.
 - Code lõi không phụ thuộc cứng app mẫu `master_data` (test lõi dùng user / role / phân hệ lõi).
-- Chạy trong container (Postgres thật, có pghistory trigger): `MSYS_NO_PATHCONV=1 docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/app_db app_backend python manage.py test --noinput` (một app: thêm `apps.<app>`).
+- Chạy trong container (Postgres thật, có pghistory trigger): `MSYS_NO_PATHCONV=1 docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/portfolio_db portfolio_backend python manage.py test --noinput` (một app: thêm `apps.<app>`).
 
 ## Frontend (Vitest + Testing Library)
 - `npm test` (chạy 1 lần, CI) · `npm run test:watch`. Cấu hình `client/vitest.config.ts` (jsdom, alias `@`), setup `src/test/setup.ts` (jest-dom).

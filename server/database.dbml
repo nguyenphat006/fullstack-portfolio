@@ -243,7 +243,7 @@ Table Projects {
   Title varchar(255) [not null]
   Summary text [not null, note: 'Mô tả ngắn hiện trên thẻ dự án']
   Stack jsonb [not null, default: '[]', note: 'Danh sách công nghệ: ["Next.js", "Django"]']
-  Year varchar(10) [not null]
+  Year varchar(30) [not null, note: 'Thời gian thực hiện, vd: 05/2025 - 08/2025']
   Image varchar(500) [not null, note: 'URL / đường dẫn ảnh đại diện']
   Color varchar(30) [not null, note: 'Màu nhấn của thẻ (hex hoặc tên class)']
   Role varchar(150) [not null, note: 'Vai trò trong dự án']

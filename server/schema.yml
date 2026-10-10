@@ -2464,6 +2464,173 @@ paths:
               schema:
                 $ref: '#/components/schemas/Project'
           description: ''
+  /api/v1/public/blogs/:
+    get:
+      operationId: public_blogs_list
+      description: 'API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản
+        ghi đang hoạt động.'
+      summary: Danh sách blogs công khai
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Công khai - Bài viết
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicBlogList'
+          description: ''
+  /api/v1/public/blogs/{slug}/:
+    get:
+      operationId: public_blogs_retrieve
+      description: 'API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản
+        ghi đang hoạt động.'
+      summary: Chi tiết blog công khai (theo slug)
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - Công khai - Bài viết
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicBlog'
+          description: ''
+  /api/v1/public/contacts/:
+    post:
+      operationId: public_contacts_create
+      description: 'Nhận form liên hệ từ landing: không cần đăng nhập, chỉ cho phép
+        tạo mới.'
+      summary: Gửi liên hệ từ landing (công khai, giới hạn tần suất)
+      tags:
+      - Công khai - Liên hệ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicContactRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicContact'
+          description: ''
+  /api/v1/public/projects/:
+    get:
+      operationId: public_projects_list
+      description: 'API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản
+        ghi đang hoạt động.'
+      summary: Danh sách projects công khai
+      parameters:
+      - in: query
+        name: featured
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Công khai - Dự án
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicProjectList'
+          description: ''
+  /api/v1/public/projects/{slug}/:
+    get:
+      operationId: public_projects_retrieve
+      description: 'API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản
+        ghi đang hoạt động.'
+      summary: Chi tiết project công khai (theo slug)
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - Công khai - Dự án
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicProject'
+          description: ''
   /api/v1/roles/:
     get:
       operationId: roles_list
@@ -5007,6 +5174,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Project'
+    PaginatedPublicBlogList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicBlog'
+    PaginatedPublicProjectList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicProject'
     PaginatedRoleList:
       type: object
       required:
@@ -5266,7 +5499,7 @@ components:
           type: string
           minLength: 1
           title: Năm
-          maxLength: 10
+          maxLength: 30
         image:
           type: string
           minLength: 1
@@ -5611,7 +5844,7 @@ components:
         year:
           type: string
           title: Năm
-          maxLength: 10
+          maxLength: 30
         image:
           type: string
           title: Ảnh đại diện
@@ -5689,7 +5922,7 @@ components:
           type: string
           minLength: 1
           title: Năm
-          maxLength: 10
+          maxLength: 30
         image:
           type: string
           minLength: 1
@@ -5743,6 +5976,158 @@ components:
       - image
       - role
       - slug
+      - summary
+      - title
+      - year
+    PublicBlog:
+      type: object
+      description: Chỉ các trường landing cần hiển thị (không lộ thông tin audit).
+      properties:
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          readOnly: true
+          title: Tiêu đề
+        excerpt:
+          type: string
+          readOnly: true
+          title: Đoạn trích
+        published_date:
+          type: string
+          readOnly: true
+          title: Ngày đăng
+        category:
+          type: string
+          readOnly: true
+          title: Chuyên mục
+        read_time:
+          type: string
+          readOnly: true
+          title: Thời gian đọc
+        image:
+          type: string
+          readOnly: true
+          title: Ảnh đại diện
+        content:
+          type: string
+          readOnly: true
+          title: Nội dung (Markdown)
+      required:
+      - category
+      - content
+      - excerpt
+      - image
+      - published_date
+      - read_time
+      - slug
+      - title
+    PublicContact:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Họ tên
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        message:
+          type: string
+          title: Nội dung
+      required:
+      - email
+      - message
+      - name
+    PublicContactRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Họ tên
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 255
+        message:
+          type: string
+          minLength: 1
+          title: Nội dung
+      required:
+      - email
+      - message
+      - name
+    PublicProject:
+      type: object
+      description: Chỉ các trường landing cần hiển thị (không lộ thông tin audit).
+      properties:
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          readOnly: true
+          title: Tên dự án
+        summary:
+          type: string
+          readOnly: true
+          title: Mô tả ngắn
+        stack:
+          readOnly: true
+          title: Công nghệ
+        year:
+          type: string
+          readOnly: true
+          title: Năm
+        image:
+          type: string
+          readOnly: true
+          title: Ảnh đại diện
+        color:
+          type: string
+          readOnly: true
+          title: Màu nhấn
+        role:
+          type: string
+          readOnly: true
+          title: Vai trò
+        content:
+          type: string
+          readOnly: true
+          title: Nội dung chi tiết (Markdown)
+        live_url:
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          title: Link demo
+        github_url:
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          title: Link GitHub
+        featured:
+          type: boolean
+          readOnly: true
+          title: Nổi bật
+      required:
+      - color
+      - content
+      - featured
+      - github_url
+      - image
+      - live_url
+      - role
+      - slug
+      - stack
       - summary
       - title
       - year

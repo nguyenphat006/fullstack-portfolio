@@ -83,7 +83,7 @@ class UnitOfMeasureViewSet(BaseERPViewSet):
 - Đặt tại `apps/<app>/tests.py`; mẫu: `apps/master_data/tests.py` (`ApiTestMixin.assertEnvelope`, `make_user_with_perms`).
 - Tối thiểu: list/create/validation error theo envelope, phân quyền (user thiếu quyền → 403), mọi quy tắc nghiệp vụ trong hook, mọi service tính toán (định mức, sinh mã).
 - Chạy trong container (Postgres local của docker-compose, không dùng Neon):
-  `docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/app_db app_backend python manage.py test --noinput`
+  `docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/portfolio_db portfolio_backend python manage.py test --noinput`
 
 ## Truy vấn & giao dịch
 - FK/1-1 → `select_related`; reverse FK/M2M → `prefetch_related`. Không để N+1.
@@ -143,7 +143,7 @@ Phân quyền tài khoản / vai trò / tệp đính kèm: xem `security-rbac.md
 | Hai dự án clone từ template dùng chung 1 Redis với `KEY_PREFIX` cố định → cache menu / quyền của user cùng id lẫn sang dự án kia | `KEY_PREFIX` = `CACHE_KEY_PREFIX` hoặc tên CSDL; mỗi dự án một tiền tố. |
 | Bỏ module mẫu phải sửa tay ~30 khối trong `seed_core.py`; phân hệ con có nhóm cha đã bỏ biến mất khỏi menu | Phân quyền theo app (`rbac.py`, xem "Công cụ sinh"); `/modules/navigation/` đưa phân hệ mồ côi nhóm cha lên cấp 1. |
 | `bootstrap --demo` crash `UnicodeEncodeError` trên console Windows khi in tiếng Việt | `manage.py` ép stdout UTF-8 (`reconfigure`). |
-| Test chạy trên Neon dùng chung → lỗi `database "test_…" is being accessed by other users`; `localhost:5432` trên Windows trúng PostgreSQL cài sẵn thay vì container | Test chạy trong container `app_backend` với `TEST_DATABASE_URL=…@db:5432/…`. Không trỏ test vào DB cloud. |
+| Test chạy trên Neon dùng chung → lỗi `database "test_…" is being accessed by other users`; `localhost:5432` trên Windows trúng PostgreSQL cài sẵn thay vì container | Test chạy trong container `portfolio_backend` với `TEST_DATABASE_URL=…@db:5432/…`. Không trỏ test vào DB cloud. |
 | View tự `return Response(serializer.errors, 400)` / `error_response(...)` → lệch định dạng lỗi, frontend không map được vào form | Lỗi luôn `raise` (xem mục Hợp đồng response). |
 | Payload hàng loạt mỗi module một kiểu (`unit_ids`, `category_ids`, `user_ids`) | Chỉ dùng `{"ids": [...]}` và action hàng loạt của `BaseERPViewSet`. |
 | OpenAPI sinh sai kiểu (`SerializerMethodField` thành `string`, APIView bị bỏ qua) → types frontend sai | `SerializerMethodField` có type hint / `@extend_schema_field`; APIView khai báo `@extend_schema(request=..., responses=...)`; `spectacular` phải 0 warning. |

@@ -2,8 +2,10 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from .views import ProjectViewSet
+from .views_public import PublicProjectViewSet
 
 router = DefaultRouter()
+router.register(r'public/projects', PublicProjectViewSet, basename='public-project')
 router.register(r'projects', ProjectViewSet, basename='project')
 
 urlpatterns = [

@@ -62,10 +62,11 @@ Làm theo các bước sau để sao chép và tự chạy phiên bản portfoli
    Sau đó mở trình duyệt và truy cập: [http://localhost:3000](http://localhost:3000).
 
 ## 📂 Kiến trúc dự án (Directory Structure)
-- `src/app/`: File định tuyến các trang (Trang chủ, `/blog`, `/projects`) và cấu hình Layout gốc.
+- `src/app/(landing)/`: Landing công khai (Trang chủ, `/blog`, `/projects`) với layout gốc + `landing.css` riêng.
+- `src/app/(admin)/`: Khu quản trị (`/login`, `/dashboard`, `/users`, `/content/*`...) với layout gốc + `globals.css` riêng.
 - `src/components/modules/`: Cấu trúc UI dành riêng cho từng trang lớn (Vd: Module `home` chứa code các khối hiển thị trang chủ).
 - `src/components/shared/`: Layout dùng chung, footer, navigation dock toàn cục và các UI Element tái sử dụng.
-- `src/components/ui/`: File gốc của các ShadCN/Radix Component được CLI sinh ra (`button`, `tooltip`, v.v).
+- `src/components/landing/ui/`: Component UI riêng của landing (`button`, `dock`, `icon-cloud`...). Khu admin dùng `src/components/ui/` (shadcn).
 - `src/actions/`: Logic chạy phí máy chủ cho Next.js Server Actions (Vd: `contact.ts` để gửi mail).
 - `src/config/`: Định nghĩa các cấu hình metadata, navigation, đường dẫn trung tâm.
 

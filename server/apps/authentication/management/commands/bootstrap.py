@@ -18,9 +18,9 @@ class Command(BaseCommand):
         call_command('migrate', interactive=False)
         call_command('seed_core')
         if options['demo']:
-            # seed_demo thuộc module mẫu master_data -> bỏ module mẫu thì bỏ qua
-            if 'seed_demo' in get_commands():
-                call_command('seed_demo')
+            # seed_portfolio nạp dự án / bài viết hiện có của landing; bỏ qua nếu không còn app projects
+            if 'seed_portfolio' in get_commands():
+                call_command('seed_portfolio')
             else:
-                self.stdout.write("  (khong co lenh seed_demo -> bo qua du lieu mau)")
+                self.stdout.write("  (khong co lenh seed_portfolio -> bo qua du lieu mau)")
         self.stdout.write(self.style.SUCCESS("[SUCCESS] Bootstrap hoan tat."))

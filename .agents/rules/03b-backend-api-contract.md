@@ -64,7 +64,7 @@ class UnitOfMeasureViewSet(BaseERPViewSet):
 - Vị trí `apps/<app>/tests.py`, mẫu `server/apps/master_data/tests.py` (`ApiTestMixin.assertEnvelope`, `make_user_with_perms`).
 - Tối thiểu: list / create / validation error theo envelope, user thiếu quyền → 403, mọi hook nghiệp vụ, mọi service tính toán (định mức, sinh mã).
 - Chạy trong container (Postgres local docker-compose, **không dùng Neon**):
-  `docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/app_db app_backend python manage.py test --noinput`
+  `docker exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/portfolio_db portfolio_backend python manage.py test --noinput`
 
 ## Thông báo trong ứng dụng
 - Gửi: `apps.core.notifications.notify(user, title, message=None, level="INFO|SUCCESS|WARNING|ERROR", link=None, source=(type, id))` — lỗi khi gửi không làm hỏng nghiệp vụ.

@@ -1,7 +1,7 @@
-# Admin Template — Django + Next.js
+# Fullstack Portfolio — Django + Next.js
 
-Template quản trị full-stack của **ERICSS**, dùng làm nền cho các dự án quản lý. Có sẵn lõi hệ thống (đăng nhập, RBAC, người dùng, nhật ký, đính kèm, xuất Excel, tìm kiếm, i18n) và các phân hệ mẫu xóa được (`master_data`, `customers`, `suppliers`) — danh sách đầy đủ ở `README.md`.
-Khi clone sang dự án mới: thay đoạn mô tả này bằng phạm vi nghiệp vụ của dự án (làm gì / không làm gì).
+Portfolio cá nhân của **ERICSS**: landing page công khai (`client/src/app/(landing)`) + khu quản trị nội dung (`client/src/app/(admin)`) + API Django. Nền tảng backend/admin dựng từ template Django + Next.js (lõi: đăng nhập, RBAC, người dùng, nhật ký, đính kèm, xuất Excel, tìm kiếm, i18n). Phân hệ nghiệp vụ: `projects`, `blogs`, `contacts` (menu nhóm `CONTENT`, route `/content/*`).
+Landing **giữ nguyên giao diện/nội dung**; hiện đọc dữ liệu tĩnh từ `client/src/config/`, API công khai `/api/v1/public/*` đã sẵn để nối sau. Landing và admin có root layout + CSS riêng (không dùng chung `components/ui`: landing dùng `components/landing/ui`). Trang chủ admin là `/dashboard` (không phải `/`).
 
 Ngôn ngữ giao tiếp, UI text, docstring, commit message body: **tiếng Việt**. Tên biến/hàm/file: tiếng Anh.
 
@@ -12,7 +12,7 @@ Ngôn ngữ giao tiếp, UI text, docstring, commit message body: **tiếng Vi�
 - `server/database.dbml` — **thiết kế CSDL duy nhất (single source of truth)**.
 - `docker-compose.yml` — api, db (postgres 16), redis, celery_worker.
 - `docs/GLOBAL_SEARCH.md` — tìm kiếm toàn cục (sidebar / Ctrl K): luồng, RBAC, cách thêm nguồn tìm `search.py`.
-- `docs/TEMPLATE.md` — repo này là **template**: có sẵn gì, cách clone / đổi thương hiệu / thêm module / bỏ module mẫu.
+- `docs/TEMPLATE.md` — hướng dẫn gốc của template (module mẫu `master_data`/`customers`/`suppliers` đã được gỡ khỏi repo này).
 
 ## Lệnh thường dùng
 
@@ -20,7 +20,7 @@ Ngôn ngữ giao tiếp, UI text, docstring, commit message body: **tiếng Vi�
 # Backend (từ server/, venv tại server/venv)
 python manage.py runserver
 python manage.py makemigrations && python manage.py migrate && python manage.py check
-python manage.py bootstrap --demo   # migrate + seed_core (module/quyền/vai trò/admin) + seed_demo (dữ liệu mẫu)
+python manage.py bootstrap --demo   # migrate + seed_core (module/quyền/vai trò/admin) + seed_portfolio (dự án/bài viết của landing)
 python manage.py seed_core          # chạy lại an toàn: không ghi đè mật khẩu admin / quyền đã chỉnh trên UI
 
 # Frontend (từ client/)
@@ -30,8 +30,8 @@ npm test                            # unit / component test (Vitest)
 E2E_BASE_URL=http://localhost:3000 E2E_PASSWORD=... npm run test:e2e   # smoke test Playwright
 
 # Sinh phân hệ CRUD mới (backend rồi frontend) — chi tiết: docs/TEMPLATE.md
-python manage.py startmodule suppliers Supplier --label "nhà cung cấp" --route master-data/suppliers --parent MASTER_DATA
-npm run gen:api && npm run gen:module -- --entity Supplier --label "nhà cung cấp" --route master-data/suppliers
+python manage.py startmodule <app> <Model> --label "<nhãn>" --route content/<route> --parent CONTENT
+npm run gen:api && npm run gen:module -- --entity <Model> --label "<nhãn>" --route content/<route>
 
 # Production
 docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
@@ -81,4 +81,4 @@ Các file có `paths:` chỉ được nạp khi làm việc với file khớp đ
 
 ## Tác giả
 
-Template do **ERICSS** xây dựng (GitHub [@nguyenphat006](https://github.com/nguyenphat006)). Giữ mục tác giả trong `README.md` khi tạo dự án mới từ template.
+Dự án và template do **ERICSS** xây dựng (GitHub [@nguyenphat006](https://github.com/nguyenphat006)). Giữ mục tác giả trong `README.md` khi tạo dự án mới từ template.

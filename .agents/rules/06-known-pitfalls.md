@@ -18,7 +18,7 @@ Mỗi dòng là một lỗi **đã thực sự xảy ra** trong dự án. Khi s�
 | Xóa được ĐVT / nhóm NVL đang được sử dụng (xóa mềm không kích hoạt `on_delete=PROTECT`) | Thực thể được FK tham chiếu phải có `check_can_destroy` kiểm tra quan hệ ngược. |
 | N+1 query: serializer đọc `created_by.full_name`, `children.count` cho từng dòng | `source='fk.field'` → `select_related('fk')` (kể cả `created_by`, `updated_by`); đếm quan hệ → `annotate(Count(...))`. |
 | Đổi quyền ở 1 process, process khác vẫn giữ quyền cũ 30 phút (`LocMemCache` riêng từng process) | Cache dùng chung chạy Redis qua `REDIS_CACHE_URL`. |
-| Test chạy trên Neon dùng chung → `database "test_…" is being accessed by other users`; trên Windows `localhost:5432` trúng PostgreSQL cài sẵn thay vì container | Test chạy trong container `app_backend` với `TEST_DATABASE_URL=…@db:5432/…`. |
+| Test chạy trên Neon dùng chung → `database "test_…" is being accessed by other users`; trên Windows `localhost:5432` trúng PostgreSQL cài sẵn thay vì container | Test chạy trong container `portfolio_backend` với `TEST_DATABASE_URL=…@db:5432/…`. |
 | View tự `return Response(serializer.errors, 400)` → lệch định dạng lỗi, Frontend không map được vào form | Lỗi luôn `raise` (xem `03b-backend-api-contract.md`). |
 | Payload hàng loạt mỗi module một kiểu (`unit_ids`, `category_ids`, `user_ids`) | Chỉ dùng `{"ids": [...]}` + action hàng loạt của `BaseERPViewSet`. |
 | OpenAPI sinh sai kiểu (`SerializerMethodField` thành `string`, APIView bị bỏ qua) | Type hint / `@extend_schema_field`; `spectacular` phải 0 warning. |

@@ -144,7 +144,7 @@ elif os.getenv('DB_ENGINE', 'sqlite').lower() == 'postgres':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME', 'app_db'),
+            'NAME': os.getenv('DB_NAME', 'portfolio_db'),
             'USER': os.getenv('DB_USER', 'postgres'),
             'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
             'HOST': os.getenv('DB_HOST', 'localhost'),
@@ -165,7 +165,7 @@ if RUNNING_TESTS:
     import dj_database_url
     DATABASES = {
         'default': dj_database_url.parse(
-            os.getenv('TEST_DATABASE_URL', 'postgres://postgres:postgres@localhost:5432/app_db')
+            os.getenv('TEST_DATABASE_URL', 'postgres://postgres:postgres@localhost:55432/portfolio_db')
         )
     }
 
@@ -270,6 +270,8 @@ REST_FRAMEWORK = {
     ) if DEBUG else (
         'apps.core.renderers.EnvelopeJSONRenderer',
     ),
+    # Giới hạn tần suất cho API công khai (form liên hệ landing)
+    'DEFAULT_THROTTLE_RATES': {'public_contact': os.getenv('PUBLIC_CONTACT_RATE', '5/hour')},
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'EXCEPTION_HANDLER': 'apps.core.exceptions.custom_exception_handler',
 }

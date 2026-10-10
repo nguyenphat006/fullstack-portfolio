@@ -15,7 +15,7 @@ class Project(AuditModel):
     title = models.CharField(max_length=255, verbose_name="Tên dự án")
     summary = models.TextField(verbose_name="Mô tả ngắn")
     stack = models.JSONField(default=list, blank=True, verbose_name="Công nghệ")
-    year = models.CharField(max_length=10, verbose_name="Năm")
+    year = models.CharField(max_length=30, verbose_name="Năm")
     image = models.CharField(max_length=500, verbose_name="Ảnh đại diện")
     color = models.CharField(max_length=30, verbose_name="Màu nhấn")
     role = models.CharField(max_length=150, verbose_name="Vai trò")

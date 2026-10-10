@@ -1348,6 +1348,106 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/public/blogs/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Danh sách blogs công khai
+         * @description API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản ghi đang hoạt động.
+         */
+        get: operations["public_blogs_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/public/blogs/{slug}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết blog công khai (theo slug)
+         * @description API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản ghi đang hoạt động.
+         */
+        get: operations["public_blogs_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/public/contacts/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Gửi liên hệ từ landing (công khai, giới hạn tần suất)
+         * @description Nhận form liên hệ từ landing: không cần đăng nhập, chỉ cho phép tạo mới.
+         */
+        post: operations["public_contacts_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/public/projects/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Danh sách projects công khai
+         * @description API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản ghi đang hoạt động.
+         */
+        get: operations["public_projects_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/public/projects/{slug}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết project công khai (theo slug)
+         * @description API công khai cho landing: không cần đăng nhập, chỉ đọc, chỉ bản ghi đang hoạt động.
+         */
+        get: operations["public_projects_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/roles/": {
         parameters: {
             query?: never;
@@ -2492,6 +2592,36 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Project"][];
         };
+        PaginatedPublicBlogList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["PublicBlog"][];
+        };
+        PaginatedPublicProjectList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["PublicProject"][];
+        };
         PaginatedRoleList: {
             /** @example 123 */
             count: number;
@@ -2835,6 +2965,72 @@ export interface components {
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
+        };
+        /** @description Chỉ các trường landing cần hiển thị (không lộ thông tin audit). */
+        PublicBlog: {
+            readonly slug: string;
+            /** Tiêu đề */
+            readonly title: string;
+            /** Đoạn trích */
+            readonly excerpt: string;
+            /** Ngày đăng */
+            readonly published_date: string;
+            /** Chuyên mục */
+            readonly category: string;
+            /** Thời gian đọc */
+            readonly read_time: string;
+            /** Ảnh đại diện */
+            readonly image: string;
+            /** Nội dung (Markdown) */
+            readonly content: string;
+        };
+        PublicContact: {
+            /** Họ tên */
+            name: string;
+            /** Format: email */
+            email: string;
+            /** Nội dung */
+            message: string;
+        };
+        PublicContactRequest: {
+            /** Họ tên */
+            name: string;
+            /** Format: email */
+            email: string;
+            /** Nội dung */
+            message: string;
+        };
+        /** @description Chỉ các trường landing cần hiển thị (không lộ thông tin audit). */
+        PublicProject: {
+            readonly slug: string;
+            /** Tên dự án */
+            readonly title: string;
+            /** Mô tả ngắn */
+            readonly summary: string;
+            /** Công nghệ */
+            readonly stack: unknown;
+            /** Năm */
+            readonly year: string;
+            /** Ảnh đại diện */
+            readonly image: string;
+            /** Màu nhấn */
+            readonly color: string;
+            /** Vai trò */
+            readonly role: string;
+            /** Nội dung chi tiết (Markdown) */
+            readonly content: string;
+            /**
+             * Link demo
+             * Format: uri
+             */
+            readonly live_url: string | null;
+            /**
+             * Link GitHub
+             * Format: uri
+             */
+            readonly github_url: string | null;
+            /** Nổi bật */
+            readonly featured: boolean;
         };
         RecentActivity: {
             id: string;
@@ -5246,6 +5442,131 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Project"];
+                };
+            };
+        };
+    };
+    public_blogs_list: {
+        parameters: {
+            query?: {
+                category?: string;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedPublicBlogList"];
+                };
+            };
+        };
+    };
+    public_blogs_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicBlog"];
+                };
+            };
+        };
+    };
+    public_contacts_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PublicContactRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PublicContactRequest"];
+                "multipart/form-data": components["schemas"]["PublicContactRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicContact"];
+                };
+            };
+        };
+    };
+    public_projects_list: {
+        parameters: {
+            query?: {
+                featured?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedPublicProjectList"];
+                };
+            };
+        };
+    };
+    public_projects_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProject"];
                 };
             };
         };

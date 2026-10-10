@@ -44,7 +44,7 @@ server/
 │   │   ├── views/               #   auth.py, users.py, rbac.py, modules.py
 │   │   └── management/commands/ #   bootstrap, seed_core, seed_rbac (tương thích cũ)
 │   ├── audit/                   # API đọc nhật ký thao tác (pghistory)
-│   └── master_data/             # MODULE MẪU: Đơn vị tính, Nhóm NVL, Nguyên vật liệu (+ services/, seed_demo)
+│   ├── projects/ blogs/ contacts/   # Nội dung portfolio (CRUD admin + API công khai /public/)
 ├── database.dbml       # Thiết kế CSDL — nguồn chuẩn duy nhất
 ├── schema.yml                   # OpenAPI sinh bởi spectacular (frontend sinh types từ file này)
 ├── Dockerfile · Dockerfile.prod
@@ -57,7 +57,7 @@ server/
 |---|---|---|
 | `DEBUG` | `False` | Bật `True` khi dev |
 | `SECRET_KEY` | — | **Bắt buộc** khi `DEBUG=False` |
-| `DATABASE_URL` | — | Chuỗi kết nối PostgreSQL (Neon hoặc `postgres://postgres:postgres@db:5432/app_db`) |
+| `DATABASE_URL` | — | Chuỗi kết nối PostgreSQL (Neon hoặc `postgres://postgres:postgres@db:5432/portfolio_db`) |
 | `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, `CORS_ALLOWED_ORIGINS` | localhost | Tên miền được phép |
 | `REDIS_CACHE_URL` | — | Cache dùng chung giữa các process (bắt buộc khi chạy nhiều worker) |
 | `CELERY_BROKER_URL`, `CELERY_RESULT_BACKEND` | redis local | Hàng đợi tác vụ nền |
@@ -85,7 +85,7 @@ python manage.py runserver
 | `bootstrap [--demo]` | `migrate` + `seed_core` (+ `seed_demo`) — dùng cho máy mới và khi container production khởi động |
 | `seed_core` | Phân hệ, quyền, vai trò, admin. Idempotent: **không** ghi đè mật khẩu admin hay ma trận quyền đã chỉnh trên UI |
 | `seed_core --reset-role-permissions` | Đưa quyền các vai trò mặc định về `ROLE_PERMISSION_MAP` |
-| `seed_demo` | Dữ liệu mẫu module master-data |
+| `seed_portfolio` | Nạp dự án / bài viết của landing (từ `apps/projects/seed_data/portfolio.json`), không ghi đè bản ghi đã có |
 | `startmodule <app> <Model> ...` | Sinh phân hệ CRUD mới (mục 7) |
 | `spectacular --file schema.yml` | Sinh lại hợp đồng OpenAPI (phải 0 cảnh báo) |
 
@@ -137,10 +137,10 @@ class UnitOfMeasureViewSet(BaseERPViewSet):
 ## 8. Sinh phân hệ mới
 
 ```bash
-python manage.py startmodule suppliers Supplier --label "nhà cung cấp" --route master-data/suppliers --parent MASTER_DATA
+python manage.py startmodule <app> <Model> --label "<nhãn>" --route content/<route> --parent CONTENT
 ```
 
-Tạo `apps/suppliers/` (model, serializer đọc/ghi, ViewSet, urls, admin, test), tự đăng ký vào `settings.py`, `urls.py`, `seed_core.py`, và in ra bảng DBML cần bổ sung. Sau đó: thêm trường nghiệp vụ → `makemigrations` → `migrate` → `seed_core` → test → `spectacular`. (`--route` viết không có "/" đầu.)
+Tạo `apps/<app>/` (model, serializer đọc/ghi, ViewSet, urls, admin, test), tự đăng ký vào `settings.py`, `urls.py`, `seed_core.py`, và in ra bảng DBML cần bổ sung. Sau đó: thêm trường nghiệp vụ → `makemigrations` → `migrate` → `seed_core` → test → `spectacular`. (`--route` viết không có "/" đầu.)
 
 ## 9. Test
 
@@ -148,7 +148,7 @@ Tạo `apps/suppliers/` (model, serializer đọc/ghi, ViewSet, urls, admin, tes
 docker compose exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/app_db api python manage.py test --noinput
 ```
 
-Mẫu: `apps/master_data/tests.py` (hợp đồng API, phân quyền, batch, sinh mã), `apps/authentication/tests_seed.py` (lệnh seed). Module mới bắt buộc có test cho quy tắc nghiệp vụ và service tính toán.
+Mẫu: `apps/projects/tests.py` (hợp đồng API, phân quyền, API công khai), `apps/authentication/tests_seed.py` (lệnh seed). Module mới bắt buộc có test cho quy tắc nghiệp vụ và service tính toán.
 
 ## 10. Production
 
