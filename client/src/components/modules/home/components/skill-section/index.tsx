@@ -37,7 +37,7 @@ export function HomeSkillsSection() {
   const t = home.ui.skills;
   return (
     <section id="ky-nang" className="ds-section relative overflow-hidden">
-      <div className="ds-container relative space-y-16">
+      <div className="ds-container relative space-y-14 lg:pl-20">
         <SectionHeader
           badge={t.badge}
           title={t.title}
@@ -48,20 +48,20 @@ export function HomeSkillsSection() {
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-12">
           {/* Left: Education (Basic Vertical Timeline) */}
           <div className="space-y-8">
-            <h3 className="flex items-center gap-3 text-2xl font-black text-foreground uppercase tracking-wider">
+            <h3 className="flex items-center gap-3 text-xl font-semibold tracking-tight text-foreground">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5 border border-border text-[var(--color-cta)]">
                 <GraduationCap className="h-5 w-5" aria-hidden="true" />
               </div>
               {t.learningJourney}
             </h3>
 
-            <div className="relative border-l border-border pl-8 ml-4 space-y-12">
+            <div className="relative border-l border-border pl-8 ml-4 space-y-8">
               {HOME_EDUCATION.map((edu, i) => (
                 <motion.div
                   key={edu.id}
                   className="relative"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ x: -16 }}
+                  whileInView={{ x: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                 >
@@ -78,7 +78,7 @@ export function HomeSkillsSection() {
                         <Image src={edu.logo} alt={edu.school} fill sizes="64px" className="object-contain p-1" />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-foreground">{edu.school}</h4>
+                        <h4 className="text-base font-semibold text-foreground">{edu.school}</h4>
                         <p className="text-sm font-medium text-muted-foreground">{edu.degree}</p>
                       </div>
                     </div>

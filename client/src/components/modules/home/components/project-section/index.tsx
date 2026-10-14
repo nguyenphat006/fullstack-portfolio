@@ -1,146 +1,107 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- ảnh dự án lấy từ nhiều nguồn ngoài, giữ nguyên thẻ img */
-
+import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import { Button } from "@/components/landing/ui/button";
 import { SectionHeader } from "@/components/shared/section-header";
 import { useLanding } from "@/content/provider";
 import type { ProjectItem } from "@/config/projects";
-import { cn } from "@/lib/utils";
 
+/** Dự án nổi bật: lưới thẻ gọn (ảnh · tên · mô tả · công nghệ · liên kết). */
 export function HomeFeaturedProjects() {
   const { home, project, path } = useLanding();
   const t = home.ui.projects;
-  return (
-    <section id="du-an" className="relative py-24 overflow-hidden bg-foreground/[0.03]">
-      <div className="ds-container relative space-y-24">
-        <SectionHeader
-          badge={t.badge}
-          title={t.title}
-          accent={t.accent}
-          description={t.description}
-        />
+  const featured = project.items.filter((p) => p.featured);
 
-        <div className="flex flex-col gap-32">
-          {project.items.filter(p => p.featured).map((item, i) => (
-            <ProjectItem key={item.id} project={item} index={i} />
+  return (
+    <section id="du-an" className="ds-section relative">
+      <div className="ds-container relative space-y-14 lg:pl-20">
+        <SectionHeader badge={t.badge} title={t.title} accent={t.accent} description={t.description} />
+
+        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+          {featured.map((item, i) => (
+            <ProjectCard key={item.id} project={item} index={i} />
           ))}
         </div>
 
-        <div className="flex justify-center mt-16 pt-8">
-           <Button asChild className="h-14 px-10 bg-[var(--color-cta)] text-background hover:bg-[var(--color-cta)]/90 rounded-full font-bold text-lg group">
-             <Link href={path("/projects")}>
-               {t.viewAll}
-               <ArrowUpRight className="ml-2 h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-             </Link>
-           </Button>
+        <div className="flex justify-center">
+          <Link
+            href={path("/projects")}
+            className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-foreground/15 px-6 text-sm font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-foreground/5"
+          >
+            {t.viewAll}
+            <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+          </Link>
         </div>
       </div>
     </section>
   );
 }
 
-function ProjectItem({ project, index }: { project: ProjectItem, index: number }) {
+function ProjectCard({ project, index }: { project: ProjectItem; index: number }) {
   const { home, path } = useLanding();
   const t = home.ui.projects;
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1.1, 1]);
-  const textOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.1, 0.3], [40, 0]);
-
-  const isEven = index % 2 === 0;
 
   return (
-    <div ref={containerRef} className="relative w-full min-h-[60vh] flex items-center">
-      {/* Background Big Number */}
-      <div className="absolute -left-12 top-0 select-none opacity-[0.03] text-[20rem] font-black leading-none text-foreground pointer-events-none" aria-hidden="true">
-        0{index + 1}
-      </div>
+    <motion.article
+      initial={{ y: 24 }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card/60 transition-colors duration-300 hover:border-foreground/25"
+    >
+      <Link href={path(`/projects/${project.id}`)} className="relative block aspect-[16/10] overflow-hidden bg-secondary" tabIndex={-1} aria-hidden="true">
+        <Image
+          src={project.image}
+          alt=""
+          fill
+          sizes="(min-width: 768px) 480px, 100vw"
+          priority={index === 0}
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        />
+        <span className="absolute left-4 top-4 rounded-full border border-border bg-background/85 px-3 py-1 text-[11px] font-medium text-foreground backdrop-blur-md">
+          {project.year}
+        </span>
+      </Link>
 
-      <div className={cn(
-        "flex flex-col lg:flex-row items-center gap-12 lg:gap-20 w-full",
-        !isEven && "lg:flex-row-reverse"
-      )}>
-        {/* Sticky Visual Part */}
-        <div className="relative w-full lg:w-3/5 aspect-[16/10] group rounded-3xl overflow-hidden border border-border shadow-2xl bg-card">
-          <motion.div style={{ scale: imageScale }} className="w-full h-full">
-            <img
-              src={project.image}
-              alt={project.title}
-              loading={index === 0 ? "eager" : "lazy"}
-              decoding="async"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-transparent opacity-80" />
+      <div className="flex flex-1 flex-col gap-4 p-6">
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">
+          <Link href={path(`/projects/${project.id}`)} className="transition-colors hover:text-[var(--color-cta)]">
+            {project.title}
+          </Link>
+        </h3>
+        <p className="text-sm leading-relaxed text-muted-foreground">{project.summary}</p>
 
-          {/* Top Badges */}
-          <div className="absolute top-6 left-6 flex gap-2">
-            {[project.year, ...project.stack].slice(0, 3).map(badge => (
-              <span key={badge} className="px-3 py-1 bg-background/80 backdrop-blur-md rounded-full text-[10px] uppercase font-bold tracking-widest text-foreground border border-border shadow-lg">
-                {badge}
-              </span>
-            ))}
-          </div>
+        <ul className="flex flex-wrap gap-2" aria-label="Tech stack">
+          {project.stack.map((tech) => (
+            <li key={tech} className="rounded-md border border-border bg-secondary/60 px-2.5 py-1 font-mono text-xs text-foreground/80">
+              {tech}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-auto flex items-center gap-5 pt-2">
+          <Link
+            href={path(`/projects/${project.id}`)}
+            className="group/cta inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-[var(--color-cta)]"
+          >
+            {t.viewDetail}
+            <ArrowUpRight className="size-4 transition-transform group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5" aria-hidden />
+          </Link>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <ExternalLink className="size-3.5" aria-hidden />
+              {t.sourceCode}
+            </a>
+          )}
         </div>
-
-        {/* Content Part */}
-        <motion.div
-          style={{ opacity: textOpacity, y: textY }}
-          className="w-full lg:w-2/5 space-y-8"
-        >
-          <div className="space-y-4">
-            <h3 className="text-4xl md:text-5xl font-black text-foreground leading-tight uppercase tracking-tighter italic">
-              {project.title}
-            </h3>
-            <div className="h-1 w-20 bg-[var(--color-cta)]" />
-          </div>
-
-          <div className="relative p-6 rounded-3xl bg-foreground/5 border border-border backdrop-blur-xl">
-            <p className="text-lg text-foreground/75 leading-relaxed font-light">
-              {project.summary}
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            {project.stack.map(tech => (
-              <span key={tech} className="text-xs font-mono text-foreground bg-[var(--color-cta)]/10 px-3 py-1.5 rounded-lg border border-[var(--color-cta)]/20">
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6 pt-4">
-            <Button asChild className="h-14 px-8 bg-foreground text-background hover:bg-foreground/90 rounded-full font-bold group">
-              <Link href={path(`/projects/${project.id}`)}>
-                {t.viewDetail}
-                <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Link>
-            </Button>
-
-            {project.githubUrl && (
-               <a
-                 href={project.githubUrl}
-                 target="_blank" rel="noreferrer"
-                 className="group flex items-center gap-2 text-sm font-bold text-foreground/65 hover:text-foreground transition-colors"
-               >
-                 <ExternalLink className="h-4 w-4" />
-                 <span>{t.sourceCode}</span>
-                 <div className="h-[1px] w-0 bg-foreground transition-all group-hover:w-full" />
-               </a>
-            )}
-          </div>
-        </motion.div>
       </div>
-    </div>
+    </motion.article>
   );
 }

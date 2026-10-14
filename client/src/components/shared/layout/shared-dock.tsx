@@ -24,10 +24,11 @@ export function SharedDock() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { home, shared, path } = useLanding();
 
-  const socials = [
+  // Màn hình hẹp: bỏ LinkedIn / Email khỏi dock (đã có ở khối liên hệ + footer) để dock vừa chiều ngang
+  const socials: { id: string; label: string; href: string; icon: React.ComponentType<{ className?: string }>; desktopOnly?: boolean }[] = [
     { id: "github", label: "GitHub", href: "https://github.com/nguyenphat006", icon: Icons.github },
-    { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ericss-ndp/", icon: Icons.linkedin },
-    { id: "email", label: "Email", href: `mailto:${home.contact.email}`, icon: Icons.email },
+    { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ericss-ndp/", icon: Icons.linkedin, desktopOnly: true },
+    { id: "email", label: "Email", href: `mailto:${home.contact.email}`, icon: Icons.email, desktopOnly: true },
     { id: "cv", label: shared.ui.downloadCv, href: home.contact.secondaryCta.href, icon: Download },
   ];
 
@@ -38,7 +39,7 @@ export function SharedDock() {
           <Dock
             magnification={65}
             distance={100}
-            className="pointer-events-auto relative z-50 mx-auto flex h-[56px] w-fit items-end gap-2 rounded-full border border-foreground/10 bg-card/90 p-2 shadow-[0_0_10px_3px] shadow-foreground/5 backdrop-blur-3xl"
+            className="pointer-events-auto relative z-50 mx-auto flex h-[56px] w-fit items-end gap-1.5 rounded-full sm:gap-2 border border-foreground/10 bg-card/90 p-2 shadow-[0_0_10px_3px] shadow-foreground/5 backdrop-blur-3xl"
           >
             <Tooltip>
               <TooltipTrigger asChild>
@@ -65,7 +66,7 @@ export function SharedDock() {
                       href={item.href}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
-                      className="flex"
+                      className={item.desktopOnly ? "hidden sm:flex" : "flex"}
                       aria-label={item.label}
                     >
                       <DockIcon className={ICON_CLASS}>
