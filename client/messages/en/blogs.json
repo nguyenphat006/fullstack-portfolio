@@ -10,11 +10,15 @@
     "publishedDate": "Published date",
     "category": "Category",
     "readTime": "Read time",
-    "image": "Cover image (URL)",
-    "content": "Content (Markdown)"
+    "image": "Cover image",
+    "content": "Content",
+    "general": "General"
   },
   "form": {
     "createTitle": "Add blog post",
-    "editTitle": "Edit blog post {code}"
+    "editTitle": "Edit blog post {code}",
+    "tabVi": "Vietnamese",
+    "tabEn": "English",
+    "slugHint": "Generated from the title; you can edit it"
   }
 }

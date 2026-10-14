@@ -1,0 +1,105 @@
+{
+  "title": "Landing settings",
+  "viewSite": "View site",
+  "active": "Visible",
+  "translate": "Translate to English",
+  "saved": "Saved — the landing updates in a moment",
+  "translateTitle": "Translate this whole section to English?",
+  "translateBody": "English fields will be replaced with an automatic translation. Review them, then click Save.",
+  "translated": "Translated — review the English tab, then click Save",
+  "translateError": "Could not translate, please try again later",
+  "neutralHint": "Images, links, IDs… are shared by both languages — edit them in the Vietnamese tab.",
+  "inactiveHint": "This section is off: the landing uses the default content from code.",
+  "updated": "Updated {at} · {by}",
+  "editor": {
+    "addItem": "Add item",
+    "addLine": "Add line",
+    "remove": "Remove",
+    "moveUp": "Up",
+    "moveDown": "Down"
+  },
+  "sections": {
+    "hero": {
+      "title": "Hero",
+      "hint": "Badge, headline, description and the two top buttons"
+    },
+    "stats": {
+      "title": "Highlights",
+      "hint": "Numbers shown in the hero (projects, years of experience…)"
+    },
+    "experiences": {
+      "title": "Experience",
+      "hint": "Company, role, period, description, related projects"
+    },
+    "education": {
+      "title": "Education & certificates",
+      "hint": "School, degree, period, logo"
+    },
+    "skills": {
+      "title": "Skills",
+      "hint": "Technologies shown in the skills section"
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "hint": "Feedback from colleagues and managers"
+    },
+    "contact": {
+      "title": "Contact & socials",
+      "hint": "Contact heading, email, CV link, social links"
+    },
+    "ui": {
+      "title": "Interface text",
+      "hint": "Section titles, greeting, location, availability…"
+    },
+    "seo": {
+      "title": "SEO",
+      "hint": "Site name, title, description, keywords for Google and social sharing"
+    }
+  },
+  "fields": {
+    "badge": "Badge",
+    "headline": "Headline",
+    "subtext": "Description",
+    "primaryCta": "Primary button",
+    "secondaryCta": "Secondary button",
+    "label": "Label",
+    "href": "Link",
+    "value": "Value",
+    "iconName": "Icon",
+    "id": "ID",
+    "company": "Company",
+    "role": "Role",
+    "period": "Period",
+    "location": "Location",
+    "logo": "Logo",
+    "description": "Description",
+    "websiteUrl": "Website",
+    "details": "Details",
+    "category": "Group",
+    "items": "Points",
+    "projectLinks": "Related projects",
+    "name": "Name",
+    "url": "Link",
+    "school": "School / organization",
+    "degree": "Degree",
+    "content": "Content",
+    "avatar": "Avatar",
+    "socials": "Social links",
+    "email": "Email",
+    "siteName": "Site name",
+    "title": "Title",
+    "keywords": "Keywords",
+    "jobTitle": "Job title",
+    "greeting": "Greeting",
+    "typed": "Typing lines",
+    "introName": "Intro name",
+    "introBody": "Intro paragraph",
+    "identityName": "Display name",
+    "availableForWork": "Availability label",
+    "online": "Fallback when no time",
+    "accent": "Accent word",
+    "viewAll": "View all button",
+    "viewDetail": "View detail button",
+    "submit": "Submit button"
+  }
+}

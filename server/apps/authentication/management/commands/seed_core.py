@@ -85,45 +85,23 @@ DEFAULT_MODULES = [
 DEFAULT_ROLES = [
     {
         'role_code': 'ADMIN',
-        'role_name': 'Quản trị viên Hệ thống (Admin)',
-        'description': 'Toàn quyền cấu hình hệ thống, quản lý tài khoản và phân quyền người dùng.',
+        'role_name': 'Quản trị viên (Admin)',
+        'description': 'Toàn quyền: cấu hình hệ thống, tài khoản, phân quyền và toàn bộ nội dung landing.',
     },
     {
         'role_code': 'MANAGER',
-        'role_name': 'Trưởng bộ phận / Quản lý (Manager)',
-        'description': 'Xem danh sách, xem số liệu thống kê, cập nhật thông tin và xuất báo cáo.',
+        'role_name': 'Quản lý nội dung (Content Manager)',
+        'description': 'Tạo, sửa, xóa, xuất dự án / bài viết; xử lý liên hệ; quản lý tài khoản biên tập viên và xem nhật ký.',
     },
     {
         'role_code': 'STAFF',
-        'role_name': 'Nhân viên / Chuyên viên (Staff)',
-        'description': 'Xem danh sách dữ liệu và xem số liệu KPI cơ bản.',
-    },
-    {
-        'role_code': 'CHIEF_ENGINEER',
-        'role_name': 'Kỹ Sư Trưởng (Chief Engineer)',
-        'description': 'Phê duyệt cấu trúc BOM, công thức sơn hoàn thiện và quy trình kỹ thuật.',
-    },
-    {
-        'role_code': 'BOM_DESIGNER',
-        'role_name': 'Kỹ Sư Thiết Kế Định Mức (BOM Designer)',
-        'description': 'Thiết kế cấu trúc BOM 4 tầng, bóc tách linh kiện và định mức kỹ thuật.',
-    },
-    {
-        'role_code': 'PRODUCTION_PLANNER',
-        'role_name': 'Quản Lý Kế Hoạch Sản Xuất (Production Planner)',
-        'description': 'Lập kế hoạch sản xuất, điều độ lệnh và điều phối vật tư nguồn lực.',
-    },
-    {
-        'role_code': 'WORKSHOP_SUPERVISOR',
-        'role_name': 'Quản Đốc Phân Xưởng (Workshop Supervisor)',
-        'description': 'Tiếp nhận lệnh sản xuất, phân bổ công việc tại xưởng và theo dõi tiến độ.',
-    },
-    {
-        'role_code': 'WAREHOUSE_KEEPER',
-        'role_name': 'Thủ Kho (Warehouse Keeper)',
-        'description': 'Quản lý xuất nhập tồn kho nguyên vật liệu, phụ kiện và thành phẩm.',
+        'role_name': 'Biên tập viên (Editor)',
+        'description': 'Viết và cập nhật dự án, bài viết; xem liên hệ. Không được xóa nội dung.',
     },
 ]
+
+# Vai trò của template ERP cũ, không dùng cho portfolio: seed_core xóa nếu chưa gán cho tài khoản nào
+OBSOLETE_ROLES = ['CHIEF_ENGINEER', 'BOM_DESIGNER', 'PRODUCTION_PLANNER', 'WORKSHOP_SUPERVISOR', 'WAREHOUSE_KEEPER']
 
 DEFAULT_PERMISSIONS = [
     # Phân hệ USER (7 quyền chuẩn)
@@ -228,27 +206,8 @@ ROLE_PERMISSION_MAP = {
     'MANAGER': [
         'USER_VIEW', 'USER_READ', 'USER_CREATE', 'USER_UPDATE', 'USER_EXPORT',
         'AUDIT_LOGS_VIEW', 'AUDIT_LOGS_READ',
-        'SETTINGS_VIEW', 'SETTINGS_READ'
     ],
-    'CHIEF_ENGINEER': [
-        'USER_VIEW', 'USER_READ',
-        'AUDIT_LOGS_VIEW', 'AUDIT_LOGS_READ',
-    ],
-    'BOM_DESIGNER': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'PRODUCTION_PLANNER': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'WORKSHOP_SUPERVISOR': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'WAREHOUSE_KEEPER': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'STAFF': [
-        'USER_VIEW', 'USER_READ'
-    ],
+    'STAFF': [],
 }
 
 
@@ -338,6 +297,11 @@ class Command(BaseCommand):
             if assignments:
                 RolePermission.objects.bulk_create(assignments, ignore_conflicts=True)
                 self.stdout.write(self.style.SUCCESS(f"  -> Role {r_code}: Da gan {len(assignments)} quyen"))
+
+        # Dọn vai trò cũ của template ERP (chỉ khi chưa gán cho tài khoản nào)
+        removed = Role.objects.filter(role_code__in=OBSOLETE_ROLES, users__isnull=True).delete()[0]
+        if removed:
+            self.stdout.write(f"  - Da xoa {removed} ban ghi vai tro cu khong dung")
 
         self.ensure_admin(role_map.get('ADMIN'))
 

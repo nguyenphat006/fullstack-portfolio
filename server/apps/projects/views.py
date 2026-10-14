@@ -1,8 +1,10 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import permissions
 
+from apps.core.media_upload import ContentMediaUploadMixin
 from apps.core.permissions import ModulePermissionChecker
 from apps.core.viewsets import BaseERPViewSet
+from apps.landing.revalidate import trigger_revalidate
 
 from .models import Project
 from .serializers import ProjectCreateUpdateSerializer, ProjectSerializer
@@ -18,7 +20,7 @@ TAG = "Dự án"
     partial_update=extend_schema(tags=[TAG], summary="Cập nhật một phần dự án"),
     destroy=extend_schema(tags=[TAG], summary="Xóa mềm dự án"),
 )
-class ProjectViewSet(BaseERPViewSet):
+class ProjectViewSet(ContentMediaUploadMixin, BaseERPViewSet):
     """
     Dự án portfolio.
     CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
@@ -28,6 +30,9 @@ class ProjectViewSet(BaseERPViewSet):
     write_serializer_class = ProjectCreateUpdateSerializer
     permission_classes = [permissions.IsAuthenticated, ModulePermissionChecker]
     permission_module = 'PROJECT'
+    custom_action_permissions = {'upload_media': ['PROJECT_CREATE', 'PROJECT_UPDATE']}
+    media_folder = 'projects'
+    media_prefix = 'prj'
     filterset_fields = {
         'is_active': ['exact'],
         'featured': ['exact'],
@@ -38,3 +43,6 @@ class ProjectViewSet(BaseERPViewSet):
     }
     search_fields = ['slug', 'title', 'summary', 'description']
     ordering_fields = ['created_at', 'updated_at', 'slug', 'title', 'year']
+
+    def after_write(self, instance=None):
+        trigger_revalidate('content')

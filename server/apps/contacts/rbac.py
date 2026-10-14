@@ -23,6 +23,6 @@ MODULES = [
 PERMISSIONS = crud_permissions('CONTACT', 'liên hệ')
 
 ROLE_PERMISSIONS = {
-    'MANAGER': perm_codes('CONTACT', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'EXPORT'),
+    'MANAGER': perm_codes('CONTACT', 'VIEW', 'READ', 'UPDATE', 'DELETE', 'EXPORT'),
     'STAFF': perm_codes('CONTACT', 'VIEW', 'READ'),
 }

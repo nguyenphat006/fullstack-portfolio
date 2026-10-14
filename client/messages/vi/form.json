@@ -23,5 +23,47 @@
     "uploading": "Đang tải ảnh lên…",
     "dropHint": "Kéo thả hoặc bấm để chọn ảnh",
     "uploadError": "Không thể tải ảnh lên"
+  },
+  "markdown": {
+    "h2": "Tiêu đề lớn",
+    "h3": "Tiêu đề nhỏ",
+    "bold": "In đậm",
+    "italic": "In nghiêng",
+    "strike": "Gạch ngang",
+    "link": "Chèn liên kết",
+    "quote": "Trích dẫn",
+    "code": "Code nội dòng",
+    "codeBlock": "Khối code",
+    "ul": "Danh sách",
+    "ol": "Danh sách số",
+    "hr": "Đường kẻ",
+    "image": "Chèn ảnh",
+    "video": "Chèn video",
+    "uploading": "Đang tải lên…",
+    "uploadError": "Không tải được tệp lên",
+    "empty": "Chưa có nội dung để xem trước",
+    "placeholder": "Bắt đầu viết nội dung… Kéo thả hoặc dán ảnh để chèn.",
+    "hint": "Soạn như văn bản thường — nội dung được lưu dưới dạng Markdown. Ảnh tối đa 5MB, video tối đa 50MB.",
+    "chars": "{count} ký tự",
+    "paragraph": "Đoạn văn"
+  },
+  "cover": {
+    "choose": "Chọn ảnh",
+    "replace": "Đổi ảnh",
+    "remove": "Bỏ ảnh",
+    "hint": "JPG, PNG, WEBP — tối đa 5MB. Nên dùng tỉ lệ 16:10."
+  },
+  "period": {
+    "placeholder": "Chọn thời gian",
+    "from": "Bắt đầu",
+    "to": "Kết thúc",
+    "present": "Đến hiện tại",
+    "clear": "Xóa",
+    "pickDate": "Chọn ngày"
+  },
+  "tech": {
+    "placeholder": "Tìm và chọn công nghệ…",
+    "loading": "Đang tải danh mục…",
+    "hint": "Chọn từ thư viện ~3.400 công nghệ có logo"
   }
 }

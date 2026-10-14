@@ -8,7 +8,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const API_ORIGIN = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1").replace(/\/api\/v1\/?$/, "");
 
 /** Thư mục media công khai (logo, avatar). Tệp đính kèm KHÔNG ở đây — chỉ tải qua link có chữ ký. */
-const PUBLIC_MEDIA = ["branding", "avatars"];
+const PUBLIC_MEDIA = ["branding", "avatars", "projects", "blogs"];
 
 const nextConfig: NextConfig = {
   // Docker production: đóng gói server tối giản (.next/standalone) — xem client/Dockerfile

@@ -524,6 +524,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/blogs/upload-media/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Tải ảnh / video cho nội dung
+         * @description Bài viết blog.
+         *     CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+         */
+        post: operations["blogs_upload_media_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/contacts/": {
         parameters: {
             query?: never;
@@ -1348,6 +1369,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/projects/upload-media/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Tải ảnh / video cho nội dung
+         * @description Dự án portfolio.
+         *     CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+         */
+        post: operations["projects_upload_media_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/public/blogs/": {
         parameters: {
             query?: never;
@@ -1711,6 +1753,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/translate/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Dịch tự động các trường chữ (VI <-> EN)
+         * @description Dịch hàng loạt các trường chữ (Markdown được giữ nguyên cấu trúc) cho nút "Dịch tự động" ở trang quản trị.
+         */
+        post: operations["translate_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users/": {
         parameters: {
             query?: never;
@@ -1994,18 +2056,30 @@ export interface components {
             readonly slug: string;
             /** Tiêu đề */
             readonly title: string;
+            /** Tiêu đề (EN) */
+            readonly title_en: string;
             /** Đoạn trích */
             readonly excerpt: string;
+            /** Đoạn trích (EN) */
+            readonly excerpt_en: string;
             /** Ngày đăng */
             readonly published_date: string;
+            /** Ngày đăng (EN) */
+            readonly published_date_en: string;
             /** Chuyên mục */
             readonly category: string;
+            /** Chuyên mục (EN) */
+            readonly category_en: string;
             /** Thời gian đọc */
             readonly read_time: string;
+            /** Thời gian đọc (EN) */
+            readonly read_time_en: string;
             /** Ảnh đại diện */
             readonly image: string;
             /** Nội dung (Markdown) */
             readonly content: string;
+            /** Nội dung (EN) */
+            readonly content_en: string;
             /** Mô tả / Ghi chú kỹ thuật */
             readonly description: string | null;
             /** Trạng thái hoạt động */
@@ -2025,18 +2099,30 @@ export interface components {
             slug: string;
             /** Tiêu đề */
             title: string;
+            /** Tiêu đề (EN) */
+            title_en?: string;
             /** Đoạn trích */
             excerpt: string;
+            /** Đoạn trích (EN) */
+            excerpt_en?: string;
             /** Ngày đăng */
             published_date: string;
+            /** Ngày đăng (EN) */
+            published_date_en?: string;
             /** Chuyên mục */
             category: string;
+            /** Chuyên mục (EN) */
+            category_en?: string;
             /** Thời gian đọc */
             read_time: string;
+            /** Thời gian đọc (EN) */
+            read_time_en?: string;
             /** Ảnh đại diện */
             image: string;
             /** Nội dung (Markdown) */
             content: string;
+            /** Nội dung (EN) */
+            content_en?: string;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
@@ -2047,18 +2133,30 @@ export interface components {
             slug: string;
             /** Tiêu đề */
             title: string;
+            /** Tiêu đề (EN) */
+            title_en?: string;
             /** Đoạn trích */
             excerpt: string;
+            /** Đoạn trích (EN) */
+            excerpt_en?: string;
             /** Ngày đăng */
             published_date: string;
+            /** Ngày đăng (EN) */
+            published_date_en?: string;
             /** Chuyên mục */
             category: string;
+            /** Chuyên mục (EN) */
+            category_en?: string;
             /** Thời gian đọc */
             read_time: string;
+            /** Thời gian đọc (EN) */
+            read_time_en?: string;
             /** Ảnh đại diện */
             image: string;
             /** Nội dung (Markdown) */
             content: string;
+            /** Nội dung (EN) */
+            content_en?: string;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
@@ -2300,6 +2398,11 @@ export interface components {
         };
         LogoutRequestRequest: {
             refresh: string;
+        };
+        MediaUploadResponse: {
+            /** @description URL tệp đã lưu (ảnh hoặc video) */
+            image_url: string;
+            file_name: string;
         };
         /** @description Serializer thêm Action đơn lẻ vào module có sẵn. */
         ModuleAddActionRequest: {
@@ -2687,18 +2790,30 @@ export interface components {
             slug?: string;
             /** Tiêu đề */
             title?: string;
+            /** Tiêu đề (EN) */
+            title_en?: string;
             /** Đoạn trích */
             excerpt?: string;
+            /** Đoạn trích (EN) */
+            excerpt_en?: string;
             /** Ngày đăng */
             published_date?: string;
+            /** Ngày đăng (EN) */
+            published_date_en?: string;
             /** Chuyên mục */
             category?: string;
+            /** Chuyên mục (EN) */
+            category_en?: string;
             /** Thời gian đọc */
             read_time?: string;
+            /** Thời gian đọc (EN) */
+            read_time_en?: string;
             /** Ảnh đại diện */
             image?: string;
             /** Nội dung (Markdown) */
             content?: string;
+            /** Nội dung (EN) */
+            content_en?: string;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
@@ -2745,20 +2860,30 @@ export interface components {
             slug?: string;
             /** Tên dự án */
             title?: string;
+            /** Tên dự án (EN) */
+            title_en?: string;
             /** Mô tả ngắn */
             summary?: string;
+            /** Mô tả ngắn (EN) */
+            summary_en?: string;
             /** Công nghệ */
             stack?: unknown;
             /** Năm */
             year?: string;
+            /** Năm (EN) */
+            year_en?: string;
             /** Ảnh đại diện */
             image?: string;
             /** Màu nhấn */
             color?: string;
             /** Vai trò */
             role?: string;
+            /** Vai trò (EN) */
+            role_en?: string;
             /** Nội dung chi tiết (Markdown) */
             content?: string;
+            /** Nội dung chi tiết (EN) */
+            content_en?: string;
             /** Link demo */
             live_url?: (string) | null;
             /** Link GitHub */
@@ -2866,20 +2991,30 @@ export interface components {
             readonly slug: string;
             /** Tên dự án */
             readonly title: string;
+            /** Tên dự án (EN) */
+            readonly title_en: string;
             /** Mô tả ngắn */
             readonly summary: string;
+            /** Mô tả ngắn (EN) */
+            readonly summary_en: string;
             /** Công nghệ */
             readonly stack: unknown;
             /** Năm */
             readonly year: string;
+            /** Năm (EN) */
+            readonly year_en: string;
             /** Ảnh đại diện */
             readonly image: string;
             /** Màu nhấn */
             readonly color: string;
             /** Vai trò */
             readonly role: string;
+            /** Vai trò (EN) */
+            readonly role_en: string;
             /** Nội dung chi tiết (Markdown) */
             readonly content: string;
+            /** Nội dung chi tiết (EN) */
+            readonly content_en: string;
             /**
              * Link demo
              * Format: uri
@@ -2911,20 +3046,30 @@ export interface components {
             slug: string;
             /** Tên dự án */
             title: string;
+            /** Tên dự án (EN) */
+            title_en?: string;
             /** Mô tả ngắn */
             summary: string;
+            /** Mô tả ngắn (EN) */
+            summary_en?: string;
             /** Công nghệ */
             stack?: unknown;
             /** Năm */
             year: string;
+            /** Năm (EN) */
+            year_en?: string;
             /** Ảnh đại diện */
             image: string;
             /** Màu nhấn */
             color: string;
             /** Vai trò */
             role: string;
+            /** Vai trò (EN) */
+            role_en?: string;
             /** Nội dung chi tiết (Markdown) */
             content: string;
+            /** Nội dung chi tiết (EN) */
+            content_en?: string;
             /** Link demo */
             live_url?: (string) | null;
             /** Link GitHub */
@@ -2941,20 +3086,30 @@ export interface components {
             slug: string;
             /** Tên dự án */
             title: string;
+            /** Tên dự án (EN) */
+            title_en?: string;
             /** Mô tả ngắn */
             summary: string;
+            /** Mô tả ngắn (EN) */
+            summary_en?: string;
             /** Công nghệ */
             stack?: unknown;
             /** Năm */
             year: string;
+            /** Năm (EN) */
+            year_en?: string;
             /** Ảnh đại diện */
             image: string;
             /** Màu nhấn */
             color: string;
             /** Vai trò */
             role: string;
+            /** Vai trò (EN) */
+            role_en?: string;
             /** Nội dung chi tiết (Markdown) */
             content: string;
+            /** Nội dung chi tiết (EN) */
+            content_en?: string;
             /** Link demo */
             live_url?: (string) | null;
             /** Link GitHub */
@@ -2966,7 +3121,7 @@ export interface components {
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Chỉ các trường landing cần hiển thị (không lộ thông tin audit). */
+        /** @description Chỉ các trường landing cần hiển thị (không lộ thông tin audit). `?lang=en` trả bản tiếng Anh (fallback tiếng Việt). */
         PublicBlog: {
             readonly slug: string;
             /** Tiêu đề */
@@ -3000,7 +3155,7 @@ export interface components {
             /** Nội dung */
             message: string;
         };
-        /** @description Chỉ các trường landing cần hiển thị (không lộ thông tin audit). */
+        /** @description Chỉ các trường landing cần hiển thị (không lộ thông tin audit). `?lang=en` trả bản tiếng Anh (fallback tiếng Việt). */
         PublicProject: {
             readonly slug: string;
             /** Tên dự án */
@@ -3144,6 +3299,26 @@ export interface components {
         };
         TokenRefreshRequest: {
             refresh: string;
+        };
+        TranslateRequestRequest: {
+            texts: {
+                [key: string]: string;
+            };
+            /**
+             * @description vi | en
+             * @default vi
+             */
+            source: string;
+            /**
+             * @description vi | en
+             * @default en
+             */
+            target: string;
+        };
+        TranslateResponse: {
+            translations: {
+                [key: string]: string;
+            };
         };
         UnreadCount: {
             count: number;
@@ -4164,6 +4339,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Blog"];
+                };
+            };
+        };
+    };
+    blogs_upload_media_create: {
+        parameters: {
+            query?: {
+                /** @description image (mặc định) | video */
+                kind?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file?: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaUploadResponse"];
                 };
             };
         };
@@ -5446,6 +5650,35 @@ export interface operations {
             };
         };
     };
+    projects_upload_media_create: {
+        parameters: {
+            query?: {
+                /** @description image (mặc định) | video */
+                kind?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file?: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaUploadResponse"];
+                };
+            };
+        };
+    };
     public_blogs_list: {
         parameters: {
             query?: {
@@ -6052,6 +6285,31 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SystemSettingsPublic"];
+                };
+            };
+        };
+    };
+    translate_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TranslateRequestRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["TranslateRequestRequest"];
+                "multipart/form-data": components["schemas"]["TranslateRequestRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TranslateResponse"];
                 };
             };
         };

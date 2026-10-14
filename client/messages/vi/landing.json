@@ -1,0 +1,105 @@
+{
+  "title": "Cấu hình landing",
+  "viewSite": "Xem trang",
+  "active": "Hiển thị",
+  "translate": "Dịch sang tiếng Anh",
+  "saved": "Đã lưu — landing cập nhật trong giây lát",
+  "translateTitle": "Dịch toàn bộ phần này sang tiếng Anh?",
+  "translateBody": "Các ô tiếng Anh sẽ được thay bằng bản dịch tự động. Bạn kiểm tra lại rồi bấm Lưu.",
+  "translated": "Đã dịch — kiểm tra tab English rồi bấm Lưu",
+  "translateError": "Không dịch được, vui lòng thử lại sau",
+  "neutralHint": "Ảnh, liên kết, mã… dùng chung cho 2 ngôn ngữ — sửa ở tab Tiếng Việt.",
+  "inactiveHint": "Phần này đang tắt: landing dùng nội dung mặc định trong code.",
+  "updated": "Cập nhật {at} · {by}",
+  "editor": {
+    "addItem": "Thêm mục",
+    "addLine": "Thêm dòng",
+    "remove": "Xóa",
+    "moveUp": "Lên",
+    "moveDown": "Xuống"
+  },
+  "sections": {
+    "hero": {
+      "title": "Giới thiệu (hero)",
+      "hint": "Nhãn, tiêu đề, mô tả và 2 nút đầu trang"
+    },
+    "stats": {
+      "title": "Số liệu nổi bật",
+      "hint": "Các con số ở khối hero (dự án, năm kinh nghiệm…)"
+    },
+    "experiences": {
+      "title": "Kinh nghiệm",
+      "hint": "Công ty, vị trí, thời gian, mô tả, dự án liên quan"
+    },
+    "education": {
+      "title": "Học vấn & chứng chỉ",
+      "hint": "Trường, bằng cấp, thời gian, logo"
+    },
+    "skills": {
+      "title": "Kỹ năng",
+      "hint": "Công nghệ hiển thị trong phần kỹ năng"
+    },
+    "testimonials": {
+      "title": "Nhận xét",
+      "hint": "Lời nhận xét của đồng nghiệp, quản lý"
+    },
+    "contact": {
+      "title": "Liên hệ & mạng xã hội",
+      "hint": "Tiêu đề khối liên hệ, email, link CV, mạng xã hội"
+    },
+    "ui": {
+      "title": "Chữ giao diện",
+      "hint": "Tiêu đề các phần, lời chào, vị trí, trạng thái nhận việc…"
+    },
+    "seo": {
+      "title": "SEO",
+      "hint": "Tên website, tiêu đề, mô tả, từ khóa cho Google và mạng xã hội"
+    }
+  },
+  "fields": {
+    "badge": "Nhãn",
+    "headline": "Tiêu đề",
+    "subtext": "Mô tả",
+    "primaryCta": "Nút chính",
+    "secondaryCta": "Nút phụ",
+    "label": "Nhãn",
+    "href": "Liên kết",
+    "value": "Giá trị",
+    "iconName": "Biểu tượng",
+    "id": "Mã",
+    "company": "Công ty",
+    "role": "Vị trí",
+    "period": "Thời gian",
+    "location": "Địa điểm",
+    "logo": "Logo",
+    "description": "Mô tả",
+    "websiteUrl": "Website",
+    "details": "Chi tiết",
+    "category": "Nhóm",
+    "items": "Các ý",
+    "projectLinks": "Dự án liên quan",
+    "name": "Tên",
+    "url": "Liên kết",
+    "school": "Trường / đơn vị",
+    "degree": "Bằng cấp",
+    "content": "Nội dung",
+    "avatar": "Ảnh đại diện",
+    "socials": "Mạng xã hội",
+    "email": "Email",
+    "siteName": "Tên website",
+    "title": "Tiêu đề",
+    "keywords": "Từ khóa",
+    "jobTitle": "Chức danh",
+    "greeting": "Lời chào",
+    "typed": "Dòng chữ chạy",
+    "introName": "Tên giới thiệu",
+    "introBody": "Đoạn giới thiệu",
+    "identityName": "Tên hiển thị",
+    "availableForWork": "Trạng thái nhận việc",
+    "online": "Chữ khi chưa có giờ",
+    "accent": "Từ nhấn",
+    "viewAll": "Nút xem tất cả",
+    "viewDetail": "Nút xem chi tiết",
+    "submit": "Nút gửi"
+  }
+}

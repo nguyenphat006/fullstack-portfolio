@@ -1,0 +1,36 @@
+# Render Blueprint — backend Django (gói Free). Render > New > Blueprint > chọn repo này.
+# Biến có `sync: false` nhập tay trên Render (không commit giá trị bí mật).
+services:
+  - type: web
+    name: portfolio-api
+    runtime: docker
+    plan: free
+    region: singapore
+    rootDir: server
+    dockerfilePath: ./Dockerfile.prod
+    healthCheckPath: /api/v1/health/
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: DEBUG
+        value: "False"
+      - key: GUNICORN_WORKERS
+        value: "2"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL          # chuỗi kết nối Neon
+        sync: false
+      - key: ADMIN_PASSWORD        # mật khẩu admin khi tạo lần đầu
+        sync: false
+      - key: ALLOWED_HOSTS         # vd: portfolio-api.onrender.com
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS  # vd: https://ericss.vercel.app
+        sync: false
+      - key: CSRF_TRUSTED_ORIGINS  # vd: https://portfolio-api.onrender.com
+        sync: false
+      - key: CLOUDINARY_URL        # cloudinary://<key>:<secret>@<cloud_name>
+        sync: false
+      - key: NEXT_REVALIDATE_URL   # vd: https://ericss.vercel.app/api/revalidate
+        sync: false
+      - key: REVALIDATE_SECRET     # chuỗi ngẫu nhiên, đặt giống ở Vercel
+        sync: false

@@ -39,13 +39,15 @@ interface MetadataInput {
   type?: "website" | "article";
   publishedTime?: string;
   noIndex?: boolean;
+  /** Meta từ CMS (mặc định: src/content/shared) */
+  meta?: (typeof SHARED_CONTENT)[Locale]["meta"];
 }
 
 /** Metadata SEO đầy đủ cho một trang: title, mô tả, canonical, hreflang, Open Graph, Twitter. */
 export function constructMetadata({
-  locale, path = "/", title, description, image, type = "website", publishedTime, noIndex = false,
+  locale, path = "/", title, description, image, type = "website", publishedTime, noIndex = false, meta: metaOverride,
 }: MetadataInput): Metadata {
-  const { meta } = SHARED_CONTENT[locale];
+  const meta = metaOverride ?? SHARED_CONTENT[locale].meta;
   const isHome = path === "/";
   const pageTitle = title ?? meta.title;
   const pageDescription = description ?? meta.description;

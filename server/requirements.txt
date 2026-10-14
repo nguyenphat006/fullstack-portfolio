@@ -15,3 +15,6 @@ django-pgtrigger>=4.17.0
 openpyxl>=3.1.5
 celery>=5.4.0
 redis>=5.0.8
+deep-translator>=1.11,<2
+cloudinary>=1.40,<2
+django-cloudinary-storage>=0.3,<1

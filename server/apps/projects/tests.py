@@ -78,3 +78,16 @@ class PublicProjectApiTests(TestCase):
     def test_public_is_read_only(self):
         resp = self.client.post('/api/v1/public/projects/', PAYLOAD, format='json')
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class PublicProjectLanguageTests(TestCase):
+    """`?lang=en` trả bản tiếng Anh; cột tiếng Anh để trống thì dùng tiếng Việt."""
+
+    def test_english_with_fallback(self):
+        Project.objects.create(**{**PAYLOAD, 'slug': 'co-en', 'title': 'Tên', 'title_en': 'Name', 'summary': 'Tóm tắt'})
+        client = APIClient()
+        vi = client.get('/api/v1/public/projects/co-en/').json()['data']
+        en = client.get('/api/v1/public/projects/co-en/?lang=en').json()['data']
+        self.assertEqual(vi['title'], 'Tên')
+        self.assertEqual(en['title'], 'Name')
+        self.assertEqual(en['summary'], 'Tóm tắt')  # summary_en trống -> fallback tiếng Việt

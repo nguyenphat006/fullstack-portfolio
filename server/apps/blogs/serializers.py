@@ -4,8 +4,8 @@ from apps.core.messages import DUPLICATE_CODE, NAME_REQUIRED
 
 from .models import Blog
 
-FIELDS = ['slug', 'title', 'excerpt', 'published_date', 'category', 'read_time', 'image', 'content',
-          'description', 'is_active']
+FIELDS = ['slug', 'title', 'title_en', 'excerpt', 'excerpt_en', 'published_date', 'published_date_en', 'category',
+          'category_en', 'read_time', 'read_time_en', 'image', 'content', 'content_en', 'description', 'is_active']
 
 
 class BlogSerializer(serializers.ModelSerializer):

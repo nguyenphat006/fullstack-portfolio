@@ -67,6 +67,15 @@ export const PERMISSIONS = {
     EXPORT: "CONTACT_EXPORT",
     IMPORT: "CONTACT_IMPORT",
   },
+  LANDING: {
+    VIEW: "LANDING_VIEW",
+    READ: "LANDING_READ",
+    CREATE: "LANDING_CREATE",
+    UPDATE: "LANDING_UPDATE",
+    DELETE: "LANDING_DELETE",
+    EXPORT: "LANDING_EXPORT",
+    IMPORT: "LANDING_IMPORT",
+  },
   // [gen:module] Module sinh bởi `npm run gen:module` được chèn phía trên dòng này
 } as const;
 

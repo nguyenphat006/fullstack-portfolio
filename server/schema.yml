@@ -975,6 +975,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/Blog'
           description: ''
+  /api/v1/blogs/upload-media/:
+    post:
+      operationId: blogs_upload_media_create
+      description: |-
+        Bài viết blog.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Tải ảnh / video cho nội dung
+      parameters:
+      - in: query
+        name: kind
+        schema:
+          type: string
+        description: image (mặc định) | video
+      tags:
+      - blogs
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadResponse'
+          description: ''
   /api/v1/contacts/:
     get:
       operationId: contacts_list
@@ -1465,6 +1499,367 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataTransferJob'
+          description: ''
+  /api/v1/landing-sections/:
+    get:
+      operationId: landing_sections_list
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      summary: Danh sách các phần của landing
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Cấu hình landing
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LandingSection'
+          description: ''
+    post:
+      operationId: landing_sections_create
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      tags:
+      - landing-sections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LandingSectionUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LandingSectionUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LandingSectionUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSectionUpdate'
+          description: ''
+  /api/v1/landing-sections/{key}/:
+    get:
+      operationId: landing_sections_retrieve
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      summary: Chi tiết một phần (theo key)
+      parameters:
+      - in: path
+        name: key
+        schema:
+          type: string
+          title: Mã phần
+        required: true
+      tags:
+      - Cấu hình landing
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+    put:
+      operationId: landing_sections_update
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      summary: Cập nhật một phần
+      parameters:
+      - in: path
+        name: key
+        schema:
+          type: string
+          title: Mã phần
+        required: true
+      tags:
+      - Cấu hình landing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LandingSectionUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LandingSectionUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LandingSectionUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSectionUpdate'
+          description: ''
+    patch:
+      operationId: landing_sections_partial_update
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      summary: Cập nhật một phần
+      parameters:
+      - in: path
+        name: key
+        schema:
+          type: string
+          title: Mã phần
+        required: true
+      tags:
+      - Cấu hình landing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLandingSectionUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLandingSectionUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLandingSectionUpdateRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSectionUpdate'
+          description: ''
+    delete:
+      operationId: landing_sections_destroy
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      parameters:
+      - in: path
+        name: key
+        schema:
+          type: string
+          title: Mã phần
+        required: true
+      tags:
+      - landing-sections
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/landing-sections/batch-delete/:
+    post:
+      operationId: landing_sections_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - landing-sections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+  /api/v1/landing-sections/batch-status/:
+    post:
+      operationId: landing_sections_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - landing-sections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+  /api/v1/landing-sections/excel-template/:
+    get:
+      operationId: landing_sections_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - landing-sections
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+  /api/v1/landing-sections/export-columns/:
+    get:
+      operationId: landing_sections_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - landing-sections
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+  /api/v1/landing-sections/export-excel/:
+    get:
+      operationId: landing_sections_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - landing-sections
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+    post:
+      operationId: landing_sections_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - landing-sections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LandingSectionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+  /api/v1/landing-sections/statistics/:
+    get:
+      operationId: landing_sections_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - landing-sections
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingSection'
+          description: ''
+  /api/v1/landing-sections/upload-media/:
+    post:
+      operationId: landing_sections_upload_media_create
+      description: 'Chỉ xem / sửa: các phần do lệnh seed_landing tạo sẵn, không thêm
+        / xóa qua API.'
+      summary: Tải ảnh / video cho nội dung
+      parameters:
+      - in: query
+        name: kind
+        schema:
+          type: string
+        description: image (mặc định) | video
+      tags:
+      - landing-sections
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadResponse'
           description: ''
   /api/v1/modules/:
     get:
@@ -2464,6 +2859,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/Project'
           description: ''
+  /api/v1/projects/upload-media/:
+    post:
+      operationId: projects_upload_media_create
+      description: |-
+        Dự án portfolio.
+        CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
+      summary: Tải ảnh / video cho nội dung
+      parameters:
+      - in: query
+        name: kind
+        schema:
+          type: string
+        description: image (mặc định) | video
+      tags:
+      - projects
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadResponse'
+          description: ''
   /api/v1/public/blogs/:
     get:
       operationId: public_blogs_list
@@ -2561,6 +2990,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublicContact'
+          description: ''
+  /api/v1/public/landing/:
+    get:
+      operationId: public_landing_retrieve
+      description: 'API công khai cho landing: toàn bộ nội dung các phần đang bật
+        trong 1 lần gọi (`?lang=en` -> bản tiếng Anh, thiếu thì tiếng Việt).'
+      summary: Nội dung trang chủ theo ngôn ngữ
+      parameters:
+      - in: query
+        name: lang
+        schema:
+          type: string
+        description: vi | en
+      tags:
+      - Công khai - Landing
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
           description: ''
   /api/v1/public/projects/:
     get:
@@ -3152,6 +3605,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SystemSettingsPublic'
+          description: ''
+  /api/v1/translate/:
+    post:
+      operationId: translate_create
+      description: Dịch hàng loạt các trường chữ (Markdown được giữ nguyên cấu trúc)
+        cho nút "Dịch tự động" ở trang quản trị.
+      summary: Dịch tự động các trường chữ (VI <-> EN)
+      tags:
+      - Tiện ích
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslateRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TranslateRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TranslateRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslateResponse'
           description: ''
   /api/v1/users/:
     get:
@@ -3843,22 +4326,42 @@ components:
           type: string
           readOnly: true
           title: Tiêu đề
+        title_en:
+          type: string
+          readOnly: true
+          title: Tiêu đề (EN)
         excerpt:
           type: string
           readOnly: true
           title: Đoạn trích
+        excerpt_en:
+          type: string
+          readOnly: true
+          title: Đoạn trích (EN)
         published_date:
           type: string
           readOnly: true
           title: Ngày đăng
+        published_date_en:
+          type: string
+          readOnly: true
+          title: Ngày đăng (EN)
         category:
           type: string
           readOnly: true
           title: Chuyên mục
+        category_en:
+          type: string
+          readOnly: true
+          title: Chuyên mục (EN)
         read_time:
           type: string
           readOnly: true
           title: Thời gian đọc
+        read_time_en:
+          type: string
+          readOnly: true
+          title: Thời gian đọc (EN)
         image:
           type: string
           readOnly: true
@@ -3867,6 +4370,10 @@ components:
           type: string
           readOnly: true
           title: Nội dung (Markdown)
+        content_en:
+          type: string
+          readOnly: true
+          title: Nội dung (EN)
         description:
           type: string
           readOnly: true
@@ -3894,18 +4401,24 @@ components:
           readOnly: true
       required:
       - category
+      - category_en
       - content
+      - content_en
       - created_at
       - created_by_name
       - description
       - excerpt
+      - excerpt_en
       - id
       - image
       - is_active
       - published_date
+      - published_date_en
       - read_time
+      - read_time_en
       - slug
       - title
+      - title_en
       - updated_at
       - updated_by_name
     BlogCreateUpdate:
@@ -3923,20 +4436,39 @@ components:
           type: string
           title: Tiêu đề
           maxLength: 255
+        title_en:
+          type: string
+          title: Tiêu đề (EN)
+          maxLength: 255
         excerpt:
           type: string
           title: Đoạn trích
+        excerpt_en:
+          type: string
+          title: Đoạn trích (EN)
         published_date:
           type: string
           title: Ngày đăng
+          maxLength: 30
+        published_date_en:
+          type: string
+          title: Ngày đăng (EN)
           maxLength: 30
         category:
           type: string
           title: Chuyên mục
           maxLength: 100
+        category_en:
+          type: string
+          title: Chuyên mục (EN)
+          maxLength: 100
         read_time:
           type: string
           title: Thời gian đọc
+          maxLength: 30
+        read_time_en:
+          type: string
+          title: Thời gian đọc (EN)
           maxLength: 30
         image:
           type: string
@@ -3945,6 +4477,9 @@ components:
         content:
           type: string
           title: Nội dung (Markdown)
+        content_en:
+          type: string
+          title: Nội dung (EN)
         description:
           type: string
           nullable: true
@@ -3976,24 +4511,43 @@ components:
           minLength: 1
           title: Tiêu đề
           maxLength: 255
+        title_en:
+          type: string
+          title: Tiêu đề (EN)
+          maxLength: 255
         excerpt:
           type: string
           minLength: 1
           title: Đoạn trích
+        excerpt_en:
+          type: string
+          title: Đoạn trích (EN)
         published_date:
           type: string
           minLength: 1
           title: Ngày đăng
+          maxLength: 30
+        published_date_en:
+          type: string
+          title: Ngày đăng (EN)
           maxLength: 30
         category:
           type: string
           minLength: 1
           title: Chuyên mục
           maxLength: 100
+        category_en:
+          type: string
+          title: Chuyên mục (EN)
+          maxLength: 100
         read_time:
           type: string
           minLength: 1
           title: Thời gian đọc
+          maxLength: 30
+        read_time_en:
+          type: string
+          title: Thời gian đọc (EN)
           maxLength: 30
         image:
           type: string
@@ -4004,6 +4558,9 @@ components:
           type: string
           minLength: 1
           title: Nội dung (Markdown)
+        content_en:
+          type: string
+          title: Nội dung (EN)
         description:
           type: string
           nullable: true
@@ -4502,6 +5059,76 @@ components:
       - label
       - previous
       - value
+    LandingSection:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          readOnly: true
+          title: Mã phần
+        content:
+          title: Nội dung (VI)
+        content_en:
+          title: Nội dung (EN)
+        sort_order:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Thứ tự
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+        updated_by_name:
+          type: string
+          readOnly: true
+          default: ''
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - id
+      - key
+      - updated_at
+      - updated_by_name
+    LandingSectionRequest:
+      type: object
+      properties:
+        content:
+          title: Nội dung (VI)
+        content_en:
+          title: Nội dung (EN)
+        sort_order:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Thứ tự
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    LandingSectionUpdate:
+      type: object
+      properties:
+        content:
+          title: Nội dung (VI)
+        content_en:
+          title: Nội dung (EN)
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    LandingSectionUpdateRequest:
+      type: object
+      properties:
+        content:
+          title: Nội dung (VI)
+        content_en:
+          title: Nội dung (EN)
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
     LevelEnum:
       enum:
       - INFO
@@ -4530,6 +5157,17 @@ components:
           minLength: 1
       required:
       - refresh
+    MediaUploadResponse:
+      type: object
+      properties:
+        image_url:
+          type: string
+          description: URL tệp đã lưu (ảnh hoặc video)
+        file_name:
+          type: string
+      required:
+      - file_name
+      - image_url
     ModuleAddActionRequest:
       type: object
       description: Serializer thêm Action đơn lẻ vào module có sẵn.
@@ -5367,24 +6005,43 @@ components:
           minLength: 1
           title: Tiêu đề
           maxLength: 255
+        title_en:
+          type: string
+          title: Tiêu đề (EN)
+          maxLength: 255
         excerpt:
           type: string
           minLength: 1
           title: Đoạn trích
+        excerpt_en:
+          type: string
+          title: Đoạn trích (EN)
         published_date:
           type: string
           minLength: 1
           title: Ngày đăng
+          maxLength: 30
+        published_date_en:
+          type: string
+          title: Ngày đăng (EN)
           maxLength: 30
         category:
           type: string
           minLength: 1
           title: Chuyên mục
           maxLength: 100
+        category_en:
+          type: string
+          title: Chuyên mục (EN)
+          maxLength: 100
         read_time:
           type: string
           minLength: 1
           title: Thời gian đọc
+          maxLength: 30
+        read_time_en:
+          type: string
+          title: Thời gian đọc (EN)
           maxLength: 30
         image:
           type: string
@@ -5395,6 +6052,9 @@ components:
           type: string
           minLength: 1
           title: Nội dung (Markdown)
+        content_en:
+          type: string
+          title: Nội dung (EN)
         description:
           type: string
           nullable: true
@@ -5424,6 +6084,16 @@ components:
           type: string
           nullable: true
           title: Mô tả / Ghi chú kỹ thuật
+        is_active:
+          type: boolean
+          title: Trạng thái hoạt động
+    PatchedLandingSectionUpdateRequest:
+      type: object
+      properties:
+        content:
+          title: Nội dung (VI)
+        content_en:
+          title: Nội dung (EN)
         is_active:
           type: boolean
           title: Trạng thái hoạt động
@@ -5489,16 +6159,27 @@ components:
           minLength: 1
           title: Tên dự án
           maxLength: 255
+        title_en:
+          type: string
+          title: Tên dự án (EN)
+          maxLength: 255
         summary:
           type: string
           minLength: 1
           title: Mô tả ngắn
+        summary_en:
+          type: string
+          title: Mô tả ngắn (EN)
         stack:
           title: Công nghệ
         year:
           type: string
           minLength: 1
           title: Năm
+          maxLength: 30
+        year_en:
+          type: string
+          title: Năm (EN)
           maxLength: 30
         image:
           type: string
@@ -5515,10 +6196,17 @@ components:
           minLength: 1
           title: Vai trò
           maxLength: 150
+        role_en:
+          type: string
+          title: Vai trò (EN)
+          maxLength: 150
         content:
           type: string
           minLength: 1
           title: Nội dung chi tiết (Markdown)
+        content_en:
+          type: string
+          title: Nội dung chi tiết (EN)
         live_url:
           nullable: true
           title: Link demo
@@ -5733,10 +6421,18 @@ components:
           type: string
           readOnly: true
           title: Tên dự án
+        title_en:
+          type: string
+          readOnly: true
+          title: Tên dự án (EN)
         summary:
           type: string
           readOnly: true
           title: Mô tả ngắn
+        summary_en:
+          type: string
+          readOnly: true
+          title: Mô tả ngắn (EN)
         stack:
           readOnly: true
           title: Công nghệ
@@ -5744,6 +6440,10 @@ components:
           type: string
           readOnly: true
           title: Năm
+        year_en:
+          type: string
+          readOnly: true
+          title: Năm (EN)
         image:
           type: string
           readOnly: true
@@ -5756,10 +6456,18 @@ components:
           type: string
           readOnly: true
           title: Vai trò
+        role_en:
+          type: string
+          readOnly: true
+          title: Vai trò (EN)
         content:
           type: string
           readOnly: true
           title: Nội dung chi tiết (Markdown)
+        content_en:
+          type: string
+          readOnly: true
+          title: Nội dung chi tiết (EN)
         live_url:
           type: string
           format: uri
@@ -5804,6 +6512,7 @@ components:
       required:
       - color
       - content
+      - content_en
       - created_at
       - created_by_name
       - description
@@ -5814,13 +6523,17 @@ components:
       - is_active
       - live_url
       - role
+      - role_en
       - slug
       - stack
       - summary
+      - summary_en
       - title
+      - title_en
       - updated_at
       - updated_by_name
       - year
+      - year_en
     ProjectCreateUpdate:
       type: object
       description: Serializer GHI — validate dữ liệu đầu vào.
@@ -5836,14 +6549,25 @@ components:
           type: string
           title: Tên dự án
           maxLength: 255
+        title_en:
+          type: string
+          title: Tên dự án (EN)
+          maxLength: 255
         summary:
           type: string
           title: Mô tả ngắn
+        summary_en:
+          type: string
+          title: Mô tả ngắn (EN)
         stack:
           title: Công nghệ
         year:
           type: string
           title: Năm
+          maxLength: 30
+        year_en:
+          type: string
+          title: Năm (EN)
           maxLength: 30
         image:
           type: string
@@ -5857,9 +6581,16 @@ components:
           type: string
           title: Vai trò
           maxLength: 150
+        role_en:
+          type: string
+          title: Vai trò (EN)
+          maxLength: 150
         content:
           type: string
           title: Nội dung chi tiết (Markdown)
+        content_en:
+          type: string
+          title: Nội dung chi tiết (EN)
         live_url:
           nullable: true
           title: Link demo
@@ -5912,16 +6643,27 @@ components:
           minLength: 1
           title: Tên dự án
           maxLength: 255
+        title_en:
+          type: string
+          title: Tên dự án (EN)
+          maxLength: 255
         summary:
           type: string
           minLength: 1
           title: Mô tả ngắn
+        summary_en:
+          type: string
+          title: Mô tả ngắn (EN)
         stack:
           title: Công nghệ
         year:
           type: string
           minLength: 1
           title: Năm
+          maxLength: 30
+        year_en:
+          type: string
+          title: Năm (EN)
           maxLength: 30
         image:
           type: string
@@ -5938,10 +6680,17 @@ components:
           minLength: 1
           title: Vai trò
           maxLength: 150
+        role_en:
+          type: string
+          title: Vai trò (EN)
+          maxLength: 150
         content:
           type: string
           minLength: 1
           title: Nội dung chi tiết (Markdown)
+        content_en:
+          type: string
+          title: Nội dung chi tiết (EN)
         live_url:
           nullable: true
           title: Link demo
@@ -5982,6 +6731,7 @@ components:
     PublicBlog:
       type: object
       description: Chỉ các trường landing cần hiển thị (không lộ thông tin audit).
+        `?lang=en` trả bản tiếng Anh (fallback tiếng Việt).
       properties:
         slug:
           type: string
@@ -6066,6 +6816,7 @@ components:
     PublicProject:
       type: object
       description: Chỉ các trường landing cần hiển thị (không lộ thông tin audit).
+        `?lang=en` trả bản tiếng Anh (fallback tiếng Việt).
       properties:
         slug:
           type: string
@@ -6419,6 +7170,34 @@ components:
           minLength: 1
       required:
       - refresh
+    TranslateRequestRequest:
+      type: object
+      properties:
+        texts:
+          type: object
+          additionalProperties:
+            type: string
+        source:
+          type: string
+          minLength: 1
+          default: vi
+          description: vi | en
+        target:
+          type: string
+          minLength: 1
+          default: en
+          description: vi | en
+      required:
+      - texts
+    TranslateResponse:
+      type: object
+      properties:
+        translations:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - translations
     UnreadCount:
       type: object
       properties:

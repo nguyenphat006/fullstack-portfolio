@@ -41,7 +41,7 @@ export function LoginView() {
 
   return (
     // Nền thương hiệu cố định (không đổi theo sáng / tối)
-    <div className="relative flex min-h-screen items-center justify-center p-4" style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 55%, #1E40AF 100%)" }}>
+    <div className="relative flex min-h-screen items-center justify-center p-4" style={{ background: "radial-gradient(60% 50% at 85% 0%, rgba(217,70,239,0.18), transparent 70%), radial-gradient(50% 50% at 0% 100%, rgba(99,102,241,0.18), transparent 70%), #0A0A0A" }}>
       {/* Đổi ngôn ngữ trước khi đăng nhập (nền tối cố định -> chữ trắng) */}
       <Button
         type="button"

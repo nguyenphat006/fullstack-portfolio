@@ -10,11 +10,15 @@
     "publishedDate": "Ngày đăng",
     "category": "Chuyên mục",
     "readTime": "Thời gian đọc",
-    "image": "Ảnh đại diện (URL)",
-    "content": "Nội dung (Markdown)"
+    "image": "Ảnh đại diện",
+    "content": "Nội dung",
+    "general": "Thông tin chung"
   },
   "form": {
     "createTitle": "Thêm bài viết",
-    "editTitle": "Sửa bài viết {code}"
+    "editTitle": "Sửa bài viết {code}",
+    "tabVi": "Tiếng Việt",
+    "tabEn": "English",
+    "slugHint": "Tự sinh từ tên; có thể sửa"
   }
 }

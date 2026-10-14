@@ -36,6 +36,6 @@ MODULES = [
 PERMISSIONS = crud_permissions('PROJECT', 'dự án')
 
 ROLE_PERMISSIONS = {
-    'MANAGER': perm_codes('PROJECT', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'EXPORT'),
-    'STAFF': perm_codes('PROJECT', 'VIEW', 'READ'),
+    'MANAGER': perm_codes('PROJECT', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'),
+    'STAFF': perm_codes('PROJECT', 'VIEW', 'READ', 'CREATE', 'UPDATE'),
 }

@@ -78,5 +78,15 @@
     "label": "Ngôn ngữ",
     "vi": "Tiếng Việt",
     "en": "English"
+  },
+  "translate": {
+    "button": "Dịch từ tiếng Việt",
+    "running": "Đang dịch…",
+    "nothing": "Chưa có nội dung tiếng Việt để dịch",
+    "confirmTitle": "Ghi đè bản tiếng Anh?",
+    "confirmBody": "Các ô tiếng Anh đã có nội dung sẽ bị thay bằng bản dịch tự động.",
+    "confirmOk": "Dịch và ghi đè",
+    "done": "Đã dịch — hãy kiểm tra lại trước khi lưu",
+    "error": "Không dịch được, vui lòng thử lại sau"
   }
 }

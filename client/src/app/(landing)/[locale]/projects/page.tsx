@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ProjectModulePage } from "@/components/modules/project";
 import { JsonLd } from "@/components/modules/blog/json-ld";
 import { siteConfig } from "@/config/site";
-import { getContent } from "@/content";
+import { getContentDynamic } from "@/content/dynamic";
 import { isLocale, localizePath, OG_LOCALE, LOCALES, DEFAULT_LOCALE } from "@/content/locales";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -11,7 +11,7 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const { shared } = getContent(locale);
+  const { shared } = await getContentDynamic(locale);
   const { title, description } = shared.meta.pages.projects;
   const url = localizePath(locale, "/projects");
 
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectsPage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const { shared, project } = getContent(locale);
+  const { shared, project } = await getContentDynamic(locale);
   const { title, description } = shared.meta.pages.projects;
   const origin = siteConfig.url;
 

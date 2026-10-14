@@ -8,18 +8,22 @@
     "title": "Tên dự án",
     "summary": "Mô tả ngắn",
     "stack": "Công nghệ",
-    "year": "Năm",
+    "year": "Thời gian thực hiện",
     "role": "Vai trò",
-    "image": "Ảnh đại diện (URL)",
+    "image": "Ảnh đại diện",
     "color": "Màu nhấn",
     "liveUrl": "Link demo",
     "githubUrl": "Link GitHub",
-    "content": "Nội dung chi tiết (Markdown)",
-    "featured": "Nổi bật"
+    "content": "Nội dung chi tiết",
+    "featured": "Nổi bật",
+    "general": "Thông tin chung"
   },
   "form": {
     "createTitle": "Thêm dự án",
     "editTitle": "Sửa dự án {code}",
-    "stackHint": "Ngăn cách bằng dấu phẩy, vd: Next.js, Django"
+    "stackHint": "Ngăn cách bằng dấu phẩy, vd: Next.js, Django",
+    "tabVi": "Tiếng Việt",
+    "tabEn": "English",
+    "slugHint": "Tự sinh từ tên; có thể sửa"
   }
 }

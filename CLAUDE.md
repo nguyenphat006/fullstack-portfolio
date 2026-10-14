@@ -1,7 +1,7 @@
 # Fullstack Portfolio — Django + Next.js
 
 Portfolio cá nhân của **ERICSS**: landing page công khai (`client/src/app/(landing)`) + khu quản trị nội dung (`client/src/app/(admin)`) + API Django. Nền tảng backend/admin dựng từ template Django + Next.js (lõi: đăng nhập, RBAC, người dùng, nhật ký, đính kèm, xuất Excel, tìm kiếm, i18n). Phân hệ nghiệp vụ: `projects`, `blogs`, `contacts` (menu nhóm `CONTENT`, route `/content/*`).
-Landing **giữ nguyên giao diện/nội dung**; hiện đọc dữ liệu tĩnh từ `client/src/config/`, API công khai `/api/v1/public/*` đã sẵn để nối sau. Landing và admin có root layout + CSS riêng (không dùng chung `components/ui`: landing dùng `components/landing/ui`). Trang chủ admin là `/dashboard` (không phải `/`).
+Landing đọc **dự án / bài viết từ API công khai** `/api/v1/public/*?lang=vi|en` (server component, cache 5 phút, `client/src/content/dynamic.ts`); API lỗi hoặc chưa cấu hình `NEXT_PUBLIC_API_URL` thì dùng dữ liệu tĩnh dự phòng ở `client/src/config/`. Nội dung song ngữ lưu bằng cột `*_en` (trống -> dùng tiếng Việt); admin có nút "Dịch từ tiếng Việt" (`POST /api/v1/translate/`, miễn phí: Google qua deep-translator, dự phòng MyMemory). Form liên hệ lưu vào bảng Contacts và gửi mail. Landing và admin có root layout + CSS riêng (không dùng chung `components/ui`: landing dùng `components/landing/ui`). Trang chủ admin là `/dashboard` (không phải `/`).
 
 Ngôn ngữ giao tiếp, UI text, docstring, commit message body: **tiếng Việt**. Tên biến/hàm/file: tiếng Anh.
 

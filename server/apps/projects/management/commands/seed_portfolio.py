@@ -15,6 +15,7 @@ from apps.blogs.models import Blog
 from apps.projects.models import Project
 
 DATA_FILE = Path(__file__).resolve().parents[2] / 'seed_data' / 'portfolio.json'
+DATA_FILE_EN = Path(__file__).resolve().parents[2] / 'seed_data' / 'portfolio_en.json'
 
 
 class Command(BaseCommand):
@@ -22,10 +23,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         data = json.loads(DATA_FILE.read_text(encoding='utf-8'))
+        data_en = json.loads(DATA_FILE_EN.read_text(encoding='utf-8'))
+        en_projects = {item['id']: item for item in data_en['projects']}
+        en_blogs = {item['slug']: item for item in data_en['blogs']}
 
         created = 0
         for item in data['projects']:
-            _, is_new = Project.objects.get_or_create(
+            obj, is_new = Project.objects.get_or_create(
                 slug=item['id'],
                 defaults={
                     'title': item['title'],
@@ -42,11 +46,12 @@ class Command(BaseCommand):
                 },
             )
             created += is_new
+            self._fill_english(obj, en_projects.get(item['id']), {'title': 'title', 'summary': 'summary', 'year': 'year', 'role': 'role', 'content': 'content'})
         self.stdout.write(f"  -> Du an: them moi {created}/{len(data['projects'])}")
 
         created = 0
         for item in data['blogs']:
-            _, is_new = Blog.objects.get_or_create(
+            obj, is_new = Blog.objects.get_or_create(
                 slug=item['slug'],
                 defaults={
                     'title': item['title'],
@@ -59,5 +64,19 @@ class Command(BaseCommand):
                 },
             )
             created += is_new
+            self._fill_english(obj, en_blogs.get(item['slug']), {'title': 'title', 'excerpt': 'excerpt', 'published_date': 'date', 'category': 'category', 'read_time': 'readTime', 'content': 'content'})
         self.stdout.write(f"  -> Bai viet: them moi {created}/{len(data['blogs'])}")
         self.stdout.write(self.style.SUCCESS("[SUCCESS] seed_portfolio hoan tat."))
+
+    @staticmethod
+    def _fill_english(obj, english, mapping):
+        """Điền các cột *_en còn trống từ dữ liệu tiếng Anh của landing (không ghi đè bản đã chỉnh trên admin)."""
+        if not english:
+            return
+        changed = []
+        for field, key in mapping.items():
+            if not getattr(obj, f'{field}_en') and english.get(key):
+                setattr(obj, f'{field}_en', english[key])
+                changed.append(f'{field}_en')
+        if changed:
+            obj.save(update_fields=changed)

@@ -6,7 +6,7 @@
 
 /* Token shadcn/ui trỏ về token dự án (--c-*) -> tự đổi theo sáng / tối, 1 nguồn màu duy nhất */
 :root {
-  --radius: 0.5rem;
+  --radius: 0.625rem;
   --background: var(--c-surface);
   --foreground: var(--c-text);
   --card: var(--c-surface);
@@ -89,10 +89,10 @@
 :root {
   color-scheme: light;
 
-  --c-primary: #1E40AF;
-  --c-primary-hover: #2563EB;
-  --c-primary-bg: #EFF6FF;
-  --c-primary-border: #BFDBFE;
+  --c-primary: #7C3AED;
+  --c-primary-hover: #6D28D9;
+  --c-primary-bg: #F5F3FF;
+  --c-primary-border: #DDD6FE;
   --c-info: #0284C7;
   --c-info-bg: #F0F9FF;
   --c-success: #059669;
@@ -104,40 +104,40 @@
   --c-error: #DC2626;
   --c-error-bg: #FEF2F2;
   --c-error-border: #FECACA;
-  --c-purple: #7C3AED;
-  --c-purple-bg: #F5F3FF;
+  --c-purple: #C026D3;
+  --c-purple-bg: #FDF4FF;
 
-  --c-layout: #F8FAFC;       /* nền trang */
+  --c-layout: #FAFAFA;       /* nền trang */
   --c-surface: #FFFFFF;      /* card, modal */
-  --c-bg-subtle: #F8FAFC;    /* vùng phân khu trong card */
-  --c-bg-muted: #F1F5F9;     /* ô nhấn nhẹ */
-  --c-table-head: #E2E8F0;   /* hàng tiêu đề cột bảng */
-  --c-border: #E2E8F0;
-  --c-border-strong: #CBD5E1;
-  --c-text: #0F172A;
-  --c-text-2: #334155;
-  --c-text-secondary: #64748B;
-  --c-text-tertiary: #94A3B8;
+  --c-bg-subtle: #FAFAFA;    /* vùng phân khu trong card */
+  --c-bg-muted: #F4F4F5;     /* ô nhấn nhẹ */
+  --c-table-head: #F4F4F5;   /* hàng tiêu đề cột bảng */
+  --c-border: #E4E4E7;
+  --c-border-strong: #D4D4D8;
+  --c-text: #09090B;
+  --c-text-2: #3F3F46;
+  --c-text-secondary: #71717A;
+  --c-text-tertiary: #A1A1AA;
 
-  --c-header-bg: rgba(255, 255, 255, 0.85);
-  --c-header-border: rgba(226, 232, 240, 0.8);
-  --c-sider-bg: #1E293B;     /* sidebar tối dịu (slate-navy), nhẹ hơn đen để nội dung vẫn là trọng tâm */
-  --c-sider-text: #CBD5E1;
-  --c-sider-hover-bg: rgba(255, 255, 255, 0.08);
-  --c-sider-active-bg: #2563EB;  /* xanh sáng hơn primary #1E40AF — primary chìm trên nền slate #1E293B */
-  --c-scroll-track: #F1F5F9;
-  --c-scroll-thumb: #CBD5E1;
-  --c-scroll-thumb-hover: #94A3B8;
-  --c-brand-gradient: linear-gradient(135deg, #1E40AF 0%, #0284C7 100%);
+  --c-header-bg: rgba(255, 255, 255, 0.8);
+  --c-header-border: rgba(228, 228, 231, 0.9);
+  --c-sider-bg: #0E0E0E;     /* sidebar tối dịu (slate-navy), nhẹ hơn đen để nội dung vẫn là trọng tâm */
+  --c-sider-text: #A1A1AA;
+  --c-sider-hover-bg: rgba(255, 255, 255, 0.06);
+  --c-sider-active-bg: #27272A;  /* xanh sáng hơn primary #1E40AF — primary chìm trên nền slate #1E293B */
+  --c-scroll-track: #F4F4F5;
+  --c-scroll-thumb: #D4D4D8;
+  --c-scroll-thumb-hover: #A1A1AA;
+  --c-brand-gradient: linear-gradient(135deg, #D946EF 0%, #6366F1 100%);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --c-primary: #3B82F6;
-  --c-primary-hover: #60A5FA;
-  --c-primary-bg: rgba(59, 130, 246, 0.14);
-  --c-primary-border: rgba(59, 130, 246, 0.4);
+  --c-primary: #7C3AED;
+  --c-primary-hover: #8B5CF6;
+  --c-primary-bg: rgba(124, 58, 237, 0.18);
+  --c-primary-border: rgba(139, 92, 246, 0.45);
   --c-info: #38BDF8;
   --c-info-bg: rgba(56, 189, 248, 0.12);
   --c-success: #10B981;
@@ -149,37 +149,37 @@
   --c-error: #F87171;
   --c-error-bg: rgba(248, 113, 113, 0.12);
   --c-error-border: rgba(248, 113, 113, 0.35);
-  --c-purple: #A78BFA;
-  --c-purple-bg: rgba(167, 139, 250, 0.14);
+  --c-purple: #E879F9;
+  --c-purple-bg: rgba(232, 121, 249, 0.14);
 
-  --c-layout: #0B1120;
-  --c-surface: #111827;
-  --c-bg-subtle: #162033;
-  --c-bg-muted: #1E293B;
-  --c-table-head: #273449;
-  --c-border: #263244;
-  --c-border-strong: #334155;
-  --c-text: #E2E8F0;
-  --c-text-2: #CBD5E1;
-  --c-text-secondary: #94A3B8;
-  --c-text-tertiary: #64748B;
+  --c-layout: #0A0A0A;
+  --c-surface: #111111;
+  --c-bg-subtle: #151515;
+  --c-bg-muted: #1A1A1A;
+  --c-table-head: #1A1A1A;
+  --c-border: #262626;
+  --c-border-strong: #333333;
+  --c-text: #FAFAFA;
+  --c-text-2: #D4D4D8;
+  --c-text-secondary: #A1A1AA;
+  --c-text-tertiary: #71717A;
 
-  --c-header-bg: rgba(17, 24, 39, 0.85);
-  --c-header-border: rgba(38, 50, 68, 0.9);
-  --c-sider-bg: #0F1625;
-  --c-sider-text: #CBD5E1;
-  --c-sider-hover-bg: rgba(255, 255, 255, 0.08);
-  --c-sider-active-bg: #3B82F6;
-  --c-scroll-track: #111827;
-  --c-scroll-thumb: #334155;
-  --c-scroll-thumb-hover: #475569;
-  --c-brand-gradient: linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%);
+  --c-header-bg: rgba(17, 17, 17, 0.85);
+  --c-header-border: rgba(38, 38, 38, 0.9);
+  --c-sider-bg: #0E0E0E;
+  --c-sider-text: #A1A1AA;
+  --c-sider-hover-bg: rgba(255, 255, 255, 0.06);
+  --c-sider-active-bg: #27272A;
+  --c-scroll-track: #111111;
+  --c-scroll-thumb: #333333;
+  --c-scroll-thumb-hover: #525252;
+  --c-brand-gradient: linear-gradient(135deg, #D946EF 0%, #6366F1 100%);
 }
 
 html,
 body {
   max-width: 100vw;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans-app), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--c-layout);
   color: var(--c-text);
 }
@@ -762,3 +762,41 @@ body.is-resizing-column, body.is-resizing-column * { cursor: col-resize !importa
 .audit-value--new { background: var(--c-success-bg); border-color: var(--c-success-border); color: var(--c-success); }
 }
 
+
+/* Xem trước Markdown trong trình soạn (giống cách landing hiển thị bài viết / dự án) */
+@layer components {
+  .md-preview { color: var(--c-text-2); font-size: 14px; line-height: 1.75; }
+  .md-preview > * + * { margin-top: 0.85em; }
+  .md-preview h1, .md-preview h2, .md-preview h3 { color: var(--c-text); font-weight: 700; line-height: 1.3; margin-top: 1.4em; }
+  .md-preview h1 { font-size: 1.6em; }
+  .md-preview h2 { font-size: 1.35em; }
+  .md-preview h3 { font-size: 1.15em; }
+  .md-preview :first-child { margin-top: 0; }
+  .md-preview a { color: var(--c-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .md-preview strong { color: var(--c-text); }
+  .md-preview ul { list-style: disc; padding-left: 1.4em; }
+  .md-preview ol { list-style: decimal; padding-left: 1.4em; }
+  .md-preview li + li { margin-top: 0.25em; }
+  .md-preview blockquote { border-left: 3px solid var(--c-primary); padding: 0.25em 0 0.25em 1em; color: var(--c-text-secondary); font-style: italic; }
+  .md-preview code { background: var(--c-bg-muted); border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.88em; }
+  .md-preview pre { background: #0E0E0E; color: #E4E4E7; border-radius: 10px; padding: 1em; overflow-x: auto; }
+  .md-preview pre code { background: transparent; padding: 0; color: inherit; }
+  .md-preview img, .md-preview video { max-width: 100%; border-radius: 12px; border: 1px solid var(--c-border); }
+  .md-preview hr { border: 0; border-top: 1px solid var(--c-border); }
+  .md-preview table { width: 100%; border-collapse: collapse; }
+  .md-preview th, .md-preview td { border: 1px solid var(--c-border); padding: 0.4em 0.6em; }
+}
+
+/* Trình soạn trực quan (TipTap) dùng chung kiểu chữ với .md-preview */
+@layer components {
+  .tiptap-editor { min-height: inherit; }
+  .tiptap-editor p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: var(--c-text-tertiary);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+  .tiptap-editor img.ProseMirror-selectednode,
+  .tiptap-editor video.ProseMirror-selectednode { outline: 2px solid var(--c-primary); }
+}

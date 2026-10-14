@@ -84,6 +84,7 @@ LOCAL_APPS = [
     'apps.projects',
     'apps.blogs',
     'apps.contacts',
+    'apps.landing',
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 
@@ -200,8 +201,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Production: whitenoise nén + gắn hash tên file static (collectstatic trong Dockerfile.prod)
+# Có CLOUDINARY_URL (prod: Render không có ổ đĩa lâu dài) -> ảnh / video tải lên lưu trên Cloudinary (gói free)
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+if CLOUDINARY_URL:
+    INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
+
 STORAGES = {
-    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'default': {'BACKEND': 'cloudinary_storage.storage.RawMediaCloudinaryStorage' if CLOUDINARY_URL else 'django.core.files.storage.FileSystemStorage'},
     'staticfiles': {
         'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'
         if DEBUG or RUNNING_TESTS

@@ -240,14 +240,19 @@ Table SystemSettings {
 Table Projects {
   Id int [primary key, increment]
   Slug varchar(150) [not null, unique, note: 'Đường dẫn thân thiện: /projects/<slug>']
-  Title varchar(255) [not null]
-  Summary text [not null, note: 'Mô tả ngắn hiện trên thẻ dự án']
+  Title varchar(255) [not null, note: 'Tiếng Việt (bản gốc)']
+  TitleEn varchar(255) [not null, default: '', note: 'Tiếng Anh; để trống -> landing dùng bản tiếng Việt']
+  Summary text [not null, note: 'Mô tả ngắn hiện trên thẻ dự án (tiếng Việt)']
+  SummaryEn text [not null, default: '']
   Stack jsonb [not null, default: '[]', note: 'Danh sách công nghệ: ["Next.js", "Django"]']
   Year varchar(30) [not null, note: 'Thời gian thực hiện, vd: 05/2025 - 08/2025']
+  YearEn varchar(30) [not null, default: '', note: 'Vd: May 2025 - Aug 2025']
   Image varchar(500) [not null, note: 'URL / đường dẫn ảnh đại diện']
   Color varchar(30) [not null, note: 'Màu nhấn của thẻ (hex hoặc tên class)']
-  Role varchar(150) [not null, note: 'Vai trò trong dự án']
-  Content text [not null, note: 'Nội dung chi tiết (Markdown)']
+  Role varchar(150) [not null, note: 'Vai trò trong dự án (tiếng Việt)']
+  RoleEn varchar(150) [not null, default: '']
+  Content text [not null, note: 'Nội dung chi tiết (Markdown, tiếng Việt)']
+  ContentEn text [not null, default: '', note: 'Nội dung chi tiết (Markdown, tiếng Anh)']
   LiveUrl varchar(500) [null]
   GithubUrl varchar(500) [null]
   Featured boolean [default: false, note: 'Dự án nổi bật hiện ở trang chủ']
@@ -266,13 +271,19 @@ Table Projects {
 Table Blogs {
   Id int [primary key, increment]
   Slug varchar(150) [not null, unique, note: 'Đường dẫn thân thiện: /blog/<slug>']
-  Title varchar(255) [not null]
-  Excerpt text [not null, note: 'Đoạn trích ngắn']
+  Title varchar(255) [not null, note: 'Tiếng Việt (bản gốc)']
+  TitleEn varchar(255) [not null, default: '', note: 'Tiếng Anh; để trống -> landing dùng bản tiếng Việt']
+  Excerpt text [not null, note: 'Đoạn trích ngắn (tiếng Việt)']
+  ExcerptEn text [not null, default: '']
   PublishedDate varchar(30) [not null, note: 'Ngày đăng hiển thị (chuỗi, giống dữ liệu landing hiện tại)']
+  PublishedDateEn varchar(30) [not null, default: '']
   Category varchar(100) [not null]
-  ReadTime varchar(30) [not null, note: 'Vd: 5 min read']
+  CategoryEn varchar(100) [not null, default: '']
+  ReadTime varchar(30) [not null, note: 'Vd: 5 phút']
+  ReadTimeEn varchar(30) [not null, default: '', note: 'Vd: 5 min read']
   Image varchar(500) [not null]
-  Content text [not null, note: 'Nội dung bài viết (Markdown)']
+  Content text [not null, note: 'Nội dung bài viết (Markdown, tiếng Việt)']
+  ContentEn text [not null, default: '', note: 'Nội dung bài viết (Markdown, tiếng Anh)']
 
   // Standard Audit Fields
   Description text [null, note: 'Mô tả / Ghi chú']
@@ -294,6 +305,25 @@ Table Contacts {
   // Standard Audit Fields
   Description text [null, note: 'Ghi chú nội bộ khi xử lý liên hệ']
   IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 1.4 Cấu hình landing (CMS) - mỗi dòng là một phần của trang chủ, nội dung dạng JSON theo ngôn ngữ
+// Key: hero | stats | experiences | education | skills | testimonials | contact | ui | seo
+Table LandingSections {
+  Id int [primary key, increment]
+  Key varchar(50) [not null, unique, note: 'Mã phần của landing']
+  Content jsonb [not null, default: '{}', note: 'Nội dung tiếng Việt (cấu trúc theo từng Key)']
+  ContentEn jsonb [not null, default: '{}', note: 'Nội dung tiếng Anh; rỗng -> dùng tiếng Việt']
+  SortOrder int [not null, default: 0]
+
+  // Standard Audit Fields
+  Description text [null]
+  IsActive boolean [default: true, note: 'Tắt -> landing dùng nội dung mặc định trong code']
   CreatedById int [ref: > Users.Id]
   UpdatedById int [ref: > Users.Id]
   CreatedAt timestamp [default: `now()`]

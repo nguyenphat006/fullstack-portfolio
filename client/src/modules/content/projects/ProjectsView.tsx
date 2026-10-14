@@ -5,19 +5,18 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Ban, CircleCheck, Trash2 } from "lucide-react";
 import { ACTIVE_STATUS, StatusBadge, statusOptions } from "@/components/common/StatusBadge";
-import { CodeText, ListPage, RelativeTime, defineColumns, useExcelExport, useListState, type BulkAction } from "@/components/list";
+import { CodeText, ListPage, RelativeTime, defineColumns, useExcelExport, useListState, type BulkAction, ViewModeToggle, type ViewMode } from "@/components/list";
 import { PERMISSIONS } from "@/constants/permissions";
 import { usePermission } from "@/hooks/usePermission";
-import { ProjectFormModal } from "./components/ProjectFormModal";
+import { useRouter } from "next/navigation";
+import { ContentGrid } from "../ContentGrid";
 import {
   useBatchDeleteProjectsMutation,
   useBatchStatusProjectsMutation,
-  useCreateProjectMutation,
   useDeleteProjectMutation,
   useProjectsList,
-  useUpdateProjectMutation,
 } from "./hooks/useProjectsQuery";
-import type { ProjectCreateInput, ProjectItem, ProjectUpdateInput } from "./types";
+import type { ProjectItem } from "./types";
 
 /**
  * Trang danh sách dự án — khung ListPage (docs/plan/ui-list-detail-design.md).
@@ -33,11 +32,10 @@ export function ProjectsView() {
   const list = useListState({ defaultOrdering: "-updated_at" });
   const query = useProjectsList(list.params);
 
-  const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState<ProjectItem | null>(null);
+  const router = useRouter();
+  const [view, setView] = useState<ViewMode>("grid");
+  const editHref = (id: number) => `/content/projects/${id}/edit`;
 
-  const createMutation = useCreateProjectMutation();
-  const updateMutation = useUpdateProjectMutation();
   const deleteMutation = useDeleteProjectMutation();
   const batchDelete = useBatchDeleteProjectsMutation();
   const batchStatus = useBatchStatusProjectsMutation();
@@ -78,18 +76,6 @@ export function ProjectsView() {
     [t, tc, tr],
   );
 
-  // Lỗi được ném lại cho FormDialog gắn vào từng ô nhập
-  const handleSubmit = async (values: ProjectCreateInput | ProjectUpdateInput) => {
-    if (editing) {
-      await updateMutation.mutateAsync({ id: editing.id, data: values as ProjectUpdateInput });
-      toast.success(tc("messages.updated", { entity: t("entity") }));
-    } else {
-      await createMutation.mutateAsync(values as ProjectCreateInput);
-      toast.success(tc("messages.created", { entity: t("entity") }));
-    }
-    setFormOpen(false);
-  };
-
   const showBatchResult = (res: { message: string; data: { skipped?: unknown[] } }) =>
     res.data.skipped?.length ? toast.warning(res.message) : toast.success(res.message);
 
@@ -127,9 +113,9 @@ export function ProjectsView() {
       columns={columns}
       entityLabel={t("entity")}
       searchPlaceholder={t("searchPlaceholder")}
-      onCreate={can(PERMISSIONS.PROJECT.CREATE) ? () => { setEditing(null); setFormOpen(true); } : undefined}
+      onCreate={can(PERMISSIONS.PROJECT.CREATE) ? () => router.push("/content/projects/new") : undefined}
       rowActions={{
-        onEdit: can(PERMISSIONS.PROJECT.UPDATE) ? (r) => { setEditing(r); setFormOpen(true); } : undefined,
+        onEdit: can(PERMISSIONS.PROJECT.UPDATE) ? (r) => router.push(editHref(r.id)) : undefined,
         onDelete: can(PERMISSIONS.PROJECT.DELETE)
           ? async (r) => {
               await deleteMutation.mutateAsync(r.id);
@@ -139,15 +125,29 @@ export function ProjectsView() {
         deleteTitle: (r) => tc("messages.deleteTitle", { entity: t("entity"), name: r.title }),
       }}
       bulkActions={bulkActions}
+      toolbarExtra={<ViewModeToggle value={view} onChange={setView} />}
+      renderGrid={
+        view === "grid"
+          ? (rows) => (
+              <ContentGrid
+                items={rows.map((r) => ({ id: r.id, title: r.title, subtitle: r.summary, meta: r.year, image: r.image, isActive: r.is_active, featured: r.featured ?? false, tags: Array.isArray(r.stack) ? (r.stack as string[]) : [] }))}
+                editHref={editHref}
+                canEdit={can(PERMISSIONS.PROJECT.UPDATE)}
+                entityLabel={t("entity")} featuredLabel={t("fields.featured")}
+                onDelete={
+                  can(PERMISSIONS.PROJECT.DELETE)
+                    ? async (item) => {
+                        await deleteMutation.mutateAsync(item.id);
+                        toast.success(tc("messages.deleted", { entity: t("entity") }));
+                      }
+                    : undefined
+                }
+              />
+            )
+          : undefined
+      }
       onExport={can(PERMISSIONS.PROJECT.EXPORT) ? openExport : undefined}
     >
-      <ProjectFormModal
-        open={formOpen}
-        editing={editing}
-        onCancel={() => setFormOpen(false)}
-        onSubmit={handleSubmit}
-        loading={createMutation.isPending || updateMutation.isPending}
-      />
       {exportModal}
     </ListPage>
   );

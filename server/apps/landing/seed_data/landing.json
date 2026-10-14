@@ -1,0 +1,842 @@
+{
+  "vi": {
+    "hero": {
+      "badge": "Lập trình viên Fullstack",
+      "headline": "Xin chào, tôi là ERICSS.",
+      "subtext": "Tên thật của tôi là Nguyễn Đăng Phát. Tôi là một Fullstack Developer đam mê việc biến ý tưởng thành các sản phẩm công nghệ hoàn thiện. Tập trung vào Next.js, TypeScript và kiến trúc hệ thống bền vững.",
+      "primaryCta": {
+        "label": "Xem Dự Án",
+        "href": "#du-an"
+      },
+      "secondaryCta": {
+        "label": "Người Khác Nói Gì?",
+        "href": "#nhan-xet"
+      }
+    },
+    "stats": [
+      {
+        "id": "projects",
+        "label": "Dự Án Đã Hoàn Thành",
+        "value": "24+",
+        "iconName": "CodeCircleIcon"
+      },
+      {
+        "id": "experience",
+        "label": "Năm Kinh Nghiệm",
+        "value": "2+",
+        "iconName": "Briefcase07Icon"
+      },
+      {
+        "id": "articles",
+        "label": "Bài Viết Kỹ Thuật",
+        "value": "36",
+        "iconName": "BookOpen01Icon"
+      }
+    ],
+    "experiences": [
+      {
+        "id": "exp-1",
+        "company": "NPH DIGITAL",
+        "role": "Team Leader / Frontend Developer (REMOTE)",
+        "period": "11/2024 — Hiện tại",
+        "location": "Đồng Nai, VN",
+        "logo": "/images/work-experience/nph-01.png",
+        "websiteUrl": "https://nphdigital.com",
+        "description": "Xây dựng kiến trúc hệ thống frontend, phát triển ứng dụng web phức tạp và dẫn dắt đội ngũ kỹ thuật.",
+        "details": [
+          {
+            "category": "Kiến trúc Code & Kỹ thuật",
+            "items": [
+              "Xây dựng và thiết kế theo hướng Module Components, tách biệt hoàn toàn các tầng UI, Service, Types.",
+              "Thiết lập API Layer chuẩn hóa bằng Axios & TypeScript.",
+              "Xây dựng thư viện Shared Components dùng chung cho các dự án (OCCO, Chatbot)."
+            ]
+          },
+          {
+            "category": "Vận hành & Triển khai",
+            "items": [
+              "Trực tiếp cấu hình và quản trị hệ thống trên VPS, thiết lập Nginx, MySQL.",
+              "Xây dựng luồng CI/CD đảm bảo quy trình deployment tự động, ổn định."
+            ]
+          },
+          {
+            "category": "Quản lý & Điều phối",
+            "items": [
+              "Dẫn dắt đội ngũ Frontend, phân chia công việc, định hướng luồng nghiệp vụ xử lý cho các thành viên.",
+              "Đảm bảo chất lượng đầu ra về UI/UX lẫn hiệu năng."
+            ]
+          }
+        ],
+        "projectLinks": [
+          {
+            "name": "NPH Digital",
+            "url": "https://nphdigital.com",
+            "logo": "/images/work-experience/nph-01.png"
+          },
+          {
+            "name": "Occo",
+            "url": "https://occo.vn/"
+          },
+          {
+            "name": "Buzuai",
+            "url": "https://buzuai.com/"
+          },
+          {
+            "name": "Artjob",
+            "url": "https://artjob.vn/"
+          },
+          {
+            "name": "Piano",
+            "url": "https://pianocaocap.vn/"
+          }
+        ]
+      },
+      {
+        "id": "exp-2",
+        "company": "HINOVA TECHNOLOGY JSC",
+        "role": "Thực tập sinh .NET Developer Fullstack",
+        "period": "03/2024 — 10/2024",
+        "location": "Đồng Nai, VN",
+        "logo": "/images/work-experience/hinova.png",
+        "websiteUrl": "https://hinova.vn",
+        "description": "Phát triển Backend API với ASP.NET Core & giao diện Frontend cho các hệ thống phần mềm doanh nghiệp và trường học.",
+        "details": [
+          {
+            "category": "Phát triển Backend & API",
+            "items": [
+              "Thiết kế và triển khai hệ thống API theo hướng Module-based trên nền tảng ASP.NET Core 8."
+            ]
+          },
+          {
+            "category": "Tối ưu hóa UI/UX",
+            "items": [
+              "Xây dựng giao diện hiện đại bằng HTML5, CSS3 và KendoUI.",
+              "Tập trung cải thiện tính tương thích (Responsive Design) và trải nghiệm người dùng."
+            ]
+          },
+          {
+            "category": "Triển khai & Vận hành",
+            "items": [
+              "Trực tiếp phối hợp với khách hàng tại trường học để trao đổi và bàn giao sản phẩm."
+            ]
+          }
+        ],
+        "projectLinks": [
+          {
+            "name": "Đại học Bạc Liêu",
+            "url": "https://blu.edu.vn/",
+            "logo": "/images/work-experience/blu.png"
+          },
+          {
+            "name": "Thư viện điện tử",
+            "url": "https://lib.blu.edu.vn/",
+            "logo": "/images/work-experience/blu.png"
+          }
+        ]
+      },
+      {
+        "id": "exp-3",
+        "company": "IOT Software VN",
+        "role": "Frontend Developer (Freelance)",
+        "period": "11/2025 — 03/2026",
+        "location": "Đồng Nai, VN",
+        "logo": "/images/work-experience/iotsoft.jpg",
+        "websiteUrl": "https://lhbs-edu-vn.devdotnet.id.vn/",
+        "description": "Trực tiếp xây dựng nền tảng Website Landing Page đa tên miền cho Hệ thống Trường Song ngữ Lạc Hồng.",
+        "details": [
+          {
+            "category": "Phân tích và Thiết kế",
+            "items": [
+              "Xây dựng Design System và Brand Guide để đảm bảo tính nhất quán thương hiệu cho trường.",
+              "Chủ động trao đổi, thống nhất khung giao diện (Wireframe) với khách hàng qua từng giai đoạn."
+            ]
+          },
+          {
+            "category": "Kiến trúc Monorepo",
+            "items": [
+              "Sử dụng Turborepo để quản lý 4 tên miền (domain) khác nhau trong cùng một cấu trúc mã nguồn.",
+              "Tái sử dụng triệt để các thư viện component dùng chung, giúp tiết kiệm 50% thời gian phát triển và đồng bộ hóa logic."
+            ]
+          },
+          {
+            "category": "Hiệu năng & SEO",
+            "items": [
+              "Tập trung xử lý hiệu năng tải trang và tối ưu các chỉ số SEO cho các trang Landing Page.",
+              "Đảm bảo cấu trúc code sạch, dễ lập chỉ mục nhằm tăng khả năng tiếp cận khách hàng."
+            ]
+          }
+        ],
+        "projectLinks": [
+          {
+            "name": "Song Ngữ Lạc Hồng",
+            "url": "https://lhbs-edu-vn.devdotnet.id.vn/",
+            "logo": "/images/projects/project-content.svg"
+          }
+        ]
+      }
+    ],
+    "education": [
+      {
+        "id": "edu-1",
+        "school": "Đại học Lạc Hồng",
+        "degree": "Công nghệ Thông tin",
+        "period": "2026 — Hiện tại",
+        "location": "Đồng Nai, VN",
+        "logo": "https://cdn.haitrieu.com/wp-content/uploads/2021/12/Logo-DH-Lac-Hong-LHU-VN.png"
+      },
+      {
+        "id": "edu-2",
+        "school": "FPT Polytechnic",
+        "degree": "Phát triển Phần mềm .NET",
+        "period": "GPA: 3.95/4.0",
+        "location": "Đồng Nai, VN",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png"
+      },
+      {
+        "id": "edu-3",
+        "school": "IIG Việt Nam",
+        "degree": "Chứng chỉ Tiếng Anh TOEIC 650+",
+        "period": "Năm 2025",
+        "location": "TP.HCM, VN",
+        "logo": "https://static.wikia.nocookie.net/logos/images/f/f1/IIG_logo.png/revision/latest/scale-to-width-down/668?cb=20250820035209&path-prefix=vi"
+      },
+      {
+        "id": "edu-4",
+        "school": "Google / Coursera",
+        "degree": "Chuyên viên thiết kế UI/UX (Professional Certificate)",
+        "period": "Năm 2024",
+        "location": "Online Training",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_\"G\"_logo.svg"
+      },
+      {
+        "id": "edu-5",
+        "school": "THCS Lê Quang Định",
+        "degree": "Bằng Tốt nghiệp Trung học Cơ sở",
+        "period": "2016 — 2020",
+        "location": "Đồng Nai, VN",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROp8LcxtKMeMuSH5KbjDtoLP2UUkbmFyOs5w&s"
+      }
+    ],
+    "skills": [
+      {
+        "id": "skill-1",
+        "name": "React",
+        "logo": "/images/skills/react.svg"
+      },
+      {
+        "id": "skill-2",
+        "name": "Next.js",
+        "logo": "/images/skills/nextjs.svg"
+      },
+      {
+        "id": "skill-3",
+        "name": "TypeScript",
+        "logo": "/images/skills/typescript.svg"
+      },
+      {
+        "id": "skill-4",
+        "name": "Tailwind",
+        "logo": "/images/skills/tailwind.svg"
+      },
+      {
+        "id": "skill-5",
+        "name": "Node.js",
+        "logo": "/images/skills/nodejs.svg"
+      },
+      {
+        "id": "skill-6",
+        "name": "PostgreSQL",
+        "logo": "/images/skills/postgres.svg"
+      },
+      {
+        "id": "skill-7",
+        "name": "Figma",
+        "logo": "/images/skills/figma.svg"
+      },
+      {
+        "id": "skill-8",
+        "name": "Docker",
+        "logo": "/images/skills/docker.svg"
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "testi-1",
+        "name": "Anh Trần Văn Tây",
+        "role": "Founder & CEO",
+        "company": "NPH DIGITAL",
+        "content": "Chuyên môn ổn định, trách nhiệm cao. Có tư duy hệ thống tốt, luôn chủ động đưa ra giải pháp và dẫn dắt đội ngũ hiệu quả.",
+        "avatar": "/images/work-experience/nph-01.png"
+      },
+      {
+        "id": "testi-2",
+        "name": "Anh Hiếu",
+        "role": "Project Manager",
+        "company": "HINOVA TECHNOLOGY",
+        "content": "Nắm bắt logic nghiệp vụ phần mềm doanh nghiệp nhanh nhạy, code cẩn thận. Giao diện chỉn chu, tối ưu UX, luôn hoàn thành xuất sắc các tính năng cốt lõi.",
+        "avatar": "/images/work-experience/hinova.png"
+      },
+      {
+        "id": "testi-3",
+        "name": "Anh Lê Chân Thiện Tâm",
+        "role": "Phó giám đốc",
+        "company": "IOT Software VN",
+        "content": "Tư duy logic tốt, xử lý vấn đề nhanh. Có khả năng tự học và áp dụng công nghệ mới hiệu quả, đặc biệt là các giải pháp liên quan đến UI/UX và tối ưu hiệu năng.",
+        "avatar": "/images/work-experience/iotsoft.jpg"
+      },
+      {
+        "id": "testi-4",
+        "name": "Thầy Hồ Hoàng Chương",
+        "role": "Trưởng bộ môn CNTT",
+        "company": "FPT Polytechnic",
+        "content": "Có tư duy logic tốt, xử lý vấn đề nhanh. Có khả năng tự học và áp dụng công nghệ mới hiệu quả, đặc biệt là các giải pháp liên quan đến UI/UX và tối ưu hiệu năng.",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png"
+      }
+    ],
+    "contact": {
+      "badge": "Liên Hệ",
+      "headline": "Cùng Xây Dựng Điều Tuyệt Vời",
+      "subtext": "Bạn có dự án thú vị hoặc cơ hội hợp tác? Tôi luôn sẵn sàng lắng nghe và kết nối.",
+      "primaryCta": {
+        "label": "Gửi Email",
+        "href": "mailto:nguyenphat0406@gmail.com"
+      },
+      "secondaryCta": {
+        "label": "Xem CV",
+        "href": "https://rxresu.me/nguyenphat006/cv-nguyen-dang-phat-vietnamese-fe"
+      },
+      "socials": [
+        {
+          "id": "github",
+          "label": "GitHub",
+          "href": "https://github.com/nguyenphat006",
+          "iconName": "GithubIcon"
+        },
+        {
+          "id": "linkedin",
+          "label": "LinkedIn",
+          "href": "https://www.linkedin.com/in/ericss-ndp/",
+          "iconName": "Linkedin01Icon"
+        },
+        {
+          "id": "email",
+          "label": "Email",
+          "href": "mailto:nguyenphat1505@gmail.com",
+          "iconName": "Mail01Icon"
+        }
+      ],
+      "email": "nguyenphat1505@gmail.com"
+    },
+    "ui": {
+      "navbar": {
+        "logoLabel": "Trang chủ",
+        "navLabel": "Điều hướng các phần của trang"
+      },
+      "hero": {
+        "greeting": "Xin chào! ",
+        "typed": [
+          "Tôi là ERICSS.",
+          "Tôi là Fullstack Dev."
+        ],
+        "introName": "Nguyễn Đăng Phát",
+        "introBody": " — Một kỹ sư phần mềm chuyên nghiệp. Tôi đam mê xây dựng các sản phẩm công nghệ từ kiến trúc logic Backend đến giao diện Frontend tương tác mượt mà, tập trung vào trải nghiệm người dùng tối ưu qua hệ sinh thái Next.js và TypeScript.",
+        "avatarAlt": "Ảnh chân dung Nguyễn Đăng Phát",
+        "identityName": "Nguyễn Đăng Phát",
+        "techEcosystem": "Tech Ecosystem",
+        "techAlt": "Công nghệ sử dụng: React, Next.js, NestJS, TypeScript, PostgreSQL, Docker, Tailwind CSS, Figma",
+        "availableForWork": "Available For Work",
+        "location": "Hồ Chí Minh, VN",
+        "online": "Trực tuyến"
+      },
+      "experience": {
+        "badge": "Kinh Nghiệm",
+        "title": "Hành Trình",
+        "accent": "Phát Triển",
+        "description": "Những điểm chạm quan trọng định hình kỹ năng và tư duy sản phẩm của tôi.",
+        "viewDetails": "Xem chi tiết",
+        "website": "Website",
+        "modal": {
+          "close": "Đóng cửa sổ",
+          "noDetails": "Chưa có thông tin chi tiết.",
+          "featuredProjects": "Các dự án nổi bật"
+        }
+      },
+      "education": {
+        "badge": "Education",
+        "title": "Học Vấn",
+        "accent": "& Chứng Chỉ",
+        "description": "Nền tảng học thuật và các chương trình tăng tốc chuyên môn."
+      },
+      "skills": {
+        "badge": "Background",
+        "title": "Học Vấn",
+        "accent": "& Kỹ Năng",
+        "description": "Nền tảng học thuật và các bộ công cụ phát triển phần mềm.",
+        "learningJourney": "Hành trình Học tập",
+        "techFocusTitle": "My Tech Stack Focus:",
+        "techFocusBody": "Chuyên môn sâu rộng với React, Next.js (App Router), và hệ sinh thái TypeScript. Vững chắc về Backend API với Node.js / ASP.NET Core và Database. Sử dụng thuần thục hệ thống Monorepo, Docker và các quy trình CI/CD.",
+        "iconCloudLabel": "Biểu tượng các công nghệ tôi sử dụng"
+      },
+      "projects": {
+        "badge": "Portfolio",
+        "title": "Dự Án",
+        "accent": "Thực Chiến",
+        "description": "Những sản phẩm thực tế được tối ưu hóa về hiệu năng và trải nghiệm người dùng.",
+        "viewAll": "XEM TẤT CẢ DỰ ÁN",
+        "viewDetail": "XEM CHI TIẾT",
+        "sourceCode": "SOURCE CODE"
+      },
+      "testimonials": {
+        "title": "Đồng Nghiệp",
+        "accent": "Đánh Giá",
+        "description": "Những nhận xét khách quan từ quản lý và đồng nghiệp đã làm việc trực tiếp cùng tôi."
+      },
+      "contact": {
+        "nameLabel": "Tên của bạn",
+        "namePlaceholder": "Họ và tên...",
+        "emailLabel": "Email liên hệ",
+        "emailPlaceholder": "hello@example.com",
+        "messageLabel": "Nội dung tin nhắn",
+        "messagePlaceholder": "Bạn muốn trao đổi về dự án gì...",
+        "submit": "Gửi tin nhắn",
+        "sending": "Đang gửi..."
+      }
+    },
+    "seo": {
+      "siteName": "ERICSS | Nguyễn Đăng Phát",
+      "title": "ERICSS - Portfolio",
+      "description": "Portfolio của Nguyễn Đăng Phát (ERICSS) - Fullstack Developer chuyên về Next.js, TypeScript và kiến trúc hệ thống hiện đại.",
+      "keywords": [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "Fullstack Developer",
+        "Nguyễn Đăng Phát",
+        "ERICSS",
+        "Portfolio",
+        "Lập trình web"
+      ],
+      "jobTitle": "Lập trình viên Fullstack"
+    }
+  },
+  "en": {
+    "hero": {
+      "badge": "Fullstack Developer",
+      "headline": "Hi, I'm ERICSS.",
+      "subtext": "My real name is Nguyen Dang Phat. I'm a Fullstack Developer passionate about turning ideas into polished digital products, with a focus on Next.js, TypeScript and sustainable system architecture.",
+      "primaryCta": {
+        "label": "View Projects",
+        "href": "#du-an"
+      },
+      "secondaryCta": {
+        "label": "What Do Others Say?",
+        "href": "#nhan-xet"
+      }
+    },
+    "stats": [
+      {
+        "id": "projects",
+        "label": "Projects Completed",
+        "value": "24+",
+        "iconName": "CodeCircleIcon"
+      },
+      {
+        "id": "experience",
+        "label": "Years of Experience",
+        "value": "2+",
+        "iconName": "Briefcase07Icon"
+      },
+      {
+        "id": "articles",
+        "label": "Technical Articles",
+        "value": "36",
+        "iconName": "BookOpen01Icon"
+      }
+    ],
+    "experiences": [
+      {
+        "id": "exp-1",
+        "company": "NPH DIGITAL",
+        "role": "Team Leader / Frontend Developer (REMOTE)",
+        "period": "11/2024 — Present",
+        "location": "Dong Nai, VN",
+        "logo": "/images/work-experience/nph-01.png",
+        "websiteUrl": "https://nphdigital.com",
+        "description": "Designing frontend system architecture, building complex web applications and leading the engineering team.",
+        "details": [
+          {
+            "category": "Code Architecture & Engineering",
+            "items": [
+              "Designed and built a modular component architecture, fully separating the UI, Service and Types layers.",
+              "Set up a standardized API layer with Axios & TypeScript.",
+              "Built a shared component library reused across projects (OCCO, Chatbot)."
+            ]
+          },
+          {
+            "category": "Operations & Deployment",
+            "items": [
+              "Personally configured and managed VPS infrastructure, including Nginx and MySQL.",
+              "Built a CI/CD pipeline for automated, stable deployments."
+            ]
+          },
+          {
+            "category": "Management & Coordination",
+            "items": [
+              "Led the Frontend team: assigned tasks and guided members through business workflows.",
+              "Ensured output quality in both UI/UX and performance."
+            ]
+          }
+        ],
+        "projectLinks": [
+          {
+            "name": "NPH Digital",
+            "url": "https://nphdigital.com",
+            "logo": "/images/work-experience/nph-01.png"
+          },
+          {
+            "name": "Occo",
+            "url": "https://occo.vn/"
+          },
+          {
+            "name": "Buzuai",
+            "url": "https://buzuai.com/"
+          },
+          {
+            "name": "Artjob",
+            "url": "https://artjob.vn/"
+          },
+          {
+            "name": "Piano",
+            "url": "https://pianocaocap.vn/"
+          }
+        ]
+      },
+      {
+        "id": "exp-2",
+        "company": "HINOVA TECHNOLOGY JSC",
+        "role": "Fullstack .NET Developer Intern",
+        "period": "03/2024 — 10/2024",
+        "location": "Dong Nai, VN",
+        "logo": "/images/work-experience/hinova.png",
+        "websiteUrl": "https://hinova.vn",
+        "description": "Developed Backend APIs with ASP.NET Core and Frontend interfaces for enterprise and school software systems.",
+        "details": [
+          {
+            "category": "Backend & API Development",
+            "items": [
+              "Designed and implemented a module-based API system on ASP.NET Core 8."
+            ]
+          },
+          {
+            "category": "UI/UX Optimization",
+            "items": [
+              "Built modern interfaces with HTML5, CSS3 and KendoUI.",
+              "Focused on improving responsive compatibility and user experience."
+            ]
+          },
+          {
+            "category": "Deployment & Operations",
+            "items": [
+              "Worked directly with clients at schools to discuss requirements and hand over products."
+            ]
+          }
+        ],
+        "projectLinks": [
+          {
+            "name": "Bac Lieu University",
+            "url": "https://blu.edu.vn/",
+            "logo": "/images/work-experience/blu.png"
+          },
+          {
+            "name": "Digital Library",
+            "url": "https://lib.blu.edu.vn/",
+            "logo": "/images/work-experience/blu.png"
+          }
+        ]
+      },
+      {
+        "id": "exp-3",
+        "company": "IOT Software VN",
+        "role": "Frontend Developer (Freelance)",
+        "period": "11/2025 — 03/2026",
+        "location": "Dong Nai, VN",
+        "logo": "/images/work-experience/iotsoft.jpg",
+        "websiteUrl": "https://lhbs-edu-vn.devdotnet.id.vn/",
+        "description": "Directly built a multi-domain Landing Page platform for the Lac Hong Bilingual School System.",
+        "details": [
+          {
+            "category": "Analysis & Design",
+            "items": [
+              "Built a Design System and Brand Guide to keep the school's branding consistent.",
+              "Proactively aligned wireframes with the client at every stage."
+            ]
+          },
+          {
+            "category": "Monorepo Architecture",
+            "items": [
+              "Used Turborepo to manage 4 different domains in a single codebase.",
+              "Maximized reuse of shared component libraries, saving 50% of development time and keeping logic in sync."
+            ]
+          },
+          {
+            "category": "Performance & SEO",
+            "items": [
+              "Focused on page load performance and SEO metrics for the landing pages.",
+              "Kept the code clean and easy to index to improve reach to customers."
+            ]
+          }
+        ],
+        "projectLinks": [
+          {
+            "name": "Lac Hong Bilingual School",
+            "url": "https://lhbs-edu-vn.devdotnet.id.vn/",
+            "logo": "/images/projects/project-content.svg"
+          }
+        ]
+      }
+    ],
+    "education": [
+      {
+        "id": "edu-1",
+        "school": "Lac Hong University",
+        "degree": "Information Technology",
+        "period": "2026 — Present",
+        "location": "Dong Nai, VN",
+        "logo": "https://cdn.haitrieu.com/wp-content/uploads/2021/12/Logo-DH-Lac-Hong-LHU-VN.png"
+      },
+      {
+        "id": "edu-2",
+        "school": "FPT Polytechnic",
+        "degree": ".NET Software Development",
+        "period": "GPA: 3.95/4.0",
+        "location": "Dong Nai, VN",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png"
+      },
+      {
+        "id": "edu-3",
+        "school": "IIG Vietnam",
+        "degree": "TOEIC 650+ English Certificate",
+        "period": "2025",
+        "location": "Ho Chi Minh City, VN",
+        "logo": "https://static.wikia.nocookie.net/logos/images/f/f1/IIG_logo.png/revision/latest/scale-to-width-down/668?cb=20250820035209&path-prefix=vi"
+      },
+      {
+        "id": "edu-4",
+        "school": "Google / Coursera",
+        "degree": "UI/UX Design Professional Certificate",
+        "period": "2024",
+        "location": "Online Training",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_\"G\"_logo.svg"
+      },
+      {
+        "id": "edu-5",
+        "school": "Le Quang Dinh Secondary School",
+        "degree": "Lower Secondary School Diploma",
+        "period": "2016 — 2020",
+        "location": "Dong Nai, VN",
+        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROp8LcxtKMeMuSH5KbjDtoLP2UUkbmFyOs5w&s"
+      }
+    ],
+    "skills": [
+      {
+        "id": "skill-1",
+        "name": "React",
+        "logo": "/images/skills/react.svg"
+      },
+      {
+        "id": "skill-2",
+        "name": "Next.js",
+        "logo": "/images/skills/nextjs.svg"
+      },
+      {
+        "id": "skill-3",
+        "name": "TypeScript",
+        "logo": "/images/skills/typescript.svg"
+      },
+      {
+        "id": "skill-4",
+        "name": "Tailwind",
+        "logo": "/images/skills/tailwind.svg"
+      },
+      {
+        "id": "skill-5",
+        "name": "Node.js",
+        "logo": "/images/skills/nodejs.svg"
+      },
+      {
+        "id": "skill-6",
+        "name": "PostgreSQL",
+        "logo": "/images/skills/postgres.svg"
+      },
+      {
+        "id": "skill-7",
+        "name": "Figma",
+        "logo": "/images/skills/figma.svg"
+      },
+      {
+        "id": "skill-8",
+        "name": "Docker",
+        "logo": "/images/skills/docker.svg"
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "testi-1",
+        "name": "Mr. Tran Van Tay",
+        "role": "Founder & CEO",
+        "company": "NPH DIGITAL",
+        "content": "Reliable expertise and a strong sense of responsibility. Great systems thinking, always proactive in proposing solutions and leading the team effectively.",
+        "avatar": "/images/work-experience/nph-01.png"
+      },
+      {
+        "id": "testi-2",
+        "name": "Mr. Hieu",
+        "role": "Project Manager",
+        "company": "HINOVA TECHNOLOGY",
+        "content": "Quickly grasps the business logic of enterprise software and writes careful code. Polished interfaces, optimized UX, and consistently outstanding delivery of core features.",
+        "avatar": "/images/work-experience/hinova.png"
+      },
+      {
+        "id": "testi-3",
+        "name": "Mr. Le Chan Thien Tam",
+        "role": "Deputy Director",
+        "company": "IOT Software VN",
+        "content": "Strong logical thinking and fast problem solving. A quick self-learner who applies new technology effectively, especially for UI/UX and performance optimization.",
+        "avatar": "/images/work-experience/iotsoft.jpg"
+      },
+      {
+        "id": "testi-4",
+        "name": "Mr. Ho Hoang Chuong",
+        "role": "Head of IT Department",
+        "company": "FPT Polytechnic",
+        "content": "Strong logical thinking and fast problem solving. A quick self-learner who applies new technology effectively, especially for UI/UX and performance optimization.",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png"
+      }
+    ],
+    "contact": {
+      "badge": "Contact",
+      "headline": "Let's Build Something Great",
+      "subtext": "Have an exciting project or a collaboration opportunity? I'm always happy to listen and connect.",
+      "primaryCta": {
+        "label": "Send Email",
+        "href": "mailto:nguyenphat0406@gmail.com"
+      },
+      "secondaryCta": {
+        "label": "View CV",
+        "href": "https://rxresu.me/nguyenphat006/cv-nguyen-dang-phat-vietnamese-fe"
+      },
+      "socials": [
+        {
+          "id": "github",
+          "label": "GitHub",
+          "href": "https://github.com/nguyenphat006",
+          "iconName": "GithubIcon"
+        },
+        {
+          "id": "linkedin",
+          "label": "LinkedIn",
+          "href": "https://www.linkedin.com/in/ericss-ndp/",
+          "iconName": "Linkedin01Icon"
+        },
+        {
+          "id": "email",
+          "label": "Email",
+          "href": "mailto:nguyenphat1505@gmail.com",
+          "iconName": "Mail01Icon"
+        }
+      ],
+      "email": "nguyenphat1505@gmail.com"
+    },
+    "ui": {
+      "navbar": {
+        "logoLabel": "Home",
+        "navLabel": "Page sections"
+      },
+      "hero": {
+        "greeting": "Hello! ",
+        "typed": [
+          "I'm ERICSS.",
+          "I'm a Fullstack Dev."
+        ],
+        "introName": "Nguyen Dang Phat",
+        "introBody": " — A professional software engineer. I love building digital products from backend logic to smooth, interactive frontends, focusing on an optimal user experience through the Next.js and TypeScript ecosystem.",
+        "avatarAlt": "Portrait of Nguyen Dang Phat",
+        "identityName": "Nguyen Dang Phat",
+        "techEcosystem": "Tech Ecosystem",
+        "techAlt": "Tech stack: React, Next.js, NestJS, TypeScript, PostgreSQL, Docker, Tailwind CSS, Figma",
+        "availableForWork": "Available For Work",
+        "location": "Ho Chi Minh City, VN",
+        "online": "Online"
+      },
+      "experience": {
+        "badge": "Experience",
+        "title": "Career",
+        "accent": "Journey",
+        "description": "The key milestones that shaped my skills and product mindset.",
+        "viewDetails": "View details",
+        "website": "Website",
+        "modal": {
+          "close": "Close dialog",
+          "noDetails": "No detailed information yet.",
+          "featuredProjects": "Featured projects"
+        }
+      },
+      "education": {
+        "badge": "Education",
+        "title": "Education",
+        "accent": "& Certifications",
+        "description": "Academic foundation and programs that accelerated my expertise."
+      },
+      "skills": {
+        "badge": "Background",
+        "title": "Education",
+        "accent": "& Skills",
+        "description": "Academic foundation and the software development toolset.",
+        "learningJourney": "Learning Journey",
+        "techFocusTitle": "My Tech Stack Focus:",
+        "techFocusBody": "Deep expertise in React, Next.js (App Router) and the TypeScript ecosystem. Solid in Backend APIs with Node.js / ASP.NET Core and databases. Proficient with monorepos, Docker and CI/CD pipelines.",
+        "iconCloudLabel": "Icons of the technologies I use"
+      },
+      "projects": {
+        "badge": "Portfolio",
+        "title": "Real-World",
+        "accent": "Projects",
+        "description": "Real products optimized for performance and user experience.",
+        "viewAll": "VIEW ALL PROJECTS",
+        "viewDetail": "VIEW DETAILS",
+        "sourceCode": "SOURCE CODE"
+      },
+      "testimonials": {
+        "title": "What Colleagues",
+        "accent": "Say",
+        "description": "Honest feedback from managers and colleagues who have worked directly with me."
+      },
+      "contact": {
+        "nameLabel": "Your name",
+        "namePlaceholder": "Full name...",
+        "emailLabel": "Your email",
+        "emailPlaceholder": "hello@example.com",
+        "messageLabel": "Message",
+        "messagePlaceholder": "What would you like to discuss...",
+        "submit": "Send message",
+        "sending": "Sending..."
+      }
+    },
+    "seo": {
+      "siteName": "ERICSS | Nguyen Dang Phat",
+      "title": "ERICSS - Portfolio",
+      "description": "Portfolio of Nguyen Dang Phat (ERICSS) - a Fullstack Developer focused on Next.js, TypeScript and modern system architecture.",
+      "keywords": [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "Fullstack Developer",
+        "Nguyen Dang Phat",
+        "ERICSS",
+        "Portfolio",
+        "Web development"
+      ],
+      "jobTitle": "Fullstack Developer"
+    }
+  }
+}

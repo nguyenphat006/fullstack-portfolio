@@ -20,6 +20,7 @@ import notifications from "./notifications.json";
 import projects from "./projects.json";
 import blogs from "./blogs.json";
 import contacts from "./contacts.json";
+import landing from "./landing.json";
 
-const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, projects, blogs, contacts };
+const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, projects, blogs, contacts, landing };
 export default messages;

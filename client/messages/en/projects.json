@@ -8,18 +8,22 @@
     "title": "Title",
     "summary": "Summary",
     "stack": "Tech stack",
-    "year": "Year",
+    "year": "Period",
     "role": "Role",
-    "image": "Cover image (URL)",
+    "image": "Cover image",
     "color": "Accent color",
     "liveUrl": "Live URL",
     "githubUrl": "GitHub URL",
-    "content": "Details (Markdown)",
-    "featured": "Featured"
+    "content": "Details",
+    "featured": "Featured",
+    "general": "General"
   },
   "form": {
     "createTitle": "Add project",
     "editTitle": "Edit project {code}",
-    "stackHint": "Comma separated, e.g. Next.js, Django"
+    "stackHint": "Comma separated, e.g. Next.js, Django",
+    "tabVi": "Vietnamese",
+    "tabEn": "English",
+    "slugHint": "Generated from the title; you can edit it"
   }
 }

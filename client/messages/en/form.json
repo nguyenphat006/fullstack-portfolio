@@ -23,5 +23,47 @@
     "uploading": "Uploading image…",
     "dropHint": "Drag and drop or click to choose an image",
     "uploadError": "Could not upload the image"
+  },
+  "markdown": {
+    "h2": "Heading",
+    "h3": "Subheading",
+    "bold": "Bold",
+    "italic": "Italic",
+    "strike": "Strikethrough",
+    "link": "Insert link",
+    "quote": "Quote",
+    "code": "Inline code",
+    "codeBlock": "Code block",
+    "ul": "Bulleted list",
+    "ol": "Numbered list",
+    "hr": "Divider",
+    "image": "Insert image",
+    "video": "Insert video",
+    "uploading": "Uploading…",
+    "uploadError": "Could not upload the file",
+    "empty": "Nothing to preview yet",
+    "placeholder": "Start writing… Drag & drop or paste images to insert.",
+    "hint": "Write like a normal document — content is saved as Markdown. Images up to 5MB, videos up to 50MB.",
+    "chars": "{count} characters",
+    "paragraph": "Paragraph"
+  },
+  "cover": {
+    "choose": "Choose image",
+    "replace": "Replace image",
+    "remove": "Remove image",
+    "hint": "JPG, PNG, WEBP — up to 5MB. A 16:10 ratio works best."
+  },
+  "period": {
+    "placeholder": "Pick a period",
+    "from": "Start",
+    "to": "End",
+    "present": "Until now",
+    "clear": "Clear",
+    "pickDate": "Pick a date"
+  },
+  "tech": {
+    "placeholder": "Search and pick technologies…",
+    "loading": "Loading catalog…",
+    "hint": "Pick from a library of ~3,400 technologies with logos"
   }
 }

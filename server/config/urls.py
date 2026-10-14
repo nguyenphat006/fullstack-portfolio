@@ -21,6 +21,7 @@ api_v1_patterns = [
     path('', include('apps.projects.urls')),
     path('', include('apps.blogs.urls')),
     path('', include('apps.contacts.urls')),
+    path('', include('apps.landing.urls')),
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 

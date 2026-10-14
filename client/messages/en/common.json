@@ -78,5 +78,15 @@
     "label": "Language",
     "vi": "Tiếng Việt",
     "en": "English"
+  },
+  "translate": {
+    "button": "Translate from Vietnamese",
+    "running": "Translating…",
+    "nothing": "No Vietnamese content to translate yet",
+    "confirmTitle": "Overwrite the English version?",
+    "confirmBody": "English fields that already have content will be replaced by the automatic translation.",
+    "confirmOk": "Translate and overwrite",
+    "done": "Translated — please review before saving",
+    "error": "Could not translate, please try again later"
   }
 }

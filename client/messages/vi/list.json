@@ -79,5 +79,10 @@
     "done": "Đã xuất dữ liệu",
     "failed": "Không thể xuất dữ liệu",
     "title": "Xuất dữ liệu — {label}"
+  },
+  "view": {
+    "label": "Kiểu xem",
+    "grid": "Dạng lưới",
+    "table": "Dạng bảng"
   }
 }

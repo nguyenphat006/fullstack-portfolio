@@ -17,6 +17,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         call_command('migrate', interactive=False)
         call_command('seed_core')
+        # Nội dung mặc định của landing (CMS) — idempotent, không ghi đè chỉnh sửa
+        if 'seed_landing' in get_commands():
+            call_command('seed_landing')
         if options['demo']:
             # seed_portfolio nạp dự án / bài viết hiện có của landing; bỏ qua nếu không còn app projects
             if 'seed_portfolio' in get_commands():

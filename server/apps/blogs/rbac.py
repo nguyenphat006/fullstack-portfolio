@@ -23,6 +23,6 @@ MODULES = [
 PERMISSIONS = crud_permissions('BLOG', 'bài viết')
 
 ROLE_PERMISSIONS = {
-    'MANAGER': perm_codes('BLOG', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'EXPORT'),
-    'STAFF': perm_codes('BLOG', 'VIEW', 'READ'),
+    'MANAGER': perm_codes('BLOG', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'),
+    'STAFF': perm_codes('BLOG', 'VIEW', 'READ', 'CREATE', 'UPDATE'),
 }

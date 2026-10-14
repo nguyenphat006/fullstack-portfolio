@@ -19,6 +19,7 @@ import { BulkActionBar, type BulkAction } from "./BulkActionBar";
 import { resolveColumns } from "./columnLayout";
 import { FilterBar } from "./FilterBar";
 import { ListTable } from "./ListTable";
+import { Pagination } from "./Pagination";
 import { TableSettings } from "./TableSettings";
 import { useListPreferences } from "./useListPreferences";
 import type { ListState } from "./useListState";
@@ -75,6 +76,10 @@ export interface ListPageProps<T> {
   quickView?: QuickViewConfig<T>;
   /** Modal / Drawer của module */
   children?: React.ReactNode;
+  /** Nút / control thêm vào thanh công cụ (vd. đổi kiểu xem bảng / lưới) */
+  toolbarExtra?: React.ReactNode;
+  /** Có -> hiển thị dạng lưới thẻ thay cho bảng (vẫn dùng tìm kiếm, lọc, phân trang chung) */
+  renderGrid?: (rows: T[]) => React.ReactNode;
 }
 
 function IconAction({ label, onClick, disabled, danger, children }: { label: string; onClick?: () => void; disabled?: boolean; danger?: boolean; children: React.ReactNode }) {
@@ -117,6 +122,8 @@ export function ListPage<T extends object>({
   onImport,
   quickView,
   children,
+  toolbarExtra,
+  renderGrid,
 }: ListPageProps<T>) {
   const t = useTranslations("list");
   const pathname = usePathname();
@@ -263,8 +270,29 @@ export function ListPage<T extends object>({
           refreshing={query.isFetching && !query.isLoading}
           onExport={onExport ? () => onExport(selectedIds.map(Number)) : undefined}
           onImport={onImport}
-          settings={<TableSettings resolved={resolved} prefsApi={prefsApi} />}
+          settings={
+            <>
+              {toolbarExtra}
+              {!renderGrid && <TableSettings resolved={resolved} prefsApi={prefsApi} />}
+            </>
+          }
         />
+        {renderGrid ? (
+          <div className="p-4">
+            {query.isLoading ? (
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, i) => <div key={i} className="aspect-[4/3] animate-pulse rounded-xl bg-[var(--c-bg-muted)]" />)}
+              </div>
+            ) : query.data?.results.length ? (
+              renderGrid(query.data.results)
+            ) : (
+              empty
+            )}
+            {(query.data?.count ?? 0) > 0 && (
+              <div className="mt-4"><Pagination page={list.page} pageSize={list.pageSize} total={query.data?.count ?? 0} onChange={list.setPage} /></div>
+            )}
+          </div>
+        ) : (
         <ListTable<T>
           resolved={resolved}
           prefsApi={prefsApi}
@@ -282,6 +310,7 @@ export function ListPage<T extends object>({
           actions={actions}
           empty={empty}
         />
+        )}
       </div>
 
       {quickView && <QuickViewDrawer id={quickId} onClose={() => setQuickId(null)} config={quickView} />}

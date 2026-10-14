@@ -1,0 +1,77 @@
+{
+  "projects": [
+    {
+      "id": "shopsifu",
+      "title": "ShopSifu E-commerce Platform",
+      "summary": "A multi-channel e-commerce platform (Client, Admin, Seller) with role-based access control (RBAC), payments (VNPay, Sepay) and Socket.IO.",
+      "stack": [
+        "Next.js",
+        "NestJS",
+        "Redux",
+        "Prisma",
+        "PostgreSQL",
+        "Redis"
+      ],
+      "year": "May 2025 - Aug 2025",
+      "color": "#FCD34D",
+      "image": "/images/projects/shopsifu.webp",
+      "role": "Fullstack Developer",
+      "content": "A complex e-commerce platform with three large user flows, closely following RBAC business rules.\n\n### The Problem\nThe system needed a real-time, multi-channel order processing solution for thousands of users, letting sellers list products and receive automatic payments without manual reconciliation.\n\n### Technical Solution\n- **Backend architecture:** A clean Controller - Service - Repository layering in NestJS, with strict transaction management during payment.\n- **Realtime:** WebSocket (Socket.IO) combined with Redis Pub/Sub to push order notifications to the client instantly, in under 50ms.\n- **Payment gateways:** Direct integration with the VNPay API and Sepay (webhooks that automatically verify bank transactions).\n- **Optimized frontend:** Next.js Server Components combined with Redux Toolkit for a smooth local cart experience, minimizing re-renders.\n\n![ShopSifu Admin Dashboard](/images/projects/shopsifu.webp)\n*(Illustration of the admin dashboard flow)*",
+      "liveUrl": "https://shopsifu.live/",
+      "featured": true
+    },
+    {
+      "id": "song-ngu-lac-hong",
+      "title": "Lac Hong Bilingual School System",
+      "summary": "A multi-domain school system built on a Turborepo architecture that shares UI components (ShadCN). Fully SEO-optimized and responsive.",
+      "stack": [
+        "Turborepo",
+        "React",
+        "TailwindCSS",
+        "Framer Motion"
+      ],
+      "year": "Nov 2025 - Mar 2026",
+      "color": "#EF4444",
+      "image": "/images/projects/lhs.webp",
+      "role": "Frontend Team Lead",
+      "content": "An education infrastructure ecosystem covering Kindergarten, Primary and Secondary school.\n\n### The Problem\nThe client representative asked for a web ecosystem split across 4 separate domains serving 4 different audiences, while making the most of one shared Design System to keep the brand identity perfectly consistent.\n\n### Architecture & Implementation\n- **Monorepo with Turborepo:** Consolidated all scattered codebases into one large repository, creating shared packages such as `ui-components`, `configs` and `utils`.\n- **UI system:** Deep customization of ShadCN UI and Tailwind CSS, with a fully dynamic theme based on the marketing team's color guidelines.\n- **SSG performance & SEO:** Used Next.js static generation for very fast page loads (PageSpeed Insights consistently above 95) and SEO-ready meta tags for advertising campaigns.",
+      "liveUrl": "https://lhbs-edu-vn.devdotnet.id.vn/",
+      "featured": true
+    }
+  ],
+  "blogs": [
+    {
+      "id": "post-1",
+      "slug": "huong-dan-xay-dung-design-system-voi-tailwind-css",
+      "title": "A Guide to Building a Design System with Tailwind CSS",
+      "excerpt": "How to set up design tokens and well-structured, reusable components for large Next.js projects.",
+      "date": "Mar 10, 2026",
+      "category": "Frontend",
+      "readTime": "5 min read",
+      "image": "/images/blog/blog-tokens.svg",
+      "content": "## Building a Consistent UI System\n\nIn real projects, setting up a shared core for the interface is a must. Plain CSS often runs into problems such as:\n1. Duplicated class names.\n2. No standard for spacing.\n3. Supporting Dark Mode is extremely painful.\n\n### The Solution with Tailwind CSS\nCombining Tailwind with [shadcn/ui](https://ui.shadcn.com/) removes the dependency on heavyweight CSS frameworks entirely. You define your `Colors` palette in `tailwind.config.ts` once and use it anywhere in the system."
+    },
+    {
+      "id": "post-2",
+      "slug": "turborepo-giai-phap-quan-ly-du-an-da-ten-mien",
+      "title": "Turborepo: Managing Multi-domain Projects",
+      "excerpt": "An effective monorepo architecture that saves dozens of hours on framework maintenance and UI component sharing.",
+      "date": "Feb 25, 2026",
+      "category": "Architecture",
+      "readTime": "8 min read",
+      "image": "/images/blog/blog-architecture.svg",
+      "content": "## What is a Monorepo?\n\nA monorepo solves the age-old problem of having many domains that share one brand identity. Instead of copying code from one project to another (copy-paste), **Turborepo** lets you create a single repository.\n\n> Core systems such as **UI**, **Linting** and **TypeScript Config** are packaged as shared `packages`. Each `app` simply imports them like an NPM library.\n\nThis lets team leads manage a huge frontend system with zero duplication!"
+    },
+    {
+      "id": "post-3",
+      "slug": "toi-uu-hoa-hinh-anh-va-font-chu-tren-nextjs",
+      "title": "Optimizing Images and Fonts in the Next.js App Router",
+      "excerpt": "The Core Web Vitals techniques you need to know when working with Next.js in 2026.",
+      "date": "Jan 14, 2026",
+      "category": "Performance",
+      "readTime": "6 min read",
+      "image": "/images/blog/blog-performance.svg",
+      "content": "## A 100/100 PageSpeed Insights Score Is Not a Dream\n\nWhen a page loads, images and fonts are the two main causes of **CLS (Cumulative Layout Shift)**.\n\n### Tip 1: Preload Fonts\nNext.js ships with the `next/font/google` module: just declare the font at the very top of `layout.tsx`. The framework downloads the real font file and injects it into the HTML at build time. Even when the network drops, the font still renders correctly.\n\n### Tip 2: The Magical Image Component\nForget the traditional `<img />` tag and use `next/image` instead. If you cannot determine a fixed size, use the `fill` trick together with the `object-cover` class. The framework quietly crops and resizes the image to a very light WebP format (only about 50KB)."
+    }
+  ]
+}

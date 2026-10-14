@@ -4,8 +4,8 @@ from apps.core.messages import DUPLICATE_CODE, NAME_REQUIRED
 
 from .models import Project
 
-FIELDS = ['slug', 'title', 'summary', 'stack', 'year', 'image', 'color', 'role', 'content',
-          'live_url', 'github_url', 'featured', 'description', 'is_active']
+FIELDS = ['slug', 'title', 'title_en', 'summary', 'summary_en', 'stack', 'year', 'year_en', 'image', 'color',
+          'role', 'role_en', 'content', 'content_en', 'live_url', 'github_url', 'featured', 'description', 'is_active']
 
 
 class ProjectSerializer(serializers.ModelSerializer):

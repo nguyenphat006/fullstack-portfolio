@@ -8,7 +8,8 @@ Dùng trong action `upload-image` / `upload-logo` của ViewSet:
 import os
 import uuid
 
-from django.conf import settings
+from django.conf import settings  # noqa: F401
+from django.core.files.storage import default_storage
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from rest_framework.exceptions import ValidationError
@@ -31,9 +32,6 @@ def save_uploaded_image(request, folder: str, prefix: str, *, extensions=RASTER_
         raise ValidationError({'file': [_("Dung lượng ảnh tối đa %(size)sMB.") % {"size": max_size_mb}]})
 
     filename = f"{prefix}_{uuid.uuid4().hex[:10]}{ext}"
-    upload_dir = os.path.join(settings.MEDIA_ROOT, folder)
-    os.makedirs(upload_dir, exist_ok=True)
-    with open(os.path.join(upload_dir, filename), 'wb+') as destination:
-        for chunk in file_obj.chunks():
-            destination.write(chunk)
-    return {"image_url": f"{settings.MEDIA_URL}{folder}/{filename}", "file_name": file_obj.name}
+    # Lưu qua storage mặc định: máy chủ (MEDIA_ROOT) khi dev, Cloudinary khi có CLOUDINARY_URL (prod không có ổ đĩa lâu dài)
+    name = default_storage.save(f"{folder}/{filename}", file_obj)
+    return {"image_url": default_storage.url(name), "file_name": file_obj.name}

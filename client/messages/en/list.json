@@ -79,5 +79,10 @@
     "done": "Data exported",
     "failed": "Could not export data",
     "title": "Export data — {label}"
+  },
+  "view": {
+    "label": "View",
+    "grid": "Grid view",
+    "table": "Table view"
   }
 }

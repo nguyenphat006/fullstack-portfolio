@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PROJECTS_DATA } from "@/config/projects";
 import { siteConfig } from "@/config/site";
 import { ProjectDetailContent } from "@/components/modules/project/components/details/project-detail-content";
 import { JsonLd } from "@/components/modules/blog/json-ld";
-import { getContent } from "@/content";
+import { getContentDynamic } from "@/content/dynamic";
 import { isLocale, localizePath, OG_LOCALE, LOCALES, DEFAULT_LOCALE } from "@/content/locales";
 
 type Props = { params: Promise<{ locale: string; id: string }> };
 
-export const dynamicParams = false;
+// Dự án mới thêm trong admin chưa có trang tĩnh lúc build -> dựng theo yêu cầu rồi cache (ISR); slug không tồn tại -> 404
+export const dynamicParams = true;
+export const revalidate = 300;
 
-export function generateStaticParams() {
-  return LOCALES.flatMap((locale) => PROJECTS_DATA.map((p) => ({ locale, id: p.id })));
+export async function generateStaticParams() {
+  const perLocale = await Promise.all(LOCALES.map(async (locale) => ({ locale, items: (await getContentDynamic(locale)).project.items })));
+  return perLocale.flatMap(({ locale, items }) => items.map((p) => ({ locale, id: p.id })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, id } = await params;
   if (!isLocale(locale)) return {};
-  const { project, shared } = getContent(locale);
+  const { project, shared } = await getContentDynamic(locale);
   const item = project.items.find((p) => p.id === id);
   if (!item) return {};
   const url = localizePath(locale, `/projects/${id}`);
@@ -49,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectDetail({ params }: Props) {
   const { locale, id } = await params;
   if (!isLocale(locale)) notFound();
-  const { project, shared } = getContent(locale);
+  const { project, shared } = await getContentDynamic(locale);
   const item = project.items.find((p) => p.id === id);
   if (!item) notFound();
 

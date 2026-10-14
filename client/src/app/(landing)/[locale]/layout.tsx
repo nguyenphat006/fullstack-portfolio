@@ -5,7 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../landing.css";
 import { cn } from "@/lib/utils";
 import { absoluteUrl, constructMetadata, jsonLd, siteConfig } from "@/config/site";
-import { getContent, isLocale, LOCALES } from "@/content";
+import { isLocale, LOCALES } from "@/content";
+import { getContentDynamic } from "@/content/dynamic";
 import { LandingProvider } from "@/content/provider";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { SharedDock } from "@/components/shared/layout/shared-dock";
@@ -29,7 +30,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return constructMetadata({ locale, path: "/" });
+  const { shared } = await getContentDynamic(locale);
+  return constructMetadata({ locale, path: "/", meta: shared.meta });
 }
 
 export default async function LandingLayout({
@@ -38,7 +40,7 @@ export default async function LandingLayout({
 }: Readonly<{ children: React.ReactNode; params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const content = getContent(locale);
+  const content = await getContentDynamic(locale);
   const { meta, ui } = content.shared;
 
   // Dữ liệu có cấu trúc: Person + WebSite (giúp Google hiểu chủ sở hữu và tên trang)

@@ -76,3 +76,12 @@ class PublicBlogApiTests(TestCase):
     def test_public_is_read_only(self):
         resp = self.client.post('/api/v1/public/blogs/', PAYLOAD, format='json')
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class PublicBlogLanguageTests(TestCase):
+    def test_english_with_fallback(self):
+        Blog.objects.create(**{**PAYLOAD, 'slug': 'co-en', 'title': 'Tiêu đề', 'title_en': 'Title', 'excerpt': 'Tóm tắt'})
+        client = APIClient()
+        en = client.get('/api/v1/public/blogs/co-en/?lang=en').json()['data']
+        self.assertEqual(en['title'], 'Title')
+        self.assertEqual(en['excerpt'], 'Tóm tắt')
