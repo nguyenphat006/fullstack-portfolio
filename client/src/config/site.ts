@@ -4,7 +4,7 @@ import { SHARED_CONTENT } from "@/content/shared";
 
 /** Thông tin cố định của website (chữ theo ngôn ngữ nằm ở src/content/shared). */
 export const siteConfig = {
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://dangphat.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://ericss.id.vn",
   /** Ảnh OG mặc định: sinh động bởi opengraph-image.tsx của từng ngôn ngữ */
   twitterHandle: "@ericss",
   links: {
